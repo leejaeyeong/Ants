@@ -1,0 +1,50 @@
+.wave-wrap {
+    width: 50%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+    transition-property: background-color;
+    transition-duration: 1s;
+  }
+  .wave {
+    position: absolute;
+    top: 0;
+    background: rgb(255, 255, 255);
+    width: 85vw;
+    height: 85vw;
+    margin-left: -40vw;
+    border-radius: 48%;
+    animation: drift 6s infinite linear;
+    transform-origin: 50% 46%;    // 46% -> 파도 꺾이는 효과
+    transition-property: background-color;
+    transition-duration: 1;
+  }
+  .wave.-left {
+    opacity: .1;
+    left: 35%;
+    margin-top: -48vw;
+  }
+  .wave.-right {
+    opacity: .5;
+    left: 65%;
+    margin-top: 15vw;
+  }
+  .wave.-left.-two, .wave.-right.-two {
+    animation: drift 14s infinite linear;
+  }
+  .wave.-left.-three, .wave.-right.-three {
+    animation: drift 10s infinite linear;
+  }
+  @keyframes drift {
+    from { 
+      transform: rotate(0deg);
+    }
+    from {
+       transform: rotate(-360deg); 
+    }
+  }
