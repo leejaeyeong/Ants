@@ -6,7 +6,7 @@ const routes = [
   },
   {
     path: '/signUp',
-    component: () => import('layouts/MainLayout.vue')
+    component: () => import('layouts/SignUp.vue')
   }
   // Always leave this as last one,
   // but you can also remove it
