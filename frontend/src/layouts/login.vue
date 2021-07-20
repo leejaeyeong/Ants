@@ -5,12 +5,12 @@
             <div id='loginbox'>
                 <div id="left">
                   <div id="mark">
-                    <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;"/>
+                      noSpace
                   </div>
                   <div id="form">
                     <q-input class="input" filled label="ID" />
-                    <q-input class="input" filled type="password" label="password" />
-                    <q-btn @click="login" class="btn" color="primary" label="Login" />
+                    <q-input class="input" filled label="Password" />
+                    <q-btn class="btn" color="primary" label="Login" />
                     <q-btn @click="mvSignUp" class="btn" color="deep-orange" glossy label="SignUp" />
                   </div>
                 </div>
@@ -54,9 +54,6 @@ export default defineComponent({
   methods: {
     mvSignUp () {
       this.$router.push('/signUp')
-    },
-    login () {
-      this.$router.push('/main')
     }
   }
 })
@@ -98,7 +95,7 @@ export default defineComponent({
   background-image: url('assets/office.jpg');
 }
 #form{
-  margin-top:-40px;
+  margin-top:100px;
 }
 .btn{
   margin:0 5px;
