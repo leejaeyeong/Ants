@@ -1,7 +1,7 @@
 <template>
     <div id="header">
         <div id="headerLeft">
-            noSpace
+            <q-img src="~assets/logo.png" style="width:150px; margin-top:-43px;"/>
         </div>
         <div id="headerRight">
             <q-img src="~assets/user.png" style="width:40px; margin-top:10px; margin-right:35px; float:right;"/>
