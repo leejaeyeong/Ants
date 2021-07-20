@@ -5,55 +5,68 @@
             <div id='loginbox'>
                 <div id="right">
                   <div id="mark">
-                      NOSPACE
+                    <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;" height="150px" />
                   </div>
-                  <div id="form">
-                    <div class="q-pa-md" style="max-width: 400px">
-                      <q-form
-                        class="q-gutter-md"
-                        ref="signupForm"
-                      >
-                        <q-input
-                          filled
-                          label="ID *"
-                          hint="Required and must be of length 2 ~ 16"
-                          lazy-rules
-                          :rules="[
-                          val => !!val || '필수입력항목 입니다.',
-                          val => val.length < 2 && val.length > 16 || '2 ~ 16자까지 입력 가능합니다. '
-                          ]"
-                        />
-                        <q-input filled :type="isPwd ? 'password' : 'text'" hint="Required and must be of length 9 ~ 16"  label="Password *"                           lazy-rules
-                          :rules="[
-                            val => val && val.length > 0 || '비밀번호를 입력해주세요',
-                          ]">
-                          <template v-slot:append>
-                            <q-icon
-                              :name="isPwd ? 'visibility_off' : 'visibility'"
-                              class="cursor-pointer"
-                              @click="isPwd = !isPwd"
-                            />
-                          </template>
-                        </q-input>
-                        <q-input filled :type="isPwdCheck ? 'password' : 'text'" hint="Required and must be of length 9 ~ 16"  label="Password Check *"                           lazy-rules
-                          :rules="[
-                            val => val && val.length > 0 || '비밀번호 확인을 입력해주세요',
-                          ]">
-                          <template v-slot:append>
-                            <q-icon
-                              :name="isPwdCheck ? 'visibility_off' : 'visibility'"
-                              class="cursor-pointer"
-                              @click="isPwdCheck = !isPwdCheck"
-                            />
-                          </template>
-                        </q-input>
-                        <div>
-                          <q-btn label="Submit" type="submit" color="secondary"/>
-                          <q-btn label="Reset" type="reset" color="secondary" flat class="q-ml-sm" />
-                        </div>
-                      </q-form>
-
-                    </div>
+                  <div class="q-pa-md" id="form" style="max-width: 400px">
+                    <q-form
+                      class="q-gutter-md"
+                      ref="signupForm"
+                    >
+                      <q-input
+                        class="input"
+                        filled
+                        label="ID *"
+                        lazy-rules
+                        :rules="[
+                        val => !!val || '필수입력항목 입니다.',
+                        val => val.length < 2 && val.length > 16 || '2 ~ 16자까지 입력 가능합니다. '
+                        ]"
+                      />
+                      <q-input
+                        class="input"
+                        filled
+                        label="Name *"
+                        lazy-rules
+                        :rules="[
+                        val => !!val || '필수입력항목 입니다.',
+                        val => val.length < 2 && val.length > 16 || '2 ~ 16자까지 입력 가능합니다. '
+                        ]"
+                      />
+                      <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *"
+                      lazy-rules
+                        :rules="[
+                          val => val && val.length > 0 || '필수입력항목 입니다.',
+                        ]">
+                        <template v-slot:append>
+                          <q-icon
+                            :name="isPwd ? 'visibility_off' : 'visibility'"
+                            class="cursor-pointer"
+                            @click="isPwd = !isPwd"
+                          />
+                        </template>
+                      </q-input>
+                      <!-- 비밀번호 체크 -->
+                      <!-- <q-input class="input" filled :type="isPwdCheck ? 'password' : 'text'"   label="Password Check *"
+                      lazy-rules
+                        :rules="[
+                          val => val && val.length > 0 || '비밀번호 확인을 입력해주세요',
+                        ]">
+                        <template v-slot:append>
+                          <q-icon
+                            :name="isPwdCheck ? 'visibility_off' : 'visibility'"
+                            class="cursor-pointer"
+                            @click="isPwdCheck = !isPwdCheck"
+                          />
+                        </template>
+                      </q-input> -->
+                      <div class="btnform">
+                        <q-btn label="Submit" type="submit" color="secondary"/>
+                        <q-btn label="Reset" type="reset" color="secondary" flat class="q-ml-sm" />
+                      </div>
+                      <div style="margin-left=-10px;">
+                        <router-link to="/" >←로그인으로 돌아가기</router-link>
+                      </div>
+                    </q-form>
                   </div>
                 </div>
                 <div id="left">
@@ -94,8 +107,8 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: 'signup',
   methods: {
-    mvSignUp () {
-      this.$router.push('/signUp')
+    mvLogin () {
+      this.$router.push('/login')
     }
   },
   setup () {
@@ -137,14 +150,15 @@ export default defineComponent({
     z-index: 100;
 }
 #mark{
+    width:100px;
     text-align:center;
     font-size:40px;
     color:black;
     margin-left:15px;
 }
 .input{
-  width:40%;
-  margin:20px auto;
+  width:60%;
+  margin:10px auto;
 }
 #right{
   width:50%;
@@ -163,10 +177,14 @@ export default defineComponent({
   background-size: 900px;
 }
 #form{
-  margin-top:50px;
+  margin-left: 14%;
 }
 .btn{
   margin:0 5px;
+}
+.btnform {
+  margin-top: -5px;
+  margin-left: -5px;
 }
 .header {
   position:relative;
