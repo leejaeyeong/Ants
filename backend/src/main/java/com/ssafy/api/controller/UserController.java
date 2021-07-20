@@ -1,7 +1,9 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.UserUpdatePutReq;
+import com.ssafy.db.entity.Attendance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,10 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -153,5 +159,26 @@ public class UserController {
 		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "FAIL"));
 	}
 
+	// 유저 1개월 단위 근태 조회
+	@GetMapping(value = "{userId}/attendance/{year}/{month}")
+	@ApiOperation(value = "유저 근태 조회(1개월 단위)", notes = "<strong>아이디</strong>를 가진 회원의 근태현황.")
+	@ApiResponses({
+			@ApiResponse(code = 204, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<List<Attendance>> getAttendanceByMonth(@PathVariable String userId, @PathVariable Integer year, @PathVariable Integer month) {
+		Map<String, Object> dateMap = new HashMap<>();
+		dateMap.put("userId", userId);
+		dateMap.put("year", year);
+		dateMap.put("month", month);
+
+		List<Attendance> list = userService.findAllByDateBetween(dateMap);
+		if (list != null) {
+			return new ResponseEntity<List<Attendance>>(list, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Attendance>>(HttpStatus.NO_CONTENT);
+	}
 
 }

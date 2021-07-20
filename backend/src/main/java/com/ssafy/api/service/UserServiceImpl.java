@@ -14,6 +14,8 @@ import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -93,6 +95,11 @@ public class UserServiceImpl implements UserService {
 		}
 		attendance.setCheckOutTime(LocalTime.now());
 		return attendanceRepositorySupport.checkOutUser(attendance);
+	}
+
+	@Override
+	public List<Attendance> findAllByDateBetween(Map<String, Object> dateMap) {
+		return attendanceRepositorySupport.findAllByDateBetween(dateMap);
 	}
 
 	public boolean deleteUser(String userId) {
