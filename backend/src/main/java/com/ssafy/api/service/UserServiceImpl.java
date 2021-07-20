@@ -1,6 +1,9 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserUpdatePutReq;
+import com.ssafy.db.entity.Attendance;
+import com.ssafy.db.repository.AttendanceRepository;
+import com.ssafy.db.repository.AttendanceRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,8 @@ import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 
+import java.time.LocalTime;
+
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
  */
@@ -17,10 +22,16 @@ import com.ssafy.db.repository.UserRepositorySupport;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	UserRepositorySupport userRepositorySupport;
-	
+
+	@Autowired
+	AttendanceRepository attendanceRepository;
+
+	@Autowired
+	AttendanceRepositorySupport attendanceRepositorySupport;
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
@@ -56,6 +67,32 @@ public class UserServiceImpl implements UserService {
 		user.setName(userUpdateInfo.getName());
 		user.setPassword(passwordEncoder.encode(userUpdateInfo.getPassword()));
 		return userRepositorySupport.updateUser(user);
+	}
+
+	@Override
+	public boolean checkInUser(String userId) {
+		if (getUserByUserId(userId) == null) {
+			return false;
+		}
+		Attendance attendance = new Attendance();
+		attendance.setUserId(userId);
+		attendance.setCheckInTime(LocalTime.now());
+		attendanceRepository.save(attendance);
+		return true;
+	}
+
+	@Override
+	public boolean checkOutUser(String userId) {
+		if (getUserByUserId(userId) == null) {
+			return false;
+		}
+		// 출석 정보 가져오기
+		Attendance attendance = attendanceRepositorySupport.findAttendanceByUserId(userId);
+		if (attendance == null) {
+			return  false;
+		}
+		attendance.setCheckOutTime(LocalTime.now());
+		return attendanceRepositorySupport.checkOutUser(attendance);
 	}
 
 	public boolean deleteUser(String userId) {

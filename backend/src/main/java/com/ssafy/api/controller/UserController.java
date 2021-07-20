@@ -1,23 +1,17 @@
 package com.ssafy.api.controller;
 
-import ch.qos.logback.core.CoreConstants;
 import com.ssafy.api.request.UserUpdatePutReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
-import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.db.entity.User;
-import com.ssafy.db.repository.UserRepositorySupport;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,8 +19,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
-
-import javax.transaction.Transactional;
 
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
@@ -127,4 +119,39 @@ public class UserController {
 		if(userService.deleteUser(userId)) return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Delete Success"));
 		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Delete Fail"));
 	}
+
+
+	// 유저 출근
+	@PostMapping(value = "{userId}/check-in")
+	@ApiOperation(value = "유저 출근", notes = "<strong>아이디</strong>를 가진 회원의 출근 처리.")
+	@ApiResponses({
+			@ApiResponse(code = 204, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<? extends BaseResponseBody> checkInUser(@PathVariable String userId) {
+		if (userService.checkInUser(userId)) {
+			return ResponseEntity.status(204).body(BaseResponseBody.of(204, "SUCCESS"));
+		}
+		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "FAIL"));
+	}
+
+	// 유저 퇴근
+	@PutMapping(value = "{userId}/check-out")
+	@ApiOperation(value = "유저 퇴근", notes = "<strong>아이디</strong>를 가진 회원의 퇴근 처리.")
+	@ApiResponses({
+			@ApiResponse(code = 204, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<? extends BaseResponseBody> checkOutUser(@PathVariable String userId) {
+		if (userService.checkOutUser(userId)) {
+			return ResponseEntity.status(204).body(BaseResponseBody.of(204, "SUCCESS"));
+		}
+		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "FAIL"));
+	}
+
+
 }
