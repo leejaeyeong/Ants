@@ -12,4 +12,6 @@ public interface UserService {
 	User getUserByUserId(String userId);
 	boolean updateUser(String userId, UserUpdatePutReq userUpdateInfo);
 	boolean deleteUser(String userId);
+	boolean checkInUser(String userId);
+	boolean checkOutUser(String userId);
 }
