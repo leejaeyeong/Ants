@@ -11,11 +11,13 @@
                     <q-form
                       class="q-gutter-md"
                       ref="signupForm"
+                      :model="state.form"
                     >
                       <q-input
                         class="input"
                         filled
                         label="ID *"
+                        v-model="state.form.userId"
                         lazy-rules
                         :rules="[
                         val => !!val || '필수입력항목 입니다.',
@@ -26,13 +28,14 @@
                         class="input"
                         filled
                         label="Name *"
+                        v-model="state.form.name"
                         lazy-rules
                         :rules="[
                         val => !!val || '필수입력항목 입니다.',
                         val => val.length < 2 && val.length > 16 || '2 ~ 16자까지 입력 가능합니다. '
                         ]"
                       />
-                      <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *"
+                      <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" v-model="state.form.password"
                       lazy-rules
                         :rules="[
                           val => val && val.length > 0 || '필수입력항목 입니다.',
@@ -61,10 +64,7 @@
                       </q-input> -->
                       <div class="btnform">
                         <q-btn label="Submit" type="submit" color="secondary"/>
-                        <q-btn label="Reset" type="reset" color="secondary" flat class="q-ml-sm" />
-                      </div>
-                      <div style="margin-left=-10px;">
-                        <router-link to="/" >←로그인으로 돌아가기</router-link>
+                        <q-btn @click="back" label="back" color="amber" style="margin-left:10px;" />
                       </div>
                     </q-form>
                   </div>
@@ -102,17 +102,28 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 
 export default defineComponent({
   name: 'signup',
   methods: {
     mvLogin () {
       this.$router.push('/login')
+    },
+    back () {
+      this.$router.push('/')
     }
   },
   setup () {
     const signupForm = ref(null)
+
+    const state = reactive({
+      form: {
+        userId: '',
+        name: '',
+        password: ''
+      }
+    })
 
     function validate () {
       signupForm.value.validate().then(success => {
@@ -134,7 +145,8 @@ export default defineComponent({
       validate,
       reset,
       isPwd: ref(true),
-      isPwdCheck: ref(true)
+      isPwdCheck: ref(true),
+      state
     }
   }
 })
