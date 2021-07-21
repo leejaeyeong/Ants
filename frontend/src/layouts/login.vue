@@ -8,8 +8,8 @@
                     <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;"/>
                   </div>
                   <div id="form">
-                    <q-input class="input" filled label="ID" />
-                    <q-input class="input" filled type="password" label="password" />
+                    <q-input v-model="state.form.id" class="input" filled label="ID" />
+                    <q-input v-model="state.form.password" class="input" filled type="password" label="password" />
                     <q-btn @click="login" class="btn" color="primary" label="Login" />
                     <q-btn @click="mvSignUp" class="btn" color="deep-orange" glossy label="SignUp" />
                   </div>
@@ -47,17 +47,43 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { reactive, defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'login',
   methods: {
     mvSignUp () {
       this.$router.push('/signUp')
-    },
-    login () {
-      this.$router.push('/main')
     }
+  },
+  setup () {
+    const state = reactive({
+      form: {
+        id: '',
+        password: ''
+      }
+    })
+    const router = useRouter()
+    // router를 사용하기 위해선 useRouter import후 변수 선언하여 사용 해야함 !
+    const store = useStore()
+    // store를 사용하기 위해선 useStore import후 변수 선언하여 사용 해야함 !
+    const login = function () {
+      store.dispatch('module/login', { id: state.form.id, password: state.form.password })
+        .then(function (result) {
+          alert('accessToken: ' + result.data.accessToken)
+          // 로컬스토리지 등록하기
+          localStorage.setItem('token', result.data.accessToken)
+          localStorage.setItem('id', state.form.id)
+          localStorage.setItem('password', state.form.password)
+        })
+        .catch(function (err) {
+          alert(err)
+        })
+      router.push('/main')
+    }
+    return { state, login }
   }
 })
 </script>
