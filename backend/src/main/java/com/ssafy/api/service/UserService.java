@@ -14,9 +14,10 @@ import java.util.Map;
 public interface UserService {
 	User createUser(UserRegisterPostReq userRegisterInfo);
 	User getUserByUserId(String userId);
-	boolean updateUser(String userId, UserUpdatePutReq userUpdateInfo);
+	boolean updateUser(User user);
 	boolean deleteUser(String userId);
-	boolean checkInUser(String userId);
-	boolean checkOutUser(String userId);
+	boolean checkInUser(User user);
+	boolean checkOutUser(User user);
 	List<Attendance> findAllByDateBetween(Map<String, Object> dateMap);
+	Attendance getAttendanceToday(User user);
 }
