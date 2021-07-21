@@ -1,8 +1,10 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.UserUpdatePutReq;
+import com.ssafy.api.response.AttendanceListRes;
 import com.ssafy.api.response.AttendanceRes;
 import com.ssafy.db.entity.Attendance;
+import com.ssafy.db.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -107,17 +109,15 @@ public class UserController {
 		 */
 		User user = userService.getUserByUserId(userId);
 		if (user == null) {
-			return ResponseEntity.status(404).body(BaseResponseBody.of(404, "User Not Found"));
+			return ResponseEntity.notFound().build();
 		}
 
 		user.setPosition(userUpdateInfo.getPosition());
 		user.setDepartment(userUpdateInfo.getDepartment());
 		user.setName(userUpdateInfo.getName());
 		user.setPassword(userUpdateInfo.getPassword());
-		if (userService.updateUser(user)) {
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
-		}
-		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Update Fail"));
+		userService.updateUser(user);
+		return ResponseEntity.ok().build();
 	}
 
 	// 유저 정보 삭제
@@ -144,16 +144,15 @@ public class UserController {
 			@ApiResponse(code = 404, message = "사용자 없음"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<? extends BaseResponseBody> checkInUser(@PathVariable String userId) {
+	public ResponseEntity checkInUser(@PathVariable String userId) {
 		User user = userService.getUserByUserId(userId);
 		if (user == null) {
-			return ResponseEntity.status(404).body(BaseResponseBody.of(404, "User Not Found"));
+			return ResponseEntity.notFound().build();
 		}
-
 		if (userService.checkInUser(user)) {
-			return ResponseEntity.status(204).body(BaseResponseBody.of(204, "SUCCESS"));
+			return ResponseEntity.ok().build();
 		}
-		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "FAIL"));
+		return ResponseEntity.status(409).body(BaseResponseBody.of(409, "Attendance Duplicate"));
 	}
 
 	// 유저 퇴근
@@ -168,13 +167,10 @@ public class UserController {
 	public ResponseEntity<? extends BaseResponseBody> checkOutUser(@PathVariable String userId) {
 		User user = userService.getUserByUserId(userId);
 		if (user == null) {
-			return ResponseEntity.status(404).body(BaseResponseBody.of(404, "User Not Found"));
+			return ResponseEntity.notFound().build();
 		}
-
-		if (userService.checkOutUser(user)) {
-			return ResponseEntity.status(204).body(BaseResponseBody.of(204, "SUCCESS"));
-		}
-		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
+		userService.checkOutUser(user);
+		return ResponseEntity.noContent().build();
 	}
 
 	// 유저 1개월 단위 근태 조회
@@ -186,22 +182,17 @@ public class UserController {
 			@ApiResponse(code = 404, message = "사용자 없음"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<List<Attendance>> getAttendanceByMonth(@PathVariable String userId, @PathVariable Integer year, @PathVariable Integer month) {
+	public ResponseEntity<List<AttendanceRes>> getAttendanceByMonth(@PathVariable String userId, @PathVariable Integer year, @PathVariable Integer month) {
 		User user = userService.getUserByUserId(userId);
 		if (user == null) {
-			return new ResponseEntity<List<Attendance>>(HttpStatus.NO_CONTENT);
+			return ResponseEntity.notFound().build();
 		}
 
 		Map<String, Object> dateMap = new HashMap<>();
 		dateMap.put("user", user);
 		dateMap.put("year", year);
 		dateMap.put("month", month);
-
-		List<Attendance> list = userService.findAllByDateBetween(dateMap);
-		if (list != null) {
-			return new ResponseEntity<List<Attendance>>(list, HttpStatus.OK);
-		}
-		return new ResponseEntity<List<Attendance>>(HttpStatus.NO_CONTENT);
+		return ResponseEntity.ok().body(AttendanceListRes.of(userService.findAllByDateBetween(dateMap)));
 	}
 
 	// 유저 당일 근태 조회
@@ -218,11 +209,6 @@ public class UserController {
 		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
-
-		Attendance attendance = userService.getAttendanceToday(user);
-		if (attendance != null) {
-			return ResponseEntity.ok().body(AttendanceRes.of(attendance));
-		}
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().body(AttendanceRes.of(userService.getAttendanceToday(user)));
 	}
 }

@@ -25,11 +25,15 @@ public class AttendanceRes {
 	@ApiModelProperty(name="퇴근 날짜", example="18:00:11")
 	LocalTime checkOutTime;
 
+	AttendanceRes(LocalDate date, LocalTime checkInTime, LocalTime checkOutTime) {
+		this.date = date;
+		this.checkInTime = checkInTime;
+		this.checkOutTime = checkOutTime;
+	}
 	public static AttendanceRes of(Attendance attendance) {
-		AttendanceRes res = new AttendanceRes();
-		res.setDate(attendance.getDate());
-		res.setCheckInTime(attendance.getCheckInTime());
-		res.setCheckOutTime(attendance.getCheckOutTime());
-		return res;
+		if (attendance == null) {
+			return new AttendanceRes(null, null, null);
+		}
+		return new AttendanceRes(attendance.getDate(), attendance.getCheckInTime(), attendance.getCheckOutTime());
 	}
 }
