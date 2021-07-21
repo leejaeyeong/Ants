@@ -11,28 +11,31 @@
                     <q-form
                       class="q-gutter-md"
                       ref="signupForm"
+                      :model="state.form"
                     >
                       <q-input
                         class="input"
                         filled
                         label="ID *"
+                        v-model="state.form.userId"
                         lazy-rules
                         :rules="[
                         val => !!val || '필수입력항목 입니다.',
-                        val => val.length < 2 && val.length > 16 || '2 ~ 16자까지 입력 가능합니다. '
+                        val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
                         ]"
                       />
                       <q-input
                         class="input"
                         filled
                         label="Name *"
+                        v-model="state.form.name"
                         lazy-rules
                         :rules="[
                         val => !!val || '필수입력항목 입니다.',
-                        val => val.length < 2 && val.length > 16 || '2 ~ 16자까지 입력 가능합니다. '
+                        val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
                         ]"
                       />
-                      <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *"
+                      <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" v-model="state.form.password"
                       lazy-rules
                         :rules="[
                           val => val && val.length > 0 || '필수입력항목 입니다.',
@@ -99,14 +102,13 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'signup',
   methods: {
-    mvLogin () {
-      this.$router.push('/login')
-    },
     back () {
       this.$router.push('/')
     }
@@ -114,13 +116,37 @@ export default defineComponent({
   setup () {
     const signupForm = ref(null)
 
+    const state = reactive({
+      form: {
+        userId: '',
+        name: '',
+        password: ''
+      }
+    })
+    const router = useRouter()
+    const store = useStore()
+
     function validate () {
       signupForm.value.validate().then(success => {
         if (success) {
           // yay, models are correct
+          console.log('유효함')
+          store.dispatch('module/requestSignup', {
+            userId: state.form.userId,
+            name: state.form.name,
+            password: state.form.password
+          })
+            .then(function (result) {
+              alert('회원가입이 되었습니다.')
+              router.push('/login')
+            })
+            .catch(function (err) {
+              alert(err)
+            })
         } else {
           // oh no, user has filled in
           // at least one invalid value
+          alert('회원가입이 유효하지 않습니다!')
         }
       })
     }
@@ -134,7 +160,8 @@ export default defineComponent({
       validate,
       reset,
       isPwd: ref(true),
-      isPwdCheck: ref(true)
+      isPwdCheck: ref(true),
+      state
     }
   }
 })
