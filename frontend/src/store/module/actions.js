@@ -8,3 +8,10 @@ export function login ({ state }, payload) {
   const body = payload
   return $axios.post(url, body)
 }
+
+export function requestSignup ({ state }, payload) {
+  console.log('requestSignup', state, payload)
+  const url = 'api/v1/auth/users'
+  const body = payload
+  return $axios.post(url, body)
+}
