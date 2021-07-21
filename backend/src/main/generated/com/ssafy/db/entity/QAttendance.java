@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QAttendance extends EntityPathBase<Attendance> {
 
     private static final long serialVersionUID = 544183339L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QAttendance attendance = new QAttendance("attendance");
 
@@ -30,18 +33,27 @@ public class QAttendance extends EntityPathBase<Attendance> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final StringPath userId = createString("userId");
+    public final QUser user;
 
     public QAttendance(String variable) {
-        super(Attendance.class, forVariable(variable));
+        this(Attendance.class, forVariable(variable), INITS);
     }
 
     public QAttendance(Path<? extends Attendance> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QAttendance(PathMetadata metadata) {
-        super(Attendance.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QAttendance(PathMetadata metadata, PathInits inits) {
+        this(Attendance.class, metadata, inits);
+    }
+
+    public QAttendance(Class<? extends Attendance> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
 
 }
