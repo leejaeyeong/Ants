@@ -67,6 +67,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean checkInUser(User user) {
+		if (attendanceRepositorySupport.getAttendanceToday(user).isPresent()) {
+			return false;
+		}
 		Attendance attendance = new Attendance();
 		attendance.setUser(user);
 		attendance.setCheckInTime(LocalTime.now());
