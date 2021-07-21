@@ -33,6 +33,7 @@ public class UserRepositorySupport {
                 .set(qUser.department, user.getDepartment())
                 .set(qUser.position, user.getPosition())
                 .set(qUser.name, user.getName())
+                .set(qUser.password, user.getPassword())
                 .where(qUser.userId.eq(user.getUserId()))
                 .execute();
         if (row > 0)
