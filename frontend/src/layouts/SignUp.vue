@@ -64,10 +64,7 @@
                       </q-input> -->
                       <div class="btnform">
                         <q-btn label="Submit" type="submit" color="secondary"/>
-                        <q-btn label="Reset" type="reset" color="secondary" flat class="q-ml-sm" />
-                      </div>
-                      <div style="margin-left=-10px;">
-                        <router-link to="/" >←로그인으로 돌아가기</router-link>
+                        <q-btn @click="back" label="back" color="amber" style="margin-left:10px;" />
                       </div>
                     </q-form>
                   </div>
@@ -112,6 +109,9 @@ export default defineComponent({
   methods: {
     mvLogin () {
       this.$router.push('/login')
+    },
+    back () {
+      this.$router.push('/')
     }
   },
   setup () {
