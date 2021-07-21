@@ -3,10 +3,12 @@ import * as getters from './getters'
 import * as mutations from './mutations'
 import * as actions from './actions'
 
-export default {
+const root = {
   namespaced: true,
+  state,
   getters,
   mutations,
-  actions,
-  state
+  actions
 }
+
+export default root

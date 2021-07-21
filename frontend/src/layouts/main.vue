@@ -13,7 +13,6 @@
         </div>
         <div id="main">
             <div id="topLeft">
-
             </div>
             <div id="topRight">
             </div>
@@ -71,7 +70,7 @@ export default defineComponent({
     background-color:whitesmoke;
 }
 #topLeft{
-    width:450px;
+    width:35%;
     height:200px;
     border: 1px solid rgb(212, 212, 212);
     display:inline-block;
@@ -81,27 +80,27 @@ export default defineComponent({
     background-color:rgb(250, 250, 110);
 }
 #topRight{
-    width:700px;
+    width:54%;
     height:200px;
-    border: 1px solid black;
+    border: 1px solid rgb(212, 212, 212);
     display:inline-block;
     position:relative;
     top:30px;
     left:100px;
 }
 #botLeft{
-    width:580px;
+    width:45%;
     height:400px;
-    border:1px solid black;
+    border:1px solid rgb(212, 212, 212);
     display:inline-block;
     position:relative;
     top:60px;
     left:50px;
 }
 #botRight{
-    width:580px;
+    width:45%;
     height:400px;
-    border:1px solid black;
+    border:1px solid rgb(212, 212, 212);
     display:inline-block;
     position:relative;
     top:60px;
