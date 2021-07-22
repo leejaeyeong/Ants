@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 
+import javax.transaction.Transactional;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -73,20 +74,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updateUser(String userId, UserUpdatePutReq userUpdateInfo) {
-		Department department = null;
-		if(departmentRepositorySupport.findDepartmentById(userUpdateInfo.getDepartmentId()).isPresent()){
-			department = departmentRepositorySupport.findDepartmentById(userUpdateInfo.getDepartmentId()).get();
-		} else department = new Department("No");
-
-		User user = getUserByUserId(userId);
-		if (user == null) {
-			return false;
-		}
-		user.setPosition(userUpdateInfo.getPosition());
-		user.setDepartment(department);
-		user.setName(userUpdateInfo.getName());
-		user.setPassword(passwordEncoder.encode(userUpdateInfo.getPassword()));
+	public boolean updateUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return userRepositorySupport.updateUser(user);
 	}
 
@@ -103,24 +92,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkInUser(String userId) {
-		if (getUserByUserId(userId) == null) {
+	public boolean checkInUser(User user) {
+		if (attendanceRepositorySupport.getAttendanceToday(user).isPresent()) {
 			return false;
 		}
 		Attendance attendance = new Attendance();
-		attendance.setUserId(userId);
+		attendance.setUser(user);
 		attendance.setCheckInTime(LocalTime.now());
 		attendanceRepository.save(attendance);
 		return true;
 	}
 
 	@Override
-	public boolean checkOutUser(String userId) {
-		if (getUserByUserId(userId) == null) {
-			return false;
-		}
+	public boolean checkOutUser(User user) {
 		// 출석 정보 가져오기
-		Attendance attendance = attendanceRepositorySupport.findAttendanceByUserId(userId);
+		Attendance attendance = attendanceRepositorySupport.findAttendanceByUserId(user.getUserId());
 		if (attendance == null) {
 			return  false;
 		}
@@ -133,6 +119,24 @@ public class UserServiceImpl implements UserService {
 		return attendanceRepositorySupport.findAllByDateBetween(dateMap);
 	}
 
+	public Attendance getAttendanceToday(User user) {
+		Attendance attendance = null;
+		if (attendanceRepositorySupport.getAttendanceToday(user).isPresent()) {
+			attendance = attendanceRepositorySupport.getAttendanceToday(user).get();
+		}
+		return attendance;
+	}
+
+	@Override
+	public Department getDepartmentById(long departmentId){
+		Department department = null;
+		if(departmentRepositorySupport.findDepartmentById(departmentId).isPresent()){
+			department = departmentRepositorySupport.findDepartmentById(departmentId).get();
+		} else department = new Department(1, "empty");
+		return department;
+	}
+
+	@Override
 	public boolean deleteUser(String userId) {
 		return userRepositorySupport.deleteUserByUserId(userId);
 	}
