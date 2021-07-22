@@ -13,5 +13,6 @@ export function requestSignup ({ state }, payload) {
   console.log('requestSignup', state, payload)
   const url = 'api/v1/auth/users'
   const body = payload
+  console.log(body)
   return $axios.post(url, body)
 }

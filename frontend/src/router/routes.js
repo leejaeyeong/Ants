@@ -15,6 +15,14 @@ const routes = [
   {
     path: '/mainpage',
     component: () => import('layouts/MainPage.vue')
+  },
+  {
+    path: '/notice',
+    component: () => import('layouts/notice.vue')
+  },
+  {
+    path: '/board',
+    component: () => import('layouts/board.vue')
   }
   // Always leave this as last one,
   // but you can also remove it
