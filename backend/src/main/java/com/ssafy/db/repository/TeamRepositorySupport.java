@@ -1,6 +1,7 @@
 package com.ssafy.db.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.db.entity.Department;
 import com.ssafy.db.entity.QTeam;
 import com.ssafy.db.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,12 @@ public class TeamRepositorySupport {
         Long rows = jpaQueryFactory.delete(qTeam).where(qTeam.id.eq(id)).execute();
         if (rows > 0) return true;
         return false;
+    }
+
+    public Optional<Team> findTeamById(Long id) {
+        Team team = jpaQueryFactory.select(qTeam).from(qTeam)
+                .where(qTeam.id.eq(id)).fetchOne();
+        if(team == null) return Optional.empty();
+        return Optional.ofNullable(team);
     }
 }

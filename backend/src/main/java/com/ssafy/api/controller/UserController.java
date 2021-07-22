@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.UserTeamMappingPutReq;
 import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.Attendance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +127,38 @@ public class UserController {
 		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Delete Fail"));
 	}
 
+	// 유저 그룹 소속여부 확인
+	@GetMapping(value = "/checkTeam/{userId}")
+	@ApiOperation(value = "유저 그룹 소속여부 확인", notes = "<strong>아이디</strong>를 통해 회원이 현재 그룹에 가입되어 있는지 확인한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "그룹이 존재하지 않는 유저"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 409, message = "이미 그룹이 존재하는 유저"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<? extends BaseResponseBody> checkTeam(@PathVariable String userId){
+		User user = null;
+		boolean checkTeam = userService.getTeamByUserId(userId);
+		if(checkTeam) return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+		return ResponseEntity.status(409).body(BaseResponseBody.of(409, "isExisted"));
+	}
+
+	// 유저 그룹 매핑
+	@PutMapping("/teamMapping")
+	@ApiOperation(value = "유저 그룹 매핑", notes = "유저에 그룹을 할당한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "해당 그룹 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+
+	public ResponseEntity<? extends BaseResponseBody> updateUserTeamInfo(@ApiIgnore Authentication authentication, @RequestBody UserTeamMappingPutReq userTeamMappingPutReq) {
+		if (userService.updateUserTeamInfo(userTeamMappingPutReq)) {
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+		}
+		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Fail"));
+	}
 
 	// 유저 출근
 	@PostMapping(value = "{userId}/check-in")
