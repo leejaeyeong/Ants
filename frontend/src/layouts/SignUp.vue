@@ -63,7 +63,7 @@
                         </template>
                       </q-input> -->
                       <div class="btnform">
-                        <q-btn label="Submit" type="submit" color="secondary"/>
+                        <q-btn @click="validate" label="Submit" type="submit" color="secondary"/>
                         <q-btn @click="back" label="back" color="amber" style="margin-left:10px;" />
                       </div>
                     </q-form>
