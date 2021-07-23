@@ -18,7 +18,7 @@ public class UserRes{
 	@ApiModelProperty(name="User ID")
 	String userId;
 	@ApiModelProperty(name="User Department")
-	String department;
+	Long department;
 	@ApiModelProperty(name="User Position")
 	String position;
 	@ApiModelProperty(name="User Name")
@@ -27,7 +27,7 @@ public class UserRes{
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
 		res.setUserId(user.getUserId());
-		res.setDepartment(user.getDepartment());
+		res.setDepartment(user.getDepartment().getId());
 		res.setName(user.getName());
 		res.setPosition(user.getPosition());
 		return res;
