@@ -138,7 +138,7 @@ export default defineComponent({
           })
             .then(function (result) {
               alert('회원가입이 되었습니다.')
-              router.push('/login')
+              router.push('/')
             })
             .catch(function (err) {
               alert(err)
