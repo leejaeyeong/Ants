@@ -72,16 +72,17 @@ export default defineComponent({
     const login = function () {
       store.dispatch('module/login', { id: state.form.id, password: state.form.password })
         .then(function (result) {
+          console.log(result)
           alert('accessToken: ' + result.data.accessToken)
           // 로컬스토리지 등록하기
           localStorage.setItem('token', result.data.accessToken)
           localStorage.setItem('id', state.form.id)
           localStorage.setItem('password', state.form.password)
+          router.push('/main')
         })
-        .catch(function (err) {
-          alert(err)
+        .catch(function () {
+          alert('아이디, 비밀번호를 확인해주세요 !')
         })
-      router.push('/main')
     }
     return { state, login }
   }
