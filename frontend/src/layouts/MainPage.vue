@@ -1,277 +1,203 @@
 <template>
-  <div class="WAL position-relative bg-grey-4" :style="style">
-    <q-layout view="lHh Lpr lFf" class="WAL__layout shadow-3" container>
-      <q-header elevated>
-        <q-toolbar class="bg-grey-3 text-black">
-          <q-btn
-            round
-            flat
-            icon="keyboard_arrow_left"
-            class="WAL__drawer-open q-mr-sm"
-            @click="toggleLeftDrawer"
-          />
+  <q-layout view="hHh lpR fFf" class="bg-grey-1">
+    <q-header elevated class="bg-white text-grey-8 q-py-xs" height-hint="58">
+      <q-toolbar>
+        <q-btn
+          flat
+          dense
+          round
+          @click="toggleLeftDrawer"
+          aria-label="Menu"
+          icon="menu"
+        />
+        <!-- 로고 들어가는 부분 -->
+        <q-btn flat no-caps no-wrap class="q-ml-xs" v-if="$q.screen.gt.xs">
+          <q-img src="~assets/logo.png" style="width:100px; margin-top:-10px;"/>
+        </q-btn>
 
+        <q-space />
+        <q-space />
+
+        <div class="q-gutter-sm row items-center no-wrap">
+          <q-btn round dense flat color="grey-8" icon="apps" v-if="$q.screen.gt.sm">
+            <q-tooltip>Apps</q-tooltip>
+          </q-btn>
+          <q-btn round dense flat color="grey-8" icon="message" v-if="$q.screen.gt.sm">
+            <q-tooltip>Messages</q-tooltip>
+          </q-btn>
+          <q-btn round dense flat color="grey-8" icon="notifications">
+            <q-badge color="red" text-color="white" floating>
+              2
+            </q-badge>
+            <q-tooltip>Notifications</q-tooltip>
+          </q-btn>
           <q-btn round flat>
-            <q-avatar>
-              <img :src="currentConversation.avatar">
+            <q-avatar size="26px">
+              <img src="~assets/user.png">
             </q-avatar>
+            <q-tooltip>Account</q-tooltip>
           </q-btn>
+        </div>
+      </q-toolbar>
+    </q-header>
 
-          <span class="q-subtitle-1 q-pl-md">
-            {{ currentConversation.person }}
-          </span>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      class="bg-grey-2"
+      :width="240"
+    >
+      <q-scroll-area class="fit">
+        <q-list padding>
+          <q-item v-for="link in links1" :key="link.text" v-ripple clickable>
+            <q-item-section avatar>
+              <q-icon color="grey" :name="link.icon" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ link.text }}</q-item-label>
+            </q-item-section>
+          </q-item>
 
-          <q-space/>
+          <q-separator class="q-my-md" />
 
-          <q-btn round flat icon="search" />
-          <q-btn round flat>
-            <q-icon name="attachment" class="rotate-135" />
-          </q-btn>
-          <q-btn round flat icon="more_vert">
-            <q-menu auto-close :offset="[110, 0]">
-              <q-list style="min-width: 150px">
-                <q-item clickable>
-                  <q-item-section>Contact data</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Block</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Select messages</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Silence</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Clear messages</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Erase messages</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
-        </q-toolbar>
-      </q-header>
+          <q-item v-for="link in links4" :key="link.text" v-ripple clickable>
+            <q-item-section avatar>
+              <q-icon color="grey" :name="link.icon" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ link.text }}</q-item-label>
+            </q-item-section>
+          </q-item>
 
-      <q-drawer
-        v-model="leftDrawerOpen"
-        show-if-above
-        bordered
-        :breakpoint="690"
-      >
-        <q-toolbar class="bg-grey-3">
-          <q-avatar class="cursor-pointer">
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" />
-          </q-avatar>
+          <q-separator class="q-mt-md q-mb-lg" />
 
-          <q-space />
+        </q-list>
+      </q-scroll-area>
+    </q-drawer>
 
-          <q-btn round flat icon="message" />
-          <q-btn round flat icon="more_vert">
-            <q-menu auto-close :offset="[110, 8]">
-              <q-list style="min-width: 150px">
-                <q-item clickable>
-                  <q-item-section>New group</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Profile</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Archived</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Favorites</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Settings</q-item-section>
-                </q-item>
-                <q-item clickable>
-                  <q-item-section>Logout</q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
-
-          <q-btn
-            round
-            flat
-            icon="close"
-            class="WAL__drawer-close"
-            @click="toggleLeftDrawer"
-          />
-        </q-toolbar>
-
-        <q-toolbar class="bg-grey-2">
-          <q-input rounded outlined dense class="WAL__field full-width" bg-color="white" v-model="search" placeholder="Search or start a new conversation">
-            <template v-slot:prepend>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-        </q-toolbar>
-
-        <q-scroll-area style="height: calc(100% - 100px)">
-          <q-list>
-            <q-item
-              v-for="(conversation, index) in conversations"
-              :key="conversation.id"
-              clickable
-              v-ripple
-              @click="setCurrentConversation(index)"
-            >
-              <q-item-section avatar>
-                <q-avatar>
-                  <img :src="conversation.avatar">
-                </q-avatar>
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label lines="1">
-                  {{ conversation.person }}
-                </q-item-label>
-                <q-item-label class="conversation__summary" caption>
-                  <q-icon name="check" v-if="conversation.sent" />
-                  <q-icon name="not_interested" v-if="conversation.deleted" />
-                  {{ conversation.caption }}
-                </q-item-label>
-              </q-item-section>
-
-              <q-item-section side>
-                <q-item-label caption>
-                  {{ conversation.time }}
-                </q-item-label>
-                <q-icon name="keyboard_arrow_down" />
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-scroll-area>
-      </q-drawer>
-
-      <q-page-container class="bg-grey-2">
-        <router-view />
-      </q-page-container>
-
-      <q-footer>
-        <q-toolbar class="bg-grey-3 text-black row">
-          <q-btn round flat icon="insert_emoticon" class="q-mr-sm" />
-          <q-input rounded outlined dense class="WAL__field col-grow q-mr-sm" bg-color="white" v-model="message" placeholder="Type a message" />
-          <q-btn round flat icon="mic" />
-        </q-toolbar>
-      </q-footer>
-    </q-layout>
-  </div>
+    <q-page-container>
+      <div id="content">
+        <div id="side">
+        </div>
+        <div id="main">
+            <div id="topLeft">
+            </div>
+            <div id="topRight">
+            </div>
+            <div id="botLeft">
+            </div>
+            <div id="botRight">
+            </div>
+        </div>
+      </div>
+      <router-view />
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
-import { useQuasar } from 'quasar'
-import { ref, computed } from 'vue'
-const conversations = [
-  {
-    id: 1,
-    person: 'Razvan Stoenescu',
-    avatar: 'https://cdn.quasar.dev/team/razvan_stoenescu.jpeg',
-    caption: 'I\'m working on Quasar!',
-    time: '15:00',
-    sent: true
-  },
-  {
-    id: 2,
-    person: 'Dan Popescu',
-    avatar: 'https://cdn.quasar.dev/team/dan_popescu.jpg',
-    caption: 'I\'m working on Quasar!',
-    time: '16:00',
-    sent: true
-  },
-  {
-    id: 3,
-    person: 'Jeff Galbraith',
-    avatar: 'https://cdn.quasar.dev/team/jeff_galbraith.jpg',
-    caption: 'I\'m working on Quasar!',
-    time: '18:00',
-    sent: true
-  },
-  {
-    id: 4,
-    person: 'Allan Gaunt',
-    avatar: 'https://cdn.quasar.dev/team/allan_gaunt.png',
-    caption: 'I\'m working on Quasar!',
-    time: '17:00',
-    sent: true
-  }
-]
+import { ref } from 'vue'
+import { fabYoutube } from '@quasar/extras/fontawesome-v5'
+
 export default {
-  name: 'WhatsappLayout',
+  name: 'MyLayout',
   setup () {
-    const $q = useQuasar()
     const leftDrawerOpen = ref(false)
     const search = ref('')
-    const message = ref('')
-    const currentConversationIndex = ref(0)
-    const currentConversation = computed(() => {
-      return conversations[currentConversationIndex.value]
-    })
-    const style = computed(() => ({
-      height: $q.screen.height + 'px'
-    }))
     function toggleLeftDrawer () {
       leftDrawerOpen.value = !leftDrawerOpen.value
     }
-    function setCurrentConversation (index) {
-      currentConversationIndex.value = index
-    }
     return {
+      fabYoutube,
       leftDrawerOpen,
       search,
-      message,
-      currentConversationIndex,
-      conversations,
-      currentConversation,
-      setCurrentConversation,
-      style,
-      toggleLeftDrawer
+      toggleLeftDrawer,
+      links1: [
+        { icon: 'home', text: 'Home' },
+        { icon: 'folder', text: 'Library' },
+        { icon: 'feedback', text: 'Notice' },
+        { icon: 'restore', text: 'History' },
+        { icon: 'watch_later', text: 'Conference' }
+      ],
+      links4: [
+        { icon: 'settings', text: 'Settings' },
+        { icon: 'flag', text: 'Report history' },
+        { icon: 'help', text: 'Help' }
+      ]
     }
   }
 }
 </script>
 
 <style lang="sass">
-.WAL
-  width: 100%
-  height: 100%
-  padding-top: 20px
-  padding-bottom: 20px
-  &:before
-    content: ''
-    height: 127px
-    position: fixed
-    top: 0
+.YL
+  &__toolbar-input-container
+    min-width: 100px
+    width: 55%
+  &__toolbar-input-btn
+    border-radius: 0
+    border-style: solid
+    border-width: 1px 1px 1px 0
+    border-color: rgba(0,0,0,.24)
+    max-width: 60px
     width: 100%
-    background-color: #009688
-  &__layout
-    margin: 0 auto
-    z-index: 4000
-    height: 100%
-    width: 100%
-    max-width: 1500px
-    border-radius: 5px
-  &__field.q-field--outlined .q-field__control:before
-    border: none
-  .q-drawer--standard
-    .WAL__drawer-close
-      display: none
-@media (max-width: 850px)
-  .WAL
-    padding: 0
-    &__layout
-      width: 100%
-      border-radius: 0
-@media (min-width: 691px)
-  .WAL
-    &__drawer-open
-      display: none
-.conversation__summary
-  margin-top: 4px
-.conversation__more
-  margin-top: 0!important
-  font-size: 1.4rem
+  &__drawer-footer-link
+    color: inherit
+    text-decoration: none
+    font-weight: 500
+    font-size: .75rem
+    &:hover
+      color: #000
+</style>
+
+<style scooped>
+#content{
+  width:100%;
+  height: 680px;
+}
+#main{
+  width:100%;
+  height:692px;
+  float:right;
+  border-bottom:0.5px solid rgb(212, 212, 212);
+  background-color:whitesmoke;
+}
+#topLeft{
+  width:35%;
+  height:200px;
+  border: 1px solid rgb(212, 212, 212);
+  display:inline-block;
+  position:relative;
+  top:30px;
+  left:50px;
+  background-color:rgb(250, 250, 110);
+}
+#topRight{
+  width:54%;
+  height:200px;
+  border: 1px solid rgb(212, 212, 212);
+  display:inline-block;
+  position:relative;
+  top:30px;
+  left:100px;
+}
+#botLeft{
+  width:45%;
+  height:400px;
+  border:1px solid rgb(212, 212, 212);
+  display:inline-block;
+  position:relative;
+  top:60px;
+  left:50px;
+}
+#botRight{
+  width:45%;
+  height:400px;
+  border:1px solid rgb(212, 212, 212);
+  display:inline-block;
+  position:relative;
+  top:60px;
+  left:90px;
+}
 </style>

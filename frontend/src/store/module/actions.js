@@ -16,3 +16,9 @@ export function requestSignup ({ state }, payload) {
   console.log(body)
   return $axios.post(url, body)
 }
+
+export function requestCheckId ({ state }, id) {
+  console.log('requestCheckId', state, id)
+  const url = 'http://localhost:8080/api/v1/users/' + id
+  return $axios.get(url)
+}
