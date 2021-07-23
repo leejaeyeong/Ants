@@ -18,6 +18,7 @@
                         filled
                         label="ID *"
                         v-model="state.form.userId"
+                        @blur="checkId"
                         lazy-rules
                         :rules="[
                         val => !!val || '필수입력항목 입니다.',
@@ -38,7 +39,7 @@
                       <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" v-model="state.form.password"
                       lazy-rules
                         :rules="[
-                          val => val && val.length > 0 || '필수입력항목 입니다.',
+                          val => val && val.length > 0 || '필수입력항목 입니다.'
                         ]">
                         <template v-slot:append>
                           <q-icon
@@ -110,12 +111,11 @@ export default defineComponent({
   name: 'signup',
   methods: {
     back () {
-      this.$router.push('/')
+      this.$router.push('/login')
     }
   },
   setup () {
     const signupForm = ref(null)
-
     const state = reactive({
       form: {
         userId: '',
@@ -125,6 +125,24 @@ export default defineComponent({
     })
     const router = useRouter()
     const store = useStore()
+    function checkId () {
+      console.log('아이디중복체크')
+      store
+        .dispatch('module/requestCheckId', state.form.userId)
+        .then(function (result) {
+          if (result.status === 200) {
+            alert('사용할 수 있는 아이디입니다.')
+            console.log(this.val)
+            this.val = true
+          }
+        })
+        .catch(function (err) {
+          if (err.request.status === 409) {
+            alert('이미 존재하는 아이디 입니다.')
+            this.val = false
+          }
+        })
+    }
 
     function validate () {
       signupForm.value.validate().then(success => {
@@ -144,8 +162,6 @@ export default defineComponent({
               alert(err)
             })
         } else {
-          // oh no, user has filled in
-          // at least one invalid value
           alert('회원가입이 유효하지 않습니다!')
         }
       })
@@ -161,7 +177,8 @@ export default defineComponent({
       reset,
       isPwd: ref(true),
       isPwdCheck: ref(true),
-      state
+      state,
+      checkId
     }
   }
 })
