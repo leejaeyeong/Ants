@@ -111,7 +111,7 @@ export default defineComponent({
   name: 'signup',
   methods: {
     back () {
-      this.$router.push('/login')
+      this.$router.push('/')
     }
   },
   setup () {
@@ -155,6 +155,7 @@ export default defineComponent({
             password: state.form.password
           })
             .then(function (result) {
+              console.log(result)
               alert('회원가입이 되었습니다.')
               router.push('/')
             })
