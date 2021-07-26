@@ -79,6 +79,20 @@ export default defineComponent({
           localStorage.setItem('id', state.form.id)
           localStorage.setItem('password', state.form.password)
           router.push('/main')
+          console.log(localStorage)
+          store.dispatch('module/requestInfo')
+            .then(response => {
+              console.log(response, '리스폰스')
+              const userInfo = {
+                id: response.data.userId,
+                name: response.data.name
+              }
+              localStorage.setItem('name', userInfo.name)
+              console.log(localStorage)
+              console.log('겟멤버인포')
+            }).catch(err => {
+              console.log(err, '에러입니다')
+            })
         })
         .catch(function () {
           alert('아이디, 비밀번호를 확인해주세요 !')

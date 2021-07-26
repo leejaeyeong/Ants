@@ -4,7 +4,7 @@
           <q-img src="~assets/logo.png" style="width:150px; margin-top:-43px;"/>
         </div>
         <div id="headerRight">
-            <img src="~assets/user.png" style="width:40px; margin-top:10px; margin-right:45px; float:right;" />
+            <img @click="mvMypage" src="~assets/user.png" style="width:40px; margin-top:10px; margin-right:45px; float:right;" />
             <q-btn @click="mvManagement" icon="work" flat style="font-size: 2.8em width:40px; margin-top:10px; margin-right:5px; float:right;" size="md" color="grey"></q-btn>
             <q-btn-dropdown class="nav-item"
                     title="알림"
@@ -40,7 +40,7 @@
                 </q-item>
               </q-list>
             </q-btn-dropdown>
-            <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:15px;">{{ state.id }} 님</span>
+            <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:15px;">{{ state.name }} 님</span>
         </div>
     </div>
 </template>
@@ -52,11 +52,14 @@ export default defineComponent({
   methods: {
     mvManagement () {
       this.$router.push('/management')
+    },
+    mvMypage () {
+      this.$router.push('/mypage')
     }
   },
   setup () {
     const state = reactive({
-      id: localStorage.getItem('id')
+      name: localStorage.getItem('name')
     })
     return {
       state,
