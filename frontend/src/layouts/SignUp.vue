@@ -125,20 +125,21 @@ export default defineComponent({
     })
     const router = useRouter()
     const store = useStore()
+    const Swal = require('sweetalert2')
     function checkId () {
       console.log('아이디중복체크')
       store
         .dispatch('module/requestCheckId', state.form.userId)
         .then(function (result) {
           if (result.status === 200) {
-            alert('사용할 수 있는 아이디입니다.')
+            Swal.fire('사용할 수 있는 아이디입니다.')
             console.log(this.val)
             this.val = true
           }
         })
         .catch(function (err) {
           if (err.request.status === 409) {
-            alert('이미 존재하는 아이디 입니다.')
+            Swal.fire('이미 존재하는 아이디 입니다.')
             this.val = false
           }
         })

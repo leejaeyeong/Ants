@@ -22,3 +22,27 @@ export function requestCheckId ({ state }, id) {
   const url = 'http://localhost:8080/api/v1/users/' + id
   return $axios.get(url)
 }
+
+export function go ({ state }, payload) {
+  console.log('go', state, payload)
+  const id = localStorage.getItem('id')
+  const url = 'http://localhost:8080/api/v1/users/' + id + '/check-in'
+  const body = payload
+  return $axios.post(url, body)
+}
+
+export function out ({ state }, payload) {
+  console.log('out', state, payload)
+  const id = localStorage.getItem('id')
+  const url = 'http://localhost:8080/api/v1/users/' + id + '/check-out'
+  const body = payload
+  return $axios.put(url, body)
+}
+
+export function check ({ state }, payload) {
+  console.log('out', state, payload)
+  const id = localStorage.getItem('id')
+  const url = 'http://localhost:8080/api/v1/users/' + id + '/attendance'
+  const body = payload
+  return $axios.get(url, body)
+}

@@ -15,10 +15,12 @@
                     </div>
                     <div id="detail1">
                         <div class="show">
-                            <q-btn style="border-right:1px solid black; height:67px; font-size:20px; font-weight:bold; background: #d4d0d0; color: black" label="출근" />
+                            <q-btn @click="go" style="border-right:1px solid black; height:67px; font-size:20px; font-weight:bold; background: #d4d0d0; color: black" label="출근" />
+                            <span style="margin-left:7px; font-size:18px;">{{ state.checkInTime }}</span>
                         </div>
                         <div class="show">
-                            <q-btn style="border-right:1px solid black; height:67px; font-size:20px; font-weight:bold; background: #d4d0d0; color: black" label="퇴근" />
+                            <q-btn @click="out" style="border-right:1px solid black; height:67px; font-size:20px; font-weight:bold; background: #d4d0d0; color: black" label="퇴근" />
+                            <span style="margin-left:7px; font-size:18px;">{{ state.checkOutTime }}</span>
                         </div>
                     </div>
                 </div>
@@ -26,18 +28,28 @@
             <div id="topRight">
                 <div id="name">내 통계</div>
                 <div>
-                    내 근로시간
+                    <q-linear-progress style="width:80%; margin-top:35px; margin-left:80px; cursor:pointer;" size="30px" :value="progress1" color="accent">
+                        <div class="absolute-full flex flex-center">
+                            <q-badge color="white" text-color="accent" :label="progressLabel1" />
+                        </div>
+                    </q-linear-progress>
                 </div>
+                <span style="font-weight:bold; font-size:18px; margin-top:8px; float:left; margin-left:80px;">이번주 근무시간 : 16시간</span>
+                <span style="float:right; margin-right:45px; font-size:18px; margin-top:8px; font-weight:bold;">40시간</span>
             </div>
+            <div id="botLeft"></div>
+            <div id="botRight"></div>
         </div>
     </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { reactive, defineComponent, onMounted, ref, computed } from 'vue'
 import Header from '../components/header.vue'
 import Side from '../components/side.vue'
 import { date } from 'quasar'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'login',
@@ -49,9 +61,57 @@ export default defineComponent({
     const timeStamp = Date.now()
     const formattedString = date.formatDate(timeStamp, 'MM.DD')
     const formattedString2 = date.formatDate(timeStamp, 'ddd')
+    const store = useStore()
+    const router = useRouter()
+    const CurrentTime = Date.now()
+
+    const progress1 = ref(0.7)
+
+    const state = reactive({
+      time: date.formatDate(CurrentTime, 'HH:mm'),
+      checkInTime: '',
+      checkOutTime: ''
+    })
+
+    onMounted(() => {
+      store.dispatch('module/check', { })
+        .then(function (result) {
+          state.checkInTime = result.data.checkInTime
+          state.checkOutTime = result.data.checkOutTime
+        })
+        .catch(function () {
+          alert('서버오류. 다시 시도해주세요.')
+        })
+    })
+
+    const go = function () {
+      store.dispatch('module/go', { time: state.time })
+        .then(function (result) {
+          router.go()
+        })
+        .catch(function () {
+          alert('서버오류. 다시 시도해주세요.')
+        })
+    }
+
+    const out = function () {
+      store.dispatch('module/out', { time: state.time })
+        .then(function (result) {
+          router.go()
+        })
+        .catch(function () {
+          alert('서버오류. 다시 시도해주세요.')
+        })
+    }
+
     return {
       formattedString,
-      formattedString2
+      formattedString2,
+      go,
+      out,
+      state,
+      progress1,
+      progressLabel1: computed(() => (progress1.value * 100).toFixed(1) + '%')
     }
   }
 })
@@ -126,6 +186,24 @@ export default defineComponent({
     position: absolute;
     top:100px;
     left:700px;
+    background-color:rgb(250, 250, 110);
+}
+#botLeft{
+    position: absolute;
+    width:620px;
+    height:390px;
+    top:335px;
+    left:130px;
+    border:0.5px solid rgb(212, 212, 212);
+    background-color:rgb(250, 250, 110);
+}
+#botRight{
+    position: absolute;
+    width:620px;
+    height:390px;
+    top:335px;
+    left:830px;
+    border:0.5px solid rgb(212, 212, 212);
     background-color:rgb(250, 250, 110);
 }
 </style>
