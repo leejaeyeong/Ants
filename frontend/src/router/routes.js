@@ -23,6 +23,10 @@ const routes = [
   {
     path: '/management',
     component: () => import('layouts/management.vue')
+  },
+  {
+    path: '/mypage',
+    component: () => import('layouts/MyPage.vue')
   }
   // Always leave this as last one,
   // but you can also remove it
