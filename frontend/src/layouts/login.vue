@@ -69,11 +69,14 @@ export default defineComponent({
     // router를 사용하기 위해선 useRouter import후 변수 선언하여 사용 해야함 !
     const store = useStore()
     // store를 사용하기 위해선 useStore import후 변수 선언하여 사용 해야함 !
+
+    const Swal = require('sweetalert2')
     const login = function () {
       store.dispatch('module/login', { id: state.form.id, password: state.form.password })
         .then(function (result) {
           console.log(result)
-          alert('accessToken: ' + result.data.accessToken)
+          console.log(result.data)
+          Swal.fire('accessToken: ' + result.data.accessToken)
           // 로컬스토리지 등록하기
           localStorage.setItem('token', result.data.accessToken)
           localStorage.setItem('id', state.form.id)
@@ -81,7 +84,7 @@ export default defineComponent({
           router.push('/main')
         })
         .catch(function () {
-          alert('아이디, 비밀번호를 확인해주세요 !')
+          Swal.fire('아이디, 비밀번호를 확인해주세요')
         })
     }
     return { state, login }
