@@ -1,11 +1,45 @@
 <template>
     <div id="header">
         <div id="headerLeft">
-            <q-img src="~assets/logo.png" style="width:150px; margin-top:-43px;"/>
+          <q-img src="~assets/logo.png" style="width:150px; margin-top:-43px;"/>
         </div>
         <div id="headerRight">
-            <q-img src="~assets/user.png" style="width:40px; margin-top:10px; margin-right:45px; float:right;"/>
-            <q-img src="~assets/bell.png" style="width:30px; margin-top:15px; margin-right:5px; float:right;"/>
+            <img src="~assets/user.png" style="width:40px; margin-top:10px; margin-right:45px; float:right;" />
+            <q-btn @click="mvManagement" icon="work" flat style="font-size: 2.8em width:40px; margin-top:10px; margin-right:5px; float:right;" size="md" color="grey"></q-btn>
+            <q-btn-dropdown class="nav-item"
+                    title="알림"
+                    flat
+                    no-icon-animation
+                    dropdown-icon="notifications"
+                    style="font-size: 2.8em width:40px; margin-top:10px; float:right;"
+                    size="md" color="grey" >
+              <q-list>
+                <q-item clickable v-close-popup @click="onItemClick">
+                  <q-item-section avatar>
+                    <q-avatar icon="message" color="primary" text-color="white" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>범진님의 메세지</q-item-label>
+                    <q-item-label caption>Juiy 25, 2021</q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-icon name="info" color="amber" />
+                  </q-item-section>
+                </q-item>
+                <q-item clickable v-close-popup @click="onItemClick">
+                  <q-item-section avatar>
+                    <q-avatar icon="message" color="primary" text-color="white" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>재영님의 메세지</q-item-label>
+                    <q-item-label caption>Juiy 24, 2021</q-item-label>
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-icon name="info" color="amber" />
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-btn-dropdown>
             <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:15px;">{{ state.id }} 님</span>
         </div>
     </div>
@@ -15,12 +49,20 @@
 import { reactive, defineComponent } from 'vue'
 
 export default defineComponent({
+  methods: {
+    mvManagement () {
+      this.$router.push('/management')
+    }
+  },
   setup () {
     const state = reactive({
       id: localStorage.getItem('id')
     })
     return {
-      state
+      state,
+      onItemClick () {
+        console.log('아이템 클릭')
+      }
     }
   }
 })
@@ -28,21 +70,21 @@ export default defineComponent({
 
 <style scoped>
 #header{
-    width:100%;
-    height:60px;
-    border-bottom:0.5px solid rgb(212, 212, 212);
+  width:100%;
+  height:60px;
+  border-bottom:0.5px solid rgb(212, 212, 212);
 }
 #headerLeft{
-    width:12%;
-    height:60px;
-    float:left;
-    text-align: center;
-    font-size:35px;
-    /* border-right:0.5px solid rgb(212, 212, 212); */
+  width:12%;
+  height:60px;
+  float:left;
+  text-align: center;
+  font-size:35px;
+  /* border-right:0.5px solid rgb(212, 212, 212); */
 }
 #headerRight{
-    width:88%;
-    height:60px;
-    float:right;
+  width:88%;
+  height:60px;
+  float:right;
 }
 </style>
