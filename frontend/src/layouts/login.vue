@@ -12,6 +12,7 @@
                     <q-input v-model="state.form.password" class="input" filled type="password" label="password" />
                     <q-btn @click="login" class="btn" color="primary" label="Login" />
                     <q-btn @click="mvSignUp" class="btn" color="deep-orange" glossy label="SignUp" />
+                    <!-- <q-btn @click="mvSignUp" flat style="color: black;" label="signUp"/> -->
                   </div>
                 </div>
                 <div id="right">
@@ -76,7 +77,7 @@ export default defineComponent({
         .then(function (result) {
           console.log(result)
           console.log(result.data)
-          Swal.fire('accessToken: ' + result.data.accessToken)
+          // Swal.fire('accessToken: ' + result.data.accessToken)
           // 로컬스토리지 등록하기
           localStorage.setItem('token', result.data.accessToken)
           localStorage.setItem('id', state.form.id)
@@ -91,8 +92,9 @@ export default defineComponent({
                 name: response.data.name
               }
               localStorage.setItem('name', userInfo.name)
-              console.log(localStorage)
-              console.log('겟멤버인포')
+              // store.state.userId = userInfo.id
+              // store.state.name = userInfo.name
+              router.go()
             }).catch(err => {
               console.log(err, '에러입니다')
             })
@@ -140,6 +142,7 @@ export default defineComponent({
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   background-image: url('assets/office.jpg');
+  background-size:900px;
 }
 #form{
   margin-top:-40px;
@@ -150,7 +153,8 @@ export default defineComponent({
 .header {
   position:relative;
   text-align:center;
-  background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+  background: linear-gradient(60deg, #758aa5 0%, #B0BAD9 100%);
+  /* background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%); */
   color:white;
 }
 
