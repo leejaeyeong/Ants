@@ -15,11 +15,11 @@
                     </div>
                     <div id="detail1">
                         <div class="show">
-                            <q-btn @click="go" style="border-right:1px solid black; height:67px; font-size:20px; font-weight:bold; background: #d4d0d0; color: black" label="출근" />
+                            <q-btn @click="go" style="border-right:1px solid black; height:69px; font-size:20px; font-weight:bold; background: #77ce7b; color: black;" label="출근" />
                             <span style="margin-left:7px; font-size:18px;">{{ state.checkInTime }}</span>
                         </div>
                         <div class="show">
-                            <q-btn @click="out" style="border-right:1px solid black; height:67px; font-size:20px; font-weight:bold; background: #d4d0d0; color: black" label="퇴근" />
+                            <q-btn @click="out" style="border-right:1px solid black; height:69px; font-size:20px; font-weight:bold; background: #77ce7b; color: black" label="퇴근" />
                             <span style="margin-left:7px; font-size:18px;">{{ state.checkOutTime }}</span>
                         </div>
                     </div>
@@ -28,9 +28,9 @@
             <div id="topRight">
                 <div id="name">내 통계</div>
                 <div>
-                    <q-linear-progress style="width:80%; margin-top:35px; margin-left:80px; cursor:pointer;" size="30px" :value="progress1" color="accent">
+                    <q-linear-progress stripe rounded style="border-radius:20px; width:80%; margin-top:35px; margin-left:80px; cursor:pointer; color:#6581A6;" size="30px" :value="progress1">
                         <div class="absolute-full flex flex-center">
-                            <q-badge color="white" text-color="accent" :label="progressLabel1" />
+                            <q-badge color="white" style="color:#6581A6; font-weight:bold;" :label="progressLabel1" />
                         </div>
                     </q-linear-progress>
                 </div>
@@ -137,7 +137,7 @@ export default defineComponent({
     position:absolute;
     top:100px;
     left:130px;
-    background-color:rgb(250, 250, 110);
+    /* background-color:rgb(250, 250, 110); */
 }
 #name{
     display:inline-block;
@@ -186,7 +186,7 @@ export default defineComponent({
     position: absolute;
     top:100px;
     left:700px;
-    background-color:rgb(250, 250, 110);
+    /* background-color:rgb(250, 250, 110); */
 }
 #botLeft{
     position: absolute;
@@ -195,7 +195,7 @@ export default defineComponent({
     top:335px;
     left:130px;
     border:0.5px solid rgb(212, 212, 212);
-    background-color:rgb(250, 250, 110);
+    /* background-color:rgb(250, 250, 110); */
 }
 #botRight{
     position: absolute;
@@ -204,6 +204,15 @@ export default defineComponent({
     top:335px;
     left:830px;
     border:0.5px solid rgb(212, 212, 212);
-    background-color:rgb(250, 250, 110);
+    /* background-color:rgb(250, 250, 110); */
+}
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+div{
+  font-family: 'NEXON Lv1 Gothic OTF';
 }
 </style>
