@@ -3,23 +3,64 @@
     <div id="content">
         <Side></Side>
         <div id="main">
-            <div id="topLeft">
-            마이페이지
-            <q-btn @click="getprofile"></q-btn>
+            <div id="mainSide">
+                <q-btn style="margin-top:30px; width:70%; margin-left:37px; color: white; background-color: #6581A6;" icon="account_box" label="마이페이지" />
+                <div id="listTop">
+                    <div class="list1">
+                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #6581A6;" name="build"/>
+                        <span class="list2">회원 정보 수정</span>
+                    </div>
+                    <div @click="remove" class="list1">
+                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #6581A6;" name="delete"/>
+                        <span class="list2">회원 탈퇴</span>
+                    </div>
+                </div>
             </div>
-            <div id="topRight">
-            </div>
-            <div id="botLeft">
-            </div>
-            <div id="botRight">
+            <div id="myData">
+                <div style="margin-top:25px; margin-left:30px; font-weight:bold; font-size:25px;">회원 정보</div>
+                <table width="800" height="350" style="text-align:center; margin-left:30px; margin-top:15px;">
+                  <tr>
+                    <td colspan="2" rowspan="4" width="35">사진</td>
+                    <td width="100">성명</td>
+                    <td width="200"></td>
+                    <td width="100">ID</td>
+                    <td width="200"></td>
+                  </tr>
+                  <tr>
+                    <td>비밀번호</td>
+                    <td></td>
+                    <td>재직여부</td>
+                    <td>재직</td>
+                  </tr>
+                   <tr>
+                    <td>소속</td>
+                    <td></td>
+                    <td>부서</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>직책</td>
+                    <td></td>
+                    <td>핸드폰</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" rowspan="2"></td>
+                    <td colspan="2">이메일</td>
+                    <td colspan="2"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">주소</td>
+                    <td colspan="2"></td>
+                  </tr>
+                </table>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { reactive, defineComponent } from 'vue'
-import { useStore } from 'vuex'
+import { defineComponent } from 'vue'
 import Header from '../components/header.vue'
 import Side from '../components/side.vue'
 
@@ -30,33 +71,28 @@ export default defineComponent({
     Side
   },
   setup () {
-    const state = reactive({
-      form: {
-        id: '',
-        password: '',
-        name: '',
-        position: ''
-      }
-    })
-    const store = useStore()
-    const getprofile = function () {
-      store.dispatch('module/requestInfo')
-        .then(response => {
-          console.log(response, '리스폰스')
-          const userInfo = {
-            id: response.data.id,
-            name: response.data.name
-          }
-          console.log(userInfo)
-          console.log('겟멤버인포')
-        }).catch(err => {
-          console.log(err, '에러입니다')
-        })
-        .catch(function () {
-          alert('아이디, 비밀번호를 확인해주세요 !')
-        })
+    const Swal = require('sweetalert2')
+    const remove = function () {
+      Swal.fire({
+        title: '정말 탈퇴하시겠습니까 ?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6581A6',
+        confirmButtonText: 'Sure'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            '탈퇴 완료',
+            '그동안 이용해주셔서 감사합니다.',
+            'success'
+          )
+        }
+      })
     }
-    return { state, getprofile }
+    return {
+      remove
+    }
   }
 })
 </script>
@@ -73,41 +109,54 @@ export default defineComponent({
     border-bottom:0.5px solid rgb(212, 212, 212);
     background-color:whitesmoke;
 }
-#topLeft{
-    width:35%;
-    height:200px;
-    border: 1px solid rgb(212, 212, 212);
-    display:inline-block;
-    position:relative;
-    top:30px;
-    left:50px;
-    background-color:rgb(250, 250, 110);
-}
-#topRight{
-    width:54%;
-    height:200px;
-    border: 1px solid rgb(212, 212, 212);
-    display:inline-block;
-    position:relative;
-    top:30px;
-    left:100px;
-}
-#botLeft{
-    width:45%;
-    height:400px;
-    border:1px solid rgb(212, 212, 212);
-    display:inline-block;
-    position:relative;
+#mainSide{
+    width: 250px;
+    height: 690px;
+    border-right:1px solid rgb(212, 212, 212);
+    position: absolute;
     top:60px;
-    left:50px;
+    left:75px;
 }
-#botRight{
-    width:45%;
-    height:400px;
-    border:1px solid rgb(212, 212, 212);
-    display:inline-block;
-    position:relative;
-    top:60px;
-    left:90px;
+#listTop{
+    width:80%;
+    height:85px;
+    margin:10px auto;
+    border-bottom:1px solid rgb(216, 210, 210);
+}
+.list1{
+    width:80%;
+    margin-top:5px;
+    margin-left:20px;
+}
+.list1:hover{
+    background-color:rgb(216, 210, 210);
+    cursor: pointer;
+}
+.list2{
+    margin-left:15px;
+}
+#myData{
+  width: 1130px;
+  height: 690px;
+  position: absolute;
+  top:60px;
+  left:325px;
+}
+table, td, th{
+  /* border:3px solid #6581A6; */
+  border:1.5px solid black;
+  border-collapse: collapse;
+}
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+div{
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
+span{
+  font-family: 'NEXON Lv1 Gothic OTF';
 }
 </style>

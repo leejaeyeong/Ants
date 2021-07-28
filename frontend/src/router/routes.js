@@ -13,8 +13,8 @@ const routes = [
     component: () => import('layouts/main.vue')
   },
   {
-    path: '/notice',
-    component: () => import('layouts/notice.vue')
+    path: '/group',
+    component: () => import('layouts/group.vue')
   },
   {
     path: '/board',
@@ -27,6 +27,10 @@ const routes = [
   {
     path: '/mypage',
     component: () => import('layouts/MyPage.vue')
+  },
+  {
+    path: '/write',
+    component: () => import('layouts/write.vue')
   }
   // Always leave this as last one,
   // but you can also remove it

@@ -6,7 +6,7 @@
             <div id="topLeft">
                 <div id="name">출근 & 퇴근</div>
                 <div id="mid1">
-                    개발2팀 김싸피 사원님 환영합니다.
+                    개발2팀 {{ state.name }}님 환영합니다.
                 </div>
                 <div id="bot1">
                     <div id="day">
@@ -27,6 +27,7 @@
             </div>
             <div id="topRight">
                 <div id="name">내 통계</div>
+                <q-btn round style="background-color:#6581A6; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
                 <div>
                     <q-linear-progress stripe rounded style="border-radius:20px; width:80%; margin-top:35px; margin-left:80px; cursor:pointer; color:#6581A6;" size="30px" :value="progress1">
                         <div class="absolute-full flex flex-center">
@@ -70,7 +71,8 @@ export default defineComponent({
     const state = reactive({
       time: date.formatDate(CurrentTime, 'HH:mm'),
       checkInTime: '',
-      checkOutTime: ''
+      checkOutTime: '',
+      name: localStorage.getItem('name')
     })
 
     onMounted(() => {
@@ -213,6 +215,9 @@ export default defineComponent({
     font-style: normal;
 }
 div{
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
+span{
   font-family: 'NEXON Lv1 Gothic OTF';
 }
 </style>
