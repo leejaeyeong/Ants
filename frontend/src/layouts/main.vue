@@ -84,6 +84,13 @@ export default defineComponent({
         .catch(function () {
           alert('서버오류. 다시 시도해주세요.')
         })
+      store.dispatch('module/loadAttendanceByWeek', {})
+        .then(function (result) {
+          //
+        })
+        .catch(function () {
+          alert('일주일 근태 정보 조회중 문제가 발생했습니다.')
+        })
     })
 
     const go = function () {
