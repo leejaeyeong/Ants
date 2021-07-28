@@ -18,6 +18,7 @@
                         filled
                         label="ID *"
                         v-model="state.form.userId"
+                        @blur="checkId"
                         lazy-rules
                         :rules="[
                         val => !!val || '필수입력항목 입니다.',
@@ -38,7 +39,7 @@
                       <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" v-model="state.form.password"
                       lazy-rules
                         :rules="[
-                          val => val && val.length > 0 || '필수입력항목 입니다.',
+                          val => val && val.length > 0 || '필수입력항목 입니다.'
                         ]">
                         <template v-slot:append>
                           <q-icon
@@ -63,8 +64,9 @@
                         </template>
                       </q-input> -->
                       <div class="btnform">
-                        <q-btn label="Submit" type="submit" color="secondary"/>
-                        <q-btn @click="back" label="back" color="amber" style="margin-left:10px;" />
+                        <q-btn @click="validate" label="Submit" type="submit" color="primary"/>
+                        <!-- <q-btn @click="back" label="back" color="white" style="margin-left:10px;" /> -->
+                        <q-btn @click="back" flat style="color: black; margin-left:10px;" label="back"/>
                       </div>
                     </q-form>
                   </div>
@@ -115,7 +117,6 @@ export default defineComponent({
   },
   setup () {
     const signupForm = ref(null)
-
     const state = reactive({
       form: {
         userId: '',
@@ -125,6 +126,31 @@ export default defineComponent({
     })
     const router = useRouter()
     const store = useStore()
+    const Swal = require('sweetalert2')
+    function checkId () {
+      console.log('아이디중복체크')
+      store
+        .dispatch('module/requestCheckId', state.form.userId)
+        .then(function (result) {
+          if (result.status === 200) {
+            Swal.fire({
+              icon: 'success',
+              title: '사용할 수 있는 아이디입니다.'
+            })
+            console.log(this.val)
+            this.val = true
+          }
+        })
+        .catch(function (err) {
+          if (err.request.status === 409) {
+            Swal.fire({
+              icon: 'error',
+              title: '이미 존재하는 아이디입니다.'
+            })
+            this.val = false
+          }
+        })
+    }
 
     function validate () {
       signupForm.value.validate().then(success => {
@@ -137,15 +163,14 @@ export default defineComponent({
             password: state.form.password
           })
             .then(function (result) {
+              console.log(result)
               alert('회원가입이 되었습니다.')
-              router.push('/login')
+              router.push('/')
             })
             .catch(function (err) {
               alert(err)
             })
         } else {
-          // oh no, user has filled in
-          // at least one invalid value
           alert('회원가입이 유효하지 않습니다!')
         }
       })
@@ -161,7 +186,8 @@ export default defineComponent({
       reset,
       isPwd: ref(true),
       isPwdCheck: ref(true),
-      state
+      state,
+      checkId
     }
   }
 })
@@ -200,8 +226,8 @@ export default defineComponent({
   float:left;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
-  background-image: url('assets/office2.jpg');
-  background-size: 900px;
+  background-image: url('assets/office3.jpg');
+  background-size: 500px;
 }
 #form{
   margin-left: 14%;
@@ -216,7 +242,8 @@ export default defineComponent({
 .header {
   position:relative;
   text-align:center;
-  background: linear-gradient(60deg, #84A0AD 0%, #F0F7FA 100%);
+  background: linear-gradient(60deg, #6581A6 0%, #B0BAD9 100%);
+  /* background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%); */
   color:white;
 }
 
@@ -253,7 +280,7 @@ export default defineComponent({
 /* Animation */
 
 .parallax > use {
-  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
 }
 .parallax > use:nth-child(1) {
   animation-delay: -2s;
