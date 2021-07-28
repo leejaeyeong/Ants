@@ -8,14 +8,6 @@
                 Home
             </div>
         </div>
-        <div @click="mvNotice" class="list">
-            <div class="img">
-                <q-icon style="font-size: 2.8em; color: #6581A6;" name="volume_up"/>
-            </div>
-            <div class="detail" style="color: #6581A6; font-weight:bold;">
-                Notice
-            </div>
-        </div>
         <div @click="mvBoard" class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #6581A6;" name="content_paste"/>
@@ -24,9 +16,17 @@
                 Board
             </div>
         </div>
-        <div class="list">
+        <div @click="mvGroup" class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #6581A6;" name="people_alt"/>
+            </div>
+            <div class="detail" style="color: #6581A6; font-weight:bold;">
+                Group
+            </div>
+        </div>
+        <div class="list">
+            <div class="img">
+                <q-icon style="font-size: 2.8em; color: #6581A6;" name="support_agent"/>
             </div>
             <div class="detail" style="color: #6581A6; font-weight:bold;">
                 RTC
@@ -62,8 +62,8 @@ export default defineComponent({
     mvHome () {
       this.$router.push('/main')
     },
-    mvNotice () {
-      this.$router.push('/notice')
+    mvGroup () {
+      this.$router.push('/group')
     },
     mvBoard () {
       this.$router.push('/board')
