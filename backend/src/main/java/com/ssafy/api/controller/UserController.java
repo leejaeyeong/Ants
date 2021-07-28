@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.*;
 import com.ssafy.api.response.AttendanceListRes;
 import com.ssafy.api.response.AttendanceRes;
+import com.ssafy.api.response.TotalHourRes;
 import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.BaseEntity;
 import com.ssafy.db.entity.Department;
@@ -236,20 +237,16 @@ public class UserController {
 	@GetMapping(value = "{userId}/attendance/week")
 	@ApiOperation(value = "유저 근태 시간 조회(이번주)", notes = "<strong>아이디</strong>를 가진 회원의 1주일 근로 시간")
 	@ApiResponses({
-			@ApiResponse(code = 204, message = "성공"),
-			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 200, message = "이번 주 근로 시간을 받음"),
 			@ApiResponse(code = 404, message = "사용자 없음"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<String> getAttendanceByWeek(@PathVariable String userId, @RequestParam String startDate, @RequestParam String endDate) {
+	public ResponseEntity<TotalHourRes> getAttendanceByWeek(@PathVariable String userId, @RequestParam String startDate, @RequestParam String endDate) {
 		User user = userService.getUserByUserId(userId);
 		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		System.out.println(startDate);
-		System.out.println(endDate);
-		userService.findAllByDateBetween(userId, startDate, endDate);
-		return ResponseEntity.ok().body("3");
+		return ResponseEntity.ok().body(TotalHourRes.of(userService.findAllByDateBetween(user, startDate, endDate)));
 	}
 	// 유저 당일 근태 조회
 	@GetMapping(value = "{userId}/attendance")
