@@ -48,7 +48,8 @@ export function check ({ state }, payload) {
   return $axios.get(url, body)
 }
 
-export function loadAttendanceByWeek ({ state }, playlocd) {
+export function loadAttendanceByWeek ({ state }, payload) {
+  const id = localStorage.getItem('id')
   const currentDay = new Date()
   const theYear = currentDay.getFullYear()
   const theMonth = currentDay.getMonth()
@@ -67,9 +68,9 @@ export function loadAttendanceByWeek ({ state }, playlocd) {
     dd = String(dd).length === 1 ? '0' + dd : dd
     thisWeek[i] = yyyy + '-' + mm + '-' + dd
   }
-  console.log(thisWeek)
-  console.log(thisWeek[0])
-  console.log(thisWeek[thisWeek.length - 1])
+  console.log(thisWeek[0] + '  ' + thisWeek[thisWeek.length - 1])
+  const url = baseUrl + 'api/v1/users/' + id + '/attendance/week?startDate=' + thisWeek[0] + '&endDate=' + thisWeek[thisWeek.length - 1]
+  return $axios.get(url, payload)
 }
 
 export function requestInfo ({ state }, header) {

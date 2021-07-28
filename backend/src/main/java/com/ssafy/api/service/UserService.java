@@ -23,7 +23,7 @@ public interface UserService {
 	boolean checkInUser(User user);
 	boolean checkOutUser(User user);
 	List<Attendance> findAllByDateBetween(Map<String, Object> dateMap);
-	Integer findAllByDateBetween(String userId, String startDate, String endDate);
+	Integer findAllByDateBetween(User user, String startDate, String endDate);
 	Department getDepartmentById(long departmentId);
 	Attendance getAttendanceToday(User user);
 }
