@@ -48,6 +48,30 @@ export function check ({ state }, payload) {
   return $axios.get(url, body)
 }
 
+export function loadAttendanceByWeek ({ state }, playlocd) {
+  const currentDay = new Date()
+  const theYear = currentDay.getFullYear()
+  const theMonth = currentDay.getMonth()
+  const theDate = currentDay.getDate()
+  const theDayOfWeek = currentDay.getDay()
+  const thisWeek = []
+  for (let i = 0; i < 7; i++) {
+    const resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek))
+    if (currentDay < resultDay) {
+      break
+    }
+    const yyyy = resultDay.getFullYear()
+    let mm = Number(resultDay.getMonth()) + 1
+    let dd = resultDay.getDate()
+    mm = String(mm).length === 1 ? '0' + mm : mm
+    dd = String(dd).length === 1 ? '0' + dd : dd
+    thisWeek[i] = yyyy + '-' + mm + '-' + dd
+  }
+  console.log(thisWeek)
+  console.log(thisWeek[0])
+  console.log(thisWeek[thisWeek.length - 1])
+}
+
 export function requestInfo ({ state }, header) {
   console.log('requestInfo', state, header)
   const url = baseUrl + 'api/v1/users/me'

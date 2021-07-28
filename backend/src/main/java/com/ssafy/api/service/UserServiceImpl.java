@@ -119,6 +119,12 @@ public class UserServiceImpl implements UserService {
 		return attendanceRepositorySupport.findAllByDateBetween(dateMap);
 	}
 
+	@Override
+	public Integer findAllByDateBetween(String userId, String startDate, String endDate) {
+
+		return null;
+	}
+
 	public Attendance getAttendanceToday(User user) {
 		Attendance attendance = null;
 		if (attendanceRepositorySupport.getAttendanceToday(user).isPresent()) {

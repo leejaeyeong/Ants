@@ -1,7 +1,6 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.UserTeamMappingPutReq;
-import com.ssafy.api.request.UserUpdatePutReq;
+import com.ssafy.api.request.*;
 import com.ssafy.api.response.AttendanceListRes;
 import com.ssafy.api.response.AttendanceRes;
 import com.ssafy.db.entity.Attendance;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
@@ -28,6 +26,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,6 +232,25 @@ public class UserController {
 		return ResponseEntity.ok().body(AttendanceListRes.of(userService.findAllByDateBetween(dateMap)));
 	}
 
+	// 유저 1주일 근로 시간 조회
+	@GetMapping(value = "{userId}/attendance/week")
+	@ApiOperation(value = "유저 근태 시간 조회(이번주)", notes = "<strong>아이디</strong>를 가진 회원의 1주일 근로 시간")
+	@ApiResponses({
+			@ApiResponse(code = 204, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<String> getAttendanceByWeek(@PathVariable String userId, @RequestParam String startDate, @RequestParam String endDate) {
+		User user = userService.getUserByUserId(userId);
+		if (user == null) {
+			return ResponseEntity.notFound().build();
+		}
+		System.out.println(startDate);
+		System.out.println(endDate);
+		userService.findAllByDateBetween(userId, startDate, endDate);
+		return ResponseEntity.ok().body("3");
+	}
 	// 유저 당일 근태 조회
 	@GetMapping(value = "{userId}/attendance")
 	@ApiOperation(value = "유저 근태 조회(당일)", notes = "<strong>아이디</strong>를 가진 회원의 근태현황.")
