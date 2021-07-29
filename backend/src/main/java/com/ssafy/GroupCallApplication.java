@@ -15,8 +15,9 @@ import org.springframework.web.socket.server.standard.ServletServerContainerFact
 import java.nio.charset.Charset;
 
 @SpringBootApplication
-public class GroupCallApplication {
-	public static void main(String[] args) {
+@EnableWebSocket
+public class GroupCallApplication implements WebSocketConfigurer {
+    public static void main(String[] args) {
         SpringApplication.run(GroupCallApplication.class, args);
     }
 
@@ -31,5 +32,37 @@ public class GroupCallApplication {
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
         return characterEncodingFilter;
+    }
+
+    @Bean
+    public UserRegistry registry() {
+        return new UserRegistry();
+    }
+
+    @Bean
+    public RoomManager roomManager() {
+        return new RoomManager();
+    }
+
+    @Bean
+    public CallHandler groupCallHandler() {
+        return new CallHandler();
+    }
+
+    @Bean
+    public KurentoClient kurentoClient() {
+        return KurentoClient.create();
+    }
+
+    @Bean
+    public ServletServerContainerFactoryBean createServletServerContainerFactoryBean() {
+        ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
+        container.setMaxTextMessageBufferSize(32768);
+        return container;
+    }
+
+    @Override
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+        registry.addHandler(groupCallHandler(), "/groupcall");
     }
 }

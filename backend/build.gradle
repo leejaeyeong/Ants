@@ -1,5 +1,6 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
+
 buildscript{
     ext {
         springBootVer = '2.4.5'
@@ -19,7 +20,7 @@ buildscript{
         classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
         //이클립스인 경우를 위한 QueryDSL 플러그인. IntelliJ는 불필요. [시작]
 //        classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVer}"
-        //[끝] 
+        //[끝]
         classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
     }
 }
@@ -33,10 +34,13 @@ plugins {
     //id 'org.spring.dependency-management' version '1.0.11.RELEASE'
 //    id "com.ewerk.gradle.plugins.queydsl" version "1.0.10"
 }
-
+apply plugin: 'application'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'eclipse'
 apply plugin: 'com.github.node-gradle.node'
+
+//applicationDefaultJvmArgs = ["-Dkms.url=wss://ec2-13-125-235-192.ap-northeast-2.compute.amazonaws.com:8888/kurento"]
+applicationDefaultJvmArgs = ["-Dkms.url=ws://i5b103.p.ssafy.io:8888/kurento"]
 //이클립스인 경우를 위한 QueryDSL 플러그인. IntelliJ는 불필요.
 //apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 
@@ -151,7 +155,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     //STOMP 관련 프론트 라이브러리
     implementation('org.webjars.bower:jquery:3.3.1')
-    implementation('org.webjars:sockjs-client:1.1.2')
+//    implementation('org.webjars:sockjs-client:1.1.2')
+    implementation 'org.webjars:sockjs-client:1.1.2'
     implementation('org.webjars:stomp-websocket:2.3.3-1')
     implementation('org.webjars:webjars-locator:0.30')
     //WebRTC 클라이언트 의존성 추가
@@ -175,7 +180,7 @@ dependencies {
     testImplementation("com.jayway.jsonpath:json-path:2.4.0")
 
     implementation("com.auth0:java-jwt:3.10.3")
-    
+
     implementation("io.springfox:springfox-swagger2:3.0.0")
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
     implementation("io.springfox:springfox-data-rest:3.0.0")
