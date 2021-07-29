@@ -2,8 +2,6 @@ package com.ssafy.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import com.sun.xml.internal.ws.developer.Serialization;
 import lombok.Getter;
 import lombok.Setter;
 

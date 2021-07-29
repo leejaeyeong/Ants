@@ -4,15 +4,19 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.QAttendance;
 import com.ssafy.db.entity.User;
+import org.apache.tomcat.jni.Local;
 import org.checkerframework.checker.nullness.Opt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
@@ -58,10 +62,9 @@ public class AttendanceRepositorySupport {
         User user = (User)dateMap.get("user");
 
         // 해당 월 전체 조회 구간
-        LocalDate start = LocalDate.of(year, month,1);
-        LocalDate end = LocalDate.of(year, month, start.with(lastDayOfMonth()).getDayOfMonth());
+        LocalDate start = convertToLocalDate(year, month,1);
+        LocalDate end = convertToLocalDate(year, month, start.with(lastDayOfMonth()).getDayOfMonth());
 
-        attendanceRepository.findAllByDateBetween(start, end);
         List<Attendance> attendances = attendanceRepository.findAllByDateBetween(start, end).stream().filter(
                 a -> a.getUser().equals(user)
         ).collect(Collectors.toList());
@@ -71,11 +74,45 @@ public class AttendanceRepositorySupport {
         return attendances;
     }
 
+    // 근태 시간 조회 1주일
+    public Integer findAllByDateBetween(User user, String startDate, String endDate) {
+        LocalDate start = convertToDate(startDate);
+        LocalDate end = convertToDate(endDate);
+
+        List<Attendance> attendances = attendanceRepository.findAllByDateBetween(start, end).stream().filter(
+                a -> a.getUser().equals(user)
+        ).collect(Collectors.toList());
+
+        if (attendances == null) return null;
+
+        int second = 0;
+        for (Attendance attendance : attendances) {
+            if (attendance.getCheckOutTime() == null) { // 퇴실 안한 경우 계산 안함
+                continue;
+            }
+            Duration duration = Duration.between(attendance.getCheckInTime(), attendance.getCheckOutTime());
+            second += duration.getSeconds();
+        }
+        return second / 3600;
+    }
+
     public Optional<Attendance> getAttendanceToday(User user) {
         LocalDate now = LocalDate.now();
         Attendance attendance = jpaQueryFactory.select(qAttendance).from(qAttendance)
                 .where(qAttendance.date.eq(now).and(qAttendance.user.userId.eq(user.getUserId()))).fetchOne();
         if (attendance == null) return Optional.empty();
         return Optional.ofNullable(attendance);
+    }
+
+    public LocalDate convertToLocalDate(int year, int month, int day) {
+        return LocalDate.of(year, month, day);
+    }
+
+    public LocalDate convertToDate(String date) {
+        StringTokenizer st = new StringTokenizer(date, "-");
+        int year = Integer.parseInt(st.nextToken());
+        int month = Integer.parseInt(st.nextToken());
+        int day = Integer.parseInt(st.nextToken());
+        return convertToLocalDate(year, month, day);
     }
 }

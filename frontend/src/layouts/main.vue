@@ -35,7 +35,7 @@
                         </div>
                     </q-linear-progress>
                 </div>
-                <span style="font-weight:bold; font-size:18px; margin-top:8px; float:left; margin-left:80px;">이번주 근무시간 : 16시간</span>
+                <span style="font-weight:bold; font-size:18px; margin-top:8px; float:left; margin-left:80px;">이번주 근무시간 : {{state.totalHourOfWeek}}시간</span>
                 <span style="float:right; margin-right:45px; font-size:18px; margin-top:8px; font-weight:bold;">40시간</span>
             </div>
             <div id="botLeft"></div>
@@ -64,18 +64,20 @@ export default defineComponent({
     const formattedString2 = date.formatDate(timeStamp, 'ddd')
     const store = useStore()
     const router = useRouter()
-    const CurrentTime = Date.now()
+    const currentTime = Date.now()
 
     const progress1 = ref(0.7)
 
     const state = reactive({
-      time: date.formatDate(CurrentTime, 'HH:mm'),
+      time: date.formatDate(currentTime, 'HH:mm'),
+      totalHourOfWeek: '',
       checkInTime: '',
       checkOutTime: '',
       name: localStorage.getItem('name')
     })
 
     onMounted(() => {
+      console.log('teasdasdasdsadasdsasaassasasas')
       store.dispatch('module/check', { })
         .then(function (result) {
           state.checkInTime = result.data.checkInTime
@@ -83,6 +85,14 @@ export default defineComponent({
         })
         .catch(function () {
           alert('서버오류. 다시 시도해주세요.')
+        })
+      store.dispatch('module/loadAttendanceByWeek', { })
+        .then(function (result) {
+          state.totalHourOfWeek = result.data.totalHour
+          console.log(result.data)
+        })
+        .catch(function () {
+          alert('일주일 근태 정보 조회중 문제가 발생했습니다.')
         })
     })
 
