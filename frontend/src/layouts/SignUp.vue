@@ -242,7 +242,7 @@ export default defineComponent({
 .header {
   position:relative;
   text-align:center;
-  background: linear-gradient(60deg, #6581A6 0%, #B0BAD9 100%);
+  background: linear-gradient(60deg, #19CE60 0%, #B0BAD9 100%);
   /* background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%); */
   color:white;
 }

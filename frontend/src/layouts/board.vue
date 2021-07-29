@@ -7,7 +7,7 @@
             <div id="board">
                 <div>
                     <q-input filled style="height:40px; display:inline-block; width:15%; margin-top:20px; margin-left:40px;" label="제목, 내용" />
-                    <q-btn round style="margin-top:-20px; margin-left:10px; background-color: #6581A6; color:white; height:50px; width:50px;" icon="search" />
+                    <q-btn round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:50px; width:50px;" icon="search" />
                 </div>
                 <div class="q-pa-md" style="margin-top:30px; margin-left:70px;">
                     <q-table @click="show(rows)"
@@ -179,7 +179,7 @@ export default defineComponent({
     height:692px;
     float:right;
     border-bottom:0.5px solid rgb(212, 212, 212);
-    background-color:whitesmoke;
+    background-color:white;
 }
 #board{
     width: 1130px;

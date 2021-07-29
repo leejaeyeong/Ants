@@ -3,28 +3,86 @@
     <div id="content">
         <Side></Side>
         <div id="main">
-            <div id="top">
-                SSAFY 사무국
+            <div id="mainSide">
+                <div style="margin-top:30px; width:70%; height:37px; margin-left:37px; border-radius:5px; font-weight:bold; text-align:center; padding-top:7px; font-size:18px; color: white; background-color: #18C75E;">SSAFY 사무국</div>
+                <div id="listTop">
+                    <div class="list1">
+                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="list"/>
+                        <span class="list2">그룹원 목록</span>
+                    </div>
+                    <div class="list1">
+                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="send"/>
+                        <span class="list2">그룹원 초대</span>
+                    </div>
+                </div>
             </div>
-            <div id="bot">
-                <div style="float:right;
-                margin-right:30px;
-                margin-top:15px;
-                font-weight:bold;
-                font-size:18px;">관리자 : 정재윤(프로)</div>
-                <div id="b1">회원 목록</div>
-                <div id="b2">
-                    <div id="table"></div>
+            <div id="mainContent">
+                <div>
+                    <q-input filled style="height:40px; display:inline-block; width:15%; margin-top:20px; margin-left:40px;" label="제목, 내용" />
+                    <q-btn round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:50px; width:50px;" icon="search" />
                 </div>
-                <div id="b3">
-                    <div id="detail"></div>
-                    <q-btn color="purple" text-color="white" label="수정하기" style="font-size:16px; width:46%; margin-left:10px; margin-top:280px;"/>
-                    <q-btn color="deep-orange" text-color="white" label="삭제하기" style="font-size:16px; width:46%; margin-left:10px; margin-top:280px;" />
-                </div>
-                <div id="b4">
-                    <div id="invite">
-                        <q-icon style="margin-bottom:10px; font-size: 3.8em; color:whitesmoke;" name="person_add"/>
-                        <span style="margin-top:10px; font-weight:bold; font-size:25px; color:whitesmoke; margin-left:10px;">그룹 초대하기</span>
+                <div id="mainList">
+                    <div id="top">
+                        <span style="font-weight:bold; font-size:20px; margin-left:10px;">그룹원 목록</span>
+                    </div>
+                    <div id="bot">
+                        <div class="detail">
+                            <q-icon class="profile" name="account_circle"/>
+                            <span class="id">김싸피</span>
+                            <span class="span">kimSSAFY</span>
+                            <span class="phone">010-1111-2222</span>
+                            <span class="span">개발 1팀</span>
+                            <!-- <span class="span">사원</span> -->
+                            <q-select class="span" borderless :options="options" label="사원" />
+                        </div>
+                        <div class="detail">
+                            <q-icon class="profile" name="account_circle"/>
+                            <span class="id">이싸피</span>
+                            <span class="span">leelee</span>
+                            <span class="phone">010-3333-4444</span>
+                            <span class="span">개발 2팀</span>
+                            <span class="span">사원</span>
+                        </div>
+                        <div class="detail">
+                            <q-icon class="profile" name="account_circle"/>
+                            <span class="id">황싸피</span>
+                            <span class="span">hwang123</span>
+                            <span class="phone">010-5555-6666</span>
+                            <span class="span">개발 3팀</span>
+                            <span class="span">팀장</span>
+                        </div>
+                        <div class="detail">
+                            <q-icon class="profile" name="account_circle"/>
+                            <span class="id">황싸피</span>
+                            <span class="span">hwang123</span>
+                            <span class="phone">010-5555-6666</span>
+                            <span class="span">개발 3팀</span>
+                            <span class="span">팀장</span>
+                        </div>
+                        <div class="detail">
+                            <q-icon class="profile" name="account_circle"/>
+                            <span class="id">황싸피</span>
+                            <span class="span">hwang123</span>
+                            <span class="phone">010-5555-6666</span>
+                            <span class="span">개발 3팀</span>
+                            <span class="span">팀장</span>
+                        </div>
+                        <div class="detail">
+                            <q-icon class="profile" name="account_circle"/>
+                            <span class="id">황싸피</span>
+                            <span class="span">hwang123</span>
+                            <span class="phone">010-5555-6666</span>
+                            <span class="span">개발 3팀</span>
+                            <span class="span">팀장</span>
+                        </div>
+                        <div class="detail">
+                            <q-icon class="profile" name="account_circle"/>
+                            <span class="id">황싸피</span>
+                            <span class="span">hwang123</span>
+                            <span class="phone">010-5555-6666</span>
+                            <span class="span">개발 3팀</span>
+                            <span class="span">팀장</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,10 +96,18 @@ import Header from '../components/header.vue'
 import Side from '../components/side.vue'
 
 export default defineComponent({
-  name: 'login',
+  name: 'group',
   components: {
     Header,
     Side
+  },
+  setup () {
+    const options = [
+      '사원', '주임', '대리', '과장', '부장'
+    ]
+    return {
+      options
+    }
   }
 })
 </script>
@@ -56,99 +122,86 @@ export default defineComponent({
     height:692px;
     float:right;
     border-bottom:0.5px solid rgb(212, 212, 212);
-    background-color:whitesmoke;
+    background-color:white;
+}
+#mainSide{
+    width: 250px;
+    height: 690px;
+    border-right:1px solid rgb(212, 212, 212);
+    position: absolute;
+    top:60px;
+    left:75px;
+}
+#listTop{
+    width:80%;
+    height:85px;
+    margin:10px auto;
+    border-bottom:1px solid rgb(216, 210, 210);
+}
+.list1{
+    width:80%;
+    margin-top:5px;
+    margin-left:20px;
+}
+.list1:hover{
+    background-color:rgb(216, 210, 210);
+    cursor: pointer;
+}
+.list2{
+    margin-left:15px;
+}
+#mainContent{
+    width: 1130px;
+    height: 690px;
+    position: absolute;
+    top:60px;
+    left:325px;
+}
+#mainList{
+    width:970px;
+    height:490px;
+    position:absolute;
+    top:120px;
+    left:80px;
+    border:1px solid #18C75E;
 }
 #top{
-    width:300px;
-    height:60px;
-    position:absolute;
-    top:90px;
-    left:110px;
-    border-radius: 15px;
-    background-color: #6581A6;
-    font-weight:bold;
-    font-size:30px;
-    padding-top:8px;
-    text-align:center;
+    width:100%;
+    height:50px;
+    border-bottom:1px solid #18C75E;
+    background-color: #18C75E;
+    line-height:50px;
 }
 #bot{
-    width:1340px;
-    height:550px;
-    position:absolute;
-    top:180px;
-    left:110px;
-    border-radius: 15px;
-    background-color: #B0BAD9
-}
-#b1{
-    width:250px;
-    height:50px;
-    position:absolute;
-    top:30px;
-    left:30px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    background-color: #6581A6;
-    font-size:30px;
-    font-weight:bold;
-    padding-left:20px;
-    padding-top:7px;
-}
-#b2{
-    width:850px;
+    width:100%;
     height:440px;
-    position:absolute;
-    top:80px;
-    left:30px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    background-color: #6581A6;
+    overflow-y: scroll;
 }
-#table{
-    width:830px;
-    height:420px;
-    position:absolute;
-    top:10px;
-    left:10px;
-    background-color: whitesmoke;
-    border-radius: 15px;
+.detail{
+    width:100%;
+    height:80px;
+    line-height:80px;
+    font-size:22px;
+    border-bottom:1px solid #18C75E;
 }
-#b3{
-    width:400px;
-    height:330px;
-    position:absolute;
-    top:80px;
-    left:910px;
-    border-radius: 15px;
-    background-color: #6581A6;
+.profile{
+    margin-left:35px;
+    font-size:2.8em;
+    color: #18C75E;
 }
-#detail{
-    width:380px;
-    height:260px;
-    position:absolute;
-    top:10px;
-    left:10px;
-    border-radius: 15px;
-    background-color: whitesmoke;
+.id{
+    font-weight:bold;
+    margin-left:40px;
 }
-#b4{
-    width:400px;
-    height:100px;
-    position:absolute;
-    top: 420px;
-    left:910px;
-    border-radius: 15px;
-    background-color: #6581A6;
+.span{
+    margin-left:40px;
+    display:inline-block;
+    width:140px;
 }
-#invite{
-    width:220px;
-    margin-left:90px;
-    margin-top:20px;
-}
-#b4:hover{
-    opacity: 0.6;
-    cursor: pointer;
+.phone{
+    display:inline-block;
+    margin-left:30px;
+    width:180px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';

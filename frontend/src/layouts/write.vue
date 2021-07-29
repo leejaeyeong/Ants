@@ -8,19 +8,22 @@
                 <q-input v-model="form.title" style="width:54%; margin-left:30px; margin-top:25px; display:inline-block;" filled label="제목" />
                 <q-btn style="margin-left:10px; padding:10px; margin-top:-20px; color:white; background-color:#6581A6;" label="등록" />
                 <q-btn @click="back" style="margin-left:10px; padding:10px; margin-top:-20px; color:white;" color="deep-orange" label="뒤로" />
-                <q-input v-model="form.content" style="width:80%; margin-left:30px; margin-top:15px;  font-size:17px;"
+                <!-- <q-input v-model="form.content" style="width:80%; margin-left:30px; margin-top:15px;  font-size:17px;"
                 filled
                 type="textarea"
                 rows="30"
                 label="내용"
-                />
+                /> -->
+                <div class="q-pa-md q-gutter-sm">
+                  <q-editor v-model="editor" min-height="34rem" style="margin-left:22px;"/>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue'
+import { ref, defineComponent, reactive } from 'vue'
 import Header from '../components/header.vue'
 import Side from '../components/side.vue'
 import BoardSide from '../components/boardSide.vue'
@@ -35,7 +38,7 @@ export default defineComponent({
   },
   setup () {
     const router = useRouter()
-
+    const editor = ref('')
     const form = reactive({
       title: '',
       content: ''
@@ -44,11 +47,15 @@ export default defineComponent({
     const back = function () {
       router.back()
       console.log(form.title)
+      console.log(1111)
+      console.log(editor.value)
+      console.log(1111)
     }
 
     return {
       back,
-      form
+      form,
+      editor
     }
   }
 })

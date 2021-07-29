@@ -4,14 +4,18 @@
         <Side></Side>
         <div id="main">
             <div id="mainSide">
-                <q-btn style="margin-top:30px; width:70%; margin-left:37px; color: white; background-color: #6581A6;" icon="account_box" label="마이페이지" />
+                <q-btn style="margin-top:30px; width:70%; margin-left:37px; color: white; background-color: #18C75E;" icon="account_box" label="마이페이지" />
                 <div id="listTop">
                     <div class="list1">
-                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #6581A6;" name="build"/>
+                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="build"/>
                         <span class="list2">회원 정보 수정</span>
                     </div>
+                    <div class="list1">
+                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="folder"/>
+                        <span class="list2">근태 정보</span>
+                    </div>
                     <div @click="remove" class="list1">
-                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #6581A6;" name="delete"/>
+                        <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="delete"/>
                         <span class="list2">회원 탈퇴</span>
                     </div>
                 </div>
@@ -21,39 +25,42 @@
                 <table width="800" height="350" style="text-align:center; margin-left:30px; margin-top:15px;">
                   <tr>
                     <td colspan="2" rowspan="4" width="35">사진</td>
-                    <td width="100">성명</td>
-                    <td width="200"></td>
-                    <td width="100">ID</td>
-                    <td width="200"></td>
+                    <td width="100" class="left">성명</td>
+                    <td width="200"><q-input outlined  label="" disable /></td>
+                    <td width="100" class="left">ID</td>
+                    <td width="200"><q-input outlined  label="" disable /></td>
                   </tr>
                   <tr>
-                    <td>비밀번호</td>
-                    <td></td>
-                    <td>재직여부</td>
+                    <td class="left">비밀번호</td>
+                    <td><q-input outlined label="" disable /></td>
+                    <td class="left">재직여부</td>
                     <td>재직</td>
                   </tr>
                    <tr>
-                    <td>소속</td>
-                    <td></td>
-                    <td>부서</td>
-                    <td></td>
+                    <td class="left">소속</td>
+                    <td><q-input outlined label="" disable /></td>
+                    <td class="left">부서</td>
+                    <td><q-input outlined label="" disable /></td>
                   </tr>
                   <tr>
-                    <td>직책</td>
-                    <td></td>
-                    <td>핸드폰</td>
-                    <td></td>
+                    <td class="left">직책</td>
+                    <td><q-input outlined label="" disable /></td>
+                    <td class="left">핸드폰</td>
+                    <td><q-input outlined label="" disable /></td>
                   </tr>
                   <tr>
-                    <td colspan="2" rowspan="2"></td>
-                    <td colspan="2">이메일</td>
-                    <td colspan="2"></td>
+                    <td colspan="2" rowspan="2">
+                      <q-btn style="width:125px; color: white; background-color: #18C75E;" icon="photo_camera" label="사진변경" /><br>
+                    </td>
+                    <td colspan="2" class="left">이메일</td>
+                    <td colspan="2"><q-input outlined label="" disable /></td>
                   </tr>
                   <tr>
-                    <td colspan="2">주소</td>
-                    <td colspan="2"></td>
+                    <td colspan="2" class="left">주소</td>
+                    <td colspan="2"><q-input outlined label="" disable /></td>
                   </tr>
                 </table>
+                <q-btn style="margin-left:735px; margin-top:10px; width:95px; color: white; background-color: #18C75E;" icon="build" label="수정" />
             </div>
         </div>
     </div>
@@ -107,7 +114,7 @@ export default defineComponent({
     height:692px;
     float:right;
     border-bottom:0.5px solid rgb(212, 212, 212);
-    background-color:whitesmoke;
+    background-color:white;
 }
 #mainSide{
     width: 250px;
@@ -119,7 +126,7 @@ export default defineComponent({
 }
 #listTop{
     width:80%;
-    height:85px;
+    height:120px;
     margin:10px auto;
     border-bottom:1px solid rgb(216, 210, 210);
 }
@@ -144,8 +151,12 @@ export default defineComponent({
 }
 table, td, th{
   /* border:3px solid #6581A6; */
-  border:1.5px solid black;
+  border:1.5px solid rgb(153, 149, 149);
   border-collapse: collapse;
+}
+.left{
+  background-color: #f9f9f9;
+  font-weight:bold;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
