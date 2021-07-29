@@ -75,8 +75,10 @@ public class UserController {
 		 */
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
 		String userId = userDetails.getUsername();
+		System.out.println("userDetails: " + userDetails.getUser());
 		User user = userService.getUserByUserId(userId);
-		
+		System.out.println("user: " + user);
+
 		return ResponseEntity.status(200).body(UserRes.of(user));
 	}
 
