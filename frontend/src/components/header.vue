@@ -5,13 +5,12 @@
         </div>
         <div id="headerRight">
             <img @click="mvMypage" src="~assets/user.png" style="width:40px; margin-top:10px; margin-right:65px; float:right;" />
-            <q-btn @click="mvManagement" icon="work" flat style="font-size: 1.5em; width:20px; margin-top:2px; margin-right:10px; float:right; color:#6581A6;" size="md"></q-btn>
             <q-btn-dropdown class="nav-item"
                     title="알림"
                     flat
                     no-icon-animation
                     dropdown-icon="notifications"
-                    style="font-size: 1.5em; width:20px; margin-top:2px; margin-right:10px; float:right; color:#6581A6;"
+                    style="font-size: 1.5em; width:20px; margin-top:2px; margin-right:5px; float:right; color:#18C75E;"
                     size="md" >
               <q-list>
                 <q-item clickable v-close-popup @click="onItemClick">

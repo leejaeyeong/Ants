@@ -1,40 +1,40 @@
 <template>
    <div id="mainSide">
-        <q-btn @click="mvWrite" style="margin-top:30px; width:70%; margin-left:37px; color: white; background-color: #6581A6;" icon="mail" label="글쓰기" />
+        <q-btn @click="mvWrite" style="margin-top:30px; width:70%; margin-left:37px; color: white; background-color: #18C75E;" icon="mail" label="글쓰기" />
         <div id="listTop">
             <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #6581A6;" name="turned_in_not"/>
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="turned_in_not"/>
                 <span class="list2">북마크한 글</span>
             </div>
             <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #6581A6;" name="edit"/>
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="edit"/>
                 <span class="list2">내가 쓴 글</span>
             </div>
         </div>
         <div id="listBot">
             <span style="font-weight:bold; font-size:18px; margin-top:10px; margin-left:30px; display:inline-block;">사내 게시판 목록</span>
             <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #6581A6;" name="description"/>
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
                 <span class="list2">공지사항</span>
             </div>
             <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #6581A6;" name="description"/>
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
                 <span class="list2">공통 전달 사항</span>
             </div>
             <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #6581A6;" name="description"/>
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
                 <span class="list2">익명게시판</span>
             </div>
             <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #6581A6;" name="description"/>
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
                 <span class="list2">개발 1팀</span>
             </div>
             <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #6581A6;" name="description"/>
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
                 <span class="list2">개발 2팀</span>
             </div>
             <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #6581A6;" name="description"/>
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
                 <span class="list2">개발 3팀</span>
             </div>
         </div>

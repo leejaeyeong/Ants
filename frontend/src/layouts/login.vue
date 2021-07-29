@@ -8,8 +8,8 @@
                     <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;"/>
                   </div>
                   <div id="form">
-                    <q-input v-model="state.form.id" class="input" filled label="ID" />
-                    <q-input v-model="state.form.password" class="input" filled type="password" label="password" />
+                    <q-input v-on:keyup.enter="login" v-model="state.form.id" class="input" filled label="ID" />
+                    <q-input v-on:keyup.enter="login" v-model="state.form.password" class="input" filled type="password" label="password" />
                     <q-btn @click="login" class="btn" color="primary" label="Login" />
                     <q-btn @click="mvSignUp" class="btn" color="deep-orange" glossy label="SignUp" />
                     <!-- <q-btn @click="mvSignUp" flat style="color: black;" label="signUp"/> -->
@@ -153,7 +153,7 @@ export default defineComponent({
 .header {
   position:relative;
   text-align:center;
-  background: linear-gradient(60deg, #758aa5 0%, #B0BAD9 100%);
+  background: linear-gradient(60deg, #19CE60 0%, #B0BAD9 100%);
   /* background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%); */
   color:white;
 }

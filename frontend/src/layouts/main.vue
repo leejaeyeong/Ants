@@ -15,11 +15,11 @@
                     </div>
                     <div id="detail1">
                         <div class="show">
-                            <q-btn @click="go" style="border-right:1px solid black; height:69px; font-size:20px; font-weight:bold; background: #77ce7b; color: black;" label="출근" />
+                            <q-btn @click="go" style="border-right:1px solid black; height:69px; font-size:20px; font-weight:bold; background: #18C75E; color: black;" label="출근" />
                             <span style="margin-left:7px; font-size:18px;">{{ state.checkInTime }}</span>
                         </div>
                         <div class="show">
-                            <q-btn @click="out" style="border-right:1px solid black; height:69px; font-size:20px; font-weight:bold; background: #77ce7b; color: black" label="퇴근" />
+                            <q-btn @click="out" style="border-right:1px solid black; height:69px; font-size:20px; font-weight:bold; background: #18C75E; color: black" label="퇴근" />
                             <span style="margin-left:7px; font-size:18px;">{{ state.checkOutTime }}</span>
                         </div>
                     </div>
@@ -27,11 +27,11 @@
             </div>
             <div id="topRight">
                 <div id="name">내 통계</div>
-                <q-btn round style="background-color:#6581A6; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
+                <q-btn round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
                 <div>
-                    <q-linear-progress stripe rounded style="border-radius:20px; width:80%; margin-top:35px; margin-left:80px; cursor:pointer; color:#6581A6;" size="30px" :value="progress1">
+                    <q-linear-progress stripe rounded style="border-radius:20px; width:80%; margin-top:35px; margin-left:80px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
                         <div class="absolute-full flex flex-center">
-                            <q-badge color="white" style="color:#6581A6; font-weight:bold;" :label="progressLabel1" />
+                            <q-badge color="white" style="color:#18C75E; font-weight:bold;" :label="progressLabel1" />
                         </div>
                     </q-linear-progress>
                 </div>
@@ -129,7 +129,7 @@ export default defineComponent({
     height:692px;
     float:right;
     border-bottom:0.5px solid rgb(212, 212, 212);
-    background-color:whitesmoke;
+    background-color:white;
 }
 #topLeft{
     width:500px;

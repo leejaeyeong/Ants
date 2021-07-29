@@ -2,49 +2,49 @@
     <div id="side">
         <div @click="mvHome" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #6581A6;" name="home"/>
+                <q-icon style="font-size: 2.8em; color: #18C75E;" name="home"/>
             </div>
-            <div class="detail" style="color: #6581A6; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Home
             </div>
         </div>
         <div @click="mvBoard" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #6581A6;" name="content_paste"/>
+                <q-icon style="font-size: 2.8em; color: #18C75E;" name="content_paste"/>
             </div>
-            <div class="detail" style="color: #6581A6; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Board
             </div>
         </div>
         <div @click="mvGroup" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #6581A6;" name="people_alt"/>
+                <q-icon style="font-size: 2.8em; color: #18C75E;" name="people_alt"/>
             </div>
-            <div class="detail" style="color: #6581A6; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Group
             </div>
         </div>
         <div class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #6581A6;" name="support_agent"/>
+                <q-icon style="font-size: 2.8em; color: #18C75E;" name="support_agent"/>
             </div>
-            <div class="detail" style="color: #6581A6; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 RTC
             </div>
         </div>
         <div class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #6581A6;" name="settings"/>
+                <q-icon style="font-size: 2.8em; color: #18C75E;" name="settings"/>
             </div>
-            <div class="detail" style="color: #6581A6; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Setting
             </div>
         </div>
         <div @click="logout" class="list" id="logout">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #6581A6;" name="logout"/>
+                <q-icon style="font-size: 2.8em; color: #18C75E;" name="logout"/>
             </div>
-            <div class="detail" style="color: #6581A6; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 LogOut
             </div>
         </div>
