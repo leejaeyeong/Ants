@@ -31,7 +31,12 @@ const routes = [
   {
     path: '/write',
     component: () => import('layouts/write.vue')
+  },
+  {
+    path: '/rtc',
+    component: () => import('layouts/rtcTest.vue')
   }
+
   // Always leave this as last one,
   // but you can also remove it
 ]
