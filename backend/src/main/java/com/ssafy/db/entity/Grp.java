@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @Setter
-public class Team extends BaseEntity{
+public class Grp extends BaseEntity{
     String adminId;
     String name;
     String description;

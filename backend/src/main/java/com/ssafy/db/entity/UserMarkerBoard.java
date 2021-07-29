@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 @Getter
 @Setter
 @Entity
-public class UserBoard extends BaseEntity  {
+public class UserMarkerBoard extends BaseEntity  {
 
     @ManyToOne
     @JoinColumn(name = "boardId", nullable = false)
