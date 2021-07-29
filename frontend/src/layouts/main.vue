@@ -27,7 +27,7 @@
             </div>
             <div id="topRight">
                 <div id="name">내 통계</div>
-                <q-btn round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
+                <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
                 <div>
                     <q-linear-progress stripe rounded style="border-radius:20px; width:80%; margin-top:35px; margin-left:80px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
                         <div class="absolute-full flex flex-center">
@@ -57,6 +57,11 @@ export default defineComponent({
   components: {
     Header,
     Side
+  },
+  methods: {
+    mvAttendance () {
+      this.$router.push('/attendance')
+    }
   },
   setup () {
     const timeStamp = Date.now()
@@ -115,7 +120,6 @@ export default defineComponent({
           alert('서버오류. 다시 시도해주세요.')
         })
     }
-
     return {
       formattedString,
       formattedString2,
