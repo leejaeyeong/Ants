@@ -46,7 +46,7 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
-
+      distDir: '../backend/src/main/resources/dist',
       // transpile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)
@@ -73,9 +73,17 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      https: false,
-      port: 8080,
-      open: true // opens browser window automatically
+      https: true,
+      port: 8083,
+      open: true, // opens browser window automatically
+      proxy: {
+        '/api/v1': {
+          target: 'https://localhost:8443/'
+        },
+        '/webjars': {
+          target: 'https://localhost:8443/'
+        }
+      }
     },
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

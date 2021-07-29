@@ -13,9 +13,38 @@ const routes = [
     component: () => import('layouts/main.vue')
   },
   {
-    path: '/mainpage',
-    component: () => import('layouts/MainPage.vue')
+    path: '/group',
+    component: () => import('layouts/group.vue')
+  },
+  {
+    path: '/board',
+    component: () => import('layouts/board.vue')
+  },
+  {
+    path: '/management',
+    component: () => import('layouts/management.vue')
+  },
+  {
+    path: '/mypage',
+    component: () => import('layouts/MyPage.vue')
+  },
+  {
+    path: '/write',
+    component: () => import('layouts/write.vue')
+  },
+  {
+    path: '/rtc',
+    component: () => import('layouts/rtcTest.vue')
+  },
+  {
+    path: '/attendance',
+    component: () => import('layouts/attendance.vue')
+  },
+  {
+    path: '/mypageedit',
+    component: () => import('layouts/MypageEdit.vue')
   }
+
   // Always leave this as last one,
   // but you can also remove it
 ]
