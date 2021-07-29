@@ -8,10 +8,11 @@
                     <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;"/>
                   </div>
                   <div id="form">
-                    <q-input v-model="state.form.id" class="input" filled label="ID" />
-                    <q-input v-model="state.form.password" class="input" filled type="password" label="password" />
-                    <q-btn @click="login" class="btn" color="primary" label="Login" />
-                    <q-btn @click="mvSignUp" class="btn" color="deep-orange" glossy label="SignUp" />
+                    <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.id" class="input" filled label="ID" />
+                    <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.password" class="input" filled type="password" label="password" />
+                    <q-btn @click="login" class="btn; swal2-popup;" style="background-color: #00BF6F;" label="Login" />
+                    <q-btn @click="mvSignUp" class="btn" style="color: #00BF6F;" flat label="SignUp →" />
+                    <!-- <q-btn @click="mvSignUp" flat style="color: black;" label="signUp"/> -->
                   </div>
                 </div>
                 <div id="right">
@@ -69,19 +70,46 @@ export default defineComponent({
     // router를 사용하기 위해선 useRouter import후 변수 선언하여 사용 해야함 !
     const store = useStore()
     // store를 사용하기 위해선 useStore import후 변수 선언하여 사용 해야함 !
+
+    // 로그인
+    const Swal = require('sweetalert2')
     const login = function () {
       store.dispatch('module/login', { id: state.form.id, password: state.form.password })
         .then(function (result) {
-          alert('accessToken: ' + result.data.accessToken)
+          console.log(result)
+          console.log(result.data)
+          // Swal.fire('accessToken: ' + result.data.accessToken)
           // 로컬스토리지 등록하기
           localStorage.setItem('token', result.data.accessToken)
           localStorage.setItem('id', state.form.id)
           localStorage.setItem('password', state.form.password)
+          router.push('/main')
+          console.log(localStorage)
+          store.dispatch('module/requestInfo')
+            .then(response => {
+              console.log(response, '리스폰스')
+              const userInfo = {
+                id: response.data.userId,
+                name: response.data.name,
+                department: response.data.department
+              }
+              localStorage.setItem('name', userInfo.name)
+              localStorage.setItem('department', userInfo.department)
+              // store.state.userId = userInfo.id
+              // store.state.name = userInfo.name
+              router.go()
+            }).catch(err => {
+              console.log(err, '에러입니다')
+            })
         })
-        .catch(function (err) {
-          alert(err)
+        .catch(function () {
+          Swal.fire({
+            title: '아이디, 비밀번호를 확인해주세요',
+            confirmButtonColor: '#19CE60',
+            confirmButtonText: '확인',
+            customClass: 'swal-wide'
+          })
         })
-      router.push('/main')
     }
     return { state, login }
   }
@@ -121,7 +149,8 @@ export default defineComponent({
   float:right;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-image: url('assets/office.jpg');
+  background-image: url('https://images.unsplash.com/photo-1535957998253-26ae1ef29506?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjJ8fHdvcmt8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+  background-size:500px;
 }
 #form{
   margin-top:-40px;
@@ -129,10 +158,14 @@ export default defineComponent({
 .btn{
   margin:0 5px;
 }
+.swal-wide{
+  width:50px !important;
+}
 .header {
   position:relative;
   text-align:center;
-  background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+  background: linear-gradient(60deg, #19CE60 0%, #00B0B9 100%);
+  /* background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%); */
   color:white;
 }
 
@@ -187,6 +220,7 @@ export default defineComponent({
   animation-delay: -5s;
   animation-duration: 20s;
 }
+
 @keyframes move-forever {
   0% {transform: translate3d(-90px,0,0);}
   100% { transform: translate3d(85px,0,0);}
@@ -203,5 +237,22 @@ export default defineComponent({
   h1 {
     font-size:24px;
   }
+}
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+.swal2-popup {
+    width: 32em;
+    max-width: 100%;
+    padding: 0 0 1.25em;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    color: #545454;
+    font-family: 'NEXON Lv1 Gothic OTF' !important;
+    font-size: 1rem;
 }
 </style>
