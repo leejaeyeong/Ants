@@ -10,12 +10,12 @@ import javax.persistence.ManyToOne;
 @Entity
 @Getter
 @Setter
-public class TeamConference extends BaseEntity{
+public class GrpConference extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "conference_id", nullable = false)
     Conference conference;
 
     @ManyToOne
-    @JoinColumn(name = "team_id", nullable = false)
-    Team team;
+    @JoinColumn(name = "group_id", nullable = false)
+    Grp grp;
 }

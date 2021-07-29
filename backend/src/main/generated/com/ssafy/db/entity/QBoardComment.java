@@ -33,7 +33,7 @@ public class QBoardComment extends EntityPathBase<BoardComment> {
 
     public final DateTimePath<java.time.LocalDateTime> registrationTime = createDateTime("registrationTime", java.time.LocalDateTime.class);
 
-    public final QUser user;
+    public final QUser writer;
 
     public QBoardComment(String variable) {
         this(BoardComment.class, forVariable(variable), INITS);
@@ -54,7 +54,7 @@ public class QBoardComment extends EntityPathBase<BoardComment> {
     public QBoardComment(Class<? extends BoardComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
-        this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
+        this.writer = inits.isInitialized("writer") ? new QUser(forProperty("writer"), inits.get("writer")) : null;
     }
 
 }

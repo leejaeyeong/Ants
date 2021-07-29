@@ -26,8 +26,8 @@ public class User extends BaseEntity implements Serializable {
     int holiday;
 
     @ManyToOne
-    @JoinColumn(name="team", nullable = false)
-    private Team team;
+    @JoinColumn(name="group_id", nullable = false)
+    private Grp grp;
 
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -36,8 +36,8 @@ public class User extends BaseEntity implements Serializable {
     @PrePersist
     public void setUp(){
         this.holiday = 14;
-        this.team = new Team();
-        this.team.setId((long)1);
+        this.grp = new Grp();
+        this.grp.setId((long)1);
         this.setDepartment(new Department(1, "empty"));
     }
 
