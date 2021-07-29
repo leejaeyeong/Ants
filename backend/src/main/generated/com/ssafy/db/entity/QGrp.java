@@ -10,14 +10,14 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QTeam is a Querydsl query type for Team
+ * QGrp is a Querydsl query type for Grp
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QTeam extends EntityPathBase<Team> {
+public class QGrp extends EntityPathBase<Grp> {
 
-    private static final long serialVersionUID = 846499103L;
+    private static final long serialVersionUID = -1219631645L;
 
-    public static final QTeam team = new QTeam("team");
+    public static final QGrp grp = new QGrp("grp");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
@@ -32,16 +32,16 @@ public class QTeam extends EntityPathBase<Team> {
 
     public final StringPath name = createString("name");
 
-    public QTeam(String variable) {
-        super(Team.class, forVariable(variable));
+    public QGrp(String variable) {
+        super(Grp.class, forVariable(variable));
     }
 
-    public QTeam(Path<? extends Team> path) {
+    public QGrp(Path<? extends Grp> path) {
         super(path.getType(), path.getMetadata());
     }
 
-    public QTeam(PathMetadata metadata) {
-        super(Team.class, metadata);
+    public QGrp(PathMetadata metadata) {
+        super(Grp.class, metadata);
     }
 
 }
