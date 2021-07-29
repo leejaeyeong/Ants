@@ -6,7 +6,7 @@
             <div id="mainSide">
                 <q-btn style="margin-top:30px; width:70%; margin-left:37px; color: white; background-color: #18C75E;" icon="account_box" label="마이페이지" />
                 <div id="listTop">
-                    <div class="list1" @click="mvEdit">
+                    <div class="list1">
                         <q-icon class="icon" name="build"/>
                         <span class="list2">회원 정보 수정</span>
                     </div>
@@ -21,14 +21,14 @@
                 </div>
             </div>
             <div id="myData">
-                <div style="margin-top:25px; margin-left:30px; font-weight:bold; font-size:25px;">회원 정보</div>
+                <div style="margin-top:25px; margin-left:30px; font-weight:bold; font-size:25px;">회원 정보 수정페이지</div>
                 <table width="800" height="350" style="text-align:center; margin-left:30px; margin-top:15px;">
                   <tr>
                     <td colspan="2" rowspan="4" width="35">사진</td>
                     <td width="100" class="left">성명</td>
-                    <td width="200">{{ profile.name }}</td>
+                    <td width="200"><q-input outlined  label="" disable />{{ profile.name }}</td>
                     <td width="100" class="left">ID</td>
-                    <td width="200">{{ profile.id }}</td>
+                    <td width="200"><q-input outlined  label="" disable /></td>
                   </tr>
                   <tr>
                     <td class="left">생년월일</td>
@@ -60,7 +60,7 @@
                     <td colspan="2"><q-input outlined label="" disable /></td>
                   </tr>
                 </table>
-                <!-- <q-btn style="margin-left:735px; margin-top:10px; width:95px; color: white; background-color: #18C75E;" icon="build" label="수정" /> -->
+                <q-btn style="margin-left:735px; margin-top:10px; width:95px; color: white; background-color: #18C75E;" icon="build" label="수정" />
             </div>
         </div>
     </div>
@@ -76,11 +76,6 @@ export default defineComponent({
   components: {
     Header,
     Side
-  },
-  methods: {
-    mvEdit () {
-      this.$router.push('/mypageedit')
-    }
   },
   setup () {
     // 회원 탈퇴
@@ -105,7 +100,6 @@ export default defineComponent({
     }
     // 개인정보
     const profile = reactive({
-      id: localStorage.getItem('id'),
       name: localStorage.getItem('name'),
       department: localStorage.getItem('department'),
       position: localStorage.getItem('position')
