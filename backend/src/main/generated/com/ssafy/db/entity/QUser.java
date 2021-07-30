@@ -26,6 +26,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final QDepartment department;
 
+    public final QGrp grp;
+
     public final NumberPath<Integer> holiday = createNumber("holiday", Integer.class);
 
     //inherited
@@ -36,8 +38,6 @@ public class QUser extends EntityPathBase<User> {
     public final StringPath password = createString("password");
 
     public final StringPath position = createString("position");
-
-    public final QTeam team;
 
     public final StringPath userId = createString("userId");
 
@@ -60,7 +60,7 @@ public class QUser extends EntityPathBase<User> {
     public QUser(Class<? extends User> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.department = inits.isInitialized("department") ? new QDepartment(forProperty("department")) : null;
-        this.team = inits.isInitialized("team") ? new QTeam(forProperty("team")) : null;
+        this.grp = inits.isInitialized("grp") ? new QGrp(forProperty("grp")) : null;
     }
 
 }

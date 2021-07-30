@@ -1,7 +1,7 @@
 package com.ssafy.api.response;
 
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Team;
+import com.ssafy.db.entity.Grp;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -11,13 +11,13 @@ import java.util.List;
 
 @Getter
 @Setter
-@ApiModel("TeamResponse")
-public class TeamRes extends BaseResponseBody {
+@ApiModel("GroupResponse")
+public class GrpRes extends BaseResponseBody {
     @ApiModelProperty(name = "Group List")
-    List<Team> list;
-    public static TeamRes of(List<Team> team) {
-        TeamRes res = new TeamRes();
-        res.list = team;
+    List<Grp> list;
+    public static GrpRes of(List<Grp> grp) {
+        GrpRes res = new GrpRes();
+        res.list = grp;
         return res;
     }
 }
