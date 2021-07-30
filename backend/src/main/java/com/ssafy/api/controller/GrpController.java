@@ -1,29 +1,24 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.TeamRegisterPostReq;
-import com.ssafy.api.request.TeamUpdatePutReq;
-import com.ssafy.api.response.TeamRes;
-import com.ssafy.api.response.UserRes;
-import com.ssafy.api.service.TeamService;
-import com.ssafy.common.auth.SsafyUserDetails;
+import com.ssafy.api.request.GrpRegisterPostReq;
+import com.ssafy.api.request.GrpUpdatePutReq;
+import com.ssafy.api.response.GrpRes;
+import com.ssafy.api.service.GrpService;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Team;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.Grp;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
 @Api(value = "그룹 API", tags = {"Group"})
 @RestController
 @RequestMapping("/api/v1/group")
-public class TeamController {
+public class GrpController {
     @Autowired
-    TeamService teamService;
+    GrpService grpService;
 
     //전체 그룹 조회
     @GetMapping
@@ -35,9 +30,9 @@ public class TeamController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> getAllTeams(){
-        List<Team> teams = teamService.getAll();
+        List<Grp> grps = grpService.getAll();
 
-        if(teams != null) return ResponseEntity.status(200).body(TeamRes.of(teams));
+        if(grps != null) return ResponseEntity.status(200).body(GrpRes.of(grps));
         return ResponseEntity.status(409).body(BaseResponseBody.of(409, "Search Failed"));
     }
 
@@ -51,9 +46,9 @@ public class TeamController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> getTeamsByAdminId( @PathVariable String adminId){
-        List<Team> teams = teamService.getTeamByAdminID(adminId);
+        List<Grp> grps = grpService.getGroupByAdminId(adminId);
 
-        if(teams != null) return ResponseEntity.status(200).body(TeamRes.of(teams));
+        if(grps != null) return ResponseEntity.status(200).body(GrpRes.of(grps));
         return ResponseEntity.status(409).body(BaseResponseBody.of(409, "Search Failed"));
     }
 
@@ -67,10 +62,10 @@ public class TeamController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> register(
-            @RequestBody @ApiParam(value="그룹 생성 정보", required = true) TeamRegisterPostReq registerInfo) {
+            @RequestBody @ApiParam(value="그룹 생성 정보", required = true) GrpRegisterPostReq registerInfo) {
 
         //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-        Team team = teamService.createTeam(registerInfo);
+        Grp grp = grpService.createGroup(registerInfo);
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
@@ -84,9 +79,9 @@ public class TeamController {
             @ApiResponse(code = 404, message = "수정 실패"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> updateUserInfo( @RequestBody TeamUpdatePutReq teamUpdateInfo) {
+    public ResponseEntity<? extends BaseResponseBody> updateUserInfo( @RequestBody GrpUpdatePutReq teamUpdateInfo) {
 
-        if(teamService.updateTeam(teamUpdateInfo)){
+        if(grpService.updateGroup(teamUpdateInfo)){
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
         }
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Update failed"));
@@ -103,7 +98,7 @@ public class TeamController {
     })
     public ResponseEntity<? extends BaseResponseBody> deleteUser(@PathVariable Long id) {
        
-        if(teamService.deleteTeam(id)) return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Delete Success"));
+        if(grpService.deleteGroup(id)) return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Delete Success"));
         return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Delete Fail"));
     }
 }

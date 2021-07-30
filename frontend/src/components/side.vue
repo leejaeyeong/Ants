@@ -3,50 +3,68 @@
         <div @click="mvHome" class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #18C75E;" name="home"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>HOME</strong>
+                  </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Home
-            </div>
+            </div> -->
         </div>
         <div @click="mvBoard" class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #18C75E;" name="content_paste"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>Board</strong>
+                  </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Board
-            </div>
+            </div> -->
         </div>
         <div @click="mvGroup" class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #18C75E;" name="people_alt"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>Group</strong>
+                  </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Group
-            </div>
+            </div> -->
         </div>
         <div @click="mvRTC" class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #18C75E;" name="support_agent"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>RTC</strong>
+                  </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
                 RTC
-            </div>
+            </div> -->
         </div>
         <div class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #18C75E;" name="settings"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>Settings</strong>
+                  </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Setting
-            </div>
+            </div> -->
         </div>
         <div @click="logout" class="list" id="logout">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #18C75E;" name="logout"/>
+                <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                  <strong>Logout</strong>
+                </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
                 LogOut
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -83,14 +101,7 @@ export default defineComponent({
     }
     return {
       outlinedAllInbox,
-      logout,
-      links1: [
-        { icon: 'home', text: '홈', name: 'main' },
-        { icon: 'volume_up', text: '공지사항', name: 'notice' },
-        { icon: 'content_paste', text: '게시판', name: 'board' },
-        { icon: 'people_alt', text: '화상회의', name: 'rtc' },
-        { icon: 'settings', text: '설정', name: 'set' }
-      ]
+      logout
     }
   }
 })
@@ -110,12 +121,18 @@ export default defineComponent({
     left:2%;
 }
 .list{
-    height:80px;
-    border:1px solid white;
+  height:60px;
+  border:1px solid white;
+  }
+
+.list.selected{
+  background-color: rgb(223, 241, 231);
 }
+
 .list:hover{
-    background-color:gainsboro;
+    background-color:rgb(223, 241, 231);
     cursor: pointer;
+    border-radius: 10%;
 }
 .img{
     text-align:center;
