@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QUserBoard is a Querydsl query type for UserBoard
+ * QUserMarkerBoard is a Querydsl query type for UserMarkerBoard
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QUserBoard extends EntityPathBase<UserMarkerBoard> {
+public class QUserMarkerBoard extends EntityPathBase<UserMarkerBoard> {
 
-    private static final long serialVersionUID = 684578905L;
+    private static final long serialVersionUID = 1200473599L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QUserBoard userBoard = new QUserBoard("userBoard");
+    public static final QUserMarkerBoard userMarkerBoard = new QUserMarkerBoard("userMarkerBoard");
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
@@ -31,23 +31,23 @@ public class QUserBoard extends EntityPathBase<UserMarkerBoard> {
 
     public final QUser user;
 
-    public QUserBoard(String variable) {
+    public QUserMarkerBoard(String variable) {
         this(UserMarkerBoard.class, forVariable(variable), INITS);
     }
 
-    public QUserBoard(Path<? extends UserMarkerBoard> path) {
+    public QUserMarkerBoard(Path<? extends UserMarkerBoard> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QUserBoard(PathMetadata metadata) {
+    public QUserMarkerBoard(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QUserBoard(PathMetadata metadata, PathInits inits) {
+    public QUserMarkerBoard(PathMetadata metadata, PathInits inits) {
         this(UserMarkerBoard.class, metadata, inits);
     }
 
-    public QUserBoard(Class<? extends UserMarkerBoard> type, PathMetadata metadata, PathInits inits) {
+    public QUserMarkerBoard(Class<? extends UserMarkerBoard> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
