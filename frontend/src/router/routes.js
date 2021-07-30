@@ -35,6 +35,14 @@ const routes = [
   {
     path: '/rtc',
     component: () => import('layouts/rtcTest.vue')
+  },
+  {
+    path: '/attendance',
+    component: () => import('layouts/attendance.vue')
+  },
+  {
+    path: '/mypageedit',
+    component: () => import('layouts/MypageEdit.vue')
   }
 
   // Always leave this as last one,

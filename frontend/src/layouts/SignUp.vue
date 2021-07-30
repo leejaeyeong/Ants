@@ -17,6 +17,7 @@
                         class="input"
                         filled
                         label="ID *"
+                        color="teal"
                         v-model="state.form.userId"
                         @blur="checkId"
                         lazy-rules
@@ -29,6 +30,7 @@
                         class="input"
                         filled
                         label="Name *"
+                        color="teal"
                         v-model="state.form.name"
                         lazy-rules
                         :rules="[
@@ -36,7 +38,7 @@
                         val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
                         ]"
                       />
-                      <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" v-model="state.form.password"
+                      <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" color="teal" v-model="state.form.password"
                       lazy-rules
                         :rules="[
                           val => val && val.length > 0 || '필수입력항목 입니다.'
@@ -49,24 +51,10 @@
                           />
                         </template>
                       </q-input>
-                      <!-- 비밀번호 체크 -->
-                      <!-- <q-input class="input" filled :type="isPwdCheck ? 'password' : 'text'"   label="Password Check *"
-                      lazy-rules
-                        :rules="[
-                          val => val && val.length > 0 || '비밀번호 확인을 입력해주세요',
-                        ]">
-                        <template v-slot:append>
-                          <q-icon
-                            :name="isPwdCheck ? 'visibility_off' : 'visibility'"
-                            class="cursor-pointer"
-                            @click="isPwdCheck = !isPwdCheck"
-                          />
-                        </template>
-                      </q-input> -->
                       <div class="btnform">
-                        <q-btn @click="validate" label="Submit" type="submit" color="primary"/>
+                        <q-btn @click="back" flat style="color: #00BF6F; margin-right:10px;" label="← Login"/>
+                        <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
                         <!-- <q-btn @click="back" label="back" color="white" style="margin-left:10px;" /> -->
-                        <q-btn @click="back" flat style="color: black; margin-left:10px;" label="back"/>
                       </div>
                     </q-form>
                   </div>
@@ -226,8 +214,8 @@ export default defineComponent({
   float:left;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
-  background-image: url('assets/office3.jpg');
-  background-size: 500px;
+  background-image: url('https://images.unsplash.com/photo-1616531770192-6eaea74c2456?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fG9ubGluZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+  background-size: 750px;
 }
 #form{
   margin-left: 14%;
@@ -242,7 +230,7 @@ export default defineComponent({
 .header {
   position:relative;
   text-align:center;
-  background: linear-gradient(60deg, #19CE60 0%, #B0BAD9 100%);
+  background: linear-gradient(60deg, #19CE60 0%, #00B0B9 100%);
   /* background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%); */
   color:white;
 }

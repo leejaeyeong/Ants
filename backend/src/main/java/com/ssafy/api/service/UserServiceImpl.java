@@ -1,10 +1,9 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserTeamMappingPutReq;
-import com.ssafy.api.request.UserUpdatePutReq;
 import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.Department;
-import com.ssafy.db.entity.Team;
+import com.ssafy.db.entity.Grp;
 import com.ssafy.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 
-import javax.transaction.Transactional;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	DepartmentRepositorySupport departmentRepositorySupport;
 
 	@Autowired
-	TeamRepositorySupport teamRepositorySupport;
+	GrpRepositorySupport grpRepositorySupport;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -69,7 +67,7 @@ public class UserServiceImpl implements UserService {
 		if(userRepositorySupport.findUserByUserId(userId).isPresent())
 			user = userRepositorySupport.findUserByUserId(userId).get();
 
-		if(user == null || user.getTeam().getId() != 1) return false;
+		if(user == null || user.getGrp().getId() != 1) return false;
 		return true;
 	}
 
@@ -84,10 +82,10 @@ public class UserServiceImpl implements UserService {
 		User user = getUserByUserId(userTeamMappingPutReq.getUserId());
 		if(user == null) return false;
 
-		Team team = teamRepositorySupport.findTeamById(userTeamMappingPutReq.getTeamId()).get();
-		if(team == null) return false;
+		Grp grp = grpRepositorySupport.findTeamById(userTeamMappingPutReq.getTeamId()).get();
+		if(grp == null) return false;
 
-		user.setTeam(team);
+		user.setGrp(grp);
 		return userRepositorySupport.updateUser(user);
 	}
 
