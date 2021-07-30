@@ -81,3 +81,8 @@ export function requestInfo ({ state }, header) {
   console.log('리퀘스트유저정보')
   return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
+
+export function getRooms () {
+  const rooms = $axios.get(baseUrl + 'api/v1/rtc')
+  return rooms
+}
