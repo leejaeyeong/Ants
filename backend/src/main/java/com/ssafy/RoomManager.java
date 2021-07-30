@@ -71,4 +71,7 @@ public class RoomManager {
     log.info("Room {} removed and closed", room.getName());
   }
 
+  public ConcurrentMap<String,Room> getRoomList(){
+    return this.rooms;
+  }
 }
