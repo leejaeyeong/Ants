@@ -5,11 +5,11 @@
             <div id='loginbox'>
                 <div id="left">
                   <div id="mark">
-                    <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;"/>
+                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;"/>
                   </div>
                   <div id="form">
                     <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.id" class="input" filled label="ID" />
-                    <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.password" class="input" filled type="password" label="password" />
+                    <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.password" class="input" filled type="password" label="Password" />
                     <q-btn @click="login" class="btn; swal2-popup;" style="background-color: #00BF6F;" label="Login" />
                     <q-btn @click="mvSignUp" class="btn" style="color: #00BF6F;" flat label="SignUp →" />
                     <!-- <q-btn @click="mvSignUp" flat style="color: black;" label="signUp"/> -->
@@ -56,7 +56,7 @@ export default defineComponent({
   name: 'login',
   methods: {
     mvSignUp () {
-      this.$router.push('/signUp')
+      this.$router.push('/signup')
     }
   },
   setup () {

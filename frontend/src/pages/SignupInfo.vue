@@ -1,11 +1,10 @@
 <template>
     <div class="header">
-        <!--Content before waves-->
         <div class="inner-header flex">
             <div id='loginbox'>
                 <div id="right">
                   <div id="mark">
-                    <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;" height="150px" />
+                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
                   </div>
                   <div class="q-pa-md" id="form" style="max-width: 400px">
                     <q-form
@@ -54,7 +53,6 @@
                       <div class="btnform">
                         <q-btn @click="back" flat style="color: #00BF6F; margin-right:10px;" label="← Login"/>
                         <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
-                        <!-- <q-btn @click="back" label="back" color="white" style="margin-left:10px;" /> -->
                       </div>
                     </q-form>
                   </div>
