@@ -1,7 +1,5 @@
 <template>
-    <Header></Header>
     <div id="content">
-        <Side></Side>
         <div id="main">
             <div id="topLeft">
                 <div id="name">출근 & 퇴근</div>
@@ -46,17 +44,13 @@
 
 <script>
 import { reactive, defineComponent, onMounted, ref, computed } from 'vue'
-import Header from '../components/header.vue'
-import Side from '../components/side.vue'
 import { date } from 'quasar'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: 'login',
+  name: 'mainpage',
   components: {
-    Header,
-    Side
   },
   methods: {
     mvAttendance () {
@@ -228,10 +222,28 @@ export default defineComponent({
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'RIDIBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Eulyoo1945-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/Eulyoo1945-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 div{
-  font-family: 'NEXON Lv1 Gothic OTF';
+  font-family: 'Eulyoo1945-Regular';
 }
 span{
-  font-family: 'NEXON Lv1 Gothic OTF';
+  font-family: 'Eulyoo1945-Regular';
 }
 </style>

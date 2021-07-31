@@ -1,7 +1,5 @@
 <template>
-    <Header></Header>
     <div id="content">
-        <Side></Side>
         <div id="main">
             <div id="mainSide">
                 <div style="margin-top:30px; width:70%; height:37px; margin-left:37px; border-radius:5px; font-weight:bold; text-align:center; padding-top:7px; font-size:18px; color: white; background-color: #18C75E;">SSAFY 사무국</div>
@@ -92,14 +90,10 @@
 
 <script>
 import { defineComponent } from 'vue'
-import Header from '../components/header.vue'
-import Side from '../components/side.vue'
 
 export default defineComponent({
   name: 'group',
   components: {
-    Header,
-    Side
   },
   setup () {
     const options = [
