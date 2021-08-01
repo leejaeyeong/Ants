@@ -86,10 +86,10 @@ table, td, th{
     font-weight: normal;
     font-style: normal;
 }
-div{
+/* div{
   font-family: 'NEXON Lv1 Gothic OTF';
 }
 span{
   font-family: 'NEXON Lv1 Gothic OTF';
-}
+} */
 </style>

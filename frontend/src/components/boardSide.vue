@@ -84,7 +84,7 @@ export default defineComponent({
     margin-left:20px;
 }
 .list1:hover{
-    background-color:rgb(216, 210, 210);
+    background-color:rgb(223, 241, 231);
     cursor: pointer;
 }
 .list2{

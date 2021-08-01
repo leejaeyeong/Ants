@@ -1,7 +1,7 @@
 <template>
   <div id="board">
-      <q-input v-model="form.title" style="width:54%; margin-left:30px; margin-top:25px; display:inline-block;" filled label="제목" />
-      <q-btn style="margin-left:10px; padding:10px; margin-top:-20px; color:white; background-color:#6581A6;" label="등록" />
+      <q-input color="teal" v-model="form.title" style="width:54%; margin-left:30px; margin-top:25px; display:inline-block;" filled label="제목" />
+      <q-btn style="margin-left:10px; padding:10px; margin-top:-20px; color:white; background-color: #00BF6F;" label="등록" />
       <q-btn @click="back" style="margin-left:10px; padding:10px; margin-top:-20px; color:white;" color="deep-orange" label="뒤로" />
       <!-- <q-input v-model="form.content" style="width:80%; margin-left:30px; margin-top:15px;  font-size:17px;"
       filled
