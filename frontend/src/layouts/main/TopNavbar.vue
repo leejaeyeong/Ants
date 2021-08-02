@@ -53,7 +53,7 @@ export default defineComponent({
       this.$router.push('/management')
     },
     mvMypage () {
-      this.$router.push('/mylayout')
+      this.$router.push('/mypage')
     }
   },
   setup () {
