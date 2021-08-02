@@ -109,41 +109,36 @@ export default defineComponent({
 
 <style scoped>
 #side{
-    width:75px;
-    height:692px;
-    float:left;
-    border-right:0.5px solid rgb(212, 212, 212);
-    border-bottom:0.5px solid rgb(212, 212, 212);
-}
-#logoutbtn{
-    position: fixed;
-    top:93%;
-    left:2%;
+  width:75px;
+  height:692px;
+  float:left;
+  border-right:0.5px solid rgb(212, 212, 212);
+  border-bottom:0.5px solid rgb(212, 212, 212);
 }
 .list{
-  height:60px;
+  height:63px;
   border:1px solid white;
-  }
+}
 
 .list.selected{
   background-color: rgb(223, 241, 231);
 }
 
 .list:hover{
-    background-color:rgb(223, 241, 231);
-    cursor: pointer;
-    border-radius: 10%;
+  background-color:rgb(223, 241, 231);
+  cursor: pointer;
+  border-radius: 10%;
 }
 .img{
-    text-align:center;
-    margin-top:5px;
+  text-align:center;
+  margin-top:5px;
 }
 .detail{
-    line-height:33px;
-    text-align:center;
-    font-size:14px;
+  line-height:33px;
+  text-align:center;
+  font-size:14px;
 }
 #logout{
-    margin-top:220px;
+  margin-top:280px;
 }
 </style>

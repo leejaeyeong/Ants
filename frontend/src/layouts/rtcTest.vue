@@ -29,8 +29,8 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import Header from '../components/header.vue'
-import Side from '../components/side.vue'
+import Header from '../components/Header.vue'
+import Side from '../components/Side.vue'
 
 export default defineComponent({
   setup () {},
