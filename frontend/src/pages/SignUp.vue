@@ -53,7 +53,7 @@
               <div class="btnform">
                 <q-btn @click="back" flat style="color: #00BF6F; margin-right:10px;" label="← Login"/>
                 <!-- <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/> -->
-                <q-btn @click="next" label="Next" type="submit" style="background-color: #00BF6F;"/>
+                <q-btn @click="next" label="Next" style="background-color: #00BF6F;"/>
               </div>
             </q-form>
           </div>
@@ -76,17 +76,31 @@
                 val => !!val || '필수입력항목 입니다.'
                 ]"
               />
-              <q-uploader
+              <q-select class="input" filled v-model="state.form.department" :options="options" label="Filled" />
+              <!-- <q-uploader
                 class="input"
-                url="http://localhost:4444/upload"
                 label="Upload profile Image"
-                color="teal"
-                square
-                flat
+                color="green-14"
                 bordered
-                style="max-width: 300px"
+                style="max-width: 300px;"
                 v-model="state.form.profileimg"
-              />
+                accept=".jpg, image/*"
+                @rejected="onRejected"
+                :headers="[{name: 'Content-Type', value: 'multipart/form-data'}]"
+              /> -->
+              <div class="input">
+                <div>
+                  <q-btn @click="imgLabelClick" style="background-color: #00BF6F;">Upload Image</q-btn>
+                  <!-- <label for="image_uploads" style="color: black;" @click="imgLabelClick">Choose images to upload (PNG, JPG)</label> -->
+                  <input ref="imageInput" type="file" style="color: black; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png" id="profile_img_upload">
+                </div>
+                <img
+                v-if="state.tmp"
+                :src="state.tmp"
+                style="border-radius: 50%; width: 100px; height: 100px;"
+                id="thumb"
+                />
+              </div>
               <div class="btnform">
                 <q-btn @click="back2" flat style="color: #00BF6F; margin-right:10px;" label="← Back"/>
                 <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
@@ -141,14 +155,17 @@ export default defineComponent({
   setup () {
     const signupForm = ref(null)
     const state = reactive({
+      tmp: null,
       form: {
         userId: '',
         name: '',
         password: '',
         email: '',
-        profileimg: ''
+        image: '',
+        department: ''
       }
     })
+
     const router = useRouter()
     const store = useStore()
     const Swal = require('sweetalert2')
@@ -163,33 +180,35 @@ export default defineComponent({
               confirmButtonColor: '#19CE60',
               confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
             })
-            console.log(this.val)
-            this.val = true
+            return true
           }
         })
         .catch(function (err) {
           if (err.request.status === 409) {
+            console.log('아이디 중복오류')
             Swal.fire({
               title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">이미 존재하는 아이디입니다.</span>',
               confirmButtonColor: '#ce1919',
               confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
             })
-            this.val = false
+          } else {
+            console.log(err)
           }
         })
     }
-
+    // 회원가입보냄
     function validate () {
       signupForm.value.validate().then(success => {
         if (success) {
-          // yay, models are correct
+          // 회원가입 유효함
           console.log('유효함')
           store.dispatch('module/requestSignup', {
             userId: state.form.userId,
             name: state.form.name,
             password: state.form.password,
             email: state.form.email,
-            profileimg: state.form.profileimg
+            image: state.form.image,
+            department: state.form.department
           })
             .then(function (result) {
               console.log(result)
@@ -212,6 +231,24 @@ export default defineComponent({
         }
       })
     }
+    // 사진업로드
+    function onClickImageUpload () {
+      this.$refs.imageInput.click()
+    }
+    function onChangeImages (e) {
+      console.log(e.target.files)
+      console.log(e.target)
+      const file = e.target.files[0] // Get first index in files
+      this.state.tmp = URL.createObjectURL(file)
+      this.state.form.image = file // Create File URL
+    }
+    // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
+    function imgLabelClick () {
+      const inputImg = document.getElementById('profile_img_upload') // input file 태그 저장
+      console.log(inputImg)
+      inputImg.click() // 클릭이벤트 실행
+    }
+
     // 추가정보 입력 보이기
     function next () {
       document.getElementById('right1').style.display = 'none'
@@ -231,7 +268,13 @@ export default defineComponent({
       email: ref(''),
       file: ref(null),
       state,
-      checkId
+      checkId,
+      options: [
+        'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+      ],
+      onClickImageUpload,
+      onChangeImages,
+      imgLabelClick
     }
   }
 })
@@ -364,5 +407,11 @@ export default defineComponent({
   h1 {
     font-size:24px;
   }
+}
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 </style>
