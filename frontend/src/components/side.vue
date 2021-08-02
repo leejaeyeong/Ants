@@ -33,7 +33,7 @@
                 Group
             </div> -->
         </div>
-        <div class="list">
+        <div @click="mvRTC" class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: #18C75E;" name="support_agent"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
@@ -85,6 +85,9 @@ export default defineComponent({
     },
     mvBoard () {
       this.$router.push('/board')
+    },
+    mvRTC () {
+      this.$router.push('/rtc')
     }
   },
   setup () {
