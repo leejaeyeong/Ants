@@ -5,13 +5,13 @@
             <div id='loginbox'>
                 <div id="left">
                   <div id="mark">
-                    <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;"/>
+                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;"/>
                   </div>
                   <div id="form">
-                    <q-input v-on:keyup.enter="login" v-model="state.form.id" class="input" filled label="ID" />
-                    <q-input v-on:keyup.enter="login" v-model="state.form.password" class="input" filled type="password" label="password" />
-                    <q-btn @click="login" class="btn" color="primary" label="Login" />
-                    <q-btn @click="mvSignUp" class="btn" color="deep-orange" glossy label="SignUp" />
+                    <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.id" class="input" filled label="ID" />
+                    <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.password" class="input" filled type="password" label="Password" />
+                    <q-btn @click="login" class="btn;" style="background-color: #00BF6F;" label="Login" />
+                    <q-btn @click="mvSignUp" class="btn" style="color: #00BF6F;" flat label="SignUp →" />
                     <!-- <q-btn @click="mvSignUp" flat style="color: black;" label="signUp"/> -->
                   </div>
                 </div>
@@ -61,7 +61,7 @@ export default defineComponent({
   name: 'login',
   methods: {
     mvSignUp () {
-      this.$router.push('/signUp')
+      this.$router.push('/signup')
     }
 
   },
@@ -78,6 +78,7 @@ export default defineComponent({
     const store = useStore()
     // store를 사용하기 위해선 useStore import후 변수 선언하여 사용 해야함 !
 
+    // 로그인
     const Swal = require('sweetalert2')
     const login = function () {
       store.dispatch('module/login', { id: state.form.id, password: state.form.password })
@@ -96,9 +97,11 @@ export default defineComponent({
               console.log(response, '리스폰스')
               const userInfo = {
                 id: response.data.userId,
-                name: response.data.name
+                name: response.data.name,
+                department: response.data.department
               }
               localStorage.setItem('name', userInfo.name)
+              localStorage.setItem('department', userInfo.department)
               // store.state.userId = userInfo.id
               // store.state.name = userInfo.name
               router.go()
@@ -107,7 +110,11 @@ export default defineComponent({
             })
         })
         .catch(function () {
-          Swal.fire('아이디, 비밀번호를 확인해주세요')
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">아이디 또는 비밀번호를 확인해주세요</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
         })
     }
     const test = function () {
@@ -152,8 +159,8 @@ export default defineComponent({
   float:right;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-image: url('assets/office.jpg');
-  background-size:900px;
+  background-image: url('https://images.unsplash.com/photo-1535957998253-26ae1ef29506?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjJ8fHdvcmt8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+  background-size:500px;
 }
 #form{
   margin-top:-40px;
@@ -161,10 +168,13 @@ export default defineComponent({
 .btn{
   margin:0 5px;
 }
+.swal-wide{
+  width:50px !important;
+}
 .header {
   position:relative;
   text-align:center;
-  background: linear-gradient(60deg, #19CE60 0%, #B0BAD9 100%);
+  background: linear-gradient(60deg, #19CE60 0%, #00B0B9 100%);
   /* background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%); */
   color:white;
 }
@@ -220,6 +230,7 @@ export default defineComponent({
   animation-delay: -5s;
   animation-duration: 20s;
 }
+
 @keyframes move-forever {
   0% {transform: translate3d(-90px,0,0);}
   100% { transform: translate3d(85px,0,0);}
@@ -236,5 +247,11 @@ export default defineComponent({
   h1 {
     font-size:24px;
   }
+}
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 </style>

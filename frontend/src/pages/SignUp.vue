@@ -1,0 +1,368 @@
+<template>
+  <div class="header">
+    <div class="inner-header flex">
+      <div id='loginbox'>
+        <div id="right1">
+          <div id="mark">
+            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
+          </div>
+          <div class="q-pa-md" id="form" style="max-width: 400px">
+            <q-form
+              class="q-gutter-md"
+              ref="signupForm"
+              :model="state.form"
+            >
+              <q-input
+                class="input"
+                filled
+                label="ID *"
+                color="teal"
+                v-model="state.form.userId"
+                @blur="checkId"
+                lazy-rules
+                :rules="[
+                val => !!val || '필수입력항목 입니다.',
+                val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
+                ]"
+              />
+              <q-input
+                class="input"
+                filled
+                label="Name *"
+                color="teal"
+                v-model="state.form.name"
+                lazy-rules
+                :rules="[
+                val => !!val || '필수입력항목 입니다.',
+                val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
+                ]"
+              />
+              <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" color="teal" v-model="state.form.password"
+              lazy-rules
+                :rules="[
+                  val => val && val.length > 0 || '필수입력항목 입니다.'
+                ]">
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+              <div class="btnform">
+                <q-btn @click="back" flat style="color: #00BF6F; margin-right:10px;" label="← Login"/>
+                <!-- <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/> -->
+                <q-btn @click="next" label="Next" type="submit" style="background-color: #00BF6F;"/>
+              </div>
+            </q-form>
+          </div>
+        </div>
+        <div id="right2" style="display: none"> <!-- 추가정보 입력-->
+          <div id="mark">
+            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
+          </div>
+          <div class="q-pa-md" id="form" style="max-width: 400px">
+            <q-form class="q-gutter-md" ref="signupForm" :model="state.form">
+              <q-input
+                class="input"
+                filled
+                label="Email *"
+                type="email"
+                color="teal"
+                v-model="state.form.email"
+                lazy-rules
+                :rules="[
+                val => !!val || '필수입력항목 입니다.'
+                ]"
+              />
+              <q-uploader
+                class="input"
+                url="http://localhost:4444/upload"
+                label="Upload profile Image"
+                color="teal"
+                square
+                flat
+                bordered
+                style="max-width: 300px"
+                v-model="state.form.profileimg"
+              />
+              <div class="btnform">
+                <q-btn @click="back2" flat style="color: #00BF6F; margin-right:10px;" label="← Back"/>
+                <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
+              </div>
+            </q-form>
+          </div>
+        </div>
+        <div id="left">
+        </div>
+      </div>
+    </div>
+
+  <!--Waves Container-->
+    <div>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="parallax">
+    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+    </g>
+    </svg>
+    </div>
+  <!--Waves end-->
+
+  </div>
+  <!--Header ends-->
+
+  <!--Content starts-->
+  <div class="content flex">
+
+  </div>
+  <!--Content ends-->
+</template>
+
+<script>
+import { defineComponent, ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+
+export default defineComponent({
+  name: 'signup',
+  methods: {
+    back () {
+      this.$router.push('/')
+    }
+  },
+  setup () {
+    const signupForm = ref(null)
+    const state = reactive({
+      form: {
+        userId: '',
+        name: '',
+        password: '',
+        email: '',
+        profileimg: ''
+      }
+    })
+    const router = useRouter()
+    const store = useStore()
+    const Swal = require('sweetalert2')
+    function checkId () {
+      console.log('아이디중복체크')
+      store
+        .dispatch('module/requestCheckId', state.form.userId)
+        .then(function (result) {
+          if (result.status === 200) {
+            Swal.fire({
+              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">사용할 수 있는 아이디입니다.</span>',
+              confirmButtonColor: '#19CE60',
+              confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+            })
+            console.log(this.val)
+            this.val = true
+          }
+        })
+        .catch(function (err) {
+          if (err.request.status === 409) {
+            Swal.fire({
+              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">이미 존재하는 아이디입니다.</span>',
+              confirmButtonColor: '#ce1919',
+              confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+            })
+            this.val = false
+          }
+        })
+    }
+
+    function validate () {
+      signupForm.value.validate().then(success => {
+        if (success) {
+          // yay, models are correct
+          console.log('유효함')
+          store.dispatch('module/requestSignup', {
+            userId: state.form.userId,
+            name: state.form.name,
+            password: state.form.password,
+            email: state.form.email,
+            profileimg: state.form.profileimg
+          })
+            .then(function (result) {
+              console.log(result)
+              Swal.fire({
+                title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">회원가입이 완료되었습니다.</span>',
+                confirmButtonColor: '#19CE60',
+                confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+              })
+              router.push('/')
+            })
+            .catch(function (err) {
+              alert(err)
+            })
+        } else {
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">회원가입이 유효하지 않습니다.</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
+        }
+      })
+    }
+    // 추가정보 입력 보이기
+    function next () {
+      document.getElementById('right1').style.display = 'none'
+      document.getElementById('right2').style.display = 'block'
+    }
+    function back2 () {
+      document.getElementById('right1').style.display = 'block'
+      document.getElementById('right2').style.display = 'none'
+    }
+    return {
+      signupForm,
+      validate,
+      next,
+      back2,
+      isPwd: ref(true),
+      isPwdCheck: ref(true),
+      email: ref(''),
+      file: ref(null),
+      state,
+      checkId
+    }
+  }
+})
+</script>
+
+<style scoped>
+#loginbox{
+    width:1000px;
+    height:500px;
+    margin:120px auto;
+    border-radius: 15px;
+    background-color:whitesmoke;
+    z-index: 100;
+}
+#mark{
+    width:100px;
+    text-align:center;
+    font-size:40px;
+    color:black;
+    margin-left:15px;
+}
+.input{
+  width:60%;
+  margin:10px auto;
+}
+#right1{
+  width:50%;
+  height:100%;
+  margin:0;
+  float:right;
+}
+#right2{
+  width:50%;
+  height:100%;
+  margin:0;
+  float:right;
+}
+#left{
+  width:50%;
+  height:100%;
+  margin:0;
+  float:left;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background-image: url('https://images.unsplash.com/photo-1616531770192-6eaea74c2456?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fG9ubGluZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+  background-size: 750px;
+}
+#form{
+  margin-left: 14%;
+}
+.btn{
+  margin:0 5px;
+}
+.btnform {
+  margin-top: -5px;
+  margin-left: -5px;
+}
+.header {
+  position:relative;
+  text-align:center;
+  background: linear-gradient(60deg, #19CE60 0%, #00B0B9 100%);
+  /* background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%); */
+  color:white;
+}
+
+.inner-header {
+  height:65vh;
+  width:100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flex { /*Flexbox for containers*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.waves {
+  position:relative;
+  width: 100%;
+  height:15vh;
+  margin-bottom:-7px; /*Fix for safari gap*/
+  min-height:100px;
+  max-height:150px;
+}
+
+.content {
+  position:relative;
+  height:20vh;
+  text-align:center;
+  background-color: white;
+}
+
+/* Animation */
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {transform: translate3d(-90px,0,0);}
+  100% { transform: translate3d(85px,0,0);}
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .waves {
+    height:40px;
+    min-height:40px;
+  }
+  .content {
+    height:30vh;
+  }
+  h1 {
+    font-size:24px;
+  }
+}
+</style>
