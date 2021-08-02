@@ -272,7 +272,7 @@ public class UserController {
 	}
 
 	// 프로필 업로드 테스트
-	@GetMapping(value = "{userId}/profile")
+	@PostMapping(value = "{userId}/profile")
 	@ApiOperation(value = "프로필 업로드 테스트", notes = "프로필 업로드를 테스트한다.")
 	@ApiResponses({
 			@ApiResponse(code = 204, message = "성공"),
@@ -280,14 +280,23 @@ public class UserController {
 			@ApiResponse(code = 404, message = "사용자 없음"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<String> registProfile(@PathVariable String userId, @RequestParam("files") MultipartFile file) throws IOException {
+	public ResponseEntity<String> registerProfile(@PathVariable String userId, @RequestParam MultipartFile profile) throws IOException {
 		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		System.out.println("rootPath: " + rootPath);
+
 		String basePath = rootPath + "/" + "profile";
-		String filePath = basePath + "/" + file.getOriginalFilename();
+		System.out.println("basePath: " + basePath);
+
+		File file = new File(basePath);
+		if (!file.exists()) {
+			file.mkdir();
+		}
+
+		String filePath = basePath + "/" + profile.getOriginalFilename();
+		System.out.println("filePath: " + filePath);
 
 		File dest = new File(filePath);
-		file.transferTo(dest);
-
+		profile.transferTo(dest);
 		return ResponseEntity.ok().body("success");
 	}
 }
