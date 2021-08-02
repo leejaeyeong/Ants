@@ -5,7 +5,7 @@
             <div id='loginbox'>
                 <div id="right">
                   <div id="mark">
-                    <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;" height="150px" />
+                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
                   </div>
                   <div class="q-pa-md" id="form" style="max-width: 400px">
                     <q-form
@@ -122,8 +122,9 @@ export default defineComponent({
         .then(function (result) {
           if (result.status === 200) {
             Swal.fire({
-              icon: 'success',
-              title: '사용할 수 있는 아이디입니다.'
+              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">사용할 수 있는 아이디 입니다.</span>',
+              confirmButtonColor: '#19CE60',
+              confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
             })
             console.log(this.val)
             this.val = true
@@ -132,8 +133,9 @@ export default defineComponent({
         .catch(function (err) {
           if (err.request.status === 409) {
             Swal.fire({
-              icon: 'error',
-              title: '이미 존재하는 아이디입니다.'
+              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">이미 존재하는 아이디 입니다.</span>',
+              confirmButtonColor: '#ce1919',
+              confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
             })
             this.val = false
           }
@@ -159,7 +161,11 @@ export default defineComponent({
               alert(err)
             })
         } else {
-          alert('회원가입이 유효하지 않습니다!')
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">회원가입이 유효하지 않습니다.</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
         }
       })
     }
