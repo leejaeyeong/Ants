@@ -81,3 +81,15 @@ export function requestInfo ({ state }, header) {
   console.log('리퀘스트유저정보')
   return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
+
+export function image ({ state }, frm) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/users/test-1/profile'
+  console.log(frm)
+  console.dir(frm)
+  return $axios.post(url, frm, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}

@@ -23,7 +23,7 @@
         <!-- 파일 업로드 테스트 -->
 
         <br><br><br>
-        <form> <input type="file" name="photo" id="photo"/><button v-model="state.image" onclick="test()">업로드</button></form>
+        <input type="file" name="profile" id="profile"/><button @click="test">업로드</button>
 
         <!--Waves Container-->
         <div>
@@ -118,8 +118,16 @@ export default defineComponent({
         })
     }
     const test = function () {
-      const photoFile = document.getElementById('photo')
-      console.log(photoFile)
+      const photoFile = document.getElementById('profile')
+      console.log('file ' + photoFile)
+      console.log('file[0] ' + photoFile.files[0])
+      const frm = new FormData()
+      frm.append('profile', photoFile.files[0])
+      store.dispatch('module/image', frm)
+        .then(response => {
+        }).catch(err => {
+          console.log(err, '에러입니다')
+        })
     }
     return { state, login, test }
   }
