@@ -25,8 +25,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -265,5 +269,25 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(AttendanceRes.of(userService.getAttendanceToday(user)));
+	}
+
+	// 프로필 업로드 테스트
+	@GetMapping(value = "{userId}/profile")
+	@ApiOperation(value = "프로필 업로드 테스트", notes = "프로필 업로드를 테스트한다.")
+	@ApiResponses({
+			@ApiResponse(code = 204, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<String> registProfile(@PathVariable String userId, @RequestParam("files") MultipartFile file) throws IOException {
+		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		String basePath = rootPath + "/" + "profile";
+		String filePath = basePath + "/" + file.getOriginalFilename();
+
+		File dest = new File(filePath);
+		file.transferTo(dest);
+
+		return ResponseEntity.ok().body("success");
 	}
 }

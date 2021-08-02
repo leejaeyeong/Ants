@@ -20,6 +20,11 @@
             </div>
         </div>
 
+        <!-- 파일 업로드 테스트 -->
+
+        <br><br><br>
+        <form> <input type="file" name="photo" id="photo"/><button v-model="state.image" onclick="test()">업로드</button></form>
+
         <!--Waves Container-->
         <div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -58,13 +63,15 @@ export default defineComponent({
     mvSignUp () {
       this.$router.push('/signUp')
     }
+
   },
   setup () {
     const state = reactive({
       form: {
         id: '',
         password: ''
-      }
+      },
+      image: null
     })
     const router = useRouter()
     // router를 사용하기 위해선 useRouter import후 변수 선언하여 사용 해야함 !
@@ -103,7 +110,11 @@ export default defineComponent({
           Swal.fire('아이디, 비밀번호를 확인해주세요')
         })
     }
-    return { state, login }
+    const test = function () {
+      const photoFile = document.getElementById('photo')
+      console.log(photoFile)
+    }
+    return { state, login, test }
   }
 })
 </script>
