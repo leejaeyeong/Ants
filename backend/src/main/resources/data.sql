@@ -55,3 +55,7 @@ insert into user_marker_board values(3, 10, 'test-1') ON DUPLICATE KEY UPDATE id
 insert into user_marker_board values(4, 11, 'admin') ON DUPLICATE KEY UPDATE id=4;
 insert into user_marker_board values(5, 12, 'admin') ON DUPLICATE KEY UPDATE id=5;
 insert into user_marker_board values(6, 13, 'admin') ON DUPLICATE KEY UPDATE id=6;
+
+-- 게시판 댓글 초기 데이터 sql
+insert into board_comment values (1, "좋은 공지 감사합니다. ~~~ 오늘도 화이팅", now(), 1, "admin") ON DUPLICATE KEY UPDATE id=1;
+insert into board_comment values (2, "행복한 하루 되시길", now(), 1, "test-1") ON DUPLICATE KEY UPDATE id=2;
