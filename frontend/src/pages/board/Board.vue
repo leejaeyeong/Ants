@@ -1,40 +1,27 @@
 <template>
-    <Header></Header>
-    <div id="content">
-        <Side></Side>
-        <div id="main">
-            <board-side/>
-            <div id="board">
-                <div>
-                    <q-input filled style="height:40px; display:inline-block; width:15%; margin-top:20px; margin-left:40px;" label="제목, 내용" />
-                    <q-btn round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:50px; width:50px;" icon="search" />
-                </div>
-                <div class="q-pa-md" style="margin-top:30px; margin-left:70px;">
-                    <q-table @click="show(rows)"
-                    title="Treats"
-                    :rows="rows"
-                    :columns="columns"
-                    row-key="name"
-                    />
-                </div>
-            </div>
-        </div>
+
+  <div id="board">
+    <div>
+        <q-input filled color="teal" style="height:40px; display:inline-block; width:15%; margin-top:20px; margin-left:40px;" label="제목, 내용" />
+        <q-btn round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:50px; width:50px;" icon="search" />
     </div>
+    <div class="q-pa-md" style="margin-top:30px; margin-left:70px;">
+        <q-table @click="show(rows)"
+        title="Treats"
+        :rows="rows"
+        :columns="columns"
+        row-key="name"
+        />
+    </div>
+  </div>
+
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import Header from '../components/header.vue'
-import Side from '../components/side.vue'
-import BoardSide from '../components/boardSide.vue'
 
 export default defineComponent({
   name: 'board',
-  components: {
-    Header,
-    Side,
-    BoardSide
-  },
   methods: {
     show (rows) {
       console.log(rows)
@@ -170,17 +157,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#content{
-    width:100%;
-    height: 680px;
-}
-#main{
-    width:95%;
-    height:692px;
-    float:right;
-    border-bottom:0.5px solid rgb(212, 212, 212);
-    background-color:white;
-}
+
 #board{
     width: 1130px;
     height: 690px;
@@ -194,10 +171,10 @@ export default defineComponent({
     font-weight: normal;
     font-style: normal;
 }
-div{
+/* div{
   font-family: 'NEXON Lv1 Gothic OTF';
 }
 span{
   font-family: 'NEXON Lv1 Gothic OTF';
-}
+} */
 </style>
