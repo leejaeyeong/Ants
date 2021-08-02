@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserTeamMappingPutReq;
+import com.ssafy.api.response.BoardCommentRes;
 import com.ssafy.api.response.BoardRes;
 import com.ssafy.db.entity.*;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public interface BoardService {
 	List<BoardRes> getBoardList();
 	List<BoardRes> getBoardListByTypeId(Long id);
 	List<BoardRes> getBoardListByMarker(String userId);
+	List<BoardRes> getBoardByWriterId(String userId);
+	List<BoardRes> getBoardByTitle(String title);
+	BoardRes getBoardDetail(Long id);
 	boolean isMarker(String userId, Long boardId);
-
 }

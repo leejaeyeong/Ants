@@ -20,6 +20,7 @@ public class BoardRepositorySupport {
     QBoardType qBoardType = QBoardType.boardType;
     QBoard qBoard = QBoard.board;
     QUserMarkerBoard qUserMarkerBoard = QUserMarkerBoard.userMarkerBoard;
+    QBoardComment qBoardComment = QBoardComment.boardComment;
 
 
     public Optional<List<BoardType>> getBoardTypeList() {
@@ -37,6 +38,20 @@ public class BoardRepositorySupport {
     public Optional<List<Board>> getBoardListByTypeId(Long id) {
         List<Board> board =  jpaQueryFactory.select(qBoard).from(qBoard)
                             .where(qBoard.boardType.id.eq(id)).fetch();
+        if(board == null) return Optional.empty();
+        return Optional.ofNullable(board);
+    }
+
+    public Optional<List<BoardComment>> getCommentByBoardId(Long id) {
+        List<BoardComment> boardComment =  jpaQueryFactory.select(qBoardComment).from(qBoardComment)
+                .where(qBoardComment.board.id.eq(id)).fetch();
+        if(boardComment == null) return Optional.empty();
+        return Optional.ofNullable(boardComment);
+    }
+
+    public Optional<List<Board>> getBoardByWriterId(String userId) {
+        List<Board> board  =  jpaQueryFactory.select(qBoard).from(qBoard)
+                .where(qBoard.writer.userId.like("%" + userId + "%")).fetch();
         if(board == null) return Optional.empty();
         return Optional.ofNullable(board);
     }
