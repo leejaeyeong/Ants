@@ -23,6 +23,12 @@ public class UserRes{
 	String position;
 	@ApiModelProperty(name="User Name")
 	String name;
+	@ApiModelProperty(name="User holiday")
+	Integer holiday;
+	@ApiModelProperty(name="User eamil")
+	String email;
+	@ApiModelProperty(name="User profile location")
+	String profileLocation;
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
@@ -30,6 +36,9 @@ public class UserRes{
 		res.setDepartment(user.getDepartment().getId());
 		res.setName(user.getName());
 		res.setPosition(user.getPosition());
+		res.setHoliday(user.getHoliday());
+		res.setEmail(user.getEmail());
+		res.setProfileLocation(user.getProfileLocation());
 		return res;
 	}
 }
