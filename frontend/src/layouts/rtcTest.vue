@@ -57,7 +57,7 @@ export default defineComponent({
     const store = useStore()
     onMounted(() => {
       store.dispatch('module/getRooms', {}).then(function (result) {
-        console.log('result: ' + result)
+        console.log(result.data)
       })
     })
   },
