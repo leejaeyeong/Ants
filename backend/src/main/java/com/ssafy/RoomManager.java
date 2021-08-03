@@ -17,6 +17,10 @@
 
 package com.ssafy;
 
+import com.ssafy.db.entity.User;
+import com.ssafy.db.repository.DepartmentRepository;
+import com.ssafy.db.repository.UserRepositorySupport;
+import org.checkerframework.checker.units.qual.A;
 import org.kurento.client.KurentoClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +40,12 @@ public class RoomManager {
   @Autowired
   private KurentoClient kurento;
 
+  @Autowired
+  private UserRepositorySupport userRepositorySupport;
+
+  @Autowired
+  private DepartmentRepository departmentRepository;
+
   private final ConcurrentMap<String,Room> rooms = new ConcurrentHashMap<>();
 
   /**
@@ -46,13 +56,17 @@ public class RoomManager {
    * @return the room if it was already created, or a new one if it is the first time this room is
    *         accessed
    */
-  public Room getRoom(String roomName) {
+  public Room getRoom(String roomName, String name) {
     log.debug("Searching for room {}", roomName);
     Room room = rooms.get(roomName);
 
     if (room == null) {
       log.debug("Room {} not existent. Will create now!", roomName);
       room = new Room(roomName, kurento.createMediaPipeline());
+
+      User user = userRepositorySupport.findUserByName(name).get();
+      room.setManager(user.getName());
+      room.setDepartment(user.getDepartment());
       rooms.put(roomName, room);
     }
     log.debug("Room {} found!", roomName);

@@ -1,18 +1,23 @@
 package com.ssafy.api.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.ssafy.Room;
 import com.ssafy.RoomManager;
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.response.UserRes;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.schema.Entry;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 @Api(value = "회의 API", tags = {"Conferences"})
@@ -31,16 +36,20 @@ public class ConferenceController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String[] getConferenceRoom() {
+    public ResponseEntity<List<String[]>> getConferenceRoom() {
         ConcurrentMap<String, Room> rooms = roomManager.getRoomList();
-        List<String> list = new ArrayList<>();
-        Iterator<String> iterator = rooms.keySet().iterator();
-        while(iterator.hasNext()){
-            list.add(iterator.next());
+        List<String[]> list = new ArrayList<>();
+        System.out.println(rooms.size());
+        if(rooms.size() > 0) {
+            for (Map.Entry<String, Room> s : rooms.entrySet()) {
+                String[] arr = new String[3];
+                arr[0] = s.getKey();
+                arr[1] = s.getValue().getManager();
+                arr[2] = s.getValue().getDepartment().getDepartmentName();
+
+                list.add(arr);
+            }
         }
-        for(int i = 0; i < list.size(); i++){
-            System.out.println("room" + i + ": " + list.get(i));
-        }
-        return list.toArray(new String[0]);
+        return ResponseEntity.status(200).body(list);
     }
 }
