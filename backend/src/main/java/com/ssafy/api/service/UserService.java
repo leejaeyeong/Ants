@@ -14,7 +14,7 @@ import java.util.Map;
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의.
  */
 public interface UserService {
-	User createUser(UserRegisterPostReq userRegisterInfo);
+	User createUser(UserRegisterPostReq userRegisterInfo) throws Exception;
 	User getUserByUserId(String userId);
 	boolean getTeamByUserId(String userId);
 	boolean updateUserTeamInfo(UserTeamMappingPutReq userTeamMappingPutReq);
