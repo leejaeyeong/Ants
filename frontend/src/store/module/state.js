@@ -1,9 +1,10 @@
 const loginUser = {}
-
+const department = []
 export default function () {
   return {
     loginUser: loginUser,
     userId: '',
-    name: ''
+    name: '',
+    department: department
   }
 }

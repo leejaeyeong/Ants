@@ -19,12 +19,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- 파일 업로드 테스트 -->
-
-        <br><br><br>
-        <input type="file" name="profile" id="profile"/><button @click="test">업로드</button>
-
         <!--Waves Container-->
         <div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -95,13 +89,16 @@ export default defineComponent({
           store.dispatch('module/requestInfo')
             .then(response => {
               console.log(response, '리스폰스')
+              alert(response.data)
               const userInfo = {
                 id: response.data.userId,
                 name: response.data.name,
-                department: response.data.department
+                department: response.data.department,
+                profileLocation: response.data.profileLocation
               }
               localStorage.setItem('name', userInfo.name)
               localStorage.setItem('department', userInfo.department)
+              localStorage.setItem('profileLocation', userInfo.profileLocation)
               // store.state.userId = userInfo.id
               // store.state.name = userInfo.name
               router.go()
@@ -117,19 +114,20 @@ export default defineComponent({
           })
         })
     }
-    const test = function () {
-      const photoFile = document.getElementById('profile')
-      console.log('file ' + photoFile)
-      console.log('file[0] ' + photoFile.files[0])
-      const frm = new FormData()
-      frm.append('profile', photoFile.files[0])
-      store.dispatch('module/image', frm)
-        .then(response => {
-        }).catch(err => {
-          console.log(err, '에러입니다')
-        })
-    }
-    return { state, login, test }
+    store
+      .dispatch('module/departmentInfo')
+      .then(function (result) {
+        console.log('axios response')
+        console.log(result.data)
+        console.log('axios response')
+        store.commit('module/setDepartmentInfo', result.data)
+
+        console.log(store.department)
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+    return { state, login }
   }
 })
 </script>

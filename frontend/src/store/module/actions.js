@@ -10,12 +10,12 @@ export function login ({ state }, payload) {
   return $axios.post(url, body)
 }
 // 회원가입
-export function requestSignup ({ state }, payload) {
-  console.log('requestSignup', state, payload)
+export function requestSignup ({ state }, body) {
+  console.log(state)
   const url = baseUrl + 'api/v1/users'
-  const body = payload
   console.log(body)
-  return $axios.post(url, body, { headers: { 'Content-Type': 'multipart/form-data' } })
+  console.dir(body)
+  return $axios.post(url, body)
 }
 // 아이디 중복체크
 export function requestCheckId ({ state }, id) {
@@ -92,4 +92,10 @@ export function image ({ state }, frm) {
       'Content-Type': 'multipart/form-data'
     }
   })
+}
+
+export function departmentInfo ({ state }) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/department'
+  return $axios.get(url)
 }
