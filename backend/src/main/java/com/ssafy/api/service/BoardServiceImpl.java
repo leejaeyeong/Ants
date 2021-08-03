@@ -97,7 +97,7 @@ public class BoardServiceImpl implements BoardService {
             commentResLists = new ArrayList<>();
             List<BoardComment> comments = boardRepositorySupport.getCommentByBoardId(id).get();
             for (BoardComment comment : comments) {
-                commentResLists.add(new BoardCommentRes(comment.getComment(), comment.getRegistrationTime(), comment.getWriter().getUserId()));
+                commentResLists.add(new BoardCommentRes(comment.getComment(), comment.getRegistrationTime(), comment.getWriter().getUserId(), comment.getWriter().getProfileLocation()));
             }
         }
         return BoardRes.of(board, commentResLists);
@@ -118,7 +118,8 @@ public class BoardServiceImpl implements BoardService {
                     board.getRegistrationTime(),
                     board.getBoardType().getId(),
                     board.getWriter().getUserId(),
-                    board.getView()
+                    board.getView(),
+                    board.getWriter().getProfileLocation()
             ));
         }
         return boardResList;

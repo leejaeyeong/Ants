@@ -21,6 +21,7 @@ public class BoardRes {
     LocalDateTime registrationTime;
     Long typeId;
     String writer;
+    String profileLocation;
     int view;
     List<BoardCommentRes> comments;
 
@@ -32,12 +33,13 @@ public class BoardRes {
                 board.getRegistrationTime(),
                 board.getBoardType().getId(),
                 board.getWriter().getUserId(),
-                board.getView()
+                board.getView(),
+                board.getWriter().getProfileLocation()
         );
         boardRes.setComments(comments);
         return boardRes;
     }
-    public BoardRes(Long id, String title, String content, LocalDateTime registrationTime, Long typeId, String writer, int view) {
+    public BoardRes(Long id, String title, String content, LocalDateTime registrationTime, Long typeId, String writer, int view, String profileLocation) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -46,5 +48,6 @@ public class BoardRes {
         this.writer = writer;
         this.view = view;
         this.comments = new ArrayList<>();
+        this.profileLocation = profileLocation;
     }
 }
