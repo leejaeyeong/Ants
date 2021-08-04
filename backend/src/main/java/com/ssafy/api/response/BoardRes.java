@@ -24,6 +24,7 @@ public class BoardRes {
     String profileLocation;
     int view;
     boolean isMarker;
+    String imageLocation;
     List<BoardCommentRes> comments;
 
     public static BoardRes of(Board board, boolean isMarker, List<BoardCommentRes> comments) {
@@ -36,13 +37,14 @@ public class BoardRes {
                 board.getWriter().getUserId(),
                 board.getView(),
                 board.getWriter().getProfileLocation(),
-                isMarker
+                isMarker,
+                board.getImageLocation()
         );
         boardRes.setComments(comments);
         return boardRes;
     }
     public BoardRes(Long id, String title, String content, LocalDateTime registrationTime,
-                    Long typeId, String writer, int view, String profileLocation, boolean isMarker) {
+                    Long typeId, String writer, int view, String profileLocation, boolean isMarker, String imageLocation) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -53,5 +55,6 @@ public class BoardRes {
         this.comments = new ArrayList<>();
         this.profileLocation = profileLocation;
         this.isMarker = isMarker;
+        this.imageLocation = imageLocation;
     }
 }
