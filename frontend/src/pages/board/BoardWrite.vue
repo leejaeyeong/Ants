@@ -1,16 +1,11 @@
 <template>
   <div id="board">
-      <q-input color="teal" v-model="form.title" style="width:54%; margin-left:30px; margin-top:25px; display:inline-block;" filled label="제목" />
+      <q-select color="teal" filled v-model="type" :options="options" style="margin-top:25px; width:15%; margin-left:30px; float:left;" label="분류" />
+      <q-input color="teal" v-model="form.title" style="width:54%; margin-left:15px; margin-top:25px; display:inline-block;" filled label="제목" />
       <q-btn style="margin-left:10px; padding:10px; margin-top:-20px; color:white; background-color: #00BF6F;" label="등록" />
       <q-btn @click="back" style="margin-left:10px; padding:10px; margin-top:-20px; color:white;" color="deep-orange" label="뒤로" />
-      <!-- <q-input v-model="form.content" style="width:80%; margin-left:30px; margin-top:15px;  font-size:17px;"
-      filled
-      type="textarea"
-      rows="30"
-      label="내용"
-      /> -->
       <div class="q-pa-md q-gutter-sm">
-        <q-editor v-model="editor" min-height="34rem" style="margin-left:22px;"/>
+        <q-editor v-model="form.content" min-height="32rem" style="margin-left:22px; font-size:30px;"/>
       </div>
   </div>
 
@@ -26,22 +21,25 @@ export default defineComponent({
     const router = useRouter()
     const editor = ref('')
     const form = reactive({
+      type: '',
       title: '',
       content: ''
     })
+    const options = [
+        'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+      ]
 
     const back = function () {
       router.back()
       console.log(form.title)
-      console.log(1111)
-      console.log(editor.value)
-      console.log(1111)
+      console.log(form.content)
     }
 
     return {
       back,
       form,
-      editor
+      editor,
+      options
     }
   }
 })

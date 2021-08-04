@@ -66,8 +66,7 @@ export default defineComponent({
     const currentTime = Date.now()
     const Swal = require('sweetalert2')
 
-    const progress1 = ref(0.7)
-
+    const progress1 = ref(0)
     const state = reactive({
       time: date.formatDate(currentTime, 'HH:mm'),
       totalHourOfWeek: '',
@@ -75,9 +74,7 @@ export default defineComponent({
       checkOutTime: '',
       name: localStorage.getItem('name')
     })
-
     onMounted(() => {
-      console.log('teasdasdasdsadasdsasaassasasas')
       store.dispatch('module/check', { })
         .then(function (result) {
           state.checkInTime = result.data.checkInTime
@@ -94,6 +91,7 @@ export default defineComponent({
         .then(function (result) {
           state.totalHourOfWeek = result.data.totalHour
           console.log(result.data)
+          progress1.value = state.totalHourOfWeek / 40
         })
         .catch(function () {
           Swal.fire({

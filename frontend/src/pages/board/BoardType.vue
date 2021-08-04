@@ -9,10 +9,8 @@
         title="공지사항"
         :rows="rows"
         :columns="columns"
-        row-key="id"
+        row-key="name"
         v-model:pagination="pagination"
-        @row-click="detail"
-        style="cursor:pointer;"
         hide-pagination
       />
       <div class="row justify-center q-mt-md">
@@ -31,14 +29,12 @@
 <script>
 import { reactive, ref, computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'board',
   methods: { },
   setup () {
     const store = useStore()
-    const router = useRouter()
     const columns = computed(() => store.getters['module/getColumns'])
     const rows = computed(() => store.getters['module/getRows'])
     const pagination = ref({
@@ -65,22 +61,13 @@ export default defineComponent({
       tempRows = []
       form.key = ''
     }
-
-    const detail = function (evt, row) {
-      console.log(evt, row)
-      store.dispatch('module/boardDetail', row.id)
-        .then(function (result) {
-          router.push('/boardDetail')
-        })
-    }
     return {
       pagination,
       columns,
       rows,
       pagesNumber,
       form,
-      search,
-      detail
+      search
     }
   }
 })
