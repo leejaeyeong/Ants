@@ -5,6 +5,7 @@
         </div>
         <div id="headerRight">
             <img @click="mvMypage" src="~assets/images/user.png" style="width:40px; margin-top:10px; margin-right:65px; float:right;" />
+            <img :src="state.profileLocation" style="border-radius: 50%; width: 50px; height: 50px; float: right;">
               <q-btn-dropdown class="nav-item"
                     title="알림"
                     flat
@@ -58,7 +59,8 @@ export default defineComponent({
   },
   setup () {
     const state = reactive({
-      name: localStorage.getItem('name')
+      name: localStorage.getItem('name'),
+      profileLocation: localStorage.getItem('profileLocation')
     })
     return {
       state,
