@@ -5,12 +5,12 @@
             <div id='loginbox'>
                 <div id="left">
                   <div id="mark">
-                    <q-img src="~assets/logo.png" style="width:200px; margin-left:140px;"/>
+                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;"/>
                   </div>
                   <div id="form">
                     <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.id" class="input" filled label="ID" />
-                    <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.password" class="input" filled type="password" label="password" />
-                    <q-btn @click="login" class="btn; swal2-popup;" style="background-color: #00BF6F;" label="Login" />
+                    <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.password" class="input" filled type="password" label="Password" />
+                    <q-btn @click="login" class="btn;" style="background-color: #00BF6F;" label="Login" />
                     <q-btn @click="mvSignUp" class="btn" style="color: #00BF6F;" flat label="SignUp →" />
                     <!-- <q-btn @click="mvSignUp" flat style="color: black;" label="signUp"/> -->
                   </div>
@@ -56,7 +56,7 @@ export default defineComponent({
   name: 'login',
   methods: {
     mvSignUp () {
-      this.$router.push('/signUp')
+      this.$router.push('/signup')
     }
   },
   setup () {
@@ -104,10 +104,9 @@ export default defineComponent({
         })
         .catch(function () {
           Swal.fire({
-            title: '아이디, 비밀번호를 확인해주세요',
-            confirmButtonColor: '#19CE60',
-            confirmButtonText: '확인',
-            customClass: 'swal-wide'
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">아이디 또는 비밀번호를 확인해주세요</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
           })
         })
     }
@@ -243,16 +242,5 @@ export default defineComponent({
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-}
-.swal2-popup {
-    width: 32em;
-    max-width: 100%;
-    padding: 0 0 1.25em;
-    border: none;
-    border-radius: 5px;
-    background: #fff;
-    color: #545454;
-    font-family: 'NEXON Lv1 Gothic OTF' !important;
-    font-size: 1rem;
 }
 </style>

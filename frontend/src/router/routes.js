@@ -2,35 +2,64 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/login.vue')
+    component: () => import('pages/Login.vue')
   },
   {
-    path: '/signUp',
-    component: () => import('layouts/SignUp.vue')
+    path: '/signup',
+    component: () => import('pages/SignUp.vue')
   },
   {
     path: '/main',
-    component: () => import('layouts/main.vue')
-  },
-  {
-    path: '/group',
-    component: () => import('layouts/group.vue')
-  },
-  {
-    path: '/board',
-    component: () => import('layouts/board.vue')
-  },
-  {
-    path: '/management',
-    component: () => import('layouts/management.vue')
-  },
-  {
-    path: '/mypage',
-    component: () => import('layouts/MyPage.vue')
-  },
-  {
-    path: '/write',
-    component: () => import('layouts/write.vue')
+    component: () => import('layouts/main/MainLayout.vue'),
+    redirect: '/mainpage',
+    children: [
+      // 메인 대시보드
+      {
+        path: '/mainpage',
+        component: () => import('pages/Main.vue')
+      },
+      // 게시판라우터
+      {
+        path: '/boardlayout',
+        component: () => import('layouts/board/BoardLayout.vue'),
+        redirect: '/board',
+        children: [
+          {
+            path: '/board',
+            component: () => import('pages/board/Board.vue')
+          },
+          {
+            path: '/write',
+            component: () => import('pages/board/BoardWrite.vue')
+          }
+        ]
+      },
+      // 그룹페이지
+      {
+        path: '/group',
+        component: () => import('pages/group/Group.vue')
+      },
+      // 마이페이지 라우터
+      {
+        path: '/mylayout',
+        component: () => import('layouts/user/UserLayout.vue'),
+        redirect: '/mypage',
+        children: [
+          {
+            path: '/mypage',
+            component: () => import('pages/user/MyPage.vue')
+          },
+          {
+            path: '/myedit',
+            component: () => import('pages/user/MypageEdit.vue')
+          },
+          {
+            path: '/management',
+            component: () => import('pages/user/MyManagement.vue')
+          }
+        ]
+      }
+    ]
   },
   {
     path: '/rtc',
@@ -41,14 +70,9 @@ const routes = [
     component: () => import('layouts/attendance.vue')
   },
   {
-    path: '/mypageedit',
-    component: () => import('layouts/MypageEdit.vue')
-  },
-  {
     path: '/chat',
     component: () => import('layouts/chat.vue')
   }
-
   // Always leave this as last one,
   // but you can also remove it
 ]

@@ -35,6 +35,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final StringPath title = createString("title");
 
+    public final NumberPath<Integer> view = createNumber("view", Integer.class);
+
     public final QUser writer;
 
     public QBoard(String variable) {
