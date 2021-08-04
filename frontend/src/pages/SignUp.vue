@@ -67,7 +67,7 @@
                 <div>
                   <q-btn @click="imgLabelClick" style="background-color: #00BF6F;">Upload Image</q-btn>
                   <!-- <label for="image_uploads" style="color: black;" @click="imgLabelClick">Choose images to upload (PNG, JPG)</label> -->
-                  <input ref="imageInput" type="file" style="color: black; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png" id="profile_img_upload">
+                  <input ref="imageInput" type="file" style="color: black; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png, .gif" id="profile_img_upload">
                 </div>
                 <img
                 v-if="state.tmp"
