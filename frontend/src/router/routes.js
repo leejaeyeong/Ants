@@ -43,6 +43,10 @@ const routes = [
   {
     path: '/mypageedit',
     component: () => import('layouts/MypageEdit.vue')
+  },
+  {
+    path: '/chat',
+    component: () => import('layouts/chat.vue')
   }
 
   // Always leave this as last one,

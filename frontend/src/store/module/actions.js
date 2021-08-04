@@ -83,6 +83,6 @@ export function requestInfo ({ state }, header) {
 }
 
 export function getRooms () {
-  const rooms = $axios.get(baseUrl + 'api/v1/rtc')
+  const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
   return rooms
 }

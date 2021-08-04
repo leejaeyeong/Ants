@@ -28,7 +28,7 @@ public class ConferenceController {
     @Autowired
     private RoomManager roomManager;
 
-    @GetMapping()
+    @GetMapping("/")
     @ApiOperation(value = "회의룸 대기실", notes = "회의룸 방 목록을 불러온다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -37,11 +37,10 @@ public class ConferenceController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<List<String[]>> getConferenceRoom() {
-        ConcurrentMap<String, Room> rooms = roomManager.getRoomList();
         List<String[]> list = new ArrayList<>();
-        System.out.println(rooms.size());
-        if(rooms.size() > 0) {
-            for (Map.Entry<String, Room> s : rooms.entrySet()) {
+        System.out.println("갯수 : " + roomManager.getRoomList().size());
+        if(roomManager.getRoomList().size() > 0) {
+            for (Map.Entry<String, Room> s : roomManager.getRoomList().entrySet()) {
                 String[] arr = new String[3];
                 arr[0] = s.getKey();
                 arr[1] = s.getValue().getManager();
