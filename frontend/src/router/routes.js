@@ -29,6 +29,18 @@ const routes = [
             component: () => import('pages/board/Board.vue')
           },
           {
+            path: '/boardMark',
+            component: () => import('pages/board/BoardMark.vue')
+          },
+          {
+            path: '/boardType',
+            component: () => import('pages/board/BoardType.vue')
+          },
+          {
+            path: '/boardDetail',
+            component: () => import('pages/board/BoardDetail.vue')
+          },
+          {
             path: '/write',
             component: () => import('pages/board/BoardWrite.vue')
           }
@@ -58,16 +70,21 @@ const routes = [
             component: () => import('pages/user/MyManagement.vue')
           }
         ]
+      },
+      // 화상회의
+      {
+        path: '/rtc',
+        component: () => import('layouts/rtcTest.vue')
       }
     ]
   },
   {
-    path: '/rtc',
-    component: () => import('layouts/rtcTest.vue')
-  },
-  {
     path: '/attendance',
     component: () => import('layouts/attendance.vue')
+  },
+  {
+    path: '/chat',
+    component: () => import('layouts/chat.vue')
   }
   // Always leave this as last one,
   // but you can also remove it

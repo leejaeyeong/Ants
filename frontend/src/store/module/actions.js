@@ -10,12 +10,12 @@ export function login ({ state }, payload) {
   return $axios.post(url, body)
 }
 // 회원가입
-export function requestSignup ({ state }, payload) {
-  console.log('requestSignup', state, payload)
+export function requestSignup ({ state }, body) {
+  console.log(state)
   const url = baseUrl + 'api/v1/users'
-  const body = payload
   console.log(body)
-  return $axios.post(url, body, { headers: { 'Content-Type': 'multipart/form-data' } })
+  console.dir(body)
+  return $axios.post(url, body)
 }
 // 아이디 중복체크
 export function requestCheckId ({ state }, id) {
@@ -95,3 +95,40 @@ export function loadAttendanceByWeek ({ state }, payload) {
 }
 
 // 근태 정보(날짜, 출퇴근 시간)
+
+export function getRooms () {
+  const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
+  return rooms
+}
+
+export function board ({ state }, payload) {
+  console.log('board axios', state, payload)
+  const url = baseUrl + 'api/v1/board'
+  const body = payload
+  return $axios.get(url, body)
+}
+
+export function boardList ({ state }, payload) {
+  console.log('boardList axios', state, payload)
+  const url = baseUrl + 'api/v1/board/type'
+  const body = payload
+  return $axios.get(url, body)
+}
+
+export function boardType ({ state }, id) {
+  console.log('boardType axios', state, id)
+  const url = baseUrl + 'api/v1/board/type/' + id
+  return $axios.get(url)
+}
+
+export function boardDetail ({ state }, id) {
+  console.log('boardDetail axios', state, id)
+  const url = baseUrl + 'api/v1/board/' + id
+  return $axios.get(url)
+}
+
+export function departmentInfo ({ state }) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/department'
+  return $axios.get(url)
+}

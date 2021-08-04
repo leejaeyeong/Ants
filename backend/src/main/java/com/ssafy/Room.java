@@ -21,6 +21,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.ssafy.db.entity.Department;
+import lombok.Getter;
+import lombok.Setter;
 import org.kurento.client.Continuation;
 import org.kurento.client.MediaPipeline;
 import org.slf4j.Logger;
@@ -40,12 +43,16 @@ import java.util.concurrent.ConcurrentMap;
  * @author Ivan Gracia (izanmail@gmail.com)
  * @since 4.3.1
  */
+@Getter
+@Setter
 public class Room implements Closeable {
   private final Logger log = LoggerFactory.getLogger(Room.class);
 
   private final ConcurrentMap<String, UserSession> participants = new ConcurrentHashMap<>();
   private final MediaPipeline pipeline;
   private final String name;
+  private String manager;
+  private Department department;
 
   public String getName() {
     return name;
@@ -156,7 +163,7 @@ public class Room implements Closeable {
         user.close();
       } catch (IOException e) {
         log.debug("ROOM {}: Could not invoke close on participant {}", this.name, user.getName(),
-            e);
+                e);
       }
     }
 

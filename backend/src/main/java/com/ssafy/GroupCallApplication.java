@@ -1,8 +1,11 @@
 package com.ssafy;
 
+import org.apache.catalina.connector.Connector;
 import org.kurento.client.KurentoClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -32,6 +35,22 @@ public class GroupCallApplication implements WebSocketConfigurer {
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
         return characterEncodingFilter;
+    }
+
+    @Bean
+    public ServletWebServerFactory serverFactory() {
+        TomcatServletWebServerFactory tomcatServletWebServerFactory
+                = new TomcatServletWebServerFactory();
+        tomcatServletWebServerFactory.addAdditionalTomcatConnectors(createStandardConnector());
+
+        return tomcatServletWebServerFactory;
+    }
+
+    private Connector createStandardConnector() {
+        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        connector.setPort(8080);
+
+        return connector;
     }
 
     @Bean
@@ -65,4 +84,6 @@ public class GroupCallApplication implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(groupCallHandler(), "/groupcall");
     }
+
+
 }

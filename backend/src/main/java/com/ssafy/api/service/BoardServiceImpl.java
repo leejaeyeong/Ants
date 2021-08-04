@@ -89,23 +89,23 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardRes getBoardDetail(Long id) {
+    public BoardRes getBoardDetail(Long id, String userId) {
         Board board = boardRepository.findBoardById(id);
-
+        boolean isMarker = isMarker(id, userId);
         List<BoardCommentRes> commentResLists = null;
         if (boardRepositorySupport.getCommentByBoardId(id).isPresent()) {
             commentResLists = new ArrayList<>();
             List<BoardComment> comments = boardRepositorySupport.getCommentByBoardId(id).get();
             for (BoardComment comment : comments) {
-                commentResLists.add(new BoardCommentRes(comment.getComment(), comment.getRegistrationTime(), comment.getWriter().getUserId()));
+                commentResLists.add(new BoardCommentRes(comment.getComment(), comment.getRegistrationTime(), comment.getWriter().getUserId(), comment.getWriter().getProfileLocation()));
             }
         }
-        return BoardRes.of(board, commentResLists);
+        return BoardRes.of(board, isMarker, commentResLists);
     }
 
     @Override
-    public boolean isMarker(String userId, Long boardId) {
-        return boardRepositorySupport.isMarker(userId, boardId);
+    public boolean isMarker(Long boardId, String userId) {
+        return boardRepositorySupport.isMarker(boardId, userId);
     }
 
     public List<BoardRes> convertToBoardRes(List<Board> boards) {
@@ -118,7 +118,9 @@ public class BoardServiceImpl implements BoardService {
                     board.getRegistrationTime(),
                     board.getBoardType().getId(),
                     board.getWriter().getUserId(),
-                    board.getView()
+                    board.getView(),
+                    board.getWriter().getProfileLocation(),
+                    false
             ));
         }
         return boardResList;

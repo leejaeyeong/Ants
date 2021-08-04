@@ -1,26 +1,29 @@
 <template>
-  <top-navbar></top-navbar>
-  <Side></Side>
-  <main-content></main-content>
+  <div id="board">
+    
+  </div>
+
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import TopNavbar from './TopNavbar.vue'
-import Side from '../../components/side.vue'
-import MainContent from './Content.vue'
+import { reactive, ref, computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
-  name: 'login',
-  components: {
-    TopNavbar,
-    Side,
-    MainContent
-  }
+  name: 'board',
+  methods: { }
 })
 </script>
 
 <style scoped>
+
+#board{
+    width: 1130px;
+    height: 690px;
+    position: absolute;
+    top:60px;
+    left:325px;
+}
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');

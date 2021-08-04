@@ -33,7 +33,7 @@
             <td
               v-for="(day, secondIdx) in date" :key="secondIdx" class="q-td--no-hover" style="height: 110px; width:100px;" @click="clickday(day)"
             >
-              <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" style="opacity: .3; ">{{ day }}</span>
+              <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
               <span v-else-if="(secondIdx === 0)" style="color: red;">{{ day }}</span>
               <span v-else-if="(secondIdx === 6)" style="color: blue;">{{ day }}</span>
               <span v-else-if="(Today === day)" class="today">{{ day }}</span>
@@ -200,5 +200,9 @@ export default defineComponent({
   border-radius: 50%;
   position: relative;
   opacity: .6;
+}
+
+.other {
+  opacity: .3;
 }
 </style>

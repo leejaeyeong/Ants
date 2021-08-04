@@ -72,7 +72,7 @@ public class BoardRepositorySupport {
                 .fetch();
         return list;
     }
-    public boolean isMarker(String userId, Long boardId) {
+    public boolean isMarker(Long boardId, String userId) {
         UserMarkerBoard userMarkerBoard = jpaQueryFactory
                 .select(qUserMarkerBoard)
                 .from(qUserMarkerBoard)
