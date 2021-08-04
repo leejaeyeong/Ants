@@ -98,8 +98,8 @@ export default defineComponent({
       localStorage.removeItem('name')
       router.push('/')
     }
-    var rows = []
-    var boardList = []
+    let rows = []
+    let boardList = []
     const mvBoard = function () {
       store.dispatch('module/board', { })
         .then(function (result) {
@@ -107,7 +107,7 @@ export default defineComponent({
             rows.push(result.data[i])
           }
           store.commit('module/setRows', rows)
-          var pn = Math.ceil(rows.length / 8)
+          const pn = Math.ceil(rows.length / 8)
           store.commit('module/setPageNumber', pn)
           rows = []
           store.dispatch('module/boardList', { })
