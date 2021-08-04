@@ -29,6 +29,18 @@ const routes = [
             component: () => import('pages/board/Board.vue')
           },
           {
+            path: '/boardMark',
+            component: () => import('pages/board/BoardMark.vue')
+          },
+          {
+            path: '/boardType',
+            component: () => import('pages/board/BoardType.vue')
+          },
+          {
+            path: '/boardDetail',
+            component: () => import('pages/board/BoardDetail.vue')
+          },
+          {
             path: '/write',
             component: () => import('pages/board/BoardWrite.vue')
           }
