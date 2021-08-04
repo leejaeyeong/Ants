@@ -82,7 +82,7 @@ export function requestInfo ({ state }, header) {
   return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
 
-export function getRooms() {
+export function getRooms () {
   const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
   return rooms
 }
