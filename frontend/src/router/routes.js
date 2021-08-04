@@ -70,12 +70,13 @@ const routes = [
             component: () => import('pages/user/MyManagement.vue')
           }
         ]
+      },
+      // 화상회의
+      {
+        path: '/rtc',
+        component: () => import('layouts/rtcTest.vue')
       }
     ]
-  },
-  {
-    path: '/rtc',
-    component: () => import('layouts/rtcTest.vue')
   },
   {
     path: '/attendance',
