@@ -42,7 +42,7 @@ export default defineComponent({
     const mvWrite = function () {
       router.push('/write')
     }
-    var rows = []
+    let rows = []
     const viewAll = function () {
       store.dispatch('module/board', { })
         .then(function (result) {
@@ -51,7 +51,7 @@ export default defineComponent({
           }
           store.commit('module/setRows', rows)
           rows = []
-          var pn = Math.ceil(rows.length / 8)
+          const pn = Math.ceil(rows.length / 8)
           store.commit('module/setPageNumber', pn)
           router.push('/board')
         })
@@ -71,7 +71,7 @@ export default defineComponent({
           }
           store.commit('module/setRows', rows)
           rows = []
-          var pn = Math.ceil(rows.length / 8)
+          const pn = Math.ceil(rows.length / 8)
           store.commit('module/setPageNumber', pn)
           router.push('/boardType')
         })
