@@ -1,7 +1,7 @@
 import $axios from 'axios'
 
 const baseUrl = 'https://localhost:8443/'
-
+// 로그인
 export function login ({ state }, payload) {
   console.log('requestLogin', state, payload)
   const url = baseUrl + 'api/v1/auth/login'
@@ -23,7 +23,28 @@ export function requestCheckId ({ state }, id) {
   const url = baseUrl + 'api/v1/users/' + id
   return $axios.get(url)
 }
-
+// 유저정보
+export function requestInfo ({ state }, header) {
+  console.log('requestInfo', state, header)
+  const url = baseUrl + 'api/v1/users/me'
+  const userToken = localStorage.token
+  console.log(userToken, '<-토큰이랑 헤더')
+  return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
+}
+// 유저정보 수정
+export function editInfo ({ state }, header, id) {
+  console.log('editInfo', state, header)
+  const url = baseUrl + 'api/v1/users/' + id
+  const userToken = localStorage.token
+  return $axios.put(url, { headers: { Authorization: `Bearer ${userToken}` } })
+}
+// 유저 탈퇴
+export function deleteUser ({ state }, id) {
+  console.log('deleteUser', state)
+  const url = baseUrl + 'api/v1/users/' + id
+  return $axios.delete(url)
+}
+// 출근
 export function go ({ state }, payload) {
   console.log('go', state, payload)
   const id = localStorage.getItem('id')
@@ -31,7 +52,7 @@ export function go ({ state }, payload) {
   const body = payload
   return $axios.post(url, body)
 }
-
+// 퇴근
 export function out ({ state }, payload) {
   console.log('out', state, payload)
   const id = localStorage.getItem('id')
@@ -39,7 +60,7 @@ export function out ({ state }, payload) {
   const body = payload
   return $axios.put(url, body)
 }
-
+// 당일근태
 export function check ({ state }, payload) {
   console.log('out', state, payload)
   const id = localStorage.getItem('id')
@@ -47,7 +68,7 @@ export function check ({ state }, payload) {
   const body = payload
   return $axios.get(url, body)
 }
-
+// 1주일 근태기록
 export function loadAttendanceByWeek ({ state }, payload) {
   const id = localStorage.getItem('id')
   const currentDay = new Date()
@@ -73,11 +94,4 @@ export function loadAttendanceByWeek ({ state }, payload) {
   return $axios.get(url, payload)
 }
 
-export function requestInfo ({ state }, header) {
-  console.log('requestInfo', state, header)
-  const url = baseUrl + 'api/v1/users/me'
-  const userToken = localStorage.token
-  console.log(userToken, '<-토큰이랑 헤더')
-  console.log('리퀘스트유저정보')
-  return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
-}
+// 근태 정보(날짜, 출퇴근 시간)
