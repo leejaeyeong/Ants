@@ -1,46 +1,41 @@
 <template>
-    <Header></Header>
-    <div>
-        <Side></Side>
-        <div id="container">
-            <div id="wrapper">
-                <div id="join" class="animate join">
-                    <!-- <h1>Join a Room</h1> -->
-                    <form onsubmit="register(); return false;" accept-charset="UTF-8">
-                        <p>
-                            <input style="margin-top:10px;" type="text" name="room" value="" id="roomName" placeholder="Room" required>
-                        </p>
-                        <p>
-                            <input type="text" name="name" value="" id="name" placeholder="Username" required>
-                        </p>
-                        <p class="submit"><input id="submit" type="submit" name="commit" value="회의생성">
-                        </p>
-                    </form>
-                </div>
-                <div id="room" style="display: none;">
-                    <!-- <h2 id="room-header"></h2> -->
-                    <div id="participants"></div>
-                    <div id="chat"></div>
-                    <input type="button" id="button-leave" onmouseup="leaveRoom();" value="나가기">
-                </div>
-            </div>
-        </div>
-        <div id="room" style="display: none">
-          <h2 id="room-header"></h2>
-          <div id="participants"></div>
-          <input
-            type="button"
-            id="button-leave"
-            onmouseup="leaveRoom();"
-            value="Leave room"
-          />
-        </div>
+  <div id="container">
+      <div id="wrapper">
+          <div id="join" class="animate join">
+              <!-- <h1>Join a Room</h1> -->
+              <form onsubmit="register(); return false;" accept-charset="UTF-8">
+                  <p>
+                      <input style="margin-top:10px;" type="text" name="room" value="" id="roomName" placeholder="Room" required>
+                  </p>
+                  <p>
+                      <input type="text" name="name" value="" id="name" placeholder="Username" required>
+                  </p>
+                  <p class="submit"><input id="submit" type="submit" name="commit" value="회의생성">
+                  </p>
+              </form>
+          </div>
+          <div id="room" style="display: none;">
+              <!-- <h2 id="room-header"></h2> -->
+              <div id="participants"></div>
+              <div id="chat"></div>
+              <input type="button" id="button-leave" onmouseup="leaveRoom();" value="나가기">
+          </div>
+      </div>
   </div>
+  <div id="room" style="display: none">
+    <h2 id="room-header"></h2>
+    <div id="participants"></div>
+    <input
+      type="button"
+      id="button-leave"
+      onmouseup="leaveRoom();"
+      value="Leave room"
+    />
+  </div>
+
 </template>
 <script>
 import { defineComponent, onMounted } from 'vue'
-import Header from '../components/header.vue'
-import Side from '../components/side.vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -53,8 +48,6 @@ export default defineComponent({
     })
   },
   components: {
-    Header,
-    Side
   },
   data () {
     return {
