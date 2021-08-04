@@ -20,3 +20,7 @@ export function setBoardList (state, boardList) {
 export function setPageNumber (state, pageNumber) {
   state.pageNumber = pageNumber
 }
+
+export function setDepartmentInfo (state, department) {
+  state.department = department
+}

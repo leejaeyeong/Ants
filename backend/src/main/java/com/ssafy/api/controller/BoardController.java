@@ -60,8 +60,8 @@ public class BoardController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "상세정보 반환 성공")
     })
-    public ResponseEntity<BoardRes> getBoardDetail(@PathVariable Long id) {
-        return ResponseEntity.ok(boardService.getBoardDetail(id));
+    public ResponseEntity<BoardRes> getBoardDetail(@PathVariable Long id, @RequestParam String userId) {
+        return ResponseEntity.ok(boardService.getBoardDetail(id, userId));
     }
 
     @GetMapping("/userId")

@@ -15,10 +15,12 @@ public class BoardCommentRes {
     String comment;
     LocalDateTime registrationTime;
     String writer;
+    String profileLocation;
 
-    public BoardCommentRes(String comment, LocalDateTime registrationTime, String writer) {
+    public BoardCommentRes(String comment, LocalDateTime registrationTime, String writer, String profileLocation) {
         this.comment = comment;
         this.registrationTime = registrationTime;
         this.writer = writer;
+        this.profileLocation = profileLocation;
     }
 }

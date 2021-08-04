@@ -19,7 +19,6 @@
                 </div>
             </div>
         </div>
-
         <!--Waves Container-->
         <div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -58,13 +57,15 @@ export default defineComponent({
     mvSignUp () {
       this.$router.push('/signup')
     }
+
   },
   setup () {
     const state = reactive({
       form: {
         id: '',
         password: ''
-      }
+      },
+      image: null
     })
     const router = useRouter()
     // router를 사용하기 위해선 useRouter import후 변수 선언하여 사용 해야함 !
@@ -88,13 +89,16 @@ export default defineComponent({
           store.dispatch('module/requestInfo')
             .then(response => {
               console.log(response, '리스폰스')
+              alert(response.data)
               const userInfo = {
                 id: response.data.userId,
                 name: response.data.name,
-                department: response.data.department
+                department: response.data.department,
+                profileLocation: response.data.profileLocation
               }
               localStorage.setItem('name', userInfo.name)
               localStorage.setItem('department', userInfo.department)
+              localStorage.setItem('profileLocation', userInfo.profileLocation)
               // store.state.userId = userInfo.id
               // store.state.name = userInfo.name
               router.go()
@@ -110,6 +114,19 @@ export default defineComponent({
           })
         })
     }
+    store
+      .dispatch('module/departmentInfo')
+      .then(function (result) {
+        console.log('axios response')
+        console.log(result.data)
+        console.log('axios response')
+        store.commit('module/setDepartmentInfo', result.data)
+
+        console.log(store.department)
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
     return { state, login }
   }
 })

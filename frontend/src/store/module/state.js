@@ -1,5 +1,4 @@
 const loginUser = {}
-
 const columns = [
   {
     name: 'id',
@@ -20,7 +19,7 @@ const rows = []
 
 const boardList = []
 const pageNumber = 1
-
+const department = []
 export default function () {
   return {
     loginUser: loginUser,
@@ -29,6 +28,7 @@ export default function () {
     columns: columns,
     rows: rows,
     boardList: boardList,
-    pageNumber: pageNumber
+    pageNumber: pageNumber,
+    department: department
   }
 }
