@@ -1,94 +1,143 @@
 <template>
-    <div class="header">
-        <!--Content before waves-->
-        <div class="inner-header flex">
-            <div id='loginbox'>
-                <div id="right">
-                  <div id="mark">
-                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
-                  </div>
-                  <div class="q-pa-md" id="form" style="max-width: 400px">
-                    <q-form
-                      class="q-gutter-md"
-                      ref="signupForm"
-                      :model="state.form"
-                    >
-                      <q-input
-                        class="input"
-                        filled
-                        label="ID *"
-                        color="teal"
-                        v-model="state.form.userId"
-                        @blur="checkId"
-                        lazy-rules
-                        :rules="[
-                        val => !!val || '필수입력항목 입니다.',
-                        val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
-                        ]"
-                      />
-                      <q-input
-                        class="input"
-                        filled
-                        label="Name *"
-                        color="teal"
-                        v-model="state.form.name"
-                        lazy-rules
-                        :rules="[
-                        val => !!val || '필수입력항목 입니다.',
-                        val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
-                        ]"
-                      />
-                      <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" color="teal" v-model="state.form.password"
-                      lazy-rules
-                        :rules="[
-                          val => val && val.length > 0 || '필수입력항목 입니다.'
-                        ]">
-                        <template v-slot:append>
-                          <q-icon
-                            :name="isPwd ? 'visibility_off' : 'visibility'"
-                            class="cursor-pointer"
-                            @click="isPwd = !isPwd"
-                          />
-                        </template>
-                      </q-input>
-                      <div class="btnform">
-                        <q-btn @click="back" flat style="color: #00BF6F; margin-right:10px;" label="← Login"/>
-                        <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
-                        <!-- <q-btn @click="back" label="back" color="white" style="margin-left:10px;" /> -->
-                      </div>
-                    </q-form>
-                  </div>
+  <div class="header">
+    <div class="inner-header flex">
+      <div id='loginbox'>
+        <div id="right1">
+          <div id="mark">
+            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
+          </div>
+          <div class="q-pa-md" id="form" style="max-width: 400px">
+            <q-form
+              class="q-gutter-md"
+              ref="signupForm"
+              :model="state.form"
+            >
+              <q-input
+                class="input"
+                filled
+                label="ID *"
+                color="teal"
+                v-model="state.form.userId"
+                @blur="checkId"
+                lazy-rules
+                :rules="[
+                val => !!val || '필수입력항목 입니다.',
+                val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
+                ]"
+              />
+              <q-input
+                class="input"
+                filled
+                label="Name *"
+                color="teal"
+                v-model="state.form.name"
+                lazy-rules
+                :rules="[
+                val => !!val || '필수입력항목 입니다.',
+                val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
+                ]"
+              />
+              <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" color="teal" v-model="state.form.password"
+              lazy-rules
+                :rules="[
+                  val => val && val.length > 0 || '필수입력항목 입니다.'
+                ]">
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+              <div class="btnform">
+                <q-btn @click="back" flat style="color: #00BF6F; margin-right:10px;" label="← Login"/>
+                <!-- <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/> -->
+                <q-btn @click="next" label="Next" style="background-color: #00BF6F;"/>
+              </div>
+            </q-form>
+          </div>
+        </div>
+        <div id="right2" style="display: none"> <!-- 추가정보 입력-->
+          <div id="mark">
+            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
+          </div>
+          <div class="q-pa-md" id="form" style="max-width: 400px">
+            <q-form class="q-gutter-md" ref="signupForm" :model="state.form">
+              <q-input
+                class="input"
+                filled
+                label="Email *"
+                type="email"
+                color="teal"
+                v-model="state.form.email"
+                lazy-rules
+                :rules="[
+                val => !!val || '필수입력항목 입니다.'
+                ]"
+              />
+              <q-select class="input" filled v-model="state.form.department" :options="options" label="Filled" />
+              <!-- <q-uploader
+                class="input"
+                label="Upload profile Image"
+                color="green-14"
+                bordered
+                style="max-width: 300px;"
+                v-model="state.form.profileimg"
+                accept=".jpg, image/*"
+                @rejected="onRejected"
+                :headers="[{name: 'Content-Type', value: 'multipart/form-data'}]"
+              /> -->
+              <div class="input">
+                <div>
+                  <q-btn @click="imgLabelClick" style="background-color: #00BF6F;">Upload Image</q-btn>
+                  <!-- <label for="image_uploads" style="color: black;" @click="imgLabelClick">Choose images to upload (PNG, JPG)</label> -->
+                  <input ref="imageInput" type="file" style="color: black; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png" id="profile_img_upload">
                 </div>
-                <div id="left">
-                </div>
-            </div>
+                <img
+                v-if="state.tmp"
+                :src="state.tmp"
+                style="border-radius: 50%; width: 100px; height: 100px;"
+                id="thumb"
+                />
+              </div>
+              <div class="btnform">
+                <q-btn @click="back2" flat style="color: #00BF6F; margin-right:10px;" label="← Back"/>
+                <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
+              </div>
+            </q-form>
+          </div>
         </div>
-
-        <!--Waves Container-->
-        <div>
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <defs>
-        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="parallax">
-        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
-        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-        <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
-        </g>
-        </svg>
+        <div id="left">
         </div>
-        <!--Waves end-->
+      </div>
+    </div>
 
-        </div>
-        <!--Header ends-->
+  <!--Waves Container-->
+    <div>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="parallax">
+    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+    </g>
+    </svg>
+    </div>
+  <!--Waves end-->
 
-        <!--Content starts-->
-        <div class="content flex">
+  </div>
+  <!--Header ends-->
 
-        </div>
-        <!--Content ends-->
+  <!--Content starts-->
+  <div class="content flex">
+
+  </div>
+  <!--Content ends-->
 </template>
 
 <script>
@@ -106,12 +155,17 @@ export default defineComponent({
   setup () {
     const signupForm = ref(null)
     const state = reactive({
+      tmp: null,
       form: {
         userId: '',
         name: '',
-        password: ''
+        password: '',
+        email: '',
+        image: '',
+        department: ''
       }
     })
+
     const router = useRouter()
     const store = useStore()
     const Swal = require('sweetalert2')
@@ -122,39 +176,47 @@ export default defineComponent({
         .then(function (result) {
           if (result.status === 200) {
             Swal.fire({
-              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">사용할 수 있는 아이디 입니다.</span>',
+              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">사용할 수 있는 아이디입니다.</span>',
               confirmButtonColor: '#19CE60',
               confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
             })
-            console.log(this.val)
-            this.val = true
+            return true
           }
         })
         .catch(function (err) {
           if (err.request.status === 409) {
+            console.log('아이디 중복오류')
             Swal.fire({
-              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">이미 존재하는 아이디 입니다.</span>',
+              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">이미 존재하는 아이디입니다.</span>',
               confirmButtonColor: '#ce1919',
               confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
             })
-            this.val = false
+          } else {
+            console.log(err)
           }
         })
     }
-
+    // 회원가입보냄
     function validate () {
       signupForm.value.validate().then(success => {
         if (success) {
-          // yay, models are correct
+          // 회원가입 유효함
           console.log('유효함')
           store.dispatch('module/requestSignup', {
             userId: state.form.userId,
             name: state.form.name,
-            password: state.form.password
+            password: state.form.password,
+            email: state.form.email,
+            image: state.form.image,
+            department: state.form.department
           })
             .then(function (result) {
               console.log(result)
-              alert('회원가입이 되었습니다.')
+              Swal.fire({
+                title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">회원가입이 완료되었습니다.</span>',
+                confirmButtonColor: '#19CE60',
+                confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+              })
               router.push('/')
             })
             .catch(function (err) {
@@ -169,19 +231,50 @@ export default defineComponent({
         }
       })
     }
-    // to reset validations:
-    function reset () {
-      signupForm.value.resetValidation()
+    // 사진업로드
+    function onClickImageUpload () {
+      this.$refs.imageInput.click()
+    }
+    function onChangeImages (e) {
+      console.log(e.target.files)
+      console.log(e.target)
+      const file = e.target.files[0] // Get first index in files
+      this.state.tmp = URL.createObjectURL(file)
+      this.state.form.image = file // Create File URL
+    }
+    // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
+    function imgLabelClick () {
+      const inputImg = document.getElementById('profile_img_upload') // input file 태그 저장
+      console.log(inputImg)
+      inputImg.click() // 클릭이벤트 실행
     }
 
+    // 추가정보 입력 보이기
+    function next () {
+      document.getElementById('right1').style.display = 'none'
+      document.getElementById('right2').style.display = 'block'
+    }
+    function back2 () {
+      document.getElementById('right1').style.display = 'block'
+      document.getElementById('right2').style.display = 'none'
+    }
     return {
       signupForm,
       validate,
-      reset,
+      next,
+      back2,
       isPwd: ref(true),
       isPwdCheck: ref(true),
+      email: ref(''),
+      file: ref(null),
       state,
-      checkId
+      checkId,
+      options: [
+        'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+      ],
+      onClickImageUpload,
+      onChangeImages,
+      imgLabelClick
     }
   }
 })
@@ -207,7 +300,13 @@ export default defineComponent({
   width:60%;
   margin:10px auto;
 }
-#right{
+#right1{
+  width:50%;
+  height:100%;
+  margin:0;
+  float:right;
+}
+#right2{
   width:50%;
   height:100%;
   margin:0;
@@ -308,5 +407,11 @@ export default defineComponent({
   h1 {
     font-size:24px;
   }
+}
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 </style>
