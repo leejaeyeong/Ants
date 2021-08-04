@@ -20,3 +20,7 @@ export function getBoardList (state) {
 export function getPageNumber (state) {
   return state.pageNumber
 }
+
+export function getDepartmentInfo (state) {
+  return state.department
+}
