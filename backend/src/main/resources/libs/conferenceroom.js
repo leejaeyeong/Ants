@@ -58,7 +58,7 @@ function register() {
 	name = document.getElementById('name').value;
 	var room = document.getElementById('roomName').value;
 
-//	document.getElementById('room-header').innerText = 'ROOM ' + room;
+	document.getElementById('room-header').innerText = 'ROOM ' + room;
 	document.getElementById('join').style.display = 'none';
 	document.getElementById('room').style.display = 'block';
 

@@ -73,6 +73,7 @@
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { outlinedAllInbox } from '@quasar/extras/material-icons-outlined'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'login',
@@ -83,14 +84,12 @@ export default defineComponent({
     mvGroup () {
       this.$router.push('/group')
     },
-    mvBoard () {
-      this.$router.push('/board')
-    },
     mvRTC () {
       this.$router.push('/rtc')
     }
   },
   setup () {
+    const store = useStore()
     const router = useRouter()
     const logout = function () {
       localStorage.removeItem('token')
@@ -99,9 +98,39 @@ export default defineComponent({
       localStorage.removeItem('name')
       router.push('/')
     }
+    var rows = []
+    var boardList = []
+    const mvBoard = function () {
+      store.dispatch('module/board', { })
+        .then(function (result) {
+          for (let i = 0; i < result.data.length; i++) {
+            rows.push(result.data[i])
+          }
+          store.commit('module/setRows', rows)
+          var pn = Math.ceil(rows.length / 8)
+          store.commit('module/setPageNumber', pn)
+          rows = []
+          store.dispatch('module/boardList', { })
+            .then(function (result) {
+              for (let i = 0; i < result.data.length; i++) {
+                boardList.push(result.data[i])
+              }
+              store.commit('module/setBoardList', boardList)
+              boardList = []
+              router.push('/board')
+            })
+            .catch(function () {
+              alert('오류발생')
+            })
+        })
+        .catch(function () {
+          alert('오류발생')
+        })
+    }
     return {
       outlinedAllInbox,
-      logout
+      logout,
+      mvBoard
     }
   }
 })
@@ -139,6 +168,6 @@ export default defineComponent({
   font-size:14px;
 }
 #logout{
-  margin-top:280px;
+  margin-top:320px;
 }
 </style>

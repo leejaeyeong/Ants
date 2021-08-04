@@ -82,7 +82,33 @@ export function requestInfo ({ state }, header) {
   return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
 
-export function getRooms () {
+export function getRooms() {
   const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
   return rooms
+}
+
+export function board ({ state }, payload) {
+  console.log('board axios', state, payload)
+  const url = baseUrl + 'api/v1/board'
+  const body = payload
+  return $axios.get(url, body)
+}
+
+export function boardList ({ state }, payload) {
+  console.log('boardList axios', state, payload)
+  const url = baseUrl + 'api/v1/board/type'
+  const body = payload
+  return $axios.get(url, body)
+}
+
+export function boardType ({ state }, id) {
+  console.log('boardType axios', state, id)
+  const url = baseUrl + 'api/v1/board/type/' + id
+  return $axios.get(url)
+}
+
+export function boardDetail ({ state }, id) {
+  console.log('boardDetail axios', state, id)
+  const url = baseUrl + 'api/v1/board/' + id
+  return $axios.get(url)
 }

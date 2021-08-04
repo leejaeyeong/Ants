@@ -5,7 +5,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import BoardSide from '../../components/BoardSide.vue'
+import BoardSide from '../../components/boardSide.vue'
 import BoardContent from './BoardContent.vue'
 
 export default defineComponent({
