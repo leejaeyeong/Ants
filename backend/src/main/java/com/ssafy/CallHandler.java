@@ -24,6 +24,7 @@ import org.kurento.client.IceCandidate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -106,8 +107,10 @@ public class CallHandler extends TextWebSocketHandler {
   private void leaveRoom(UserSession user) throws IOException {
     final Room room = roomManager.getRoom(user.getRoomName(), user.getName());
     room.leave(user);
+    System.out.println(room.getParticipants().isEmpty());
     if (room.getParticipants().isEmpty()) {
       roomManager.removeRoom(room);
+      System.out.println("갯수 : " + roomManager.getRoomList().size());
     }
   }
 }
