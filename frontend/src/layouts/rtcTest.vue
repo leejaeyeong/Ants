@@ -35,9 +35,6 @@
             value="Leave room"
           />
         </div>
-      </div>
-    </div>
-    <a href='http://localhost:8080/chat/rooms'/>
   </div>
 </template>
 <script>
