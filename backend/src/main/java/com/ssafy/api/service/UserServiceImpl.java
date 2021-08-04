@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	FileUtil fileUtil = new FileUtil();
+	FileUtil fileUtil = FileUtil.getInstance();
 	
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) throws Exception{
