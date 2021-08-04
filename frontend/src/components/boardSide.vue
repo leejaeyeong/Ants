@@ -2,7 +2,11 @@
    <div id="mainSide">
         <q-btn @click="mvWrite" style="margin-top:30px; width:70%; margin-left:37px; color: white; background-color: #18C75E;" icon="mail" label="글쓰기" />
         <div id="listTop">
-            <div class="list1">
+            <div @click="viewAll" class="list1">
+                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="apps"/>
+                <span class="list2">전체 글</span>
+            </div>
+            <div @click="viewMark" class="list1">
                 <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 2em; color: #18C75E;" name="turned_in_not"/>
                 <span class="list2">북마크한 글</span>
             </div>
@@ -12,38 +16,19 @@
             </div>
         </div>
         <div id="listBot">
-            <span style="font-weight:bold; font-size:18px; margin-top:10px; margin-left:30px; display:inline-block;">사내 게시판 목록</span>
-            <div class="list1">
+            <span style="font-weight:bold; font-size:18px; margin-top:0px; margin-left:30px; display:inline-block;">사내 게시판 목록</span>
+            <div @click="viewType(list.id)" v-for="list in boardList" :key="list.id" class="list1">
                 <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
-                <span class="list2">공지사항</span>
-            </div>
-            <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
-                <span class="list2">공통 전달 사항</span>
-            </div>
-            <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
-                <span class="list2">익명게시판</span>
-            </div>
-            <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
-                <span class="list2">개발 1팀</span>
-            </div>
-            <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
-                <span class="list2">개발 2팀</span>
-            </div>
-            <div class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:15px; font-size: 1.8em; color: #18C75E;" name="description"/>
-                <span class="list2">개발 3팀</span>
+                <span class="list2">{{ list.type }}</span>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 import { outlinedAllInbox } from '@quasar/extras/material-icons-outlined'
 
 export default defineComponent({
@@ -51,13 +36,53 @@ export default defineComponent({
   methods: {
   },
   setup () {
+    const store = useStore()
     const router = useRouter()
+    const boardList = computed(() => store.getters['module/getBoardList'])
     const mvWrite = function () {
       router.push('/write')
     }
+    let rows = []
+    const viewAll = function () {
+      store.dispatch('module/board', { })
+        .then(function (result) {
+          for (let i = 0; i < result.data.length; i++) {
+            rows.push(result.data[i])
+          }
+          store.commit('module/setRows', rows)
+          rows = []
+          const pn = Math.ceil(rows.length / 8)
+          store.commit('module/setPageNumber', pn)
+          router.push('/board')
+        })
+        .catch(function () {
+          alert('오류발생')
+        })
+    }
+    const viewMark = function () {
+      store.commit('module/setRows', rows)
+      router.push('/boardMark')
+    }
+    const viewType = function (id) {
+      store.dispatch('module/boardType', id)
+        .then(function (result) {
+          for (let i = 0; i < result.data.length; i++) {
+            rows.push(result.data[i])
+          }
+          store.commit('module/setRows', rows)
+          rows = []
+          const pn = Math.ceil(rows.length / 8)
+          store.commit('module/setPageNumber', pn)
+          router.push('/boardType')
+        })
+    }
     return {
       outlinedAllInbox,
-      mvWrite
+      boardList,
+      mvWrite,
+      viewAll,
+      viewMark,
+      viewType
     }
   }
 })
@@ -74,14 +99,14 @@ export default defineComponent({
 }
 #listTop{
     width:80%;
-    height:85px;
-    margin:10px auto;
+    height:115px;
+    margin:12px auto;
     border-bottom:1px solid rgb(216, 210, 210);
 }
 .list1{
-    width:80%;
+    width:85%;
     margin-top:5px;
-    margin-left:20px;
+    margin-left:10px;
 }
 .list1:hover{
     background-color:rgb(223, 241, 231);

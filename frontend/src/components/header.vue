@@ -2,9 +2,13 @@
     <div id="header">
         <div id="headerLeft">
           <q-img src="~assets/images/logo.png" style="width:150px; margin-top:-43px;"/>
+          <!-- <img :src="state.profileLocation">
+          <img src="/media/profile/qqq/tree.jpg"> -->
+          <h2>21</h2><br>
+          <h2>21</h2><br>
+          <h2>21</h2><br>
         </div>
         <div id="headerRight">
-            <img :src="state.profileLocation" style="border-radius: 50%; width: 50px; height: 50px; float: right;">
             <img @click="mvMypage" src="~assets/images/user.png" style="width:40px; margin-top:10px; margin-right:65px; float:right;" />
               <q-btn-dropdown class="nav-item"
                     title="알림"
@@ -41,6 +45,7 @@
               </q-list>
             </q-btn-dropdown>
             <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:20px;">{{ state.name }} 님</span>
+            <span>sss</span>
         </div>
     </div>
 </template>
@@ -54,7 +59,7 @@ export default defineComponent({
       this.$router.push('/management')
     },
     mvMypage () {
-      this.$router.push('/mypage')
+      this.$router.push('/mylayout')
     }
   },
   setup () {

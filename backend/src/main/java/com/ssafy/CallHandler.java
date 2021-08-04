@@ -24,6 +24,7 @@ import org.kurento.client.IceCandidate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -90,7 +91,7 @@ public class CallHandler extends TextWebSocketHandler {
   @Override
   public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
     UserSession user = registry.removeBySession(session);
-    roomManager.getRoom(user.getRoomName()).leave(user);
+    roomManager.getRoom(user.getRoomName(), user.getName()).leave(user);
   }
 
   private void joinRoom(JsonObject params, WebSocketSession session) throws IOException {
@@ -98,16 +99,18 @@ public class CallHandler extends TextWebSocketHandler {
     final String name = params.get("name").getAsString();
     log.info("PARTICIPANT {}: trying to join room {}", name, roomName);
 
-    Room room = roomManager.getRoom(roomName);
+    Room room = roomManager.getRoom(roomName, name);
     final UserSession user = room.join(name, session);
     registry.register(user);
   }
 
   private void leaveRoom(UserSession user) throws IOException {
-    final Room room = roomManager.getRoom(user.getRoomName());
+    final Room room = roomManager.getRoom(user.getRoomName(), user.getName());
     room.leave(user);
+    System.out.println(room.getParticipants().isEmpty());
     if (room.getParticipants().isEmpty()) {
       roomManager.removeRoom(room);
+      System.out.println("갯수 : " + roomManager.getRoomList().size());
     }
   }
 }

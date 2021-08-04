@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserTeamMappingPutReq;
+import com.ssafy.common.util.FileUtil;
 import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.Department;
 import com.ssafy.db.entity.Grp;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.db.entity.User;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -41,14 +44,61 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+	FileUtil fileUtil = new FileUtil();
 	
 	@Override
-	public User createUser(UserRegisterPostReq userRegisterInfo) {
+	public User createUser(UserRegisterPostReq userRegisterInfo) throws Exception{
 		User user = new User();
 		user.setUserId(userRegisterInfo.getUserId());
 		user.setName(userRegisterInfo.getName());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
+		user.setDepartment(user.getDepartment());
+		user.setEmail(userRegisterInfo.getEmail());
+
+//		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+//		System.out.println("rootPath: " + rootPath);
+//
+//		String basePath = rootPath + "/" + "profile";
+//		System.out.println("basePath: " + basePath);
+//
+//		File file = new File(basePath);
+//		if (!file.exists()) {
+//			file.mkdir();
+//		}
+//		String filePath = basePath + "/" + userRegisterInfo.getProfile().getOriginalFilename();
+//		System.out.println("filePath: " + filePath);
+//		user.setProfileLocation(filePath);
+//
+//		File dest = new File(filePath);
+//		userRegisterInfo.getProfile().transferTo(dest);
+
+
+		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		System.out.println("rootPath: " + rootPath);
+
+		//String path = rootPath + "/media";
+		File t = new File("..");
+		String path = t.getCanonicalPath();
+		fileUtil.createFilePath(path += "/media");
+		fileUtil.createFilePath(path += "/profile");
+		File file = fileUtil.createFilePath(path + "/" + userRegisterInfo.getUserId());
+
+
+		String filePath = file.getAbsoluteFile() + "/" + userRegisterInfo.getProfile().getOriginalFilename();
+
+		System.out.println("filePath: " + filePath);
+		System.out.println("AbbbbfilePath: " +file.getAbsoluteFile());
+
+		File ts = new File("..");
+		System.out.println("test용 path : " + ts.getAbsoluteFile());
+		System.out.println("test용 path : " + ts.getCanonicalPath());
+
+		user.setProfileLocation("/media/profile/" + userRegisterInfo.getUserId() + "/" + userRegisterInfo.getProfile().getOriginalFilename());
+		File dest = new File(filePath);
+		userRegisterInfo.getProfile().transferTo(dest);
+
 		return userRepository.save(user);
 	}
 

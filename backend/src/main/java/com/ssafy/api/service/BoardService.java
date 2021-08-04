@@ -21,6 +21,6 @@ public interface BoardService {
 	List<BoardRes> getBoardListByMarker(String userId);
 	List<BoardRes> getBoardByWriterId(String userId);
 	List<BoardRes> getBoardByTitle(String title);
-	BoardRes getBoardDetail(Long id);
-	boolean isMarker(String userId, Long boardId);
+	BoardRes getBoardDetail(Long id, String userId);
+	boolean isMarker(Long boardId, String userId);
 }

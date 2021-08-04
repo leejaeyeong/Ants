@@ -36,7 +36,11 @@
                 <span style="font-weight:bold; font-size:18px; margin-top:8px; float:left; margin-left:80px;">이번주 근무시간 : {{state.totalHourOfWeek}}시간</span>
                 <span style="float:right; margin-right:45px; font-size:18px; margin-top:8px; font-weight:bold;">40시간</span>
             </div>
-            <div id="botLeft"></div>
+            <div id="botLeft">
+              사용자 프로필 이미지 테스트(헤더에 안올라감 ㅠ)<br>
+              <img src="/media/profile/qqq/tree.jpg" style="border-radius: 50%; width: 50px; height: 50px;">
+              <img :src="state.profileLocation" style="border-radius: 50%; width: 50px; height: 50px;">
+            </div>
             <div id="botRight"></div>
         </div>
     </div>
@@ -66,18 +70,16 @@ export default defineComponent({
     const currentTime = Date.now()
     const Swal = require('sweetalert2')
 
-    const progress1 = ref(0.7)
-
+    const progress1 = ref(0)
     const state = reactive({
       time: date.formatDate(currentTime, 'HH:mm'),
       totalHourOfWeek: '',
       checkInTime: '',
       checkOutTime: '',
-      name: localStorage.getItem('name')
+      name: localStorage.getItem('name'),
+      profileLocation: localStorage.getItem('profileLocation')
     })
-
     onMounted(() => {
-      console.log('teasdasdasdsadasdsasaassasasas')
       store.dispatch('module/check', { })
         .then(function (result) {
           state.checkInTime = result.data.checkInTime
@@ -94,6 +96,7 @@ export default defineComponent({
         .then(function (result) {
           state.totalHourOfWeek = result.data.totalHour
           console.log(result.data)
+          progress1.value = state.totalHourOfWeek / 40
         })
         .catch(function () {
           Swal.fire({
