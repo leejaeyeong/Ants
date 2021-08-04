@@ -65,7 +65,47 @@ export default defineComponent({
   components: {
     Header,
     Side
+  },
+  data () {
+    return {
+      name: localStorage.getItem('name')
+    }
   }
 })
 </script>
-<style></style>
+<style>
+#submit{
+    background-color:#18C75E;
+    font-weight:bold;
+    color:white;
+    padding:10px;
+    font-size:20px;
+    cursor: pointer;
+    border:0.5px solid #18C75E;
+    border-radius:5px;
+    position:absolute;
+    top:690px;
+    left:1370px;
+}
+#submit:hover{
+    opacity: 0.7;
+}
+#participants{
+    width:1150px;
+    height:690px;
+    border:1px solid green;
+    position:absolute;
+    left:75px;
+}
+#chat{
+    width:295px;
+    height:690px;
+    border:1px solid blue;
+    position:absolute;
+    left:1225px;
+}
+#button-leave{
+    position:fixed;
+    top:95%;
+}
+</style>

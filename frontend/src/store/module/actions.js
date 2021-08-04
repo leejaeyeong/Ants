@@ -15,7 +15,7 @@ export function requestSignup ({ state }, payload) {
   const url = baseUrl + 'api/v1/users'
   const body = payload
   console.log(body)
-  return $axios.post(url, body)
+  return $axios.post(url, body, { headers: { 'Content-Type': 'multipart/form-data' } })
 }
 // 아이디 중복체크
 export function requestCheckId ({ state }, id) {
