@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.BoardRegisterPostReq;
+import com.ssafy.api.request.CommentRegisterPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserTeamMappingPutReq;
 import com.ssafy.api.response.BoardCommentRes;
@@ -28,4 +29,5 @@ public interface BoardService {
 	void increaseViewCnt(Long id);
 	BoardRes registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException;
 	void deleteBoard(Long id);
+	BoardCommentRes registerComment(Long id, CommentRegisterPostReq commentRegisterPostReq);
 }
