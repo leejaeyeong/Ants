@@ -2,15 +2,15 @@ var stompClient = null;
 
 function setConnected(connected) {
     console.log("setConnected");
-    document.getElementById("connect").prop("disabled", connected);
-    document.getElementById("disconnect").prop("disabled", !connected);
+    $('#connect').prop("disabled", connected);
+    $("#disconnect").prop("disabled", !connected);
     if (connected) {
-        document.getElementById("conversation").show();
+        $("#conversation").show();
     }
     else {
-        document.getElementById("conversation").hide();
+        $("#conversation").hide();
     }
-    document.getElementById("greetings").html("");
+    $("#greetings").html("");
 }
 
 function connect() {
@@ -39,6 +39,7 @@ function disconnect() {
 
 function sendName() {
     stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+    sendChat();
 }
 
 function sendChat() {
@@ -46,18 +47,25 @@ function sendChat() {
 }
 
 function showGreeting(message) {
-    document.getElementById("greetings").append("<tr><td>" + message + "</td></tr>");
+    $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 function showChat(chat) {
-    document.getElementById("greetings").append("<tr><td>" + chat.name + " : " + chat.message + "</td></tr>");
+    $("#greetings").append("<tr><td>" + chat.name + " : " + chat.message + "</td></tr>");
 }
 
 $(function () {
     $('form').on('submit', function (e) {
         e.preventDefault();
     });
-    $("#connect").click(function() { connect(); });
+    console.log("hi");
+    connect();
+//    sendName();
+//    sendChat();
+//    $("#connect").click(function() {
+//        console.log("connect");
+//        connect();
+//    });
     $("#disconnect").click(function() { disconnect(); });
-    $("#send").click(function() { sendName(); });
-    $("#chatSend").click(function(){ sendChat(); });
+//    $("#chatSend").click(function() { sendName(); });
+//    $("#chatSend").click(function(){ sendChat(); });
 });
