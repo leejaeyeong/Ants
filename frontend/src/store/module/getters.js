@@ -44,3 +44,7 @@ export function getCheckOutTime (state) {
 export function getDetail (state) {
   return state.detail
 }
+
+export function getDepartmentInfo (state) {
+  return state.department
+}

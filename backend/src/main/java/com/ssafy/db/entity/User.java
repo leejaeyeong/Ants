@@ -24,6 +24,8 @@ public class User extends BaseEntity implements Serializable {
     String name;
     String userId;
     int holiday;
+    String email;
+    String profileLocation;
 
     @ManyToOne
     @JoinColumn(name="group_id", nullable = false)

@@ -63,6 +63,19 @@
             <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
           </div>
           <div class="q-pa-md" id="form" style="max-width: 400px">
+            <div class="input">
+                <div>
+                  <q-btn @click="imgLabelClick" style="background-color: #00BF6F;">Upload Image</q-btn>
+                  <!-- <label for="image_uploads" style="color: black;" @click="imgLabelClick">Choose images to upload (PNG, JPG)</label> -->
+                  <input ref="imageInput" type="file" style="color: black; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png, .gif" id="profile_img_upload">
+                </div>
+                <img
+                v-if="state.tmp"
+                :src="state.tmp"
+                style="border-radius: 50%; width: 100px; height: 100px;"
+                id="thumb"
+                />
+              </div>
             <q-form class="q-gutter-md" ref="signupForm" :model="state.form">
               <q-input
                 class="input"
@@ -76,7 +89,7 @@
                 val => !!val || '필수입력항목 입니다.'
                 ]"
               />
-              <q-select class="input" filled v-model="state.form.department" :options="options" label="Filled" />
+              <q-select id="dptId" class="input" filled v-model="state.form.department" :options="options" label="부서 선택" />
               <!-- <q-uploader
                 class="input"
                 label="Upload profile Image"
@@ -88,19 +101,6 @@
                 @rejected="onRejected"
                 :headers="[{name: 'Content-Type', value: 'multipart/form-data'}]"
               /> -->
-              <div class="input">
-                <div>
-                  <q-btn @click="imgLabelClick" style="background-color: #00BF6F;">Upload Image</q-btn>
-                  <!-- <label for="image_uploads" style="color: black;" @click="imgLabelClick">Choose images to upload (PNG, JPG)</label> -->
-                  <input ref="imageInput" type="file" style="color: black; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png" id="profile_img_upload">
-                </div>
-                <img
-                v-if="state.tmp"
-                :src="state.tmp"
-                style="border-radius: 50%; width: 100px; height: 100px;"
-                id="thumb"
-                />
-              </div>
               <div class="btnform">
                 <q-btn @click="back2" flat style="color: #00BF6F; margin-right:10px;" label="← Back"/>
                 <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, reactive } from 'vue'
+import { defineComponent, ref, reactive, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -169,6 +169,19 @@ export default defineComponent({
     const router = useRouter()
     const store = useStore()
     const Swal = require('sweetalert2')
+    const department = computed(() => store.getters['module/getDepartmentInfo'])
+    const selectOptions = []
+    for (let i = 0; i < department.value.length; i++) {
+      selectOptions.push(department.value[i].departmentName)
+    }
+    watch(department, () => {
+      console.log('watch 선언')
+      console.log(department)
+      console.log('watchp 선언')
+    })
+    console.log('set up 선언')
+    console.log(department)
+    console.log('set up 선언')
     function checkId () {
       console.log('아이디중복체크')
       store
@@ -201,15 +214,24 @@ export default defineComponent({
       signupForm.value.validate().then(success => {
         if (success) {
           // 회원가입 유효함
-          console.log('유효함')
-          store.dispatch('module/requestSignup', {
-            userId: state.form.userId,
-            name: state.form.name,
-            password: state.form.password,
-            email: state.form.email,
-            image: state.form.image,
-            department: state.form.department
-          })
+          const photoFile = document.getElementById('profile_img_upload')
+          const frm = new FormData()
+          frm.append('profile', photoFile.files[0])
+          frm.append('userId', state.form.userId)
+          frm.append('name', state.form.name)
+          frm.append('password', state.form.email)
+          frm.append('email', state.form.userId)
+          let selectedIndex = -1
+          for (let i = 0; i < department.value.length; i++) {
+            if (selectOptions[i] === state.form.department) {
+              selectedIndex = i + 1
+              break
+            }
+          }
+          alert(state.form.department)
+          alert(selectedIndex)
+          frm.append('department', selectedIndex)
+          store.dispatch('module/requestSignup', frm)
             .then(function (result) {
               console.log(result)
               Swal.fire({
@@ -269,9 +291,7 @@ export default defineComponent({
       file: ref(null),
       state,
       checkId,
-      options: [
-        'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
-      ],
+      options: selectOptions,
       onClickImageUpload,
       onChangeImages,
       imgLabelClick

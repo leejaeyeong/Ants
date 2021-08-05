@@ -4,6 +4,7 @@
           <q-img src="~assets/images/logo.png" style="width:150px; margin-top:-43px;"/>
         </div>
         <div id="headerRight">
+            <img :src="state.profileLocation" style="border-radius: 50%; width:40px; margin-top:10px; margin-right:65px; float:right;">
             <img @click="mvMypage" src="~assets/images/user.png" style="width:40px; margin-top:10px; margin-right:65px; float:right;" />
               <q-btn-dropdown class="nav-item"
                     title="알림"
@@ -39,7 +40,9 @@
                 </q-item>
               </q-list>
             </q-btn-dropdown>
-            <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:20px;">{{ state.name }} 님</span>
+            <div>
+              <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:20px;">{{ state.name }} 님</span>
+            </div>
         </div>
     </div>
 </template>
@@ -58,7 +61,8 @@ export default defineComponent({
   },
   setup () {
     const state = reactive({
-      name: localStorage.getItem('name')
+      name: localStorage.getItem('name'),
+      profileLocation: localStorage.getItem('profileLocation')
     })
     return {
       state,
