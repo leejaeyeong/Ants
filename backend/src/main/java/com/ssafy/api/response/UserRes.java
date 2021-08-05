@@ -29,6 +29,8 @@ public class UserRes{
 	String email;
 	@ApiModelProperty(name="User profile location")
 	String profileLocation;
+	@ApiModelProperty(name="User state")
+	Long state;
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
@@ -39,6 +41,7 @@ public class UserRes{
 		res.setHoliday(user.getHoliday());
 		res.setEmail(user.getEmail());
 		res.setProfileLocation(user.getProfileLocation());
+		res.setState(user.getUserState().getId());
 		return res;
 	}
 }
