@@ -1,12 +1,14 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.BoardRegisterPostReq;
+import com.ssafy.api.request.CommentRegisterPostReq;
 import com.ssafy.api.response.BoardCommentRes;
 import com.ssafy.api.response.BoardRes;
 import com.ssafy.common.util.FileUtil;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.BoardComment;
 import com.ssafy.db.entity.BoardType;
+import com.ssafy.db.repository.BoardCommentRepository;
 import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.BoardRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     BoardRepositorySupport boardRepositorySupport;
+
+    @Autowired
+    BoardCommentRepository boardCommentRepository;
 
     @Autowired
     BoardRepository boardRepository;
@@ -154,6 +159,16 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void deleteBoard(Long id) {
         boardRepository.delete(boardRepository.findBoardById(id));
+    }
+
+    @Override
+    public BoardCommentRes registerComment(Long id, CommentRegisterPostReq commentRegisterPostReq) {
+        BoardComment boardComment = new BoardComment();
+        boardComment.setComment(commentRegisterPostReq.getComment());
+        boardComment.setBoard(boardRepository.findBoardById(id));
+        boardComment.setWriter(userService.getUserByUserId(commentRegisterPostReq.getWriter()));
+        boardComment.setRegistrationTime(LocalDateTime.now());
+        return BoardCommentRes.of(boardCommentRepository.save(boardComment));
     }
 
     public List<BoardRes> convertToBoardRes(List<Board> boards) {
