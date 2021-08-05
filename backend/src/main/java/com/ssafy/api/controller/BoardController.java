@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.BoardRegisterPostReq;
+import com.ssafy.api.request.CommentRegisterPostReq;
 import com.ssafy.api.response.BoardCommentRes;
 import com.ssafy.api.response.BoardRes;
 import com.ssafy.api.service.BoardService;
@@ -120,4 +121,15 @@ public class BoardController {
         boardService.deleteBoard(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/comment")
+    @ApiOperation(value = "게시글 댓글 생성", notes = "게시글에 대한 댓글 생성")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "게시글 댓글 생성 성공")
+    })
+    public ResponseEntity<BoardCommentRes> registerComment(@PathVariable Long id, @RequestBody CommentRegisterPostReq commentRegisterPostReq) {
+        return ResponseEntity.ok().body(boardService.registerComment(id, commentRegisterPostReq));
+    }
+
+
 }

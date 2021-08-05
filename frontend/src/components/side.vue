@@ -7,9 +7,9 @@
                     <strong>HOME</strong>
                   </q-tooltip>
             </div>
-            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Home
-            </div> -->
+            </div>
         </div>
         <div @click="mvBoard" class="list">
             <div class="img">
@@ -18,9 +18,9 @@
                     <strong>Board</strong>
                   </q-tooltip>
             </div>
-            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Board
-            </div> -->
+            </div>
         </div>
         <div @click="mvGroup" class="list">
             <div class="img">
@@ -29,9 +29,9 @@
                     <strong>Group</strong>
                   </q-tooltip>
             </div>
-            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Group
-            </div> -->
+            </div>
         </div>
         <div @click="mvRTC" class="list">
             <div class="img">
@@ -40,9 +40,9 @@
                     <strong>RTC</strong>
                   </q-tooltip>
             </div>
-            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 RTC
-            </div> -->
+            </div>
         </div>
         <div class="list">
             <div class="img">
@@ -51,9 +51,9 @@
                     <strong>Settings</strong>
                   </q-tooltip>
             </div>
-            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 Setting
-            </div> -->
+            </div>
         </div>
         <div @click="logout" class="list" id="logout">
             <div class="img">
@@ -62,9 +62,9 @@
                   <strong>Logout</strong>
                 </q-tooltip>
             </div>
-            <!-- <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
                 LogOut
-            </div> -->
+            </div>
         </div>
     </div>
 </template>
@@ -145,7 +145,7 @@ export default defineComponent({
   border-bottom:0.5px solid rgb(212, 212, 212);
 }
 .list{
-  height:63px;
+  height:75px;
   border:1px solid white;
 }
 
@@ -168,6 +168,6 @@ export default defineComponent({
   font-size:14px;
 }
 #logout{
-  margin-top:320px;
+  margin-top:240px;
 }
 </style>

@@ -23,7 +23,11 @@
                     </q-img>
                     <q-card-actions>
                       <!-- <q-btn class="enter">회의입장</q-btn> -->
-                      <input id="enter" type="submit" name="commit" value="회의입장">
+                      <form onsubmit="joinConference($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val()); return false;" accept-charset="UTF-8">
+                        <input id="joinUser" :value="id" style="display : none">
+                        <input id="joinConferenceRoom" style="display : none" :value="room.roomName">
+                        <input class="enter" type="submit" name="commit" value="회의입장">
+                      </form>
                     </q-card-actions>
                 </q-card>
               </div>
@@ -69,6 +73,8 @@ export default defineComponent({
       id: localStorage.getItem('id'),
       roomName: localStorage.getItem('id') + '님의 회의방'
     })
+    const user = store.getters['module/getLoginUser']
+    const id = user.id
     const rooms = computed(() => store.getters['module/getRooms'])
     var temp = []
     onMounted(() => {
@@ -89,7 +95,8 @@ export default defineComponent({
     })
     return {
       rooms,
-      state
+      state,
+      id
     }
   }
 })

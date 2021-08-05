@@ -63,7 +63,7 @@ public class RoomManager {
     if (room == null) {
       log.debug("Room {} not existent. Will create now!", roomName);
       room = new Room(roomName, kurento.createMediaPipeline());
-      User user = userRepositorySupport.findUserByName(name).get();
+      User user = userRepositorySupport.findUserByUserId(name).get();
       room.setManager(user.getName());
       room.setDepartment(user.getDepartment());
       rooms.put(roomName, room);
