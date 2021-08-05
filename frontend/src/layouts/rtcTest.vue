@@ -8,14 +8,28 @@
                     <!-- <h1>Join a Room</h1> -->
                     <form onsubmit="register(); return false;" accept-charset="UTF-8">
                         <p>
-                            <input style="margin-top:10px;" type="text" name="room" value="" id="roomName" placeholder="Room" required>
+                            <input v-show="false" v-model="state.roomName" style="margin-top:10px;" type="text" name="room" id="roomName" placeholder="Room" required>
                         </p>
                         <p>
-                            <input type="text" name="name" value="" id="name" placeholder="Username" required>
+                            <input v-show="false" v-model="state.id" type="text" name="name" id="name" placeholder="Username" required>
                         </p>
                         <p class="submit"><input id="submit" type="submit" name="commit" value="회의생성">
                         </p>
                     </form>
+                    <div class="q-pa-md row items-start q-gutter-md">
+                      <q-card v-for="room in rooms" :key="room.id" class="my-card">
+                          <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
+                            <div class="absolute-bottom">
+                              <div class="text-h6">{{ room.roomName }}</div>
+                              <div class="text-subtitle2">{{ room.id }}</div>
+                            </div>
+                          </q-img>
+                          <q-card-actions>
+                            <!-- <q-btn class="enter">회의입장</q-btn> -->
+                            <input id="enter" type="submit" name="commit" value="회의입장">
+                          </q-card-actions>
+                      </q-card>
+                    </div>
                 </div>
                 <div id="room" style="display: none;">
                     <!-- <h2 id="room-header"></h2> -->
@@ -38,7 +52,7 @@
   </div>
 </template>
 <script>
-import { defineComponent, onMounted } from 'vue'
+import { reactive, computed, defineComponent, onMounted } from 'vue'
 import Header from '../components/header.vue'
 import Side from '../components/side.vue'
 import { useStore } from 'vuex'
@@ -46,19 +60,36 @@ import { useStore } from 'vuex'
 export default defineComponent({
   setup () {
     const store = useStore()
-    onMounted(() => {
-      store.dispatch('module/getRooms', {}).then(function (result) {
-        console.log(result.data)
-      })
+    const state = reactive({
+      id: localStorage.getItem('id'),
+      roomName: localStorage.getItem('id') + '님의 회의방'
     })
+    const rooms = computed(() => store.getters['module/getRooms'])
+    var temp = []
+    onMounted(() => {
+      store.dispatch('module/getRooms', {})
+        .then(function (result) {
+          for (let i = 0; i < result.data.length; i++) {
+            var object = {
+              roomName: result.data[i][0],
+              id: result.data[i][1]
+              // department: result.data[i][2]
+            }
+            temp.push(object)
+          }
+          store.commit('module/setRooms', temp)
+          temp = []
+          console.log(rooms)
+        })
+    })
+    return {
+      rooms,
+      state
+    }
   },
   components: {
     Header,
     Side
-  },
-  data () {
-    return {
-    }
   }
 })
 </script>
@@ -104,5 +135,23 @@ export default defineComponent({
     cursor: pointer;
     border:0.5px solid #18C75E;
     border-radius:5px;
+}
+.my-card{
+  width:300px;
+  margin:30px 0 0 30px;
+}
+.enter{
+  background-color:#18C75E;
+  border:0.5px solid #18C75E;
+  width:100%;
+  margin:0 auto;
+  font-weight:bold;
+  color:white;
+  font-size:18px;
+  cursor: pointer;
+  border-radius:5px;
+}
+.enter:hover{
+  opacity: 0.7;
 }
 </style>

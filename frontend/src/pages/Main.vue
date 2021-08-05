@@ -2,9 +2,9 @@
     <div id="content">
         <div id="main">
             <div id="topLeft">
-                <div id="name">출근 & 퇴근</div>
+                <div class="name">출근 & 퇴근</div>
                 <div id="mid1">
-                    개발2팀 {{ state.name }}님 환영합니다.
+                    {{ loginUser.department }}팀 {{ loginUser.name }}님 환영합니다.
                 </div>
                 <div id="bot1">
                     <div id="day">
@@ -14,17 +14,17 @@
                     <div id="detail1">
                         <div class="show">
                             <q-btn @click="go" style="border-right:1px solid black; height:100%; font-size:20px; font-weight:bold; background: #18C75E; color: black;" label="출근" />
-                            <span style="margin-left:7px; font-size:18px;">{{ state.checkInTime }}</span>
+                            <span style="margin-left:7px; font-size:16px;">{{ checkInTime }}</span>
                         </div>
                         <div class="show">
                             <q-btn @click="out" style="border-right:1px solid black; height:100%; font-size:20px; font-weight:bold; background: #18C75E; color: black" label="퇴근" />
-                            <span style="margin-left:7px; font-size:18px;">{{ state.checkOutTime }}</span>
+                            <span style="margin-left:7px; font-size:16px;">{{ checkOutTime }}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="topRight">
-                <div id="name">내 통계</div>
+                <div class="name">내 통계</div>
                 <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
                 <div>
                     <q-linear-progress stripe rounded style="border-radius:20px; width:80%; margin-top:35px; margin-left:80px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
@@ -36,7 +36,20 @@
                 <span style="font-weight:bold; font-size:18px; margin-top:8px; float:left; margin-left:80px;">이번주 근무시간 : {{state.totalHourOfWeek}}시간</span>
                 <span style="float:right; margin-right:45px; font-size:18px; margin-top:8px; font-weight:bold;">40시간</span>
             </div>
-            <div id="botLeft"></div>
+            <div id="botLeft">
+              <div class="name">최근 게시물</div>
+              <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
+              <div class="q-pa-md">
+                <q-table
+                  title=""
+                  :rows="rowsM"
+                  :columns="columnsM"
+                  row-key="title"
+                  style="cursor:pointer;"
+                  hide-pagination
+                />
+              </div>
+            </div>
             <div id="botRight"></div>
         </div>
     </div>
@@ -65,20 +78,22 @@ export default defineComponent({
     const router = useRouter()
     const currentTime = Date.now()
     const Swal = require('sweetalert2')
-
+    const columnsM = computed(() => store.getters['module/getColumnsM'])
+    const rowsM = computed(() => store.getters['module/getRowsM'])
     const progress1 = ref(0)
+    const checkInTime = computed(() => store.getters['module/getCheckInTime'])
+    const checkOutTime = computed(() => store.getters['module/getCheckOutTime'])
+    const loginUser = computed(() => store.getters['module/getLoginUser'])
     const state = reactive({
-      time: date.formatDate(currentTime, 'HH:mm'),
+      time: date.formatDate(currentTime, 'HH:mm:ss'),
       totalHourOfWeek: '',
-      checkInTime: '',
-      checkOutTime: '',
       name: localStorage.getItem('name')
     })
     onMounted(() => {
       store.dispatch('module/check', { })
         .then(function (result) {
-          state.checkInTime = result.data.checkInTime
-          state.checkOutTime = result.data.checkOutTime
+          store.commit('module/setCheckInTime', result.data.checkInTime)
+          store.commit('module/setCheckOutTime', result.data.checkOutTime)
         })
         .catch(function () {
           Swal.fire({
@@ -105,7 +120,8 @@ export default defineComponent({
     const go = function () {
       store.dispatch('module/go', { time: state.time })
         .then(function (result) {
-          router.go()
+          console.log(result)
+          store.commit('module/setCheckInTime', state.time)
         })
         .catch(function () {
           Swal.fire({
@@ -119,7 +135,8 @@ export default defineComponent({
     const out = function () {
       store.dispatch('module/out', { time: state.time })
         .then(function (result) {
-          router.go()
+          console.log(result)
+          store.commit('module/setCheckOutTime', state.time)
         })
         .catch(function () {
           Swal.fire({
@@ -129,6 +146,37 @@ export default defineComponent({
           })
         })
     }
+
+    var rows = []
+    var boardList = []
+    const mvBoard = function () {
+      store.dispatch('module/board', { })
+        .then(function (result) {
+          for (let i = 0; i < result.data.length; i++) {
+            rows.push(result.data[i])
+          }
+          store.commit('module/setRows', rows)
+          var pn = Math.ceil(rows.length / 8)
+          store.commit('module/setPageNumber', pn)
+          rows = []
+          store.dispatch('module/boardList', { })
+            .then(function (result) {
+              for (let i = 0; i < result.data.length; i++) {
+                boardList.push(result.data[i])
+              }
+              store.commit('module/setBoardList', boardList)
+              boardList = []
+              router.push('/board')
+            })
+            .catch(function () {
+              alert('오류발생')
+            })
+        })
+        .catch(function () {
+          alert('오류발생')
+        })
+    }
+
     return {
       formattedString,
       formattedString2,
@@ -136,7 +184,13 @@ export default defineComponent({
       out,
       state,
       progress1,
-      progressLabel1: computed(() => (progress1.value * 100).toFixed(1) + '%')
+      progressLabel1: computed(() => (progress1.value * 100).toFixed(1) + '%'),
+      columnsM,
+      rowsM,
+      mvBoard,
+      checkInTime,
+      checkOutTime,
+      loginUser
     }
   }
 })
@@ -164,7 +218,7 @@ export default defineComponent({
   left:130px;
   /* background-color:rgb(250, 250, 110); */
 }
-#name{
+.name{
   display:inline-block;
   font-weight:bold;
   padding:10px;

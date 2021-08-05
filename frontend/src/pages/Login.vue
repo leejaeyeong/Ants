@@ -71,23 +71,20 @@ export default defineComponent({
     const store = useStore()
     // store를 사용하기 위해선 useStore import후 변수 선언하여 사용 해야함 !
 
+    var rowsM = []
     // 로그인
     const Swal = require('sweetalert2')
     const login = function () {
       store.dispatch('module/login', { id: state.form.id, password: state.form.password })
         .then(function (result) {
-          console.log(result)
-          console.log(result.data)
           // Swal.fire('accessToken: ' + result.data.accessToken)
           // 로컬스토리지 등록하기
           localStorage.setItem('token', result.data.accessToken)
           localStorage.setItem('id', state.form.id)
           localStorage.setItem('password', state.form.password)
           router.push('/main')
-          console.log(localStorage)
           store.dispatch('module/requestInfo')
             .then(response => {
-              console.log(response, '리스폰스')
               const userInfo = {
                 id: response.data.userId,
                 name: response.data.name,
@@ -95,9 +92,18 @@ export default defineComponent({
               }
               localStorage.setItem('name', userInfo.name)
               localStorage.setItem('department', userInfo.department)
+              store.commit('module/setLoginUser', userInfo)
               // store.state.userId = userInfo.id
               // store.state.name = userInfo.name
-              router.go()
+              store.dispatch('module/board', { })
+                .then(function (result) {
+                  for (let i = 0; i < result.data.length; i++) {
+                    rowsM.push(result.data[i])
+                  }
+                  store.commit('module/setRowsM', rowsM)
+                  rowsM = []
+                  // router.go()
+                })
             }).catch(err => {
               console.log(err, '에러입니다')
             })

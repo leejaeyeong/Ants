@@ -39,13 +39,14 @@
                 </q-item>
               </q-list>
             </q-btn-dropdown>
-            <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:20px;">{{ state.name }} 님</span>
+            <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:20px;">{{ loginUser.name }} 님</span>
         </div>
     </div>
 </template>
 
 <script>
-import { reactive, defineComponent } from 'vue'
+import { computed, reactive, defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   methods: {
@@ -57,14 +58,17 @@ export default defineComponent({
     }
   },
   setup () {
+    const store = useStore()
     const state = reactive({
       name: localStorage.getItem('name')
     })
+    const loginUser = computed(() => store.getters['module/getLoginUser'])
     return {
       state,
       onItemClick () {
         console.log('아이템 클릭')
-      }
+      },
+      loginUser
     }
   }
 })
