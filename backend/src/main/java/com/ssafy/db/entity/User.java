@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class User extends BaseEntity implements Serializable {
     String position;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "department", nullable = false)
     private Department department;
 
@@ -28,8 +28,8 @@ public class User extends BaseEntity implements Serializable {
     String profileLocation;
 
     @ManyToOne
-    @JoinColumn(name="group_id", nullable = false)
-    private Grp grp;
+    @JoinColumn(name = "state", nullable = false)
+    private UserState userState;
 
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -38,9 +38,12 @@ public class User extends BaseEntity implements Serializable {
     @PrePersist
     public void setUp(){
         this.holiday = 14;
-        this.grp = new Grp();
-        this.grp.setId((long)1);
-        this.setDepartment(new Department(1, "empty"));
+        this.position = "사원";
+
+        // 초기 유저 state는 대기중으로
+        UserState userState = new UserState();
+        userState.setId((long)3);
+        this.userState = userState;
     }
 
 }
