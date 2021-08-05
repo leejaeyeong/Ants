@@ -90,10 +90,12 @@ export default defineComponent({
                 id: response.data.userId,
                 name: response.data.name,
                 department: response.data.department,
-                profileLocation: response.data.profileLocation
+                profileLocation: response.data.profileLocation,
+                userState: response.data.state
               }
               localStorage.setItem('name', userInfo.name)
               localStorage.setItem('department', userInfo.department)
+              localStorage.setItem('userState', userInfo.userState)
               store.commit('module/setLoginUser', userInfo)
               localStorage.setItem('profileLocation', userInfo.profileLocation)
               // store.state.userId = userInfo.id

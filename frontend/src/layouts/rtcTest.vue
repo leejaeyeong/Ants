@@ -23,7 +23,7 @@
                     </q-img>
                     <q-card-actions>
                       <!-- <q-btn class="enter">회의입장</q-btn> -->
-                      <input id="enter" type="submit" name="commit" value="회의입장">
+                      <input class="enter" type="submit" name="commit" value="회의입장">
                     </q-card-actions>
                 </q-card>
               </div>
