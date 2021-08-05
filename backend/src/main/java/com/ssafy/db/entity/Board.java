@@ -26,6 +26,7 @@ public class Board extends BaseEntity {
     String title;
     String content;
     int view;
+    String imageLocation;
 
     LocalDateTime registrationTime;
     @PrePersist

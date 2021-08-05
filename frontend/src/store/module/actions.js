@@ -145,3 +145,10 @@ export function departmentInfo ({ state }) {
   const url = baseUrl + 'api/v1/department'
   return $axios.get(url)
 }
+
+// 게시글 등록
+export function registBoard ({ state }, body) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/board'
+  return $axios.post(url, body)
+}
