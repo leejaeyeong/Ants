@@ -1,7 +1,9 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.response.BoardCommentRes;
 import com.ssafy.api.response.BoardRes;
+import com.ssafy.common.util.FileUtil;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.BoardComment;
 import com.ssafy.db.entity.BoardType;
@@ -10,8 +12,13 @@ import com.ssafy.db.repository.BoardRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -21,6 +28,11 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    UserService userService;
+
+    FileUtil fileUtil = FileUtil.getInstance();
 
     @Override
     public List<BoardType> getBoardTypeList() {
@@ -108,6 +120,42 @@ public class BoardServiceImpl implements BoardService {
         return boardRepositorySupport.isMarker(boardId, userId);
     }
 
+    @Override
+    public void increaseViewCnt(Long id) {
+        boardRepositorySupport.increaseViewCnt(id);
+    }
+
+    @Override
+    public BoardRes registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException {
+        Board board = new Board();
+        board.setTitle(boardRegisterPostReq.getTitle());
+        board.setContent(boardRegisterPostReq.getContent());
+        board.setWriter(userService.getUserByUserId(boardRegisterPostReq.getWriter()));
+        board.setBoardType(boardRepositorySupport.findBoardTypeById(boardRegisterPostReq.getType()));
+        board.setRegistrationTime(LocalDateTime.now());
+        board.setView(0);
+
+        File t = new File("..");
+        String path = t.getCanonicalPath();
+        fileUtil.createFilePath(path += "/media");
+        fileUtil.createFilePath(path += "/board");
+
+        String uuid = UUID.randomUUID().toString();
+        File file = fileUtil.createFilePath(path + "/" + uuid);
+
+
+        String filePath = file.getAbsoluteFile() + "/" + boardRegisterPostReq.getImage().getOriginalFilename();
+        board.setImageLocation("/media/board/" + uuid + "/" + boardRegisterPostReq.getImage().getOriginalFilename());
+        File dest = new File(filePath);
+        boardRegisterPostReq.getImage().transferTo(dest);
+        return BoardRes.of(boardRepository.save(board), false, new ArrayList<>());
+    }
+
+    @Override
+    public void deleteBoard(Long id) {
+        boardRepository.delete(boardRepository.findBoardById(id));
+    }
+
     public List<BoardRes> convertToBoardRes(List<Board> boards) {
         List<BoardRes> boardResList = new ArrayList<>();
         for (Board board : boards) {
@@ -120,7 +168,8 @@ public class BoardServiceImpl implements BoardService {
                     board.getWriter().getUserId(),
                     board.getView(),
                     board.getWriter().getProfileLocation(),
-                    false
+                    false,
+                    null
             ));
         }
         return boardResList;
