@@ -1,5 +1,6 @@
 package com.ssafy.api.response;
 
+import com.ssafy.db.entity.BoardComment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -22,5 +23,16 @@ public class BoardCommentRes {
         this.registrationTime = registrationTime;
         this.writer = writer;
         this.profileLocation = profileLocation;
+    }
+
+    public static BoardCommentRes of (BoardComment boardComment) {
+        BoardCommentRes res = new BoardCommentRes(
+                boardComment.getComment(),
+                boardComment.getRegistrationTime(),
+                boardComment.getWriter().getUserId(),
+                boardComment.getWriter().getProfileLocation()
+        );
+        return res;
+
     }
 }
