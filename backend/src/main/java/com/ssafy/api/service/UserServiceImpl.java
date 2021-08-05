@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 		user.setName(userRegisterInfo.getName());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
-		user.setDepartment(user.getDepartment());
+		user.setDepartment(getDepartmentById(userRegisterInfo.getDepartment()));
 		user.setEmail(userRegisterInfo.getEmail());
 
 //		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
 		if(userRepositorySupport.findUserByUserId(userId).isPresent())
 			user = userRepositorySupport.findUserByUserId(userId).get();
 
-		if(user == null || user.getGrp().getId() != 1) return false;
+//		if(user == null || user.getGrp().getId() != 1) return false;
 		return true;
 	}
 
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
 		Grp grp = grpRepositorySupport.findTeamById(userTeamMappingPutReq.getTeamId()).get();
 		if(grp == null) return false;
 
-		user.setGrp(grp);
+//		user.setGrp(grp);
 		return userRepositorySupport.updateUser(user);
 	}
 
