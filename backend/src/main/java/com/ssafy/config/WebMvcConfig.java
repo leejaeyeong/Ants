@@ -1,6 +1,7 @@
 package com.ssafy.config;
 
 import com.ssafy.common.util.JwtTokenUtil;
+import lombok.SneakyThrows;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
+import java.io.File;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -31,6 +33,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return source;
     }
 
+    @SneakyThrows
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/webjars/**")
@@ -42,8 +45,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
 
-
-
+        File ts = new File("..");
+        System.out.println("main 실행----- : " + ts.getAbsoluteFile());
+        System.out.println("main 실행----- : " + ts.getCanonicalPath());
+        System.out.println("main 실행----- : " + ts.getCanonicalPath() + "/media/");
+        registry.addResourceHandler("/media/**")
+                .addResourceLocations("file:///" + ts.getCanonicalPath()+ "/media/");
         /*
          *
          * Front-end에서 참조하는 URL을 /dist로 매핑

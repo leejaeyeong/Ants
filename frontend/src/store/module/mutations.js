@@ -44,3 +44,7 @@ export function setCheckOutTime (state, CheckOutTime) {
 export function setDetail (state, detail) {
   state.detail = detail
 }
+
+export function setDepartmentInfo (state, department) {
+  state.department = department
+}

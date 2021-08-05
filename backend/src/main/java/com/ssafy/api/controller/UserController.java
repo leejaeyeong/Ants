@@ -25,8 +25,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -52,12 +56,18 @@ public class UserController {
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<? extends BaseResponseBody> register(
-			@RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterPostReq registerInfo) {
-		
+//			@RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterPostReq registerInfo,
+			@RequestParam MultipartFile profile,
+			@RequestParam String userId,
+			@RequestParam String name,
+			@RequestParam String password,
+			@RequestParam String email,
+			@RequestParam Long department) throws Exception {
 		//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-		User user = userService.createUser(registerInfo);
-		
-		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+
+		User user = userService.createUser(UserRegisterPostReq.of(userId, password, name, email, department, profile));
+
+		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping("/me")
@@ -75,9 +85,9 @@ public class UserController {
 		 */
 		SsafyUserDetails userDetails = (SsafyUserDetails)authentication.getDetails();
 		String userId = userDetails.getUsername();
-		System.out.println("userDetails: " + userDetails.getUser());
 		User user = userService.getUserByUserId(userId);
 		System.out.println("user: " + user);
+
 
 		return ResponseEntity.status(200).body(UserRes.of(user));
 	}
@@ -265,5 +275,34 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(AttendanceRes.of(userService.getAttendanceToday(user)));
+	}
+
+	// 프로필 업로드 테스트
+	@PostMapping(value = "{userId}/profile")
+	@ApiOperation(value = "프로필 업로드 테스트", notes = "프로필 업로드를 테스트한다.")
+	@ApiResponses({
+			@ApiResponse(code = 204, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<String> registerProfile(@PathVariable String userId, @RequestParam MultipartFile profile) throws IOException {
+		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		System.out.println("rootPath: " + rootPath);
+
+		String basePath = rootPath + "/" + "profile";
+		System.out.println("basePath: " + basePath);
+
+		File file = new File(basePath);
+		if (!file.exists()) {
+			file.mkdir();
+		}
+
+		String filePath = basePath + "/" + profile.getOriginalFilename();
+		System.out.println("filePath: " + filePath);
+
+		File dest = new File(filePath);
+		profile.transferTo(dest);
+		return ResponseEntity.ok().body("success");
 	}
 }

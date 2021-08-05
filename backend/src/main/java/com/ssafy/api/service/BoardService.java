@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.request.UserTeamMappingPutReq;
 import com.ssafy.api.response.BoardCommentRes;
@@ -7,6 +8,7 @@ import com.ssafy.api.response.BoardRes;
 import com.ssafy.db.entity.*;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,9 @@ public interface BoardService {
 	List<BoardRes> getBoardListByMarker(String userId);
 	List<BoardRes> getBoardByWriterId(String userId);
 	List<BoardRes> getBoardByTitle(String title);
-	BoardRes getBoardDetail(Long id);
-	boolean isMarker(String userId, Long boardId);
+	BoardRes getBoardDetail(Long id, String userId);
+	boolean isMarker(Long boardId, String userId);
+	void increaseViewCnt(Long id);
+	BoardRes registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException;
+	void deleteBoard(Long id);
 }

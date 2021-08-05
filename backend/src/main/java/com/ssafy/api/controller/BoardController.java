@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.response.BoardCommentRes;
 import com.ssafy.api.response.BoardRes;
 import com.ssafy.api.service.BoardService;
@@ -7,8 +8,11 @@ import com.ssafy.db.entity.BoardType;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Api(value = "게시판 API", tags = {"Board"})
@@ -60,8 +64,8 @@ public class BoardController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "상세정보 반환 성공")
     })
-    public ResponseEntity<BoardRes> getBoardDetail(@PathVariable Long id) {
-        return ResponseEntity.ok(boardService.getBoardDetail(id));
+    public ResponseEntity<BoardRes> getBoardDetail(@PathVariable Long id, @RequestParam String userId) {
+        return ResponseEntity.ok(boardService.getBoardDetail(id, userId));
     }
 
     @GetMapping("/userId")
@@ -82,4 +86,38 @@ public class BoardController {
         return ResponseEntity.ok(boardService.getBoardByTitle(title));
     }
 
+    @PutMapping("/{id}")
+    @ApiOperation(value = "게시글 조회수 증가", notes = "게시글 상세 정보를 볼 때 조회수가 증가한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "조회수 증가")
+    })
+    public ResponseEntity increaseViewCnt(@PathVariable Long id) {
+        boardService.increaseViewCnt(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping()
+    @ApiOperation(value = "게시글 등록", notes = "게시글을 등록한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "게시글 등록 성공")
+    })
+    public ResponseEntity<BoardRes> registerBoard(
+            @RequestParam Long type,
+            @RequestParam String writer,
+            @RequestParam String title,
+            @RequestParam String content,
+            @RequestParam MultipartFile image
+            ) throws IOException {
+        return ResponseEntity.ok(boardService.registerBoard(BoardRegisterPostReq.of(type, writer, title, content, image)));
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "게시글 삭제", notes = "게시글 번호로 게시글 삭제")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "게시글 삭제 성공")
+    })
+    public ResponseEntity<BoardRes> deleteBoard(@PathVariable Long id) {
+        boardService.deleteBoard(id);
+        return ResponseEntity.noContent().build();
+    }
 }

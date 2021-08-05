@@ -50,6 +50,17 @@
           />
         </div>
   </div>
+  <div id="room" style="display: none">
+    <h2 id="room-header"></h2>
+    <div id="participants"></div>
+    <input
+      type="button"
+      id="button-leave"
+      onmouseup="leaveRoom();"
+      value="Leave room"
+    />
+  </div>
+
 </template>
 <script>
 import { reactive, computed, defineComponent, onMounted } from 'vue'

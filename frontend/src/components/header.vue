@@ -60,7 +60,8 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const state = reactive({
-      name: localStorage.getItem('name')
+      name: localStorage.getItem('name'),
+      profileLocation: localStorage.getItem('profileLocation')
     })
     const loginUser = computed(() => store.getters['module/getLoginUser'])
     return {

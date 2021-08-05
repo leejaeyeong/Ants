@@ -6,7 +6,7 @@
             <q-icon class="icon" name="build"/>
             <span class="list2">회원 정보 수정</span>
         </div>
-        <div class="list1">
+        <div class="list1"  @click="mvManage">
             <q-icon class="icon" name="folder"/>
             <span class="list2">근태 정보</span>
         </div>
@@ -29,6 +29,9 @@ export default defineComponent({
     },
     mvEdit () {
       this.$router.push('/myedit')
+    },
+    mvManage () {
+      this.$router.push('/management')
     }
   },
   setup () {
@@ -36,19 +39,18 @@ export default defineComponent({
     const Swal = require('sweetalert2')
     const remove = function () {
       Swal.fire({
-        title: '정말 탈퇴하시겠습니까 ?',
-        icon: 'question',
+        title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">정말 탈퇴 하시겠습니까?</span>',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#6581A6',
-        confirmButtonText: 'Sure'
+        confirmButtonColor: '#ce1919',
+        cancelButtonColor: '#18C75E',
+        confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">탈퇴</span>'
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire(
-            '탈퇴 완료',
-            '그동안 이용해주셔서 감사합니다.',
-            'success'
-          )
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">성공적으로 탈퇴되었습니다.</span>',
+            confirmButtonColor: '#18C75E',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
         }
       })
     }

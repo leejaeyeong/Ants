@@ -1,7 +1,7 @@
 import $axios from 'axios'
 
 const baseUrl = 'https://localhost:8443/'
-
+// 로그인
 export function login ({ state }, payload) {
   console.log('requestLogin', state, payload)
   const url = baseUrl + 'api/v1/auth/login'
@@ -10,12 +10,12 @@ export function login ({ state }, payload) {
   return $axios.post(url, body)
 }
 // 회원가입
-export function requestSignup ({ state }, payload) {
-  console.log('requestSignup', state, payload)
+export function requestSignup ({ state }, body) {
+  console.log(state)
   const url = baseUrl + 'api/v1/users'
-  const body = payload
   console.log(body)
-  return $axios.post(url, body, { headers: { 'Content-Type': 'multipart/form-data' } })
+  console.dir(body)
+  return $axios.post(url, body)
 }
 // 아이디 중복체크
 export function requestCheckId ({ state }, id) {
@@ -23,7 +23,28 @@ export function requestCheckId ({ state }, id) {
   const url = baseUrl + 'api/v1/users/' + id
   return $axios.get(url)
 }
-
+// 유저정보
+export function requestInfo ({ state }, header) {
+  console.log('requestInfo', state, header)
+  const url = baseUrl + 'api/v1/users/me'
+  const userToken = localStorage.token
+  console.log(userToken, '<-토큰이랑 헤더')
+  return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
+}
+// 유저정보 수정
+export function editInfo ({ state }, header, id) {
+  console.log('editInfo', state, header)
+  const url = baseUrl + 'api/v1/users/' + id
+  const userToken = localStorage.token
+  return $axios.put(url, { headers: { Authorization: `Bearer ${userToken}` } })
+}
+// 유저 탈퇴
+export function deleteUser ({ state }, id) {
+  console.log('deleteUser', state)
+  const url = baseUrl + 'api/v1/users/' + id
+  return $axios.delete(url)
+}
+// 출근
 export function go ({ state }, payload) {
   console.log('go', state, payload)
   const id = localStorage.getItem('id')
@@ -31,7 +52,7 @@ export function go ({ state }, payload) {
   const body = payload
   return $axios.post(url, body)
 }
-
+// 퇴근
 export function out ({ state }, payload) {
   console.log('out', state, payload)
   const id = localStorage.getItem('id')
@@ -39,7 +60,7 @@ export function out ({ state }, payload) {
   const body = payload
   return $axios.put(url, body)
 }
-
+// 당일근태
 export function check ({ state }, payload) {
   console.log('out', state, payload)
   const id = localStorage.getItem('id')
@@ -47,7 +68,7 @@ export function check ({ state }, payload) {
   const body = payload
   return $axios.get(url, body)
 }
-
+// 1주일 근태기록
 export function loadAttendanceByWeek ({ state }, payload) {
   const id = localStorage.getItem('id')
   const currentDay = new Date()
@@ -73,14 +94,20 @@ export function loadAttendanceByWeek ({ state }, payload) {
   return $axios.get(url, payload)
 }
 
-export function requestInfo ({ state }, header) {
-  console.log('requestInfo', state, header)
-  const url = baseUrl + 'api/v1/users/me'
-  const userToken = localStorage.token
-  console.log(userToken, '<-토큰이랑 헤더')
-  console.log('리퀘스트유저정보')
-  return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
-}
+// // 한달 근태
+// export function getMonthwork (payload, date) {
+//   console.log('action.js 함수실행')
+//   console.log(date)
+//   if (date.length !== 6) {
+//     return alert('잘못된 요청입니다.')
+//   }
+//   const year = date.substring(0, 4)
+//   const month = date.substring(4, 6)
+//   const id = localStorage.getItem('id')
+//   console.log(year, month)
+//   const url = baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
+//   return $axios.get(url, payload)
+// }
 
 export function getRooms () {
   const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
@@ -109,6 +136,20 @@ export function boardType ({ state }, id) {
 
 export function boardDetail ({ state }, id) {
   console.log('boardDetail axios', state, id)
-  const url = baseUrl + 'api/v1/board/' + id
+  const userId = state.loginUser.id
+  const url = baseUrl + 'api/v1/board/' + id + '?userId=' + userId
   return $axios.get(url)
+}
+
+export function departmentInfo ({ state }) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/department'
+  return $axios.get(url)
+}
+
+// 게시글 등록
+export function registBoard ({ state }, body) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/board'
+  return $axios.post(url, body)
 }

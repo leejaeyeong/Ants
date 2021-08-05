@@ -42,6 +42,12 @@ public class BoardRepositorySupport {
         return Optional.ofNullable(board);
     }
 
+    public BoardType findBoardTypeById(Long id) {
+        BoardType boardType = jpaQueryFactory.select(qBoardType).from(qBoardType)
+                .where(qBoardType.id.eq(id)).fetchOne();
+        return boardType;
+    }
+
     public Optional<List<BoardComment>> getCommentByBoardId(Long id) {
         List<BoardComment> boardComment =  jpaQueryFactory.select(qBoardComment).from(qBoardComment)
                 .where(qBoardComment.board.id.eq(id)).fetch();
@@ -72,7 +78,7 @@ public class BoardRepositorySupport {
                 .fetch();
         return list;
     }
-    public boolean isMarker(String userId, Long boardId) {
+    public boolean isMarker(Long boardId, String userId) {
         UserMarkerBoard userMarkerBoard = jpaQueryFactory
                 .select(qUserMarkerBoard)
                 .from(qUserMarkerBoard)
@@ -81,5 +87,11 @@ public class BoardRepositorySupport {
         if (userMarkerBoard == null) return false;
         return true;
     }
-
+    @Transactional
+    public void increaseViewCnt(Long id) {
+        jpaQueryFactory.update(qBoard)
+                .set(qBoard.view, qBoard.view.add(1))
+                .where(qBoard.id.eq(id))
+                .execute();
+    }
 }

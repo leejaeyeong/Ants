@@ -87,7 +87,8 @@ export default defineComponent({
     const state = reactive({
       time: date.formatDate(currentTime, 'HH:mm:ss'),
       totalHourOfWeek: '',
-      name: localStorage.getItem('name')
+      name: localStorage.getItem('name'),
+      profileLocation: localStorage.getItem('profileLocation')
     })
     onMounted(() => {
       store.dispatch('module/check', { })

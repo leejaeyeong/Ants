@@ -55,6 +55,8 @@ const detail = {
   writer: ''
 }
 
+const department = []
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -69,6 +71,7 @@ export default function () {
     rowsM: rowsM,
     checkInTime: checkInTime,
     checkOutTime: checkOutTime,
-    detail: detail
+    detail: detail,
+    department: department
   }
 }
