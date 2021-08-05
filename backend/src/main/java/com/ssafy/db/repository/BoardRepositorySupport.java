@@ -69,7 +69,14 @@ public class BoardRepositorySupport {
                 .where(qBoardType.id.eq(id)).fetchOne();
         return boardType;
     }
-
+    public UserMarkerBoard getUserMarker(Long boardId, String userId) {
+        UserMarkerBoard userMarkerBoard = jpaQueryFactory
+                .select(qUserMarkerBoard)
+                .from(qUserMarkerBoard)
+                .where(qUserMarkerBoard.user.userId.eq(userId).and(qUserMarkerBoard.board.id.eq(boardId)))
+                .fetchOne();
+        return userMarkerBoard;
+    }
     public List<Long> getUserMarkerList(String userId) {
         List<Long> list = jpaQueryFactory
                 .select(qUserMarkerBoard.board.id)
