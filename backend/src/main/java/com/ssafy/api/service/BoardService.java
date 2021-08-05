@@ -30,4 +30,5 @@ public interface BoardService {
 	BoardRes registerBoard(BoardRegisterPostReq boardRegisterPostReq) throws IOException;
 	void deleteBoard(Long id);
 	BoardCommentRes registerComment(Long id, CommentRegisterPostReq commentRegisterPostReq);
+	boolean boardMarkerToggle(Long boardId, String userId);
 }

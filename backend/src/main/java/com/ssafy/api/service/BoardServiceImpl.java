@@ -8,10 +8,13 @@ import com.ssafy.common.util.FileUtil;
 import com.ssafy.db.entity.Board;
 import com.ssafy.db.entity.BoardComment;
 import com.ssafy.db.entity.BoardType;
+import com.ssafy.db.entity.UserMarkerBoard;
 import com.ssafy.db.repository.BoardCommentRepository;
 import com.ssafy.db.repository.BoardRepository;
 import com.ssafy.db.repository.BoardRepositorySupport;
+import com.ssafy.db.repository.UserMarkerBoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.swing.filechooser.FileSystemView;
@@ -33,6 +36,9 @@ public class BoardServiceImpl implements BoardService {
 
     @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    UserMarkerBoardRepository userMarkerBoardRepository;
 
     @Autowired
     UserService userService;
@@ -188,5 +194,26 @@ public class BoardServiceImpl implements BoardService {
             ));
         }
         return boardResList;
+    }
+
+    @Override
+    public boolean boardMarkerToggle (Long boardId, String userId) {
+        if (isMarker(boardId, userId)) {
+            return removeMarker(boardId, userId);
+        }
+        return registerMarker(boardId, userId);
+    }
+
+    public boolean registerMarker(Long boardId, String userId) {
+        UserMarkerBoard userMarkerBoard = new UserMarkerBoard();
+        userMarkerBoard.setBoard(boardRepository.findBoardById(boardId));
+        userMarkerBoard.setUser(userService.getUserByUserId(userId));
+        userMarkerBoardRepository.save(userMarkerBoard);
+        return true;
+    }
+
+    public boolean removeMarker(Long boardId, String userId) {
+        userMarkerBoardRepository.delete(boardRepositorySupport.getUserMarker(boardId, userId));
+        return false;
     }
 }

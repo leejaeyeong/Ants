@@ -5,6 +5,7 @@ import com.ssafy.api.request.CommentRegisterPostReq;
 import com.ssafy.api.response.BoardCommentRes;
 import com.ssafy.api.response.BoardRes;
 import com.ssafy.api.service.BoardService;
+import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.BoardType;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,5 +132,13 @@ public class BoardController {
         return ResponseEntity.ok().body(boardService.registerComment(id, commentRegisterPostReq));
     }
 
+    @PutMapping("/{id}/marker")
+    @ApiOperation(value = "게시글 마크 토글", notes = "게시글에 대한 마크를 토글한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "토글 결과 반환")
+    })
+    public ResponseEntity<String> toggleMarker(@PathVariable Long id, @RequestParam String userId) {
+        return ResponseEntity.ok().body(boardService.boardMarkerToggle(id, userId) ? "마커 등록 성공" : "마커 삭제 성공");
+    }
 
 }
