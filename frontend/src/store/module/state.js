@@ -1,4 +1,8 @@
-const loginUser = {}
+const loginUser = {
+  id: '',
+  name: '',
+  department: ''
+}
 
 const columns = [
   {
@@ -15,11 +19,41 @@ const columns = [
   { name: 'registrationTime', label: '작성시간', field: 'registrationTime', sortable: true },
   { name: 'view', label: '조회수', field: 'view', sortable: true }
 ]
-
 const rows = []
+
+const columnsM = [
+  {
+    name: 'title',
+    required: true,
+    label: '제목',
+    align: 'center',
+    field: row => row.title,
+    format: val => `${val}`,
+    sortable: true
+  },
+  { name: 'writer', align: 'center', label: '글쓴이', field: 'writer', sortable: true },
+  { name: 'view', align: 'center', label: '조회수', field: 'view', sortable: true }
+]
+const rowsM = []
 
 const boardList = []
 const pageNumber = 1
+
+const rooms = []
+
+const checkInTime = ''
+const checkOutTime = ''
+
+const detail = {
+  comments: [],
+  content: '',
+  id: '',
+  registrationTime: '',
+  title: '',
+  typeId: '',
+  view: '',
+  writer: ''
+}
 
 export default function () {
   return {
@@ -29,6 +63,12 @@ export default function () {
     columns: columns,
     rows: rows,
     boardList: boardList,
-    pageNumber: pageNumber
+    pageNumber: pageNumber,
+    rooms: rooms,
+    columnsM: columnsM,
+    rowsM: rowsM,
+    checkInTime: checkInTime,
+    checkOutTime: checkOutTime,
+    detail: detail
   }
 }
