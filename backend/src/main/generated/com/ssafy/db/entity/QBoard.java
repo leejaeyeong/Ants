@@ -31,6 +31,8 @@ public class QBoard extends EntityPathBase<Board> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
+    public final StringPath imageLocation = createString("imageLocation");
+
     public final DateTimePath<java.time.LocalDateTime> registrationTime = createDateTime("registrationTime", java.time.LocalDateTime.class);
 
     public final StringPath title = createString("title");
