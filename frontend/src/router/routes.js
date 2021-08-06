@@ -75,6 +75,10 @@ const routes = [
       {
         path: '/rtc',
         component: () => import('layouts/rtcTest.vue')
+      },
+      {
+        path: '/downloads',
+        component: () => import('pages/downloads/Downloads.vue')
       }
     ]
   },
