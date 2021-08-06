@@ -5,12 +5,10 @@ import com.ssafy.api.request.CommentRegisterPostReq;
 import com.ssafy.api.response.BoardCommentRes;
 import com.ssafy.api.response.BoardRes;
 import com.ssafy.api.service.BoardService;
-import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.BoardType;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
