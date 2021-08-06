@@ -7,18 +7,18 @@
                     {{ loginUser.department }}팀 {{ loginUser.name }}님 환영합니다.
                 </div>
                 <div id="bot1">
-                    <div id="day" style="padding-top:25px;">
+                    <div id="day">
                         {{ formattedString }}<br>
-                        <span style="padding-left:23px;">{{ formattedString2 }}</span>
+                        <span style="padding-left:10px;">{{ formattedString2 }}</span>
                     </div>
                     <div id="detail1">
                         <div class="show">
-                            <q-btn @click="go" style="border-right:1px solid black; height:100%; font-size:30px; background: #18C75E; color: black;" label="출근" />
-                            <span style="margin-left:7px; font-size:22px;">{{ checkInTime }}</span>
+                            <q-btn @click="go" style="border-right:1px solid black; height:100%; font-size:20px; font-weight:bold; background: #18C75E; color: black;" label="출근" />
+                            <span style="margin-left:7px; font-size:16px;">{{ checkInTime }}</span>
                         </div>
                         <div class="show">
-                            <q-btn @click="out" style="border-right:1px solid black; height:100%; font-size:30px; background: #18C75E; color: black" label="퇴근" />
-                            <span style="margin-left:7px; font-size:22px;">{{ checkOutTime }}</span>
+                            <q-btn @click="out" style="border-right:1px solid black; height:100%; font-size:20px; font-weight:bold; background: #18C75E; color: black" label="퇴근" />
+                            <span style="margin-left:7px; font-size:16px;">{{ checkOutTime }}</span>
                         </div>
                     </div>
                 </div>
@@ -27,25 +27,24 @@
                 <div class="name">내 통계</div>
                 <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
                 <div>
-                    <q-linear-progress stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
+                    <q-linear-progress stripe rounded style="border-radius:20px; width:80%; margin-top:35px; margin-left:80px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
                         <div class="absolute-full flex flex-center">
                             <q-badge color="white" style="color:#18C75E; font-weight:bold;" :label="progressLabel1" />
                         </div>
                     </q-linear-progress>
                 </div>
-                <span style="font-weight:bold; font-size:22px; margin-top:10px; float:left; margin-left:100px;">이번주 근무시간 : {{state.totalHourOfWeek}}시간</span>
-                <span style="float:right; margin-right:100px; font-size:22px; margin-top:10px; font-weight:bold;">40시간</span>
+                <span style="font-weight:bold; font-size:18px; margin-top:8px; float:left; margin-left:80px;">이번주 근무시간 : {{state.totalHourOfWeek}}시간</span>
+                <span style="float:right; margin-right:45px; font-size:18px; margin-top:8px; font-weight:bold;">40시간</span>
             </div>
             <div id="botLeft">
               <div class="name">최근 게시물</div>
               <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
-              <div class="q-pa-md" style="padding-top:0;">
+              <div class="q-pa-md">
                 <q-table
                   title=""
                   :rows="rowsM"
                   :columns="columnsM"
                   row-key="title"
-                  v-model:pagination="pagination"
                   style="cursor:pointer;"
                   hide-pagination
                 />
@@ -90,13 +89,6 @@ export default defineComponent({
       totalHourOfWeek: '',
       name: localStorage.getItem('name'),
       profileLocation: localStorage.getItem('profileLocation')
-    })
-    const pagination = ref({
-      sortBy: 'desc',
-      descending: false,
-      page: 1,
-      rowsPerPage: 8
-      // rowsNumber: xx if getting data from a server
     })
     onMounted(() => {
       store.dispatch('module/check', { })
@@ -199,8 +191,7 @@ export default defineComponent({
       mvBoard,
       checkInTime,
       checkOutTime,
-      loginUser,
-      pagination
+      loginUser
     }
   }
 })
@@ -219,63 +210,62 @@ export default defineComponent({
   background-color:white;
 }
 #topLeft{
-  width:650px;
-  height:280px;
+  width:500px;
+  height:200px;
   border: 1px solid rgb(212, 212, 212);
   display:inline-block;
   position:absolute;
   top:100px;
-  left:120px;
+  left:130px;
   /* background-color:rgb(250, 250, 110); */
 }
 .name{
   display:inline-block;
   font-weight:bold;
   padding:10px;
-  font-size:30px;
+  font-size:20px;
 }
 #mid1{
-  height:60px;
+  height:40px;
   text-align:center;
-  line-height:60px;
-  font-size:24px;
-  padding-top:10px;
+  line-height:40px;
+  font-size:16px;
 }
 #bot1{
-  margin-top:13px;
-  height:140px;
+  margin-top:10px;
+  height:100px;
 }
 #day{
-  width:20%;
-  height:140px;
-  font-size:30px;
+  width:15%;
+  height:100px;
+  font-size:25px;
   font-weight: bold;
   padding-top:10px;
-  padding-left:40px;
+  padding-left:25px;
   display:inline-block;
 }
 #detail1{
   float:right;
-  width:80%;
-  height:140px;
-  padding-left:15px;
+  width:85%;
+  height:100px;
+  padding-left:20px;
 }
 .show{
   border:1px solid black;
   display:inline-block;
-  width:200px;
-  height:100px;
-  margin-top:18px;
-  margin-left:30px;
+  width:160px;
+  height:70px;
+  margin-top:13px;
+  margin-left:20px;
 }
 #topRight{
   float:right;
-  width:980px;
-  height:280px;
+  width:750px;
+  height:200px;
   border:0.5px solid rgb(212, 212, 212);
   position: absolute;
   top:100px;
-  left:800px;
+  left:700px;
   /* background-color:rgb(250, 250, 110); */
 }
 #botLeft{
