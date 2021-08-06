@@ -153,7 +153,7 @@ export default defineComponent({
 <style scoped>
 #side{
   width:90px;
-  height:892px;
+  height:100%;
   float:left;
   border-right:0.5px solid rgb(212, 212, 212);
   border-bottom:0.5px solid rgb(212, 212, 212);
@@ -182,6 +182,6 @@ export default defineComponent({
   font-size:20px;
 }
 #logout{
-  margin-top:350px;
+  margin-top:200px;
 }
 </style>
