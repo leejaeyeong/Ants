@@ -112,7 +112,7 @@ export default defineComponent({
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:880px;
+    top:700px;
     left:1600px;
 }
 #submit:hover{
