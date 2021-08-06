@@ -135,39 +135,40 @@ export default defineComponent({
     font-weight:bold;
     color:white;
     padding:10px;
-    font-size:20px;
+    font-size:30px;
     cursor: pointer;
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:700px;
+    top:880px;
     left:1600px;
 }
 #submit:hover{
     opacity: 0.7;
 }
 #participants{
-    width:1150px;
-    height:690px;
+    width:1340px;
+    height:892px;
     border:1px solid green;
     position:absolute;
-    left:75px;
+    left:90px;
 }
 #chat{
-    width:295px;
-    height:690px;
+    width:490px;
+    height:892px;
     border:1px solid blue;
     position:absolute;
-    left:1225px;
+    left:1430px;
 }
 #button-leave{
     position:absolute;
     top:90%;
+    left:120px;
     background-color:#18C75E;
     font-weight:bold;
     color:white;
     padding:10px;
-    font-size:20px;
+    font-size:30px;
     cursor: pointer;
     border:0.5px solid #18C75E;
     border-radius:5px;
