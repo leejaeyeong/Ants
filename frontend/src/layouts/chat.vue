@@ -2,7 +2,7 @@
     <div id="main-content" class="container">
         <div class="row">
             <div class="col-md-6">
-                <form class="form-inline" onsubmit="connect(); return false;" accept-charset="UTF-8">
+                <form class="form-inline" accept-charset="UTF-8">
                     <div class="form-group">
                         <label for="connect">WebSocket connection:</label>
                         <button id="connect" class="btn btn-default" type="submit">Connect</button>

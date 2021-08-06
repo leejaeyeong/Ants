@@ -57,6 +57,8 @@ const detail = {
 
 const department = []
 
+const roomName = ''
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -72,6 +74,7 @@ export default function () {
     checkInTime: checkInTime,
     checkOutTime: checkOutTime,
     detail: detail,
-    department: department
+    department: department,
+    roomName: roomName
   }
 }
