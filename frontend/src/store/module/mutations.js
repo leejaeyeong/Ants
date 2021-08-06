@@ -48,3 +48,7 @@ export function setDetail (state, detail) {
 export function setDepartmentInfo (state, department) {
   state.department = department
 }
+
+export function setRoomName (state, roomName) {
+  state.roomName = roomName
+}

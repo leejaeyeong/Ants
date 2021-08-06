@@ -48,3 +48,7 @@ export function getDetail (state) {
 export function getDepartmentInfo (state) {
   return state.department
 }
+
+export function getRoomName (state) {
+  return state.roomName
+}

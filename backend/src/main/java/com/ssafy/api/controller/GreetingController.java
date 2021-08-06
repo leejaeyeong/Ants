@@ -10,15 +10,15 @@ import org.springframework.web.util.HtmlUtils;
 
 @Controller
 public class GreetingController {
-	@MessageMapping("/hello")
-	@SendTo("/topic/greetings")
-	public Greeting greeting(HelloMessage message) throws Exception {
-		Thread.sleep(100); // delay
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
-	}
+//	@MessageMapping("/hello")
+//	@SendTo("/topic/greetings")
+//	public Greeting greeting(HelloMessage message) throws Exception {
+//		Thread.sleep(100); // delay
+//		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
+//	}
 	
-	@MessageMapping("/chat")
-	@SendTo("/topic/chat")
+	@MessageMapping("/{room}")
+	@SendTo("/topic/{room}")
 	public Chat chat(Chat chat) throws Exception {
 		return new Chat(chat.getName(), chat.getMessage());
 	}
