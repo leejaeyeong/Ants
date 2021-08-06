@@ -70,6 +70,25 @@ function register() {
 	sendMessage(message);
 }
 
+function joinConference(name, room) {
+//	name = document.getElementById('joinUser').value;
+//	var room = document.getElementById('joinConferenceRoom').value;
+//    console.log($(this));
+    console.log(name);
+    console.log(room);
+//
+	document.getElementById('room-header').innerText = 'ROOM ' + room;
+	document.getElementById('join').style.display = 'none';
+	document.getElementById('room').style.display = 'block';
+
+	var message = {
+		id : 'joinRoom',
+		name : name,
+		room : room,
+	}
+	sendMessage(message);
+}
+
 function onNewParticipant(request) {
 	receiveVideo(request.name);
 }
@@ -136,6 +155,7 @@ function leaveRoom() {
 	document.getElementById('room').style.display = 'none';
 
 	ws.close();
+	window.location.reload();
 }
 
 function receiveVideo(sender) {

@@ -55,6 +55,17 @@
                 Setting
             </div>
         </div>
+        <div class="list"  @click="mvDownloads">
+            <div class="img">
+                <q-icon style="font-size: 2.8em; color: #18C75E;" name="다운로드"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>다운로드</strong>
+                  </q-tooltip>
+            </div>
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
+                다운로드
+            </div>
+        </div>
         <div @click="logout" class="list" id="logout">
             <div class="img">
                 <q-icon style="font-size: 3.5em; color: #18C75E;" name="logout"/>
@@ -86,6 +97,9 @@ export default defineComponent({
     },
     mvRTC () {
       this.$router.push('/rtc')
+    },
+    mvDownloads () {
+      this.$router.push('/downloads')
     }
   },
   setup () {
@@ -139,7 +153,7 @@ export default defineComponent({
 <style scoped>
 #side{
   width:90px;
-  height:892px;
+  height:100%;
   float:left;
   border-right:0.5px solid rgb(212, 212, 212);
   border-bottom:0.5px solid rgb(212, 212, 212);
@@ -168,6 +182,6 @@ export default defineComponent({
   font-size:20px;
 }
 #logout{
-  margin-top:350px;
+  margin-top:200px;
 }
 </style>

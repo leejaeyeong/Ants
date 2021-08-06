@@ -26,7 +26,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final QDepartment department;
 
-    public final QGrp grp;
+    public final StringPath email = createString("email");
 
     public final NumberPath<Integer> holiday = createNumber("holiday", Integer.class);
 
@@ -39,7 +39,11 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath position = createString("position");
 
+    public final StringPath profileLocation = createString("profileLocation");
+
     public final StringPath userId = createString("userId");
+
+    public final QUserState userState;
 
     public QUser(String variable) {
         this(User.class, forVariable(variable), INITS);
@@ -60,7 +64,7 @@ public class QUser extends EntityPathBase<User> {
     public QUser(Class<? extends User> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.department = inits.isInitialized("department") ? new QDepartment(forProperty("department")) : null;
-        this.grp = inits.isInitialized("grp") ? new QGrp(forProperty("grp")) : null;
+        this.userState = inits.isInitialized("userState") ? new QUserState(forProperty("userState")) : null;
     }
 
 }

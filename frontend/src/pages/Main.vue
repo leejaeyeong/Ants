@@ -209,11 +209,11 @@ export default defineComponent({
 <style scoped>
 #content{
   width:100%;
-  height: 680px;
+  height: 100%;
 }
 #main{
   width:95%;
-  height:892px;
+  height:100%;
   float:right;
   border-bottom:0.5px solid rgb(212, 212, 212);
   background-color:white;
@@ -281,7 +281,7 @@ export default defineComponent({
 #botLeft{
   position: absolute;
   width:815px;
-  height:530px;
+  height:440px;
   top:410px;
   left:120px;
   border:0.5px solid rgb(212, 212, 212);
@@ -290,7 +290,7 @@ export default defineComponent({
 #botRight{
   position: absolute;
   width:815px;
-  height:530px;
+  height:440px;
   top:410px;
   left:965px;
   border:0.5px solid rgb(212, 212, 212);
