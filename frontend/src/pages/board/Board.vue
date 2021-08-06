@@ -1,10 +1,10 @@
 <template>
   <div id="board">
     <div>
-        <q-input filled color="teal" v-model="form.key" style="height:40px; display:inline-block; width:20%; margin-top:35px; margin-left:40px;" label="제목, 내용" />
+        <q-input filled color="teal" v-model="form.key" style="height:40px; display:inline-block; width:15%; margin-top:20px; margin-left:40px;" label="제목, 내용" />
         <q-btn @click="search" round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:50px; width:50px;" icon="search" />
     </div>
-    <div class="q-pa-md" style="width:120%; margin-top:30px; margin-left:25px;">
+    <div class="q-pa-md" style="width:95%; margin-left:25px;">
       <q-table
         title="공지사항"
         :rows="rows"
@@ -45,7 +45,7 @@ export default defineComponent({
       sortBy: 'desc',
       descending: false,
       page: 1,
-      rowsPerPage: 10
+      rowsPerPage: 8
       // rowsNumber: xx if getting data from a server
     })
     const pagesNumber = computed(() => store.getters['module/getPageNumber'])
@@ -98,8 +98,8 @@ export default defineComponent({
     width: 1130px;
     height: 690px;
     position: absolute;
-    top:75px;
-    left:390px;
+    top:60px;
+    left:325px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';

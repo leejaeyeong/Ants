@@ -135,7 +135,7 @@ export default defineComponent({
     font-weight:bold;
     color:white;
     padding:10px;
-    font-size:30px;
+    font-size:20px;
     cursor: pointer;
     border:0.5px solid #18C75E;
     border-radius:5px;
@@ -147,28 +147,27 @@ export default defineComponent({
     opacity: 0.7;
 }
 #participants{
-    width:1340px;
-    height:892px;
+    width:1150px;
+    height:690px;
     border:1px solid green;
     position:absolute;
-    left:90px;
+    left:75px;
 }
 #chat{
-    width:490px;
-    height:892px;
+    width:295px;
+    height:690px;
     border:1px solid blue;
     position:absolute;
-    left:1430px;
+    left:1225px;
 }
 #button-leave{
     position:absolute;
     top:90%;
-    left:120px;
     background-color:#18C75E;
     font-weight:bold;
     color:white;
     padding:10px;
-    font-size:30px;
+    font-size:20px;
     cursor: pointer;
     border:0.5px solid #18C75E;
     border-radius:5px;

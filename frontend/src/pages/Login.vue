@@ -143,7 +143,7 @@ export default defineComponent({
 #loginbox{
     width:1000px;
     height:500px;
-    margin:220px auto;
+    margin:120px auto;
     border-radius: 15px;
     background-color:whitesmoke;
     z-index: 100;
