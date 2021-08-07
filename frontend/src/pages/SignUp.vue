@@ -22,7 +22,7 @@
                 lazy-rules
                 :rules="[
                 val => !!val || '필수입력항목 입니다.',
-                val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
+                val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. ',
                 ]"
               />
               <q-input
@@ -34,13 +34,15 @@
                 lazy-rules
                 :rules="[
                 val => !!val || '필수입력항목 입니다.',
-                val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. '
+                val => val.length > 1 && val.length <= 16 || '2 ~ 16자까지 입력 가능합니다. ',
+                checkName
                 ]"
               />
               <q-input class="input" filled :type="isPwd ? 'password' : 'text'"  label="Password *" color="teal" v-model="state.form.password"
               lazy-rules
                 :rules="[
-                  val => val && val.length > 0 || '필수입력항목 입니다.'
+                  val => val && val.length > 0 || '필수입력항목 입니다.',
+                  checkPassWord
                 ]">
                 <template v-slot:append>
                   <q-icon
@@ -59,22 +61,24 @@
           </div>
         </div>
         <div id="right2" style="display: none"> <!-- 추가정보 입력-->
-          <div id="mark">
-            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
-          </div>
-          <div class="q-pa-md" id="form" style="max-width: 400px">
+          <div class="q-pa-md" id="form2" style="max-width: 400px">
             <div class="input">
+                <img
+                  v-if="state.tmp"
+                  :src="state.tmp"
+                  style="border-radius: 50%; width: 100px; height: 100px;"
+                  id="thumb"
+                  />
+                <img
+                  v-else
+                  src="~assets/images/user.png"
+                  style="border-radius: 50%; width: 100px; height: 100px;"
+                  id="thumb"
+                  />
                 <div>
                   <q-btn @click="imgLabelClick" style="background-color: #00BF6F;">Upload Image</q-btn>
-                  <!-- <label for="image_uploads" style="color: black;" @click="imgLabelClick">Choose images to upload (PNG, JPG)</label> -->
                   <input ref="imageInput" type="file" style="color: black; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png, .gif" id="profile_img_upload">
                 </div>
-                <img
-                v-if="state.tmp"
-                :src="state.tmp"
-                style="border-radius: 50%; width: 100px; height: 100px;"
-                id="thumb"
-                />
               </div>
             <q-form class="q-gutter-md" ref="signupForm" :model="state.form">
               <q-input
@@ -83,14 +87,15 @@
                 label="Email *"
                 type="email"
                 color="teal"
-                @blur="checkEmail"
                 v-model="state.form.email"
                 lazy-rules
                 :rules="[
-                val => !!val || '필수입력항목 입니다.'
+                val => !!val || '필수입력항목 입니다.',
+                checkEmail
                 ]"
               />
               <q-select id="dptId" class="input" filled v-model="state.form.department" :options="options" label="부서 선택" />
+              <div style="height: 10px;"></div>
               <div class="btnform">
                 <q-btn @click="back2" flat style="color: #00BF6F; margin-right:10px;" label="← Back"/>
                 <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
@@ -172,6 +177,7 @@ export default defineComponent({
     console.log('set up 선언')
     console.log(department)
     console.log('set up 선언')
+
     // 아이디 중복체크
     function checkId () {
       console.log('아이디중복체크')
@@ -184,8 +190,8 @@ export default defineComponent({
               confirmButtonColor: '#19CE60',
               confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
             })
-            return true
           }
+          return true
         })
         .catch(function (err) {
           if (err.request.status === 409) {
@@ -198,17 +204,44 @@ export default defineComponent({
           } else {
             console.log(err)
           }
+          return false
         })
     }
-    // 이메일 유효성 체크
-    function checkEmail () {
-      // const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      console.log('이메일 유효성 체크')
-      const email = state.form.email
-      console.log(email)
+    // 이름 유효성 체크
+    function checkName (val) {
+      const reg = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g
+      return (reg.test(val) || '한글만 입력가능합니다.')
     }
+    // 비밀번호 유효성 체크
+    function checkPassWord (val) {
+      const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/
+      return (reg.test(val) || '최소 각 하나의 문자, 숫자, 특수 문자가 포함되어야 합니다.')
+    }
+    // 이메일 유효성 체크
+    function checkEmail (val) {
+      const reg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+      return (reg.test(val) || '이메일 형식이 잘못되었습니다.')
+    }
+
     // 회원가입보냄
     function validate () {
+      if (state.form.department === '') {
+        Swal.fire({
+          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">부서를 선택 해주세요.</span>',
+          confirmButtonColor: '#19CE60',
+          confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+        })
+        return false
+      }
+      // 이미지 유효체크
+      if (state.form.image === '') {
+        Swal.fire({
+          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">이미지를 업로드해주세요.</span>',
+          confirmButtonColor: '#19CE60',
+          confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+        })
+        return false
+      }
       signupForm.value.validate().then(success => {
         if (success) {
           // 회원가입 유효함
@@ -226,8 +259,6 @@ export default defineComponent({
               break
             }
           }
-          alert(state.form.department)
-          alert(selectedIndex)
           frm.append('department', selectedIndex)
           store.dispatch('module/requestSignup', frm)
             .then(function (result) {
@@ -256,11 +287,20 @@ export default defineComponent({
       this.$refs.imageInput.click()
     }
     function onChangeImages (e) {
-      console.log(e.target.files)
-      console.log(e.target)
       const file = e.target.files[0] // Get first index in files
+      const maxSize = 5 * 1024 * 1024 // 파일 최대 사이즈 제한 30메가바이트
+      const fileSize = file.size
+      if (fileSize > maxSize) {
+        Swal.fire({
+          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">30MB 이하 파일만 등록할 수 있습니다.</span>',
+          confirmButtonColor: '#ce1919',
+          confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+        })
+        return
+      }
       this.state.tmp = URL.createObjectURL(file)
       this.state.form.image = file // Create File URL
+      document.getElementById('tempDiv').remove()
     }
     // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
     function imgLabelClick () {
@@ -293,6 +333,8 @@ export default defineComponent({
       onClickImageUpload,
       onChangeImages,
       imgLabelClick,
+      checkName,
+      checkPassWord,
       checkEmail
     }
   }
@@ -343,6 +385,10 @@ export default defineComponent({
 }
 #form{
   margin-left: 14%;
+}
+#form2{
+  margin-left: 14%;
+  margin-top: 70px;
 }
 .btn{
   margin:0 5px;
@@ -432,5 +478,14 @@ export default defineComponent({
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+}
+body{
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
+div{
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
+span{
+  font-family: 'NEXON Lv1 Gothic OTF';
 }
 </style>

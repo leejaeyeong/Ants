@@ -51,7 +51,8 @@ export function getDepartmentInfo (state) {
 
 export function getUserInfo (state) {
   return state.userInfo
-  
+}
+
 export function getRoomName (state) {
   return state.roomName
 }
