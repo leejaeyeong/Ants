@@ -38,7 +38,7 @@
 
         </tr>
       </table>
-      <q-btn style="margin-left:735px; margin-top:10px; width:95px; color: white; background-color: #18C75E;" icon="build" label="수정하기" />
+      <q-btn @click="myEdit" style="margin-left:735px; margin-top:10px; width:95px; color: white; background-color: #18C75E;" icon="build" label="수정하기" />
   </div>
 </template>
 
@@ -75,25 +75,31 @@ export default defineComponent({
       console.log(inputImg)
       inputImg.click() // 클릭이벤트 실행
     }
+    // 수정하기
+    function myEdit () {
+      store.dispatch('module/editInfo')
+        .then(function (res) {
+          console.log(res)
+          alert('회원정보 수정완료')
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    }
+
     return {
       userInfo,
       state,
       onClickImageUpload,
       onChangeImages,
-      imgLabelClick
+      imgLabelClick,
+      myEdit
     }
   }
 })
 </script>
 
 <style scoped>
-#myData{
-  width: 1130px;
-  height: 690px;
-  position: absolute;
-  top:60px;
-  left:325px;
-}
 table, td, th{
   /* border:3px solid #6581A6; */
   border:1.5px solid rgb(153, 149, 149);

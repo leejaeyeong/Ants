@@ -250,8 +250,8 @@ export default defineComponent({
           frm.append('profile', photoFile.files[0])
           frm.append('userId', state.form.userId)
           frm.append('name', state.form.name)
-          frm.append('password', state.form.email)
-          frm.append('email', state.form.userId)
+          frm.append('password', state.form.password)
+          frm.append('email', state.form.email)
           let selectedIndex = -1
           for (let i = 0; i < department.value.length; i++) {
             if (selectOptions[i] === state.form.department) {
@@ -300,7 +300,6 @@ export default defineComponent({
       }
       this.state.tmp = URL.createObjectURL(file)
       this.state.form.image = file // Create File URL
-      document.getElementById('tempDiv').remove()
     }
     // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
     function imgLabelClick () {

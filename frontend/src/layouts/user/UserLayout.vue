@@ -1,17 +1,14 @@
 <template>
-  <user-side></user-side>
   <user-content></user-content>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import UserSide from '../../components/UserSide.vue'
 import UserContent from './UserContent.vue'
 
 export default defineComponent({
   name: 'userlayout',
   components: {
-    UserSide,
     UserContent
   }
 })
@@ -22,8 +19,8 @@ export default defineComponent({
   width: 1130px;
   height: 690px;
   position: absolute;
-  top:60px;
-  left:325px;
+  top:75px;
+  left:400px;
 }
 table, td, th{
   /* border:3px solid #6581A6; */
