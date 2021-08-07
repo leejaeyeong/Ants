@@ -44,26 +44,26 @@
                 RTC
             </div>
         </div>
-        <div class="list">
-            <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="settings"/>
-                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
-                    <strong>Settings</strong>
-                  </q-tooltip>
-            </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
-                Setting
-            </div>
-        </div>
         <div class="list"  @click="mvDownloads">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #18C75E;" name="font_download"/>
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="download"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>다운로드</strong>
                   </q-tooltip>
             </div>
             <div class="detail" style="color: #18C75E; font-weight:bold;">
                 다운로드
+            </div>
+        </div>
+        <div class="list">
+            <div class="img">
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="font_download"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>Settings</strong>
+                  </q-tooltip>
+            </div>
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
+                Setting
             </div>
         </div>
         <div @click="logout" class="list" id="logout">
@@ -77,7 +77,7 @@
                 LogOut
             </div>
         </div>
-    </div>
+        </div>
 </template>
 
 <script>
@@ -182,6 +182,6 @@ export default defineComponent({
   font-size:20px;
 }
 #logout{
-  margin-top:200px;
+  margin-top:260px;
 }
 </style>

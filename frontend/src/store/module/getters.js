@@ -49,6 +49,10 @@ export function getDepartmentInfo (state) {
   return state.department
 }
 
+export function getUserInfo (state) {
+  return state.userInfo
+}
+
 export function getRoomName (state) {
   return state.roomName
 }

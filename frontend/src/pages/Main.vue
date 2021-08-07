@@ -39,7 +39,7 @@
             <div id="botLeft">
               <div class="name">최근 게시물</div>
               <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
-              <div class="q-pa-md" style="padding-top:0;">
+              <div class="q-pa-md">
                 <q-table
                   title=""
                   :rows="rowsM"
@@ -235,11 +235,10 @@ export default defineComponent({
   font-size:30px;
 }
 #mid1{
-  height:60px;
+  height:40px;
   text-align:center;
-  line-height:60px;
-  font-size:24px;
-  padding-top:10px;
+  line-height:40px;
+  font-size:16px;
 }
 #bot1{
   margin-top:13px;
@@ -263,7 +262,7 @@ export default defineComponent({
 .show{
   border:1px solid black;
   display:inline-block;
-  width:200px;
+  width:200x;
   height:100px;
   margin-top:18px;
   margin-left:30px;
@@ -281,7 +280,7 @@ export default defineComponent({
 #botLeft{
   position: absolute;
   width:815px;
-  height:440px;
+  height:530px;
   top:410px;
   left:120px;
   border:0.5px solid rgb(212, 212, 212);
@@ -290,7 +289,7 @@ export default defineComponent({
 #botRight{
   position: absolute;
   width:815px;
-  height:440px;
+  height:530px;
   top:410px;
   left:965px;
   border:0.5px solid rgb(212, 212, 212);

@@ -20,6 +20,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'mypage',
@@ -37,20 +38,35 @@ export default defineComponent({
   setup () {
     // 회원 탈퇴
     const Swal = require('sweetalert2')
+    const store = useStore()
     const remove = function () {
       Swal.fire({
         title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">정말 탈퇴 하시겠습니까?</span>',
         showCancelButton: true,
         confirmButtonColor: '#ce1919',
         cancelButtonColor: '#18C75E',
+        cancelButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">취소</span>',
         confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">탈퇴</span>'
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">성공적으로 탈퇴되었습니다.</span>',
-            confirmButtonColor: '#18C75E',
-            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
-          })
+          store.dispatch('module/deleteUser')
+            .then(function (res) {
+              console.log(res)
+              Swal.fire({
+                title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">성공적으로 탈퇴되었습니다.</span>',
+                confirmButtonColor: '#18C75E',
+                confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+              })
+              this.$router.push('/')
+            })
+            .catch(function (err) {
+              console.log(err)
+              Swal.fire({
+                title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">회원탈퇴에 실패했습니다.</span>',
+                confirmButtonColor: '#ce1919',
+                confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+              })
+            })
         }
       })
     }

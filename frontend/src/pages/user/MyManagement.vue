@@ -2,13 +2,11 @@
   <div id="myData">
     <div class="q-pa-md">
       <section class="section">
-        <p class="subtitle has-text-centered">
-          <button class="button is-small is-primary is-outlined mr-5"
-          @click="calendarData(-1)">&lt;</button>
+        <div class="subtitle">
+          <q-btn round color="secondary" label="&lt;" @click="calendarData(-1)"/>
           {{ year }}년 {{ month }}월
-          <button class="button is-small is-primary is-outlined ml-5"
-          @click="calendarData(1)">&gt;</button>
-        </p>
+          <q-btn round color="secondary" label="&gt;" @click="calendarData(1)"/>
+        </div>
         <q-markup-table separator="cell" flat bordered class="table has-text-centered is-fullwidth">
           <thead>
             <th v-for="day in days" :key="day">{{ day }}</th>
@@ -60,14 +58,15 @@ export default {
       today: 0
     }
   },
-  created () { // 데이터에 접근이 가능한 첫 번째 라이프 사이클
+  created () {
     const date = new Date()
-    this.currentYear = date.getFullYear() // 이하 현재 년, 월 가지고 있기
+    this.currentYear = date.getFullYear() // 현재 년, 월
     this.currentMonth = date.getMonth() + 1
     this.year = this.currentYear
     this.month = this.currentMonth
     this.today = date.getDate() // 오늘 날짜
     this.getWork(this.year, this.month)
+    this.calendarData(this.month)
   },
   methods: {
     calendarData (arg) { // 인자를 추가
@@ -93,6 +92,8 @@ export default {
         monthLastDate,
         lastMonthLastDate
       )
+      // 백에 요청
+      this.getWork(this.year, this.month)
     },
     getFirstDayLastDate (year, month) {
       const firstDay = new Date(year, month - 1, 1).getDay() // 이번 달 시작 요일
@@ -117,13 +118,14 @@ export default {
       let weekOfDays = []
       while (day <= monthLastDate) {
         if (day === 1) {
-          // 1일이 어느 요일인지에 따라 테이블에 그리기 위한 지난 셀의 날짜들을 구할 필요가 있다.
+          // 1일이 어느 요일인지에 따라 테이블에 그리기 위한 지난 셀의 날짜들을 구함
           for (let j = 0; j < monthFirstDay; j += 1) {
             if (j === 0) this.lastMonthStart = prevDay // 지난 달에서 제일 작은 날짜
             weekOfDays.push(prevDay)
             prevDay += 1
           }
         }
+        console.log(this.year, this.month, day, '날짜 세팅 배열')
         weekOfDays.push(day)
         if (weekOfDays.length === 7) {
           // 일주일 채우면
@@ -143,6 +145,7 @@ export default {
       console.log(dates)
       return dates
     },
+    // 한달근태기록 조회
     getWork (year, month) {
       console.log(year, month)
       if (String(month).length === 1) {
@@ -157,7 +160,16 @@ export default {
       }
       axios(requestData)
         .then(function (response) {
-          console.log(response)
+          const workdata = response.data
+          for (let i = 0; i < workdata.length; i++) {
+            console.log(workdata[i])
+            const workdate = workdata[i].date
+            const workcheckin = workdata[i].checkInTime
+            const workcheckout = workdata[i].checkOutTime
+            console.log(workdate, workcheckin, workcheckout)
+            const workday = workdate.split('-')[2]
+            console.log(workday)
+          }
         })
         .catch(function (err) {
           console.log(err)
@@ -181,5 +193,10 @@ export default {
 
 .other {
   opacity: .3;
+}
+
+.subtitle {
+  text-align: center;
+  margin: 2% auto;
 }
 </style>
