@@ -10,7 +10,7 @@
                   <p>
                       <input v-show="false" v-model="state.id" type="text" name="name" id="name" placeholder="Username" required>
                   </p>
-                  <p class="submit"><input id="submit" type="submit" name="commit" value="회의생성">
+                  <p class="submit"><input id="submit" type="submit" name="commit" value="회의생성" @click="getRoomName(state.roomName)">
                   </p>
               </form>
               <div class="q-pa-md row items-start q-gutter-md">
@@ -26,7 +26,7 @@
                       <form onsubmit="joinConference($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val()); return false;" accept-charset="UTF-8">
                         <input id="joinUser" :value="id" style="display : none">
                         <input id="joinConferenceRoom" style="display : none" :value="room.roomName">
-                        <input class="enter" type="submit" name="commit" value="회의입장">
+                        <input class="enter" type="submit" name="commit" value="회의입장" @click="getRoomName(room.roomName)">
                       </form>
                     </q-card-actions>
                 </q-card>
@@ -35,8 +35,28 @@
           <div id="room" style="display: none;">
               <!-- <h2 id="room-header"></h2> -->
               <div id="participants"></div>
-              <div id="chat"></div>
-              <input type="button" id="button-leave" onmouseup="leaveRoom();" value="나가기">
+              <div id="chat">
+                <table id="conversation" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Messages</th>
+                    </tr>
+                    </thead>
+                    <tbody id="greetings">
+                    </tbody>
+                </table>
+                <div>
+                  <form onsubmit="sendChat($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val(), $(this).find('input').eq(2).val()); return false;" accept-charset="UTF-8">
+                    <input type="text" id="name" class="form-control" :value="name" style="display:none"/>
+                    <input type="text" id="chatMessage" class="form-control" placeholder="message.." />
+                    <input type="text" id="roomName" class="form-control" style="display : none" v-model="rName"/>
+                    <button id="chatSend" class="btn btn-default" type="submit">Chat Send</button>
+                  </form>
+                </div>
+              </div>
+              <form class="form-inline" onsubmit="disconnect(); return false;" accept-charset="UTF-8">
+                <input type="button" id="button-leave" onmouseup="leaveRoom();" value="나가기">
+              </form>
           </div>
       </div>
   </div>
@@ -75,7 +95,12 @@ export default defineComponent({
     })
     const user = store.getters['module/getLoginUser']
     const id = user.id
+    const name = user.name
     const rooms = computed(() => store.getters['module/getRooms'])
+    const rName = computed(() => store.getters['module/getRoomName'])
+    const getRoomName = function (rName) {
+      store.commit('module/setRoomName', rName)
+    }
     var temp = []
     onMounted(() => {
       store.dispatch('module/getRooms', {})
@@ -96,7 +121,10 @@ export default defineComponent({
     return {
       rooms,
       state,
-      id
+      id,
+      name,
+      rName,
+      getRoomName
     }
   }
 })
@@ -107,39 +135,40 @@ export default defineComponent({
     font-weight:bold;
     color:white;
     padding:10px;
-    font-size:20px;
+    font-size:30px;
     cursor: pointer;
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:690px;
-    left:1370px;
+    top:880px;
+    left:1600px;
 }
 #submit:hover{
     opacity: 0.7;
 }
 #participants{
-    width:1150px;
-    height:690px;
+    width:1340px;
+    height:892px;
     border:1px solid green;
     position:absolute;
-    left:75px;
+    left:90px;
 }
 #chat{
-    width:295px;
-    height:690px;
+    width:490px;
+    height:892px;
     border:1px solid blue;
     position:absolute;
-    left:1225px;
+    left:1430px;
 }
 #button-leave{
     position:absolute;
     top:90%;
+    left:120px;
     background-color:#18C75E;
     font-weight:bold;
     color:white;
     padding:10px;
-    font-size:20px;
+    font-size:30px;
     cursor: pointer;
     border:0.5px solid #18C75E;
     border-radius:5px;

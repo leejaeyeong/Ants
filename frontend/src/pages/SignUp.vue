@@ -302,8 +302,8 @@ export default defineComponent({
 <style scoped>
 #loginbox{
     width:1000px;
-    height:600px;
-    margin:160px auto;
+    height:500px;
+    margin:220px auto;
     border-radius: 15px;
     background-color:whitesmoke;
     z-index: 100;

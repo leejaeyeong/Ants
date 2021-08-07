@@ -1,17 +1,17 @@
 <template>
     <div id="header">
         <div id="headerLeft">
-          <q-img src="~assets/images/logo.png" style="width:150px; margin-top:-43px;"/>
+          <q-img src="~assets/images/logo.png" style="width:180px; margin-top:-53px;"/>
         </div>
         <div id="headerRight">
-            <img @click="mvMypage" :src="state.profileLocation" style="border-radius: 50%; width:40px; margin-top:10px; margin-right:65px; float:right;">
+            <img @click="mvMypage" :src="state.profileLocation" style="border-radius: 50%; width:50px; margin-top:10px; margin-right:140px; float:right;">
             <!-- <img @click="mvMypage" src="~assets/images/user.png" style="width:40px; margin-top:10px; margin-right:65px; float:right;" /> -->
               <q-btn-dropdown class="nav-item"
                     title="알림"
                     flat
                     no-icon-animation
                     dropdown-icon="notifications"
-                    style="font-size: 1.5em; width:20px; margin-top:2px; margin-right:5px; float:right; color:#18C75E;"
+                    style="font-size: 2em; width:20px; margin-top:2px; margin-right:5px; float:right; color:#18C75E;"
                     size="md" >
               <q-list>
                 <q-item clickable v-close-popup @click="onItemClick">
@@ -41,7 +41,7 @@
               </q-list>
             </q-btn-dropdown>
             <div>
-              <span style="font-weight:bold; float:right; margin-right:8px; line-height:60px; font-size:20px;">{{ state.name }} 님</span>
+              <span style="font-weight:bold; float:right; margin-right:8px; line-height:75px; font-size:30px;">{{ state.name }} 님</span>
             </div>
         </div>
     </div>
@@ -77,12 +77,12 @@ export default defineComponent({
 <style scoped>
 #header{
   width:100%;
-  height:60px;
+  height:75px;
   border-bottom:0.5px solid rgb(212, 212, 212);
 }
 #headerLeft{
   width:12%;
-  height:60px;
+  height:75px;
   float:left;
   text-align: center;
   font-size:35px;
@@ -90,7 +90,7 @@ export default defineComponent({
 }
 #headerRight{
   width:88%;
-  height:60px;
+  height:75px;
   float:right;
 }
 </style>

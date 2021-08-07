@@ -2,7 +2,7 @@
     <div id="side">
         <div @click="mvHome" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #18C75E;" name="home"/>
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="home"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>HOME</strong>
                   </q-tooltip>
@@ -13,7 +13,7 @@
         </div>
         <div @click="mvBoard" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #18C75E;" name="content_paste"/>
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="content_paste"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Board</strong>
                   </q-tooltip>
@@ -24,7 +24,7 @@
         </div>
         <div @click="mvGroup" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #18C75E;" name="people_alt"/>
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="people_alt"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Group</strong>
                   </q-tooltip>
@@ -35,7 +35,7 @@
         </div>
         <div @click="mvRTC" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #18C75E;" name="support_agent"/>
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="support_agent"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>RTC</strong>
                   </q-tooltip>
@@ -44,9 +44,20 @@
                 RTC
             </div>
         </div>
+        <div class="list"  @click="mvDownloads">
+            <div class="img">
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="download"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>다운로드</strong>
+                  </q-tooltip>
+            </div>
+            <div class="detail" style="color: #18C75E; font-weight:bold;">
+                다운로드
+            </div>
+        </div>
         <div class="list">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #18C75E;" name="settings"/>
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="settings"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Settings</strong>
                   </q-tooltip>
@@ -57,7 +68,7 @@
         </div>
         <div @click="logout" class="list" id="logout">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #18C75E;" name="logout"/>
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="logout"/>
                 <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong>Logout</strong>
                 </q-tooltip>
@@ -66,7 +77,7 @@
                 LogOut
             </div>
         </div>
-    </div>
+        </div>
 </template>
 
 <script>
@@ -86,6 +97,9 @@ export default defineComponent({
     },
     mvRTC () {
       this.$router.push('/rtc')
+    },
+    mvDownloads () {
+      this.$router.push('/downloads')
     }
   },
   setup () {
@@ -138,14 +152,14 @@ export default defineComponent({
 
 <style scoped>
 #side{
-  width:75px;
-  height:692px;
+  width:90px;
+  height:100%;
   float:left;
   border-right:0.5px solid rgb(212, 212, 212);
   border-bottom:0.5px solid rgb(212, 212, 212);
 }
 .list{
-  height:75px;
+  height:90px;
   border:1px solid white;
 }
 
@@ -165,9 +179,9 @@ export default defineComponent({
 .detail{
   line-height:33px;
   text-align:center;
-  font-size:14px;
+  font-size:20px;
 }
 #logout{
-  margin-top:240px;
+  margin-top:260px;
 }
 </style>

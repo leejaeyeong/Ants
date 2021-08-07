@@ -67,6 +67,8 @@ const userInfo = {
   userId: ''
 }
 
+const roomName = ''
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -83,6 +85,7 @@ export default function () {
     checkOutTime: checkOutTime,
     detail: detail,
     department: department,
-    userInfo: userInfo
+    userInfo: userInfo,
+    roomName: roomName
   }
 }
