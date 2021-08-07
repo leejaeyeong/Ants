@@ -25,10 +25,9 @@ export function requestCheckId ({ state }, id) {
 }
 // 유저정보
 export function requestInfo ({ state }, header) {
-  console.log('requestInfo', state, header)
+  console.log('유저 정보 조회', state)
   const url = baseUrl + 'api/v1/users/me'
   const userToken = localStorage.token
-  console.log(userToken, '<-토큰이랑 헤더')
   return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
 // 유저정보 수정
@@ -39,8 +38,9 @@ export function editInfo ({ state }, header, id) {
   return $axios.put(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
 // 유저 탈퇴
-export function deleteUser ({ state }, id) {
-  console.log('deleteUser', state)
+export function deleteUser ({ state }) {
+  console.log('유저 탈퇴', state)
+  const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id
   return $axios.delete(url)
 }
@@ -93,21 +93,6 @@ export function loadAttendanceByWeek ({ state }, payload) {
   const url = baseUrl + 'api/v1/users/' + id + '/attendance/week?startDate=' + thisWeek[0] + '&endDate=' + thisWeek[thisWeek.length - 1]
   return $axios.get(url, payload)
 }
-
-// // 한달 근태
-// export function getMonthwork (payload, date) {
-//   console.log('action.js 함수실행')
-//   console.log(date)
-//   if (date.length !== 6) {
-//     return alert('잘못된 요청입니다.')
-//   }
-//   const year = date.substring(0, 4)
-//   const month = date.substring(4, 6)
-//   const id = localStorage.getItem('id')
-//   console.log(year, month)
-//   const url = baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
-//   return $axios.get(url, payload)
-// }
 
 export function getRooms () {
   const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
