@@ -41,7 +41,7 @@
               </q-list>
             </q-btn-dropdown>
             <div>
-              <span style="font-weight:bold; float:right; margin-right:12px; line-height:75px; font-size:30px;">{{ state.name }} 님</span>
+              <span style="font-weight:bold; float:right; margin-right:8px; line-height:75px; font-size:30px;">{{ state.name }} 님</span>
             </div>
         </div>
     </div>
@@ -85,6 +85,7 @@ export default defineComponent({
   height:75px;
   float:left;
   text-align: center;
+  font-size:35px;
   /* border-right:0.5px solid rgb(212, 212, 212); */
 }
 #headerRight{

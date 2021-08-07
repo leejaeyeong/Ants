@@ -140,7 +140,7 @@ export default defineComponent({
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:700px;
+    top:880px;
     left:1600px;
 }
 #submit:hover{

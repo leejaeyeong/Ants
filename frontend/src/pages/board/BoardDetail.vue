@@ -50,8 +50,8 @@ export default defineComponent({
     width: 1130px;
     height: 690px;
     position: absolute;
-    top:60px;
-    left:325px;
+    top:75px;
+    left:390px;
 }
 #detail{
     margin-top:22px;

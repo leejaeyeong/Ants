@@ -1,6 +1,6 @@
 <template>
    <div id="mainSide">
-        <q-btn @click="mvWrite" style="margin-top:40px; width:70%; margin-left:37px; color: white; background-color:#18C75E; font-size:18px;" icon="mail" label="글쓰기" />
+        <q-btn @click="mvWrite" style="margin-top:40px; width:70%; margin-left:42px; color: white; background-color: #18C75E; font-size:18px" icon="mail" label="글쓰기" />
         <div id="listTop">
             <div @click="viewAll" class="list1">
                 <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 2.5em; color: #18C75E;" name="apps"/>
@@ -104,17 +104,17 @@ export default defineComponent({
     border-bottom:1px solid rgb(216, 210, 210);
 }
 .list1{
-    width:90%;
+    width:95%;
     margin-top:5px;
-    margin-left:3px;
+    margin-left:0px;
 }
 .list1:hover{
     background-color:rgb(223, 241, 231);
     cursor: pointer;
 }
 .list2{
-    font-size: 17px;
-    margin-left:15px;
+    margin-left:17px;
+    font-size:18px;
 }
 #listBot{
     width:80%;
