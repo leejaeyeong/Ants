@@ -98,7 +98,7 @@
               <div style="height: 10px;"></div>
               <div class="btnform">
                 <q-btn @click="back2" flat style="color: #00BF6F; margin-right:10px;" label="← Back"/>
-                <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
+                <q-btn @click="validate" label="Submit" type="button" style="background-color: #00BF6F;"/>
               </div>
             </q-form>
           </div>
@@ -250,8 +250,8 @@ export default defineComponent({
           frm.append('profile', photoFile.files[0])
           frm.append('userId', state.form.userId)
           frm.append('name', state.form.name)
-          frm.append('password', state.form.email)
-          frm.append('email', state.form.userId)
+          frm.append('password', state.form.password)
+          frm.append('email', state.form.email)
           let selectedIndex = -1
           for (let i = 0; i < department.value.length; i++) {
             if (selectOptions[i] === state.form.department) {
@@ -268,10 +268,12 @@ export default defineComponent({
                 confirmButtonColor: '#19CE60',
                 confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
               })
-              router.push('/')
             })
             .catch(function (err) {
               alert(err)
+            })
+            .finally(function () {
+              router.push('/')
             })
         } else {
           Swal.fire({
@@ -300,7 +302,6 @@ export default defineComponent({
       }
       this.state.tmp = URL.createObjectURL(file)
       this.state.form.image = file // Create File URL
-      document.getElementById('tempDiv').remove()
     }
     // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
     function imgLabelClick () {
