@@ -57,7 +57,7 @@
         </div>
         <div class="list"  @click="mvDownloads">
             <div class="img">
-                <q-icon style="font-size: 2.8em; color: #18C75E;" name="다운로드"/>
+                <q-icon style="font-size: 2.8em; color: #18C75E;" name="font_download"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>다운로드</strong>
                   </q-tooltip>

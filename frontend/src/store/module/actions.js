@@ -153,3 +153,10 @@ export function registBoard ({ state }, body) {
   const url = baseUrl + 'api/v1/board'
   return $axios.post(url, body)
 }
+
+// 파일 업로드
+export function uploadFile ({ state }, body) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/files/upload' + '?userId=test-1'
+  return $axios.post(url, body)
+}
