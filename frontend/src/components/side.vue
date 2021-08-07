@@ -2,78 +2,79 @@
     <div id="side">
         <div @click="mvHome" class="list">
             <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="home"/>
+                <q-icon style="font-size: 2.8em; color: white;" name="home"/>
+                <!-- <img src="~assets/images/message.png" style="width:30px; height:30px;"/> -->
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>HOME</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: white;">
                 Home
             </div>
         </div>
         <div @click="mvBoard" class="list">
             <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="content_paste"/>
+                <q-icon style="font-size: 2.8em; color: white;" name="content_paste"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Board</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: white; ">
                 Board
             </div>
         </div>
         <div @click="mvGroup" class="list">
             <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="people_alt"/>
+                <q-icon style="font-size: 2.8em; color: white;" name="people_alt"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Group</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: white; ">
                 Group
             </div>
         </div>
         <div @click="mvRTC" class="list">
             <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="support_agent"/>
+                <q-icon style="font-size: 2.8em; color: white;" name="support_agent"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>RTC</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: white; ">
                 RTC
             </div>
         </div>
         <div class="list"  @click="mvDownloads">
             <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="download"/>
+                <q-icon style="font-size: 2.8em; color: white;" name="download"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>다운로드</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: white; ">
                 다운로드
             </div>
         </div>
         <div class="list">
             <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="font_download"/>
+                <q-icon style="font-size: 2.8em; color: white;" name="settings"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Settings</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: white; ">
                 Setting
             </div>
         </div>
         <div @click="logout" class="list" id="logout">
             <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="logout"/>
+                <q-icon style="font-size: 2.8em; color: white;" name="logout"/>
                 <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong>Logout</strong>
                 </q-tooltip>
             </div>
-            <div class="detail" style="color: #18C75E; font-weight:bold;">
+            <div class="detail" style="color: white; ">
                 LogOut
             </div>
         </div>
@@ -152,15 +153,15 @@ export default defineComponent({
 
 <style scoped>
 #side{
-  width:90px;
+  width:80px;
   height:100%;
   float:left;
   border-right:0.5px solid rgb(212, 212, 212);
   border-bottom:0.5px solid rgb(212, 212, 212);
+  background: linear-gradient( to top, #90e5ab, green );
 }
 .list{
   height:90px;
-  border:1px solid white;
 }
 
 .list.selected{
@@ -168,13 +169,12 @@ export default defineComponent({
 }
 
 .list:hover{
-  background-color:rgb(223, 241, 231);
+  background-color:rgb(11, 63, 4);
   cursor: pointer;
-  border-radius: 10%;
 }
 .img{
   text-align:center;
-  margin-top:5px;
+  padding-top: 8px;
 }
 .detail{
   line-height:33px;
