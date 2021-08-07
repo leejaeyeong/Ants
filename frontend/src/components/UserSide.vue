@@ -79,30 +79,31 @@ export default defineComponent({
 
 <style>
 #mainSide{
-  width: 250px;
-  height: 690px;
+  width: 300px;
+  height: 892px;
   border-right:1px solid rgb(212, 212, 212);
   position: absolute;
-  top:60px;
-  left:75px;
+  top:75px;
+  left:90px;
 }
 #listTop{
   width:80%;
-  height:120px;
-  margin:10px auto;
+  height:135px;
+  margin:12px auto;
   border-bottom:1px solid rgb(216, 210, 210);
 }
 .list1{
-  width:80%;
+  width:95%;
   margin-top:5px;
-  margin-left:20px;
+  margin-left:0px;
 }
 .list1:hover{
   background-color:rgb(223, 241, 231);
   cursor: pointer;
 }
 .list2{
-  margin-left:15px;
+  margin-left:17px;
+  font-size:18px;
 }
 .icon{
   margin-bottom:5px;
