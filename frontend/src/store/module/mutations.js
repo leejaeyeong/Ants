@@ -48,3 +48,7 @@ export function setDetail (state, detail) {
 export function setDepartmentInfo (state, department) {
   state.department = department
 }
+
+export function setUserInfo (state, userInfo) {
+  state.userInfo = userInfo
+}

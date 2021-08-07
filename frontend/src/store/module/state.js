@@ -57,6 +57,16 @@ const detail = {
 
 const department = []
 
+const userInfo = {
+  department: '',
+  email: '',
+  holiday: '',
+  name: '',
+  position: '',
+  profileLocation: '',
+  userId: ''
+}
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -72,6 +82,7 @@ export default function () {
     checkInTime: checkInTime,
     checkOutTime: checkOutTime,
     detail: detail,
-    department: department
+    department: department,
+    userInfo: userInfo
   }
 }

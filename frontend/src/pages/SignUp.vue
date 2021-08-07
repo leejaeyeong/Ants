@@ -83,6 +83,7 @@
                 label="Email *"
                 type="email"
                 color="teal"
+                @blur="checkEmail"
                 v-model="state.form.email"
                 lazy-rules
                 :rules="[
@@ -90,17 +91,6 @@
                 ]"
               />
               <q-select id="dptId" class="input" filled v-model="state.form.department" :options="options" label="부서 선택" />
-              <!-- <q-uploader
-                class="input"
-                label="Upload profile Image"
-                color="green-14"
-                bordered
-                style="max-width: 300px;"
-                v-model="state.form.profileimg"
-                accept=".jpg, image/*"
-                @rejected="onRejected"
-                :headers="[{name: 'Content-Type', value: 'multipart/form-data'}]"
-              /> -->
               <div class="btnform">
                 <q-btn @click="back2" flat style="color: #00BF6F; margin-right:10px;" label="← Back"/>
                 <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
@@ -182,6 +172,7 @@ export default defineComponent({
     console.log('set up 선언')
     console.log(department)
     console.log('set up 선언')
+    // 아이디 중복체크
     function checkId () {
       console.log('아이디중복체크')
       store
@@ -208,6 +199,13 @@ export default defineComponent({
             console.log(err)
           }
         })
+    }
+    // 이메일 유효성 체크
+    function checkEmail () {
+      // const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      console.log('이메일 유효성 체크')
+      const email = state.form.email
+      console.log(email)
     }
     // 회원가입보냄
     function validate () {
@@ -294,7 +292,8 @@ export default defineComponent({
       options: selectOptions,
       onClickImageUpload,
       onChangeImages,
-      imgLabelClick
+      imgLabelClick,
+      checkEmail
     }
   }
 })
@@ -303,8 +302,8 @@ export default defineComponent({
 <style scoped>
 #loginbox{
     width:1000px;
-    height:500px;
-    margin:120px auto;
+    height:600px;
+    margin:160px auto;
     border-radius: 15px;
     background-color:whitesmoke;
     z-index: 100;
