@@ -14,7 +14,7 @@
                   </p>
               </form>
               <div class="q-pa-md row items-start q-gutter-md">
-                <q-card v-for="room in rooms" :key="room.id" class="my-card">
+                <q-card v-for="room in rooms" :key="room.id" class="my-card" style="margin-top:100px;">
                     <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
                       <div class="absolute-bottom">
                         <div class="text-h6">{{ room.roomName }}</div>
@@ -34,8 +34,8 @@
           </div>
           <div id="room" style="display: none;">
               <!-- <h2 id="room-header"></h2> -->
-              <div id="participants"></div>
-              <div id="chat">
+              <div id="participants" style="margin-top:120px;"></div>
+              <div id="chat" style="margin-top:120px;">
                 <table id="conversation" class="table table-striped">
                     <thead>
                     <tr>
@@ -140,7 +140,7 @@ export default defineComponent({
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:880px;
+    top:780px;
     left:1600px;
 }
 #submit:hover{
