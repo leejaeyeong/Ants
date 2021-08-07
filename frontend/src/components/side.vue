@@ -57,7 +57,7 @@
         </div>
         <div class="list">
             <div class="img">
-                <q-icon style="font-size: 3.5em; color: #18C75E;" name="settings"/>
+                <q-icon style="font-size: 3.5em; color: #18C75E;" name="font_download"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Settings</strong>
                   </q-tooltip>
