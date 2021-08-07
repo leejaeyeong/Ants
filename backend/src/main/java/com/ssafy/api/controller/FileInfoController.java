@@ -45,4 +45,14 @@ public class FileInfoController {
     public ResponseEntity<FileInfo> uploadFile (@RequestParam MultipartFile file, @RequestParam String userId) throws IOException {
         return ResponseEntity.ok().body(fileInfoService.uploadFile(file, userId));
     }
+
+//    @GetMapping()
+//    @ApiOperation(value = "전체 파일 목록", notes = "전체 파일 목록을 반환한다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "전체 파일 반환 성공")
+//    })
+//    public ResponseEntity<> findAllFile() {
+//
+//    }
+
 }
