@@ -55,7 +55,8 @@ export default {
       month: 0,
       lastMonthStart: 0,
       nextMonthStart: 0,
-      today: 0
+      today: 0,
+      worklog: []
     }
   },
   created () {
@@ -67,6 +68,7 @@ export default {
     this.today = date.getDate() // 오늘 날짜
     this.getWork(this.year, this.month)
     this.calendarData(this.month)
+    this.worklog = this.array2(32, 2)
   },
   methods: {
     calendarData (arg) { // 인자를 추가
@@ -143,6 +145,7 @@ export default {
       if (weekOfDays.length > 0) dates.push(weekOfDays) // 남은 날짜 추가
       this.nextMonthStart = weekOfDays[0] // 이번 달 마지막 주에서 제일 작은 날짜
       console.log(dates)
+      console.log(this.worklog, '워크로그')
       return dates
     },
     // 한달근태기록 조회
@@ -167,13 +170,27 @@ export default {
             const workcheckin = workdata[i].checkInTime
             const workcheckout = workdata[i].checkOutTime
             console.log(workdate, workcheckin, workcheckout)
+            // 일한날짜
             const workday = workdate.split('-')[2]
-            console.log(workday)
+            console.log(Number(workday))
+            console.log(this.worklog[Number(workday)][0])
+            this.worklog[Number(workday)][0] = workcheckin
+            this.worklog[Number(workday)][1] = workcheckout
           }
+          console.log(this.worklog, '워크로그')
         })
         .catch(function (err) {
           console.log(err)
         })
+    },
+    // 2차원배열 만들기
+    array2 (rows, columns) {
+      const arr = new Array(rows)
+      for (let i = 0; i < rows; i++) {
+        arr[i] = new Array(columns)
+      }
+      console.log(arr, '2차원배열')
+      return arr
     }
   }
 }
