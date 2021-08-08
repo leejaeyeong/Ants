@@ -16,7 +16,7 @@ const routes = [
       // 메인 대시보드
       {
         path: '/mainpage',
-        component: () => import('pages/Main.vue')
+        component: () => import('pages/Main2.vue')
       },
       // 게시판라우터
       {
