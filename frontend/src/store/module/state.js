@@ -55,6 +55,8 @@ const detail = {
   writer: ''
 }
 
+const comments = []
+
 const department = []
 
 const userInfo = {
@@ -85,7 +87,7 @@ export default function () {
     checkOutTime: checkOutTime,
     detail: detail,
     department: department,
-    userInfo: userInfo,
-    roomName: roomName
-  }
+    roomName: roomName,
+    comments: comments,
+    userInfo: userInfo
 }

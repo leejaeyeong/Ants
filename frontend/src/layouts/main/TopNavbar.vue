@@ -98,7 +98,7 @@ export default defineComponent({
   width:12%;
   height:75px;
   float:left;
-  text-align: center;
+  text-align: left;
   font-size:35px;
   /* border-right:0.5px solid rgb(212, 212, 212); */
 }
