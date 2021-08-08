@@ -4,13 +4,13 @@
       <q-img src="~assets/images/logo.png" style="width:180px; margin-top:-53px;"/>
     </div>
     <div id="headerRight">
-      <img :src="state.profileLocation" style="border-radius: 50%; width:50px; margin-top:10px; margin-right:140px; float:right;">
+      <!-- <img :src="state.profileLocation" style="border-radius: 50%; width:50px; margin-top:10px; margin-right:140px; float:right;"> -->
       <q-btn-dropdown class="nav-item"
             title="알림"
             flat
             no-icon-animation
             dropdown-icon="notifications"
-            style="font-size: 2em; width:20px; margin-top:2px; margin-right:5px; float:right; color:#18C75E;"
+            style="font-size: 2em; width:20px; margin-top:2px; margin-right:80px; float:right; color:#18C75E;"
             size="md" >
         <q-list>
           <q-item clickable v-close-popup @click="onItemClick">
