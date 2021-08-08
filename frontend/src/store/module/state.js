@@ -59,6 +59,16 @@ const comments = []
 
 const department = []
 
+const userInfo = {
+  department: '',
+  email: '',
+  holiday: '',
+  name: '',
+  position: '',
+  profileLocation: '',
+  userId: ''
+}
+
 const roomName = ''
 
 export default function () {
@@ -78,6 +88,6 @@ export default function () {
     detail: detail,
     department: department,
     roomName: roomName,
-    comments: comments
-  }
+    comments: comments,
+    userInfo: userInfo
 }

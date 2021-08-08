@@ -25,22 +25,23 @@ export function requestCheckId ({ state }, id) {
 }
 // 유저정보
 export function requestInfo ({ state }, header) {
-  console.log('requestInfo', state, header)
+  console.log('유저 정보 조회', state)
   const url = baseUrl + 'api/v1/users/me'
   const userToken = localStorage.token
-  console.log(userToken, '<-토큰이랑 헤더')
   return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
 // 유저정보 수정
-export function editInfo ({ state }, header, id) {
+export function editInfo ({ state }, header) {
   console.log('editInfo', state, header)
+  const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id
   const userToken = localStorage.token
   return $axios.put(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
 // 유저 탈퇴
-export function deleteUser ({ state }, id) {
-  console.log('deleteUser', state)
+export function deleteUser ({ state }) {
+  console.log('유저 탈퇴', state)
+  const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id
   return $axios.delete(url)
 }
@@ -94,21 +95,6 @@ export function loadAttendanceByWeek ({ state }, payload) {
   return $axios.get(url, payload)
 }
 
-// // 한달 근태
-// export function getMonthwork (payload, date) {
-//   console.log('action.js 함수실행')
-//   console.log(date)
-//   if (date.length !== 6) {
-//     return alert('잘못된 요청입니다.')
-//   }
-//   const year = date.substring(0, 4)
-//   const month = date.substring(4, 6)
-//   const id = localStorage.getItem('id')
-//   console.log(year, month)
-//   const url = baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
-//   return $axios.get(url, payload)
-// }
-
 export function getRooms () {
   const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
   return rooms
@@ -159,5 +145,9 @@ export function registComment ({ state }, body) {
   const id = body.id
   const url = baseUrl + 'api/v1/board/' + id + '/comment'
   console.log(url)
+// 파일 업로드
+export function uploadFile ({ state }, body) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/files/upload' + '?userId=test-1'
   return $axios.post(url, body)
 }
