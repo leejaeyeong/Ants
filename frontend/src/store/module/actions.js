@@ -146,3 +146,13 @@ export function uploadFile ({ state }, body) {
   const url = baseUrl + 'api/v1/files/upload' + '?userId=test-1'
   return $axios.post(url, body)
 }
+// 그룹 전체목록
+export function getGroup ({ state }, body) {
+  const url = baseUrl + 'api/v1/group'
+  return $axios.get(url, body)
+}
+// 그룹 생성
+export function setGroup ({ state }, body) {
+  const url = baseUrl + 'api/v1/group'
+  return $axios.post(url, body)
+}

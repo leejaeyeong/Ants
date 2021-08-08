@@ -92,9 +92,6 @@ export default defineComponent({
     mvHome () {
       this.$router.push('/main')
     },
-    mvGroup () {
-      this.$router.push('/group')
-    },
     mvRTC () {
       this.$router.push('/rtc')
     },
@@ -141,10 +138,25 @@ export default defineComponent({
           alert('오류발생')
         })
     }
+    const groupList = []
+    const mvGroup = function () {
+      // 그룹조회
+      store.dispatch('module/getGroup', { })
+        .then(function (result) {
+          for (let i = 0; i < result.data.list.length; i++) {
+            groupList.push(result.data.list[i])
+          }
+          router.push('/group')
+        })
+        .catch(function (err) {
+          alert(err)
+        })
+    }
     return {
       outlinedAllInbox,
       logout,
-      mvBoard
+      mvBoard,
+      mvGroup
     }
   }
 })
