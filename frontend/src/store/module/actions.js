@@ -153,3 +153,11 @@ export function registBoard ({ state }, body) {
   const url = baseUrl + 'api/v1/board'
   return $axios.post(url, body)
 }
+
+export function registComment ({ state }, body) {
+  console.log(state, body)
+  const id = body.id
+  const url = baseUrl + 'api/v1/board/' + id + '/comment'
+  console.log(url)
+  return $axios.post(url, body)
+}

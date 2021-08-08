@@ -1,7 +1,7 @@
 <template>
     <div id="header">
         <div id="headerLeft">
-          <q-img src="~assets/images/logo.png" style="width:180px; margin-top:-53px;"/>
+          <q-img src="~assets/images/logo.png" style="width:130px;"/>
         </div>
         <div id="headerRight">
             <img @click="mvMypage" :src="state.profileLocation" style="border-radius: 50%; width:50px; margin-top:10px; margin-right:140px; float:right;">
@@ -84,7 +84,7 @@ export default defineComponent({
   width:12%;
   height:75px;
   float:left;
-  text-align: center;
+  text-align: left;
   font-size:35px;
   /* border-right:0.5px solid rgb(212, 212, 212); */
 }
