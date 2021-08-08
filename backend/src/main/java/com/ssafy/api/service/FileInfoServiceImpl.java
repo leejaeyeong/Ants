@@ -3,6 +3,7 @@ package com.ssafy.api.service;
 import com.ssafy.api.response.BoardRes;
 import com.ssafy.common.util.FileUtil;
 import com.ssafy.db.entity.FileInfo;
+import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.FileInfoRepository;
 import com.ssafy.db.repository.FileInfoRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service("fileInfoService")
 public class FileInfoServiceImpl implements FileInfoService {
     @Autowired
     FileInfoRepository fileInfoRepository;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     FileInfoRepositorySupport fileInfoRepositorySupport;
@@ -69,21 +71,47 @@ public class FileInfoServiceImpl implements FileInfoService {
     @Override
     public FileInfo uploadFile(MultipartFile multiFile, String userId) throws IOException {
         FileInfo fileInfo = new FileInfo();
-        System.out.println("오리진 파일 네임 " + multiFile.getOriginalFilename());
-
-//        fileInfo.setFileLocation();
+        fileInfo.setUser(userService.getUserByUserId(userId));
+//        fileInfo.setDepartment(userService.getUserByUserId(userId).getDepartment());
+//        fileInfo.setDate(LocalDate.now());
+        if (multiFile.getOriginalFilename().contains(".")) {
+            StringTokenizer st = new StringTokenizer(multiFile.getOriginalFilename(), ".");
+            st.nextToken();
+            fileInfo.setFileExtension("." + st.nextToken());
+        }
 
         File t = new File("..");
         String path = t.getCanonicalPath();
+        fileUtil.createFilePath(path += "/media");
         fileUtil.createFilePath(path += "/files");
-
         String uuid = UUID.randomUUID().toString();
         File file = fileUtil.createFilePath(path + "/" + uuid);
 
+        fileInfo.setFileLocation("/media/files/" + uuid +"/" + multiFile.getOriginalFilename());
+        fileInfo.setFileName(multiFile.getOriginalFilename());
+        fileInfo.setSize(computeFileSize(multiFile.getSize()));
         String filePath = file.getAbsoluteFile() + "/" + multiFile.getOriginalFilename();
-//        board.setImageLocation("/media/board/" + uuid + "/" + boardRegisterPostReq.getImage().getOriginalFilename());
+
         File dest = new File(filePath);
         multiFile.transferTo(dest);
-        return null;
+        return fileInfoRepository.save(fileInfo);
+    }
+
+    public String computeFileSize(Long size) {
+        Long ret = size;
+        String unit;
+        if (size / 1000000000 >= 1) {
+            ret = size / 1000000000;
+            unit = "GB";
+        } else if (size / 1000000 >= 1) {
+            ret = size / 1000000;
+            unit = "MB";
+        } else if (size / 1000 >= 1) {
+            ret = size / 1000;
+            unit = "KB";
+        } else {
+            unit = "B";
+        }
+        return Long.toString(ret) + unit;
     }
 }

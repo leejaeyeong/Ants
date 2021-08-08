@@ -267,4 +267,13 @@ export default defineComponent({
   font-weight: normal;
   font-style: normal;
 }
+body{
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
+div{
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
+span{
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
 </style>
