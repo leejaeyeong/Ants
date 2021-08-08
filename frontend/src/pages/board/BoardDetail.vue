@@ -1,8 +1,8 @@
 <template>
   <div id="board">
     <div id="detail">
-      <q-input v-model="detail.title" style="width:30%; font-size:20px; color:black;" filled readonly/>
-      <div class="q-pa-md" style="max-width: 800px; margin-left:-17px;">
+      <q-input v-model="detail.title" style="width:50%; font-size:20px; color:black;" filled readonly/>
+      <div class="q-pa-md" style="max-width: 1200px; margin-left:-17px;">
         <q-input
           filled
           type="textarea"
@@ -12,10 +12,12 @@
           style="font-size:20px;"
         />
       </div>
-      <q-input style="font-size:20px; width:50%; display:inline-block;" label="댓글입력란" filled/>
-      <q-btn style="color: white; background-color: #18C75E; font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" label="등록" />
+      <q-input v-model="form.comment" style="font-size:20px; width:86%; display:inline-block;" label="댓글입력란" filled/>
+      <q-btn @click="regist" style="color: white; background-color: #18C75E; font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" label="등록" />
       <q-btn @click="back" style="font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" color="amber" glossy label="뒤로" />
-      <div class="comment"></div>
+      <div class="comment" v-for="(comment, index) in comments" :key="index">
+        {{ comment.writer }}님 : {{ comment.comment }} <span style="float:right; color:grey;">{{ comment.registrationTime }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -32,14 +34,40 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
     const detail = computed(() => store.getters['module/getDetail'])
-    
+    const comments = computed(() => store.getters['module/getComments'])
+    const form = reactive({
+      comment: '',
+    })
     const back = function () {
       router.back()
     }
-    
+    const regist = function () {
+      const tmp = store.getters['module/getDetail']
+      const loginUser = store.getters['module/getLoginUser']
+      const id = tmp.id
+      const writer = loginUser.id
+      store.dispatch('module/registComment', { id: id, comment: form.comment, writer: writer })
+        .then(function (result) {
+          console.log(result)
+          store.dispatch('module/boardDetail', tmp.id)
+            .then(function (result) {
+              store.commit('module/setDetail', result.data)
+              var tmp = []
+              for (let i = 0; i<result.data.comments.length; i++) {
+                tmp.push(result.data.comments[i])
+              }
+              store.commit('module/setComments',tmp)
+              router.push('/boardDetail')
+            })  
+          form.comment = ''
+        })
+    }
     return {
       detail,
-      back
+      comments,
+      form,
+      back,
+      regist
     }
   }
 })
@@ -58,10 +86,13 @@ export default defineComponent({
     margin-left:40px;
 }
 .comment{
-    border:1px solid green;
-    width:610px;
+    border-bottom:1px solid rgb(212, 212, 212);
+    width:1075px;
     height:50px;
     margin-top:10px;
+    line-height:50px;
+    font-size:20px;
+    padding-left:10px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
