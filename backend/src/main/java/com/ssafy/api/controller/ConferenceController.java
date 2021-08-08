@@ -39,15 +39,17 @@ public class ConferenceController {
     public ResponseEntity<List<String[]>> getConferenceRoom() {
         List<String[]> list = new ArrayList<>();
         System.out.println("갯수 : " + roomManager.getRoomList().size());
-        if(roomManager.getRoomList().size() > 0) {
-            for (Map.Entry<String, Room> s : roomManager.getRoomList().entrySet()) {
-                String[] arr = new String[3];
-                arr[0] = s.getKey();
-                arr[1] = s.getValue().getManager();
-                arr[2] = s.getValue().getDepartment().getDepartmentName();
-
-                list.add(arr);
+        for (Map.Entry<String, Room> s : roomManager.getRoomList().entrySet()) {
+            if(s.getValue().getParticipants().size() == 0) {
+                roomManager.removeRoom(s.getValue());
+                continue;
             }
+            String[] arr = new String[3];
+            arr[0] = s.getKey();
+            arr[1] = s.getValue().getManager();
+            arr[2] = s.getValue().getDepartment().getDepartmentName();
+
+            list.add(arr);
         }
         return ResponseEntity.status(200).body(list);
     }
