@@ -5,7 +5,7 @@
             <div id='loginbox'>
                 <div id="left">
                   <div id="mark">
-                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;"/>
+                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:135px; margin-top:50px;"/>
                   </div>
                   <div id="form">
                     <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.id" class="input" filled label="ID" />
@@ -176,7 +176,7 @@ export default defineComponent({
   background-size:500px;
 }
 #form{
-  margin-top:-40px;
+  margin-top:30px;
 }
 .btn{
   margin:0 5px;
