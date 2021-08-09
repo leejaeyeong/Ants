@@ -92,6 +92,18 @@ public class UserController {
 		return ResponseEntity.status(200).body(UserRes.of(user));
 	}
 
+	@GetMapping()
+	@ApiOperation(value = "가입한 모든 회원 정보 조회", notes = "가입한 모든 회원 정보를 조회한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공"),
+			@ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"),
+			@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<List<UserRes>> getUserAll() {
+		return ResponseEntity.status(200).body(userService.findAll());
+	}
+
 	// 유저 정보
 	@GetMapping(value = "/{userId}")
 	@ApiOperation(value = "유저 정보", notes = "<strong>아이디</strong>를 통해 존재하는 회원을 확인한다.")
