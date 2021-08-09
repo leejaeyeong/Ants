@@ -116,6 +116,10 @@ export default defineComponent({
           console.log(err)
           sweetAlert('파일 업로드 중 문제가 발생했습니다.')
         })
+      loadFileData()
+    }
+    function loadFileData () {
+      // 보류
     }
     // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
     function imgLabelClick () {
@@ -160,7 +164,7 @@ export default defineComponent({
       form.images = '/media/profile/test-1/test.gif'// URL.createObjectURL(file)
     }
     return {
-      imgLabelClick, form, regist, uploadImage, dropInputTag, clickInputTag, test, dragLeave, sweetAlert
+      imgLabelClick, form, regist, uploadImage, dropInputTag, clickInputTag, test, dragLeave, sweetAlert, loadFileData
     }
   }
 })

@@ -59,6 +59,8 @@ const comments = []
 
 const department = []
 
+const fileInfoList = []
+
 const userInfo = {
   department: '',
   email: '',
@@ -89,6 +91,7 @@ export default function () {
     department: department,
     roomName: roomName,
     comments: comments,
-    userInfo: userInfo
+    userInfo: userInfo,
+    fileInfoList: fileInfoList
   }
 }
