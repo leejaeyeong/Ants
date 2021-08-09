@@ -280,7 +280,7 @@ export default defineComponent({
 #botLeft{
   position: absolute;
   width:815px;
-  height:530px;
+  height:485px;
   top:410px;
   left:120px;
   border:0.5px solid rgb(212, 212, 212);
@@ -289,7 +289,7 @@ export default defineComponent({
 #botRight{
   position: absolute;
   width:815px;
-  height:530px;
+  height:485px;
   top:410px;
   left:965px;
   border:0.5px solid rgb(212, 212, 212);

@@ -145,6 +145,7 @@ export function registComment ({ state }, body) {
   const id = body.id
   const url = baseUrl + 'api/v1/board/' + id + '/comment'
   console.log(url)
+}
 // 파일 업로드
 export function uploadFile ({ state }, body) {
   console.log(state)
