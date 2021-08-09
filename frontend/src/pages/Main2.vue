@@ -57,7 +57,7 @@
         <div class="name">Weekly Report</div><span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
         <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:20px; margin-top:20px; width:10px;" color="deep-oranges" icon="add" />
         <div>
-          <q-linear-progress stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
+          <q-linear-progress @click="openModal" stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
             <div class="absolute-full flex flex-center">
                 <q-badge color="white" style="color:#18C75E;" :label="progressLabel1" />
             </div>
@@ -68,7 +68,7 @@
       </div>
       <div id="botRight">
         <div class="name">최근 게시물</div>
-        <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
+        <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:20px; margin-top:18px; width:10px;" color="deep-oranges" icon="add" />
         <div class="q-pa-md">
           <q-table
             title=""
@@ -80,8 +80,30 @@
             hide-pagination
           />
         </div>
+        <!-- 일주일 근태 모달 -->
+        <!-- <q-dialog v-model="toolbar">
+          <q-card>
+            <q-toolbar>
+              <q-avatar>
+                <img src="~assets/images/logo.png" style="width: 100px;">
+              </q-avatar>
+
+              <q-toolbar-title><span class="text-weight-bold">Weekly</span> Report</q-toolbar-title>
+
+              <q-btn flat round dense icon="close" v-close-popup />
+            </q-toolbar>
+
+            <q-card-section>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
+            </q-card-section>
+          </q-card>
+        </q-dialog> -->
       </div>
       <div id="endRight">
+        <div class="name">Todo List 📌</div>
+      </div>
+      <div id="endBottom">
+        <div class="name">뭐할까 🤔</div>
       </div>
     </div>
   </div>
@@ -97,9 +119,20 @@ export default defineComponent({
   name: 'mainpage',
   components: {
   },
+  data () {
+    return {
+      modal: false
+    }
+  },
   methods: {
     mvAttendance () {
       this.$router.push('/attendance')
+    },
+    openModal () {
+      this.modal = true
+    },
+    closeModal () {
+      this.modal = false
     }
   },
   setup () {
@@ -254,7 +287,8 @@ export default defineComponent({
       checkOutTime,
       loginUser,
       pagination,
-      inputText
+      inputText,
+      toolbar: ref(false)
     }
   }
 })
@@ -264,14 +298,17 @@ export default defineComponent({
 <style scoped>
 #content{
   width:100%;
-  height: 100%;
+  height: 1000px;
 }
 #main{
-  width:95%;
-  height:100%;
+  width:100%;
+  height:940px;
   float:right;
+  position: absolute;
+  top: 60px;
+  left: 70px;
   border-bottom:0.5px solid rgb(212, 212, 212);
-  background-color: whitesmoke;
+  background-color: rgb(242, 247, 244);
 }
 #topLeft{
   width:350px;
@@ -279,8 +316,8 @@ export default defineComponent({
   border: 1px solid rgb(212, 212, 212);
   display:inline-block;
   position:absolute;
-  top:100px;
-  left:120px;
+  top:20px;
+  left:20px;
   background-color: white;
   /* background-color:rgb(250, 250, 110); */
 }
@@ -336,8 +373,8 @@ export default defineComponent({
   float: left;
   border: 1px solid rgb(212, 212, 212);
   position: absolute;
-  top:615px;
-  left:120px;
+  top:540px;
+  left:20px;
 }
 #bot1{
   margin-top:5px;
@@ -394,8 +431,8 @@ export default defineComponent({
   height:230px;
   border:0.5px solid rgb(212, 212, 212);
   position: absolute;
-  top:100px;
-  left:480px;
+  top:20px;
+  left:385px;
   background-color: white;
 }
 #endRight{
@@ -403,9 +440,20 @@ export default defineComponent({
   width:550px;
   height:280px;
   border:0.5px solid rgb(212, 212, 212);
+  background-color: white;
   position: absolute;
-  top:100px;
-  left:1310px;
+  top:20px;
+  left:1215px;
+}
+#endBottom{
+  float:right;
+  width:550px;
+  height:495px;
+  border:0.5px solid rgb(212, 212, 212);
+  background-color: white;
+  position: absolute;
+  top:315px;
+  left:1215px;
 }
 #botLeft{
   position: absolute;
@@ -420,8 +468,8 @@ export default defineComponent({
   position: absolute;
   width:815px;
   height:540px;
-  top:350px;
-  left:480px;
+  top:270px;
+  left:385px;
   border:0.5px solid rgb(212, 212, 212);
   background-color:white;
 }

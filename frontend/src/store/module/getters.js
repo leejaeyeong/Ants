@@ -60,3 +60,7 @@ export function getRoomName (state) {
 export function getComments (state) {
   return state.comments
 }
+
+export function getTotalwork (state) {
+  return state.totalwork
+}
