@@ -1,7 +1,9 @@
 <template>
   <div id="board">
     <div id="detail">
-      <q-input v-model="detail.title" style="width:50%; font-size:20px; color:black;" filled readonly/>
+      <q-input v-model="detail.title" style="width:50%; font-size:20px; color:black; display:inline-block;" filled readonly/>
+      <q-icon style="font-size: 3.5em; color: black;" name="bookmark_border"/>
+      <q-icon style="font-size: 3.5em; color: black;" name="bookmark"/>
       <div class="q-pa-md" style="max-width: 1200px; margin-left:-17px;">
         <q-input
           filled
@@ -46,6 +48,8 @@ export default defineComponent({
       const loginUser = store.getters['module/getLoginUser']
       const id = tmp.id
       const writer = loginUser.id
+      console.log(88888888)
+      console.log(id, writer)
       store.dispatch('module/registComment', { id: id, comment: form.comment, writer: writer })
         .then(function (result) {
           console.log(result)

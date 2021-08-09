@@ -43,6 +43,7 @@ const rooms = []
 
 const checkInTime = ''
 const checkOutTime = ''
+const totalHourOfWeek = ''
 
 const detail = {
   comments: [],
@@ -68,10 +69,15 @@ const userInfo = {
   name: '',
   position: '',
   profileLocation: '',
-  userId: ''
+  userId: '',
+  dpID: ''
 }
 
 const roomName = ''
+
+const memberList = []
+
+const chatMode = false
 
 export default function () {
   return {
@@ -92,6 +98,9 @@ export default function () {
     roomName: roomName,
     comments: comments,
     userInfo: userInfo,
-    fileInfoList: fileInfoList
+    fileInfoList: fileInfoList,
+    totalHourOfWeek: totalHourOfWeek,
+    memberList: memberList,
+    chatMode: chatMode
   }
 }

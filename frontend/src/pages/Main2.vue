@@ -14,7 +14,7 @@
           <br>
           {{ loginUser.position }}
           <br>
-          {{ loginUser.department }}팀
+          {{ loginUser.department }}
         </div>
         <div id="bot1">
           <q-btn flat @click="go" class="checkbtn" label="출근" />
@@ -55,7 +55,7 @@
       </div>
       <div id="topRight">
         <div class="name">Weekly Report</div><span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
-        <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:20px; margin-top:20px; width:10px;" color="deep-oranges" icon="add" />
+        <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div>
           <q-linear-progress stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
             <div class="absolute-full flex flex-center">
@@ -68,7 +68,7 @@
       </div>
       <div id="botRight">
         <div class="name">최근 게시물</div>
-        <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" color="deep-oranges" icon="add" />
+        <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div class="q-pa-md">
           <q-table
             title=""
@@ -82,6 +82,11 @@
         </div>
       </div>
       <div id="endRight">
+        <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
+        <q-btn round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="add" />
+        <div class="todo">17:00 밥먹기</div>
+        <div class="todo">17:30 담배피기</div>
+        <div class="todo">21:00 집가기</div>
       </div>
     </div>
   </div>
@@ -99,7 +104,7 @@ export default defineComponent({
   },
   methods: {
     mvAttendance () {
-      this.$router.push('/attendance')
+      this.$router.push('/management')
     }
   },
   setup () {
@@ -116,9 +121,9 @@ export default defineComponent({
     const checkInTime = computed(() => store.getters['module/getCheckInTime'])
     const checkOutTime = computed(() => store.getters['module/getCheckOutTime'])
     const loginUser = computed(() => store.getters['module/getLoginUser'])
+    const totalHourOfWeek = computed(() => store.getters['module/getTotalHourOfWeek'])
     const state = reactive({
       time: date.formatDate(currentTime, 'HH:mm:ss'),
-      totalHourOfWeek: '',
       name: localStorage.getItem('name'),
       profileLocation: localStorage.getItem('profileLocation')
     })
@@ -144,9 +149,8 @@ export default defineComponent({
         })
       store.dispatch('module/loadAttendanceByWeek', { })
         .then(function (result) {
-          state.totalHourOfWeek = result.data.totalHour
-          console.log(result.data)
-          progress1.value = state.totalHourOfWeek / 40
+          store.commit('module/setTotalHourOfWeek', result.data.totalHour)
+          progress1.value = result.data.totalHour / 40
         })
         .catch(function () {
           Swal.fire({
@@ -199,6 +203,18 @@ export default defineComponent({
         .then(function (result) {
           console.log(result)
           store.commit('module/setCheckOutTime', state.time)
+          store.dispatch('module/loadAttendanceByWeek', { })
+            .then(function (result) {
+              store.commit('module/setTotalHourOfWeek', result.data.totalHour)
+              progress1.value = result.data.totalHour / 40
+            })
+            .catch(function () {
+              Swal.fire({
+                title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">일주일 근태정보 조회중 문제가 발생하였습니다.</span>',
+                confirmButtonColor: '#ce1919',
+                confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+              })
+            })
         })
         .catch(function () {
           Swal.fire({
@@ -238,7 +254,6 @@ export default defineComponent({
           alert('오류발생')
         })
     }
-
     return {
       formattedString,
       formattedString2,
@@ -254,7 +269,8 @@ export default defineComponent({
       checkOutTime,
       loginUser,
       pagination,
-      inputText
+      inputText,
+      totalHourOfWeek
     }
   }
 })
@@ -270,8 +286,8 @@ export default defineComponent({
   width:95%;
   height:100%;
   float:right;
-  border-bottom:0.5px solid rgb(212, 212, 212);
-  background-color: whitesmoke;
+  /* border-bottom:0.5px solid rgb(212, 212, 212);
+  background-color: whitesmoke; */
 }
 #topLeft{
   width:350px;
@@ -401,7 +417,7 @@ export default defineComponent({
 #endRight{
   float:right;
   width:550px;
-  height:280px;
+  height:350px;
   border:0.5px solid rgb(212, 212, 212);
   position: absolute;
   top:100px;
@@ -424,6 +440,13 @@ export default defineComponent({
   left:480px;
   border:0.5px solid rgb(212, 212, 212);
   background-color:white;
+}
+.todo{
+  width:90%;
+  height:50px;
+  line-height:50px;
+  margin:0 auto;
+  border-bottom:1px solid rgb(212, 212, 212);
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
