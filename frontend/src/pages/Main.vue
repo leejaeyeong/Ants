@@ -14,11 +14,11 @@
                     <div id="detail1">
                         <div class="show">
                             <q-btn @click="go" style="border-right:1px solid black; height:100%; font-size:30px; background: #18C75E; color: black;" label="출근" />
-                            <span style="margin-left:7px; font-size:22px;">{{ checkInTime }}</span>
+                            <span style="margin-left:5px; font-size:22px;">{{ checkInTime }}</span>
                         </div>
                         <div class="show">
                             <q-btn @click="out" style="border-right:1px solid black; height:100%; font-size:30px; background: #18C75E; color: black" label="퇴근" />
-                            <span style="margin-left:7px; font-size:22px;">{{ checkOutTime }}</span>
+                            <span style="margin-left:5px; font-size:22px;">{{ checkOutTime }}</span>
                         </div>
                     </div>
                 </div>
@@ -262,7 +262,7 @@ export default defineComponent({
 .show{
   border:1px solid black;
   display:inline-block;
-  width:200x;
+  width:200px;
   height:100px;
   margin-top:18px;
   margin-left:30px;

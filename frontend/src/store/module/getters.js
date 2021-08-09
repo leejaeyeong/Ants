@@ -56,3 +56,7 @@ export function getUserInfo (state) {
 export function getRoomName (state) {
   return state.roomName
 }
+
+export function getComments (state) {
+  return state.comments
+}
