@@ -26,7 +26,6 @@ public class TodoService {
     public Todo registerTodo(TodoRegisterReq todoRegisterReq){
         Todo todo = new Todo();
         todo.setDepartment(departmentRepository.findDepartmentById(todoRegisterReq.getDepartmentId()).get());
-        todo.setDate(todoRegisterReq.getDate());
         todo.setTime(todoRegisterReq.getTime());
         todo.setTitle(todoRegisterReq.getTitle());
 
