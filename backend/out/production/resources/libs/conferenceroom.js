@@ -67,6 +67,7 @@ function register() {
 		name : name,
 		room : room,
 	}
+	connect(room);
 	sendMessage(message);
 }
 
@@ -86,6 +87,7 @@ function joinConference(name, room) {
 		name : name,
 		room : room,
 	}
+	connect(room);
 	sendMessage(message);
 }
 
@@ -189,3 +191,79 @@ function sendMessage(message) {
 	console.log('Sending message: ' + jsonMessage);
 	ws.send(jsonMessage);
 }
+
+var stompClient = null;
+
+var choosedRoomName = null;
+
+function setConnected(connected) {
+    console.log("setConnected");
+    $('#connect').prop("disabled", connected);
+    $("#disconnect").prop("disabled", !connected);
+    if (connected) {
+        $("#conversation").show();
+    }
+    else {
+        $("#conversation").hide();
+    }
+    $("#greetings").html("");
+}
+
+function connect(room) {
+    console.log("connect");
+    var socket = new SockJS('/websocket');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        setConnected(true);
+        console.log('Connected: ' + frame);
+//        stompClient.subscribe('/topic/' + room, function (greeting) {
+//            showGreeting(JSON.parse(greeting.body).content);
+//        });
+        stompClient.subscribe('/topic/' + room, function (chat) {
+        	showChat(JSON.parse(chat.body));
+        });
+    });
+
+}
+
+function disconnect() {
+    if (stompClient !== null) {
+        stompClient.disconnect();
+    }
+    setConnected(false);
+    console.log("Disconnected");
+}
+
+//function sendName() {
+//    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+//    sendChat();
+//}
+
+function sendChat(name, message, room) {
+	stompClient.send("/app/" + room, {}, JSON.stringify({'name': name, 'message': message}));
+}
+
+function showGreeting(message) {
+    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+}
+function showChat(chat) {
+    $("#greetings").append("<tr><td class='msg'>" + chat.name + " : " + chat.message + "</td></tr>");
+    $('#chatMessage').val('');
+}
+
+$(function () {
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+    });
+    console.log("hi");
+//    connect();
+//    sendName();
+//    sendChat();
+//    $("#connect").click(function() {
+//        console.log("connect");
+//        connect();
+//    });
+//    $("#disconnect").click(function() { disconnect(); });
+//    $("#chatSend").click(function() { sendName(); });
+//    $("#chatSend").click(function(){ sendChat(); });
+});

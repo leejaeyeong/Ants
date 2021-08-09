@@ -64,3 +64,6 @@ export function getComments (state) {
 export function getTotalwork (state) {
   return state.totalwork
 }
+export function getTotalHourOfWeek (state) {
+  return state.totalHourOfWeek
+}

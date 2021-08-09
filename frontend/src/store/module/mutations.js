@@ -63,3 +63,6 @@ export function setComments (state, comments) {
 export function setTotalwork (state, totalwork) {
   state.totalwork = totalwork
 }
+export function setTotalHourOfWeek (state, totalHourOfWeek) {
+  state.totalHourOfWeek = totalHourOfWeek
+}

@@ -141,10 +141,10 @@ export function registBoard ({ state }, body) {
 }
 
 export function registComment ({ state }, body) {
-  console.log(state, body)
+  console.log('registComment', state, body)
   const id = body.id
   const url = baseUrl + 'api/v1/board/' + id + '/comment'
-  console.log(url)
+  return $axios.post(url, body)
 }
 // 파일 업로드
 export function uploadFile ({ state }, body) {
@@ -158,7 +158,13 @@ export function getGroup ({ state }, body) {
   return $axios.get(url, body)
 }
 // 그룹 생성
-export function setGroup ({ state }, body) {
+export function setGroup({ state }, body) {
   const url = baseUrl + 'api/v1/group'
   return $axios.post(url, body)
+}
+// 조횟수 증가
+export function countView({ state }, id) {
+  console.log('countView', state, id)
+  const url = baseUrl + 'api/v1/board/' + id
+  return $axios.put(url)
 }

@@ -68,15 +68,19 @@ export default defineComponent({
 
     const detail = function (evt, row) {
       console.log(evt, row)
-      store.dispatch('module/boardDetail', row.id)
-        .then(function (result) {
-          store.commit('module/setDetail', result.data)
-          var tmp = []
-          for (let i = 0; i<result.data.comments.length; i++) {
-            tmp.push(result.data.comments[i])
-          }
-          store.commit('module/setComments',tmp)
-          router.push('/boardDetail')
+      store.dispatch('module/countView', row.id)
+        .then(function (res) {
+          console.log('조횟수액션 실행됨', res)
+          store.dispatch('module/boardDetail', row.id)
+            .then(function (result) {
+              store.commit('module/setDetail', result.data)
+              var tmp = []
+              for (let i = 0; i<result.data.comments.length; i++) {
+                tmp.push(result.data.comments[i])
+              }
+              store.commit('module/setComments',tmp)
+              router.push('/boardDetail')
+            })
         })
     }
     return {
