@@ -28,6 +28,7 @@
             </tr>
           </tbody>
         </q-markup-table>
+        {{ monthwork }}
       </section>
     </div>
   </div>
@@ -56,7 +57,7 @@ export default {
       lastMonthStart: 0,
       nextMonthStart: 0,
       today: 0,
-      worklog: []
+      monthwork: []
     }
   },
   created () {
@@ -66,9 +67,7 @@ export default {
     this.year = this.currentYear
     this.month = this.currentMonth
     this.today = date.getDate() // 오늘 날짜
-    this.getWork(this.year, this.month)
     this.calendarData(this.month)
-    this.worklog = this.array2(32, 2)
   },
   methods: {
     calendarData (arg) { // 인자를 추가
@@ -95,7 +94,9 @@ export default {
         lastMonthLastDate
       )
       // 백에 요청
-      this.getWork(this.year, this.month)
+      this.monthwork = this.getWork(this.year, this.month)
+      console.log(this.monthwork, '111111111111111111111111')
+      return this.monthwork
     },
     getFirstDayLastDate (year, month) {
       const firstDay = new Date(year, month - 1, 1).getDay() // 이번 달 시작 요일
@@ -127,7 +128,6 @@ export default {
             prevDay += 1
           }
         }
-        console.log(this.year, this.month, day, '날짜 세팅 배열')
         weekOfDays.push(day)
         if (weekOfDays.length === 7) {
           // 일주일 채우면
@@ -145,53 +145,43 @@ export default {
       if (weekOfDays.length > 0) dates.push(weekOfDays) // 남은 날짜 추가
       this.nextMonthStart = weekOfDays[0] // 이번 달 마지막 주에서 제일 작은 날짜
       console.log(dates)
-      console.log(this.worklog, '워크로그')
       return dates
     },
     // 한달근태기록 조회
     getWork (year, month) {
-      console.log(year, month)
       if (String(month).length === 1) {
         month = '0' + String(month)
       }
-      console.log(year, month)
       const baseUrl = 'https://localhost:8443/'
       const id = localStorage.getItem('id')
       const requestData = {
         method: 'get',
         url: baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
       }
+      const worklog = new Array(31)
       axios(requestData)
         .then(function (response) {
           const workdata = response.data
+          // const worklog = new Array(31)
+          console.log(workdata, '워크데이터')
           for (let i = 0; i < workdata.length; i++) {
-            console.log(workdata[i])
             const workdate = workdata[i].date
             const workcheckin = workdata[i].checkInTime
             const workcheckout = workdata[i].checkOutTime
-            console.log(workdate, workcheckin, workcheckout)
             // 일한날짜
             const workday = workdate.split('-')[2]
-            console.log(Number(workday))
-            console.log(this.worklog[Number(workday)][0])
-            this.worklog[Number(workday)][0] = workcheckin
-            this.worklog[Number(workday)][1] = workcheckout
+            worklog[workday] = [workcheckin, workcheckout]
           }
-          console.log(this.worklog, '워크로그')
+          console.log(worklog, '워크로그')
         })
         .catch(function (err) {
           console.log(err)
         })
-    },
-    // 2차원배열 만들기
-    array2 (rows, columns) {
-      const arr = new Array(rows)
-      for (let i = 0; i < rows; i++) {
-        arr[i] = new Array(columns)
-      }
-      console.log(arr, '2차원배열')
-      return arr
+      console.log(worklog, '엑시오스바깥')
+      return worklog
     }
+  },
+  computed: {
   }
 }
 </script>

@@ -60,3 +60,6 @@ export function setRoomName (state, roomName) {
 export function setComments (state, comments) {
   state.comments = comments
 }
+export function setTotalwork (state, totalwork) {
+  state.totalwork = totalwork
+}

@@ -49,7 +49,7 @@ const routes = [
       // 그룹페이지
       {
         path: '/group',
-        component: () => import('pages/group/Group.vue')
+        component: () => import('pages/group/GroupList.vue')
       },
       // 마이페이지 라우터
       {

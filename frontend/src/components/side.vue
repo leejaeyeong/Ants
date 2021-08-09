@@ -164,7 +164,7 @@ export default defineComponent({
 
 <style scoped>
 #side{
-  width:80px;
+  width:70px;
   height:100%;
   float:left;
   border-right:0.5px solid rgb(212, 212, 212);

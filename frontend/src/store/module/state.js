@@ -71,6 +71,7 @@ const userInfo = {
 
 const roomName = ''
 
+const totalwork = []
 export default function () {
   return {
     loginUser: loginUser,
@@ -89,6 +90,7 @@ export default function () {
     department: department,
     roomName: roomName,
     comments: comments,
-    userInfo: userInfo
+    userInfo: userInfo,
+    totalwork: totalwork
   }
 }
