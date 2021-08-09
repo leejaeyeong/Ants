@@ -104,6 +104,7 @@ export function board ({ state }, payload) {
   console.log('board axios', state, payload)
   const url = baseUrl + 'api/v1/board'
   const body = payload
+  console.log('이거 몇 번 나오나')
   return $axios.get(url, body)
 }
 
@@ -151,6 +152,17 @@ export function uploadFile ({ state }, body) {
   console.log(state)
   const url = baseUrl + 'api/v1/files/upload' + '?userId=test-1'
   return $axios.post(url, body)
+}
+
+export function downloadFile ({ state }, id) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/files/download/' + id
+  return $axios.get(url, { responseType: 'blob' })
+}
+
+export function loadFileData () {
+  const url = baseUrl + 'api/v1/files'
+  return $axios.get(url)
 }
 
 // 조횟수 증가

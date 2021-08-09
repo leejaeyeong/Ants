@@ -61,6 +61,9 @@ export function setComments (state, comments) {
   state.comments = comments
 }
 
+export function setFileinfoList (state, fileInfoList) {
+  state.fileInfoList = fileInfoList
+}
 export function setTotalHourOfWeek (state, totalHourOfWeek) {
   state.totalHourOfWeek = totalHourOfWeek
 }

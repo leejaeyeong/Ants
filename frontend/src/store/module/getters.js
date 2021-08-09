@@ -61,6 +61,10 @@ export function getComments (state) {
   return state.comments
 }
 
+export function getFileInfoList (state) {
+  return state.fileInfoList
+}
+
 export function getTotalHourOfWeek (state) {
   return state.totalHourOfWeek
 }
