@@ -50,7 +50,7 @@
                   <!-- 전송 버튼 -->
                   <div id="send">
                     <form onsubmit="sendChat($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val(), $(this).find('input').eq(2).val()); return false;" accept-charset="UTF-8">
-                      <input type="text" id="name" class="form-control" :value="name" style="display:none"/>
+                      <input type="text" id="guest" class="form-control" :value="name" style="display:none"/>
                       <input id="chatMessage" style="display:inline-block; margin-top:-5px; height:52px; width:390px;" class="form-control" placeholder="메세지 입력"/>
                       <input type="text" id="roomName" class="form-control" style="display : none" v-model="rName"/>
                       <button id="chatSend" class="btn btn-default" type="submit">보내기</button>
