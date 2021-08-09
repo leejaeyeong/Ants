@@ -36,20 +36,22 @@
               <div id="participants"></div>
               <!-- 채팅 섹션 -->
               <div id="chat">
+                <div style="font-size:30px; font-weight:bold;">대화내용</div>
+                <div id="chatDiv">
                 <table id="conversation" class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Messages</th>
                     </tr>
                     </thead>
                     <tbody id="greetings">
                     </tbody>
                   </table>
+                </div>
                   <!-- 전송 버튼 -->
                   <div id="send">
                     <form onsubmit="sendChat($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val(), $(this).find('input').eq(2).val()); return false;" accept-charset="UTF-8">
                       <input type="text" id="name" class="form-control" :value="name" style="display:none"/>
-                      <input id="chatMessage" style="display:inline-block; width:406px;" class="form-control" placeholder="메세지 입력"/>
+                      <input id="chatMessage" style="display:inline-block; margin-top:-5px; height:52px; width:390px;" class="form-control" placeholder="메세지 입력"/>
                       <input type="text" id="roomName" class="form-control" style="display : none" v-model="rName"/>
                       <button id="chatSend" class="btn btn-default" type="submit">보내기</button>
                     </form>
@@ -120,6 +122,7 @@ export default defineComponent({
           console.log(rooms)
         })
     })
+
     return {
       rooms,
       state,
@@ -200,9 +203,18 @@ export default defineComponent({
   padding:10px;
   font-size:20px;
   cursor:pointer;
+  margin-top:5px;
 }
 #send{
   position: absolute;
-  top:95%;
+  top:93%;
+}
+#chatDiv{
+  width:488px;
+  height:840px;
+  overflow-y:scroll;
+}
+.msg{
+  font-size:20px;
 }
 </style>

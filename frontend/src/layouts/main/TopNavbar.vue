@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <div id="headerLeft">
-      <q-img src="~assets/images/logo.png" style="width:180px; margin-top:-53px;"/>
+      <q-img src="~assets/images/logo.png" style="width:130px;"/>
     </div>
     <div id="headerRight">
       <!-- <img :src="state.profileLocation" style="border-radius: 50%; width:50px; margin-top:10px; margin-right:140px; float:right;"> -->

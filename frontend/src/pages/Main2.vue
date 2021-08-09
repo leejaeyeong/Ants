@@ -332,7 +332,7 @@ export default defineComponent({
 .bottomleft {
   background-color: white;
   width: 350px;
-  height: 270px;
+  height: 275px;
   float: left;
   border: 1px solid rgb(212, 212, 212);
   position: absolute;
