@@ -142,10 +142,10 @@ export function registBoard ({ state }, body) {
 }
 
 export function registComment ({ state }, body) {
-  console.log(state, body)
+  console.log('registComment', state, body)
   const id = body.id
   const url = baseUrl + 'api/v1/board/' + id + '/comment'
-  console.log(url)
+  return $axios.post(url, body)
 }
 // 파일 업로드
 export function uploadFile ({ state }, body) {
@@ -159,7 +159,21 @@ export function downloadFile ({ state }, id) {
   const url = baseUrl + 'api/v1/files/download/' + id
   return $axios.get(url, { responseType: 'blob' })
 }
+
 export function loadFileData () {
   const url = baseUrl + 'api/v1/files'
+  return $axios.get(url)
+}
+
+// 조횟수 증가
+export function countView ({ state }, id) {
+  console.log('countView', state, id)
+  const url = baseUrl + 'api/v1/board/' + id
+  return $axios.put(url)
+}
+
+export function memberList ({ state }) {
+  console.log('memberList', state)
+  const url = baseUrl + 'api/v1/users'
   return $axios.get(url)
 }

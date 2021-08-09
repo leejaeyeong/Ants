@@ -2,6 +2,7 @@
   <Side></Side>
   <top-navbar></top-navbar>
   <main-content></main-content>
+  <chat></chat>
 </template>
 
 <script>
@@ -9,13 +10,15 @@ import { defineComponent } from 'vue'
 import TopNavbar from './TopNavbar.vue'
 import Side from '../../components/side.vue'
 import MainContent from './Content.vue'
+import Chat from '../../components/chat.vue'
 
 export default defineComponent({
   name: 'login',
   components: {
     TopNavbar,
     Side,
-    MainContent
+    MainContent,
+    Chat
   }
 })
 </script>

@@ -64,3 +64,14 @@ export function setComments (state, comments) {
 export function setFileinfoList (state, fileInfoList) {
   state.fileInfoList = fileInfoList
 }
+export function setTotalHourOfWeek (state, totalHourOfWeek) {
+  state.totalHourOfWeek = totalHourOfWeek
+}
+
+export function setMemberList (state, memberList) {
+  state.memberList = memberList
+}
+
+export function setChatMode (state, chatMode) {
+  state.chatMode = chatMode
+}
