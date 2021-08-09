@@ -91,13 +91,22 @@ export default defineComponent({
                 name: response.data.name,
                 department: response.data.department,
                 profileLocation: response.data.profileLocation,
-                userState: response.data.state
+                userState: response.data.state,
+                dpID: response.data.department
               }
               localStorage.setItem('name', userInfo.name)
-              localStorage.setItem('department', userInfo.department)
               localStorage.setItem('userState', userInfo.userState)
-              store.commit('module/setLoginUser', userInfo)
-              localStorage.setItem('profileLocation', userInfo.profileLocation)
+              store.dispatch('module/departmentInfo')
+                .then(function (result) {
+                  for (let i = 0; i < result.data.length; i++) {
+                    if (userInfo.department === result.data[i].id) {
+                      userInfo.department = result.data[i].departmentName
+                      store.commit('module/setLoginUser', userInfo)
+                      localStorage.setItem('department', userInfo.department)
+                      localStorage.setItem('profileLocation', userInfo.profileLocation)
+                    }
+                  }
+                })
               // store.state.userId = userInfo.id
               // store.state.name = userInfo.name
               store.dispatch('module/board', { })

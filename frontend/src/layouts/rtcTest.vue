@@ -36,7 +36,7 @@
               <div id="participants"></div>
               <!-- 채팅 섹션 -->
               <div id="chat">
-                <div style="font-size:30px; font-weight:bold;">대화내용</div>
+                <div style="font-size:30px; font-weight:bold; margin-top:5px; margin-left:5px;">대화내용</div>
                 <div id="chatDiv">
                 <table id="conversation" class="table table-striped">
                     <thead>
@@ -145,8 +145,8 @@ export default defineComponent({
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:780px;
-    left:1600px;
+    top:880px;
+    left:1650px;
 }
 #submit:hover{
     opacity: 0.7;
@@ -155,14 +155,17 @@ export default defineComponent({
     width:1340px;
     height:892px;
     position:absolute;
+    top:75px;
     left:90px;
 }
 #chat{
     width:490px;
     height:892px;
-    border-left:1px solid grey;
+    border-left:1px solid rgb(212, 212, 212);
+    border-top: 1px solid rgb(212, 212, 212);
     position:absolute;
-    left:1430px;
+    left:1410px;
+    top:75px;
 }
 #button-leave{
     position:absolute;

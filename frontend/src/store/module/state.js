@@ -43,6 +43,7 @@ const rooms = []
 
 const checkInTime = ''
 const checkOutTime = ''
+const totalHourOfWeek = ''
 
 const detail = {
   comments: [],
@@ -66,7 +67,8 @@ const userInfo = {
   name: '',
   position: '',
   profileLocation: '',
-  userId: ''
+  userId: '',
+  dpID: ''
 }
 
 const roomName = ''
@@ -89,6 +91,7 @@ export default function () {
     department: department,
     roomName: roomName,
     comments: comments,
-    userInfo: userInfo
+    userInfo: userInfo,
+    totalHourOfWeek: totalHourOfWeek
   }
 }
