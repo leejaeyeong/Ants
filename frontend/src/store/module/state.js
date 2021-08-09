@@ -90,4 +90,5 @@ export default function () {
     roomName: roomName,
     comments: comments,
     userInfo: userInfo
+  }
 }
