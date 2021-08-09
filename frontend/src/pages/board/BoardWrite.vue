@@ -34,6 +34,7 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
     const editor = ref('')
+    const Swal = require('sweetalert2')
     const form = reactive({
       type: '',
       title: '',
