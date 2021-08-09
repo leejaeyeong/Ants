@@ -1,6 +1,8 @@
 <template>
 <div>
-  <div class="q-pa-md">
+  <downloads-side></downloads-side>
+  <downloads-content></downloads-content>
+  <!-- <div class="q-pa-md">
     <div class="row" style="margin-top: 65px;">
       <div class="col-2" style="border-right: 1px solid black; box-shadow: 1px 1px 1px 1px gray; border-radius: 5%;">
         <div class="side">
@@ -11,7 +13,7 @@
         .col
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -20,11 +22,13 @@ import { defineComponent, reactive } from 'vue'
 // import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import DownloadsSide from './DownloadsSide.vue'
+import DownloadsContent from './DownloadsContent.vue'
 
 export default defineComponent({
   name: 'downloads2',
   components: {
-    DownloadsSide
+    DownloadsSide,
+    DownloadsContent
   },
   setup () {
     const store = useStore()
