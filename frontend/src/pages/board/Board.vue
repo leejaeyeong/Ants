@@ -70,12 +70,12 @@ export default defineComponent({
       console.log(evt, row)
       store.dispatch('module/boardDetail', row.id)
         .then(function (result) {
-          console.log('------------------------')
-          console.log(result.data)
           store.commit('module/setDetail', result.data)
-          const tmp = store.getters['module/getDetail']
-          console.log(tmp)
-          console.log('------------------------')
+          var tmp = []
+          for (let i = 0; i<result.data.comments.length; i++) {
+            tmp.push(result.data.comments[i])
+          }
+          store.commit('module/setComments',tmp)
           router.push('/boardDetail')
         })
     }

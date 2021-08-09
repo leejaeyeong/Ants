@@ -56,3 +56,7 @@ export function setUserInfo (state, userInfo) {
 export function setRoomName (state, roomName) {
   state.roomName = roomName
 }
+
+export function setComments (state, comments) {
+  state.comments = comments
+}

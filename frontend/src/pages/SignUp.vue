@@ -4,9 +4,9 @@
       <div id='loginbox'>
         <div id="right1">
           <div id="mark">
-            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
+            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:145px; margin-top:30px;"/>
           </div>
-          <div class="q-pa-md" id="form" style="max-width: 400px">
+          <div class="q-pa-md" id="form" style="max-width: 400px; margin-top:15px;">
             <q-form
               class="q-gutter-md"
               ref="signupForm"
@@ -98,7 +98,7 @@
               <div style="height: 10px;"></div>
               <div class="btnform">
                 <q-btn @click="back2" flat style="color: #00BF6F; margin-right:10px;" label="← Back"/>
-                <q-btn @click="validate" label="Submit" type="submit" style="background-color: #00BF6F;"/>
+                <q-btn @click="validate" label="Submit" type="button" style="background-color: #00BF6F;"/>
               </div>
             </q-form>
           </div>
@@ -268,10 +268,12 @@ export default defineComponent({
                 confirmButtonColor: '#19CE60',
                 confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
               })
-              router.push('/')
             })
             .catch(function (err) {
               alert(err)
+            })
+            .finally(function () {
+              router.push('/')
             })
         } else {
           Swal.fire({

@@ -3,14 +3,13 @@
         <div @click="mvHome" class="list">
             <div class="img">
                 <q-icon style="font-size: 2.8em; color: white;" name="home"/>
-                <!-- <img src="~assets/images/message.png" style="width:30px; height:30px;"/> -->
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>HOME</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: white;">
+            <!-- <div class="detail" style="color: white;">
                 Home
-            </div>
+            </div> -->
         </div>
         <div @click="mvBoard" class="list">
             <div class="img">
@@ -19,9 +18,9 @@
                     <strong>Board</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: white; ">
+            <!-- <div class="detail" style="color: white; ">
                 Board
-            </div>
+            </div> -->
         </div>
         <div @click="mvGroup" class="list">
             <div class="img">
@@ -30,9 +29,9 @@
                     <strong>Group</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: white; ">
+            <!-- <div class="detail" style="color: white; ">
                 Group
-            </div>
+            </div> -->
         </div>
         <div @click="mvRTC" class="list">
             <div class="img">
@@ -41,9 +40,9 @@
                     <strong>RTC</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: white; ">
+            <!-- <div class="detail" style="color: white; ">
                 RTC
-            </div>
+            </div> -->
         </div>
         <div class="list"  @click="mvDownloads">
             <div class="img">
@@ -52,9 +51,9 @@
                     <strong>다운로드</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: white; ">
+            <!-- <div class="detail" style="color: white; ">
                 다운로드
-            </div>
+            </div> -->
         </div>
         <div class="list">
             <div class="img">
@@ -63,9 +62,9 @@
                     <strong>Settings</strong>
                   </q-tooltip>
             </div>
-            <div class="detail" style="color: white; ">
+            <!-- <div class="detail" style="color: white; ">
                 Setting
-            </div>
+            </div> -->
         </div>
         <div @click="logout" class="list" id="logout">
             <div class="img">
@@ -74,11 +73,11 @@
                   <strong>Logout</strong>
                 </q-tooltip>
             </div>
-            <div class="detail" style="color: white; ">
+            <!-- <div class="detail" style="color: white; ">
                 LogOut
-            </div>
+            </div> -->
         </div>
-        </div>
+      </div>
 </template>
 
 <script>
@@ -175,6 +174,7 @@ export default defineComponent({
 .img{
   text-align:center;
   padding-top: 8px;
+  margin-top:20px;
 }
 .detail{
   line-height:33px;
