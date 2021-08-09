@@ -14,7 +14,7 @@
                   </p>
               </form>
               <div class="q-pa-md row items-start q-gutter-md">
-                <q-card v-for="room in rooms" :key="room.id" class="my-card">
+                <q-card v-for="room in rooms" :key="room.id" class="my-card" style="margin-top:100px;">
                     <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
                       <div class="absolute-bottom">
                         <div class="text-h6">{{ room.roomName }}</div>
@@ -23,7 +23,7 @@
                     </q-img>
                     <q-card-actions>
                       <!-- <q-btn class="enter">회의입장</q-btn> -->
-                      <form onsubmit="joinConference($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val()); return false;" accept-charset="UTF-8">
+                      <form class="enter" onsubmit="joinConference($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val()); return false;" accept-charset="UTF-8">
                         <input id="joinUser" :value="id" style="display : none">
                         <input id="joinConferenceRoom" style="display : none" :value="room.roomName">
                         <input class="enter" type="submit" name="commit" value="회의입장" @click="getRoomName(room.roomName)">
@@ -33,27 +33,31 @@
               </div>
           </div>
           <div id="room" style="display: none;">
-              <!-- <h2 id="room-header"></h2> -->
               <div id="participants"></div>
+              <!-- 채팅 섹션 -->
               <div id="chat">
+                <div style="font-size:30px; font-weight:bold;">대화내용</div>
+                <div id="chatDiv">
                 <table id="conversation" class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Messages</th>
                     </tr>
                     </thead>
                     <tbody id="greetings">
                     </tbody>
-                </table>
-                <div>
-                  <form onsubmit="sendChat($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val(), $(this).find('input').eq(2).val()); return false;" accept-charset="UTF-8">
-                    <input type="text" id="name" class="form-control" :value="name" style="display:none"/>
-                    <input type="text" id="chatMessage" class="form-control" placeholder="message.." />
-                    <input type="text" id="roomName" class="form-control" style="display : none" v-model="rName"/>
-                    <button id="chatSend" class="btn btn-default" type="submit">Chat Send</button>
-                  </form>
+                  </table>
                 </div>
+                  <!-- 전송 버튼 -->
+                  <div id="send">
+                    <form onsubmit="sendChat($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val(), $(this).find('input').eq(2).val()); return false;" accept-charset="UTF-8">
+                      <input type="text" id="name" class="form-control" :value="name" style="display:none"/>
+                      <input id="chatMessage" style="display:inline-block; margin-top:-5px; height:52px; width:390px;" class="form-control" placeholder="메세지 입력"/>
+                      <input type="text" id="roomName" class="form-control" style="display : none" v-model="rName"/>
+                      <button id="chatSend" class="btn btn-default" type="submit">보내기</button>
+                    </form>
+                  </div>
               </div>
+              <!-- 나가기 버튼 -->
               <form class="form-inline" onsubmit="disconnect(); return false;" accept-charset="UTF-8">
                 <input type="button" id="button-leave" onmouseup="leaveRoom();" value="나가기">
               </form>
@@ -118,6 +122,7 @@ export default defineComponent({
           console.log(rooms)
         })
     })
+
     return {
       rooms,
       state,
@@ -140,7 +145,7 @@ export default defineComponent({
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:880px;
+    top:780px;
     left:1600px;
 }
 #submit:hover{
@@ -149,14 +154,13 @@ export default defineComponent({
 #participants{
     width:1340px;
     height:892px;
-    border:1px solid green;
     position:absolute;
     left:90px;
 }
 #chat{
     width:490px;
     height:892px;
-    border:1px solid blue;
+    border-left:1px solid grey;
     position:absolute;
     left:1430px;
 }
@@ -165,16 +169,16 @@ export default defineComponent({
     top:90%;
     left:120px;
     background-color:#18C75E;
+    border:0.5px solid #18C75E;
     font-weight:bold;
     color:white;
     padding:10px;
     font-size:30px;
     cursor: pointer;
-    border:0.5px solid #18C75E;
     border-radius:5px;
 }
 .my-card{
-  width:300px;
+  width:380px;
   margin:30px 0 0 30px;
 }
 .enter{
@@ -190,5 +194,27 @@ export default defineComponent({
 }
 .enter:hover{
   opacity: 0.7;
+}
+#chatSend{
+  background-color:#18C75E;
+  border:0.5px solid #18C75E;
+  font-weight:bold;
+  color:white;
+  padding:10px;
+  font-size:20px;
+  cursor:pointer;
+  margin-top:5px;
+}
+#send{
+  position: absolute;
+  top:93%;
+}
+#chatDiv{
+  width:488px;
+  height:840px;
+  overflow-y:scroll;
+}
+.msg{
+  font-size:20px;
 }
 </style>

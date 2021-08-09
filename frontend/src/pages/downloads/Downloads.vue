@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="q-pa-md">
-    <div class="row">
+    <div class="row" style="margin-top: 65px;">
       <div class="col-2" style="border-right: 1px solid black; box-shadow: 1px 1px 1px 1px gray; border-radius: 5%;">
         <div class="side">
           <downloads-side></downloads-side>

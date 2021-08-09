@@ -31,21 +31,24 @@ function Participant(name) {
 	var container = document.createElement('div');
 	container.className = isPresentMainParticipant() ? PARTICIPANT_CLASS : PARTICIPANT_MAIN_CLASS;
 	container.id = name;
-	var span = document.createElement('span');
+//	var span = document.createElement('span');
 	var video = document.createElement('video');
 	var rtcPeer;
 
 	container.appendChild(video);
-	container.appendChild(span);
+//	container.appendChild(span);
 	container.onclick = switchContainerClass;
 	document.getElementById('participants').appendChild(container);
 
-	span.appendChild(document.createTextNode(name));
+//	span.appendChild(document.createTextNode(name));
 
 	video.id = 'video-' + name;
 	video.autoplay = true;
 	video.controls = false;
-
+	video.style.width = '500px';
+	video.style.height = '380px';
+	container.style.display = 'inline-block';
+    container.style.margin = '20px 70px';
 
 	this.getElement = function() {
 		return container;
