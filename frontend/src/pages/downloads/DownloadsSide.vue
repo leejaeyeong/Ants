@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <span align="center">파일 업로드</span>
     <div class="row">
     <div v-if="form.images" class="margin-auto file-frame"
@@ -17,7 +17,43 @@
       @dragleave="dragLeave()"
       @dragover.prevent>
       <div align="center" style="line-height:150px">파일을 끌어서 올려주세요</div>
-      <input ref="image" id="input" type="file" name="image" @change="uploadImage()" v-show="false"> <!-- 클래스 히든? -->
+      <input ref="image" id="input" type="file" name="image" @change="uploadImage()" v-show="false">
+    </div>
+  </div>
+  <div class="row">
+    <div class="margin-auto">
+      <q-btn @click="regist" class="upload-btn">파일 업로드</q-btn>
+    </div>
+  </div>
+  <q-separator style="margin-bottom:20px" color="green" inset />
+  <span>부서별 자료 검색</span>
+  <div class="row">
+    <ul>
+      <li>벡엔드 개발 부서</li>
+      <li>프론트엔드 개발 부서</li>
+      <li>마켓팅 홍보 부서</li>
+    </ul>
+  </div>
+  </div> -->
+  <div class="side">
+    <span align="center">파일 업로드</span>
+    <div class="row">
+    <div v-if="form.images" class="margin-auto file-frame"
+    @drop.prevent="dropInputTag($event)"
+    @dragover.prevent>
+    <div style="margin-left: 60px; margin-top:10px;">
+      <img :src="form.images" alt="image" class="present-image"><br>
+    </div>
+    <div align="center">안녕하dasdasdas세요 안녕</div>
+    </div>
+    <div id="unSelectFileFrame" v-else class="margin-auto file-frame"
+      @click="clickInputTag()"
+      @drop.prevent="dropInputTag($event)"
+      @dragenter="test()"
+      @dragleave="dragLeave()"
+      @dragover.prevent>
+      <div align="center" style="line-height:150px">파일을 끌어서 올려주세요</div>
+      <input ref="image" id="input" type="file" name="image" @change="uploadImage()" v-show="false">
     </div>
   </div>
   <div class="row">
@@ -156,5 +192,12 @@ export default defineComponent({
 }
 ul{
   list-style:none;
+}
+.side {
+  width: 350px;
+  height: 800px;
+  position: absolute;
+  top: 85px;
+  left: 90px;
 }
 </style>
