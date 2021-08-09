@@ -85,6 +85,7 @@ export default defineComponent({
     const checkInTime = computed(() => store.getters['module/getCheckInTime'])
     const checkOutTime = computed(() => store.getters['module/getCheckOutTime'])
     const loginUser = computed(() => store.getters['module/getLoginUser'])
+    const totalHourOfWeek = computed(() => store.getters['module/getTotalHourOfWeek'])
     const state = reactive({
       time: date.formatDate(currentTime, 'HH:mm:ss'),
       totalHourOfWeek: '',
@@ -200,7 +201,8 @@ export default defineComponent({
       checkInTime,
       checkOutTime,
       loginUser,
-      pagination
+      pagination,
+      totalHourOfWeek
     }
   }
 })
