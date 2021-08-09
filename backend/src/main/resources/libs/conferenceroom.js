@@ -247,7 +247,8 @@ function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 function showChat(chat) {
-    $("#greetings").append("<tr><td>" + chat.name + " : " + chat.message + "</td></tr>");
+    $("#greetings").append("<tr><td class='msg'>" + chat.name + " : " + chat.message + "</td></tr>");
+    $('#chatMessage').val('');
 }
 
 $(function () {

@@ -91,7 +91,7 @@ export default defineComponent({
 <style scoped>
 #mainSide{
     width: 300px;
-    height: 892px;
+    height: 792px;
     border-right:1px solid rgb(212, 212, 212);
     position: absolute;
     top:75px;

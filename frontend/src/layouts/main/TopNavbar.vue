@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <div id="headerLeft">
-      <q-img src="~assets/images/logo.png" style="width:180px; margin-top:-53px;"/>
+      <q-img src="~assets/images/logo.png" style="width:140px; margin-top:0px;"/>
     </div>
     <div id="headerRight">
       <!-- <img :src="state.profileLocation" style="border-radius: 50%; width:50px; margin-top:10px; margin-right:140px; float:right;"> -->
@@ -90,16 +90,20 @@ export default defineComponent({
 
 <style scoped>
 #header{
-  width:100%;
+  width:90%;
   height:75px;
-  border-bottom:0.5px solid rgb(212, 212, 212);
+  border-bottom:1px solid rgb(212, 212, 212);
+  position: absolute;
+  top: 0px;
+  left:100px;
 }
 #headerLeft{
-  width:12%;
+  width:100%;
   height:75px;
   float:left;
-  text-align: center;
+  text-align: left;
   font-size:35px;
+  position: absolute;
   /* border-right:0.5px solid rgb(212, 212, 212); */
 }
 #headerRight{

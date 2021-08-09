@@ -4,9 +4,9 @@
       <div id='loginbox'>
         <div id="right1">
           <div id="mark">
-            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:140px;" height="150px" />
+            <q-img src="~assets/images/logo.png" style="width:200px; margin-left:145px; margin-top:30px;"/>
           </div>
-          <div class="q-pa-md" id="form" style="max-width: 400px">
+          <div class="q-pa-md" id="form" style="max-width: 400px; margin-top:15px;">
             <q-form
               class="q-gutter-md"
               ref="signupForm"

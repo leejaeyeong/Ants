@@ -1,6 +1,6 @@
 <template>
-  <top-navbar></top-navbar>
   <Side></Side>
+  <top-navbar></top-navbar>
   <main-content></main-content>
 </template>
 
