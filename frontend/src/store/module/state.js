@@ -73,6 +73,10 @@ const userInfo = {
 
 const roomName = ''
 
+const memberList = []
+
+const chatMode = false
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -92,6 +96,8 @@ export default function () {
     roomName: roomName,
     comments: comments,
     userInfo: userInfo,
-    totalHourOfWeek: totalHourOfWeek
+    totalHourOfWeek: totalHourOfWeek,
+    memberList: memberList,
+    chatMode: chatMode
   }
 }

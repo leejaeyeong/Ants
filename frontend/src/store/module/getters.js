@@ -64,3 +64,11 @@ export function getComments (state) {
 export function getTotalHourOfWeek (state) {
   return state.totalHourOfWeek
 }
+
+export function getMemberList (state) {
+  return state.memberList
+}
+
+export function getChatMode (state) {
+  return state.chatMode
+}

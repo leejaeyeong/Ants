@@ -159,3 +159,9 @@ export function countView ({ state }, id) {
   const url = baseUrl + 'api/v1/board/' + id
   return $axios.put(url)
 }
+
+export function memberList ({ state }) {
+  console.log('memberList', state)
+  const url = baseUrl + 'api/v1/users'
+  return $axios.get(url)
+}
