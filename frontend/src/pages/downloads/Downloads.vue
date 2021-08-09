@@ -2,24 +2,11 @@
 <div>
   <downloads-side></downloads-side>
   <downloads-content></downloads-content>
-  <!-- <div class="q-pa-md">
-    <div class="row" style="margin-top: 65px;">
-      <div class="col-2" style="border-right: 1px solid black; box-shadow: 1px 1px 1px 1px gray; border-radius: 5%;">
-        <div class="side">
-          <downloads-side></downloads-side>
-        </div>
-      </div>
-      <div class="col-10">
-        .col
-      </div>
-    </div>
-  </div> -->
 </div>
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue'
-// import { useRouter } from 'vue-router'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import DownloadsSide from './DownloadsSide.vue'
 import DownloadsContent from './DownloadsContent.vue'
@@ -32,82 +19,54 @@ export default defineComponent({
   },
   setup () {
     const store = useStore()
-    const form = reactive({
-      image: null,
-      tmp: '',
-      images: ''
-    })
     const Swal = require('sweetalert2')
-    function sweetAlert (title) {
-      Swal.fire({
-        title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">' + title + '</span>',
-        confirmButtonColor: '#19CE60',
-        confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
-      })
-    }
-    function regist () {
-      if (form.image == null) {
-        sweetAlert('업로드할 파일을 지정해주세요.')
-        return
-      }
-      const frm = new FormData()
-      frm.append('file', form.image)
-      store.dispatch('module/uploadFile', frm)
+    loadFileData()
+    function loadFileData () {
+      store.dispatch('module/loadFileData')
         .then(function (result) {
           console.log(result.data)
-          if (result.status === 200) {
-            sweetAlert('파일이 정상적으로 업로드 됐습니다.')
-            return true
+          for (let i = 0; i < result.data.length; i++) {
+            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
           }
+          store.commit('module/setFileinfoList', result.data)
         })
-        .catch(function (err) {
-          console.log(err)
-          sweetAlert('파일 업로드 중 문제가 발생했습니다.')
+        .catch(function () {
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">서버오류. 다시 시도해주세요.</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
         })
     }
-    // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
-    function imgLabelClick () {
-      const inputImg = document.getElementById('profile_img_upload') // input file 태그 저장
-      console.log(inputImg)
-      inputImg.click() // 클릭이벤트 실행
-    }
-    function uploadImage (file) {
-      const xxx = new FormData()
-      //   const image = file
-      form.images = URL.createObjectURL(file)
-      form.image = file
-      xxx.append('file', file)
-      console.log(xxx)
-      console.log('이게 되어야되는데 업로드')
-      // store.dispatch('module/uploadFile', xxx)
-      //   .then(function (result) {
-      //     console.log(result.data)
-      //   })
-      //   .catch(function (err) {
-      //     alert(err)
-      //   })
-      // 엑시오스
-    }
-    function test () {
-      const frame = document.getElementById('unSelectFileFrame')
-      frame.style.borderColor = 'green'
-    }
-    function dragLeave () {
-      const frame = document.getElementById('unSelectFileFrame')
-      frame.style.borderColor = 'black'
-    }
-    function dropInputTag (event) {
-      console.log('이게 되어야되는데 드롭다운')
-      const file = Array.from(event.dataTransfer.files, v => v)[0]
-      uploadImage(file)
-    }
-    function clickInputTag () {
-      console.log('이게 되어야되는데 클릭?')
-      // this.$refs.image.click()
-      form.images = '/media/profile/test-1/test.gif'// URL.createObjectURL(file)
+    function mountImageUrl (extension) {
+      let imageUrl = ''
+      switch (extension) {
+        case '.ppt':
+        case '.pptx':
+          imageUrl = 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
+          break
+        case '.docx':
+          imageUrl = 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
+          break
+        case '.xlsx':
+          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFEz9UnOx3StKSJUQs12DuWje3MwDOV6yAfufygK38zgZIuNsizJimqpCRI6ae2gbJuD0&usqp=CAU'
+          break
+        case '.pdf':
+          imageUrl = 'https://blog.kakaocdn.net/dn/cj4Y3U/btqMPi7uAh8/sYik4nsvvqUmG36Hhbwwj1/img.png'
+          break
+        case '.jpg':
+        case '.png':
+        case '.JPG':
+        case '.PNG':
+          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU'
+          break
+        default:
+          imageUrl = 'https://i.pinimg.com/474x/78/6d/27/786d27105f7e9f02f92c31040169b2de.jpg'
+      }
+      return imageUrl
     }
     return {
-      imgLabelClick, form, regist, uploadImage, dropInputTag, clickInputTag, test, dragLeave, sweetAlert
+      loadFileData
     }
   }
 })

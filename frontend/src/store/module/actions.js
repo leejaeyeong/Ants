@@ -152,3 +152,8 @@ export function uploadFile ({ state }, body) {
   const url = baseUrl + 'api/v1/files/upload' + '?userId=test-1'
   return $axios.post(url, body)
 }
+
+export function loadFileData () {
+  const url = baseUrl + 'api/v1/files'
+  return $axios.get(url)
+}
