@@ -268,12 +268,12 @@ export default defineComponent({
                 confirmButtonColor: '#19CE60',
                 confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
               })
+                .then(function () {
+                  router.push('/')
+                })
             })
             .catch(function (err) {
               alert(err)
-            })
-            .finally(function () {
-              router.push('/')
             })
         } else {
           Swal.fire({
