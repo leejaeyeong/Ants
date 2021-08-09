@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserTeamMappingPutReq;
+import com.ssafy.api.response.UserRes;
 import com.ssafy.common.util.FileUtil;
 import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.Department;
@@ -16,6 +17,7 @@ import com.ssafy.db.entity.User;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -109,6 +111,16 @@ public class UserServiceImpl implements UserService {
 		if(userRepositorySupport.findUserByUserId(userId).isPresent())
 			user = userRepositorySupport.findUserByUserId(userId).get();
 		return user;
+	}
+
+	@Override
+	public List<UserRes> findAll() {
+		List<User> users = userRepository.findAll();
+		List<UserRes> userResList = new ArrayList<>();
+		for (User user : users) {
+			userResList.add(UserRes.of(user));
+		}
+		return userResList;
 	}
 
 	@Override
