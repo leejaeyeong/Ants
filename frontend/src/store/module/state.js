@@ -60,6 +60,8 @@ const comments = []
 
 const department = []
 
+const fileInfoList = []
+
 const userInfo = {
   department: '',
   email: '',
@@ -96,6 +98,7 @@ export default function () {
     roomName: roomName,
     comments: comments,
     userInfo: userInfo,
+    fileInfoList: fileInfoList,
     totalHourOfWeek: totalHourOfWeek,
     memberList: memberList,
     chatMode: chatMode
