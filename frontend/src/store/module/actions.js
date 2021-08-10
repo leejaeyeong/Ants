@@ -203,3 +203,8 @@ export function memberList ({ state }) {
   const url = baseUrl + 'api/v1/users'
   return $axios.get(url)
 }
+
+export function loadFileDataByExtension ({ state }, extension) {
+  const url = baseUrl + 'api/v1/files/extension' + '?extension=' + extension
+  return $axios.get(url)
+}
