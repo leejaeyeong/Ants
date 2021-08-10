@@ -48,26 +48,28 @@
             <q-item-label caption>5 min ago</q-item-label>
           </q-item-section>
         </q-item>
-        <q-separator spaced />
         <div v-for="(userInfo, idx) in waitmemeber" :key="idx">
-          <q-item>
-            <q-item-section top avatar>
-              <q-avatar>
-                <img :src= "userInfo.profileLocation" >
-              </q-avatar>
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>{{ userInfo.name }}</q-item-label>
-              <q-item-label caption>{{ userInfo.email }}</q-item-label>
-              <q-item-label caption style>{{ userInfo.department }}</q-item-label>
-            </q-item-section>
-            <q-item-section side top style="margin-top:-5px;">
-              <q-badge label="NEW" />
-            </q-item-section>
-            <q-item-section side>
-              <q-icon name="send" color="green" />
-            </q-item-section>
-          </q-item>
+          <div v-if="waitmemeber.length > 0">
+            <q-item>
+              <q-item-section top avatar>
+                <q-avatar>
+                  <img :src= "userInfo.profileLocation" >
+                </q-avatar>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{ userInfo.name }}</q-item-label>
+                <q-item-label caption>{{ userInfo.email }}</q-item-label>
+                <q-item-label caption style>{{ userInfo.department }}</q-item-label>
+              </q-item-section>
+              <q-item-section side top style="margin-top:-5px;">
+                <q-badge label="NEW" />
+              </q-item-section>
+              <q-item-section side @click="changeUser(userInfo.userId)">
+                <q-icon name="send" color="green" />
+              </q-item-section>
+            </q-item>
+          </div>
+          <div v-else>승인 대기중인 사용자가 없습니다.</div>
         </div>
       </q-list>
     </div>
@@ -79,7 +81,7 @@ import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 
 const columns = [
-  { name: 'profileLocation', align: 'left', label: '상태', field: 'profileLocation', style: 'width: 10px' },
+  { name: 'profileLocation', align: 'left', label: '', field: 'profileLocation', style: 'width: 10px' },
   {
     name: 'name',
     required: true,
@@ -119,13 +121,24 @@ export default {
       console.log(waitmemeber, '멤버리스트')
     }
     const pagesNumber = computed(() => Math.ceil(memberList.value.length / pagination.value.rowsPerPage))
+    function changeUser (id) {
+      store.dispatch('module/chageUser', id)
+        .then(function (res) {
+          console.log(res)
+          alert('회원정보 수정완료')
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    }
     return {
       pagination,
       columns,
       memberList,
       pagesNumber,
       acceptmemeber,
-      waitmemeber
+      waitmemeber,
+      changeUser
     }
   }
 }
