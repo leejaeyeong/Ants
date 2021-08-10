@@ -78,6 +78,7 @@ export default defineComponent({
               store.commit('module/setDetail', result.data)
               var tmp = []
               for (let i = 0; i<result.data.comments.length; i++) {
+                result.data.comments[i].registrationTime = result.data.comments[i].registrationTime.substr(0, 16)
                 tmp.push(result.data.comments[i])
               }
               store.commit('module/setComments',tmp)
