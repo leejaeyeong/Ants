@@ -35,7 +35,7 @@
     </ul>
   </div>
   </div> -->
-  <div class="side">
+  <div class="side shadow-1">
     <span align="center">파일 업로드</span>
     <div class="row">
     <div v-if="form.images" class="margin-auto file-frame"
@@ -77,12 +77,14 @@
 import { defineComponent, reactive } from 'vue'
 // import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'DonwloadsSide',
   components: {
   },
   setup () {
+    const router = useRouter()
     const store = useStore()
     const form = reactive({
       image: null,
@@ -108,6 +110,7 @@ export default defineComponent({
         .then(function (result) {
           console.log(result.data)
           if (result.status === 200) {
+            loadFileData()
             sweetAlert('파일이 정상적으로 업로드 됐습니다.')
             return true
           }
@@ -159,6 +162,59 @@ export default defineComponent({
       // const file = new File(['image'], './aaa.jpg')
       form.images = '/media/profile/test-1/test.gif'// URL.createObjectURL(file)
     }
+    function loadFileData () {
+      store.dispatch('module/loadFileData')
+        .then(function (result) {
+          console.log(result.data + '잘 받아오는지')
+          for (let i = 0; i < result.data.length; i++) {
+            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+          }
+          // setFileinfoList
+          store.commit('module/setFileinfoList', result.data)
+          console.log(store.getters['module/getFileInfoList'], '파일 게터스')
+          // console.log(router)
+          console.log(router.currentRoute._rawValue.path)
+          if (router.currentRoute._rawValue.path === '/downloads') {
+            router.push('/downloads2')
+          } else {
+            router.push('/downloads')
+          }
+        })
+        .catch(function () {
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">서버오류. 다시 시도해주세요.</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
+        })
+    }
+    function mountImageUrl (extension) {
+      let imageUrl = ''
+      switch (extension) {
+        case '.ppt':
+        case '.pptx':
+          imageUrl = 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
+          break
+        case '.docx':
+          imageUrl = 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
+          break
+        case '.xlsx':
+          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFEz9UnOx3StKSJUQs12DuWje3MwDOV6yAfufygK38zgZIuNsizJimqpCRI6ae2gbJuD0&usqp=CAU'
+          break
+        case '.pdf':
+          imageUrl = 'https://blog.kakaocdn.net/dn/cj4Y3U/btqMPi7uAh8/sYik4nsvvqUmG36Hhbwwj1/img.png'
+          break
+        case '.jpg':
+        case '.png':
+        case '.JPG':
+        case '.PNG':
+          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU'
+          break
+        default:
+          imageUrl = 'https://i.pinimg.com/474x/78/6d/27/786d27105f7e9f02f92c31040169b2de.jpg'
+      }
+      return imageUrl
+    }
     return {
       imgLabelClick, form, regist, uploadImage, dropInputTag, clickInputTag, test, dragLeave, sweetAlert
     }
@@ -199,5 +255,8 @@ ul{
   position: absolute;
   top: 85px;
   left: 90px;
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 10px;
+  background-color: white;
 }
 </style>

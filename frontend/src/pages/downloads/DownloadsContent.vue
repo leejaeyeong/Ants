@@ -8,7 +8,7 @@
             <q-input outlined v-model="text" :dense="dense" />
           </div>
           <div class="col-2">
-            <q-btn class="search-btn">자료검색</q-btn>
+            <q-btn class="search-btn" @click="clickTest()">자료검색</q-btn>
           </div>
         </div>
     </div>
@@ -53,9 +53,10 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, onUpdated } from 'vue'
 // import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 const columns = [
   { name: 'imageLocation', label: '파일 분류', field: 'imageLocation', sortable: true, style: 'width: 10px' },
@@ -91,7 +92,9 @@ export default defineComponent({
   components: {
   },
   setup () {
+    console.log('다운로드 컨텐츠 셋업 호출')
     const store = useStore()
+    const router = useRouter()
     const rows = computed(() => store.getters['module/getFileInfoList']).value
     console.log(rows)
     const pagination = ref({
@@ -122,6 +125,27 @@ export default defineComponent({
           console.log(err)
         })
     }
+    function clickTest () {
+      alert('test')
+      store.dispatch('module/loadFileDataByExtension', '.js')
+        .then(function (result) {
+          console.log(result.data)
+          for (let i = 0; i < result.data.length; i++) {
+            // result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+          }
+          // // setFileinfoList
+          store.commit('module/setFileinfoList', result.data)
+          console.log(store.getters['module/getFileInfoList'], '파일 게터스')
+          router.push('/downloads2')
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    }
+    onUpdated(() => {
+      // rows = computed(() => store.getters['module/getFileInfoList']).value
+      console.log('updated!')
+    })
     return {
       text: ref(''),
       dense: ref(false),
@@ -129,7 +153,8 @@ export default defineComponent({
       columns,
       rows,
       pagesNumber: computed(() => Math.ceil(rows.length / pagination.value.rowsPerPage)),
-      downloadFile
+      downloadFile,
+      clickTest
     }
   }
 })

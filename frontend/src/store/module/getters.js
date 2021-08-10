@@ -66,6 +66,7 @@ export function getMontlywork (state) {
   return state.montlyWork
 }
 export function getFileInfoList (state) {
+  console.log('getFileinfo 찍혀야지')
   return state.fileInfoList
 }
 
