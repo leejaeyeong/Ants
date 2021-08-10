@@ -1,6 +1,7 @@
 package com.ssafy.api.response;
 
 import com.ssafy.db.entity.Attendance;
+import com.ssafy.db.entity.FileInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -22,5 +23,17 @@ public class FileInfoRes {
 	String fileLocation;
 	String fileName;
 	String size;
+	String uploader;
 
+	public static FileInfoRes of (FileInfo fileInfo) {
+		FileInfoRes fileInfoRes = new FileInfoRes();
+		fileInfoRes.setId(fileInfo.getId());
+		fileInfoRes.setDate(fileInfo.getDate());
+		fileInfoRes.setFileExtension(fileInfo.getFileExtension());
+		fileInfoRes.setFileLocation(fileInfo.getFileLocation());
+		fileInfoRes.setFileName(fileInfo.getFileName());
+		fileInfoRes.setSize(fileInfo.getSize());
+		fileInfoRes.setUploader(fileInfo.getUser().getUserId());
+		return fileInfoRes;
+	}
 }

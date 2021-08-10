@@ -4,6 +4,7 @@ import com.ssafy.api.request.BoardRegisterPostReq;
 import com.ssafy.api.request.CommentRegisterPostReq;
 import com.ssafy.api.response.BoardCommentRes;
 import com.ssafy.api.response.BoardRes;
+import com.ssafy.api.response.FileInfoRes;
 import com.ssafy.db.entity.BoardType;
 import com.ssafy.db.entity.FileInfo;
 import org.springframework.core.io.Resource;
@@ -21,4 +22,5 @@ import java.util.Map;
 public interface FileInfoService {
     Map<String, Object> downloadFile(Long id) throws IOException;
     FileInfo uploadFile(MultipartFile file, String userId) throws IOException;
+    List<FileInfoRes> findAll();
 }

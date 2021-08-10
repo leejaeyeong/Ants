@@ -104,6 +104,7 @@ export function board ({ state }, payload) {
   console.log('board axios', state, payload)
   const url = baseUrl + 'api/v1/board'
   const body = payload
+  console.log('이거 몇 번 나오나')
   return $axios.get(url, body)
 }
 
@@ -163,6 +164,16 @@ export function uploadFile ({ state }, body) {
 //   const url = baseUrl + 'api/v1/group'
 //   return $axios.post(url, body)
 // }
+export function downloadFile ({ state }, id) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/files/download/' + id
+  return $axios.get(url, { responseType: 'blob' })
+}
+
+export function loadFileData () {
+  const url = baseUrl + 'api/v1/files'
+  return $axios.get(url)
+}
 
 // 조횟수 증가
 export function countView ({ state }, id) {
@@ -177,11 +188,17 @@ export function allUser ({ state }) {
   return $axios.get(url)
 }
 
-export function montlyWork ({ state }, yearmonth) {
+export function montlyWork({ state }, yearmonth) {
   console.log('한달근태요청')
   const year = yearmonth.split('.')[0]
   const month = yearmonth.split('.')[1]
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
+  return $axios.get(url)
+}
+
+export function memberList ({ state }) {
+  console.log('memberList', state)
+  const url = baseUrl + 'api/v1/users'
   return $axios.get(url)
 }

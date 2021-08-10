@@ -60,15 +60,26 @@ export function setRoomName (state, roomName) {
 export function setComments (state, comments) {
   state.comments = comments
 }
-export function setMontlywork (state, montlyWork) {
+export function setMontlywork(state, montlyWork) {
   state.montlyWork = montlyWork
+}
+export function setFileinfoList (state, fileInfoList) {
+  state.fileInfoList = fileInfoList
 }
 export function setTotalHourOfWeek (state, totalHourOfWeek) {
   state.totalHourOfWeek = totalHourOfWeek
 }
 
-export function setAllusers (state, allusers) {
+export function setAllusers(state, allusers) {
   state.allusers = allusers
   console.log(allusers, '뮤테이션')
   console.log(state.allusers)
+}
+
+export function setMemberList (state, memberList) {
+  state.memberList = memberList
+}
+
+export function setChatMode (state, chatMode) {
+  state.chatMode = chatMode
 }
