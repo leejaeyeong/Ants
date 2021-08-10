@@ -79,6 +79,7 @@
 <script>
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 const columns = [
   { name: 'profileLocation', align: 'left', label: '', field: 'profileLocation', style: 'width: 10px' },
@@ -100,11 +101,12 @@ const columns = [
 
 export default {
   setup () {
+    const router = useRouter()
     const pagination = ref({
       sortBy: 'desc',
       descending: false,
       page: 1,
-      rowsPerPage: 5
+      rowsPerPage: 7
       // rowsNumber: xx if getting data from a server
     })
     const store = useStore()
@@ -118,14 +120,26 @@ export default {
       } else {
         acceptmemeber.push(memberList.value[i])
       }
-      console.log(waitmemeber, '멤버리스트')
     }
     const pagesNumber = computed(() => Math.ceil(memberList.value.length / pagination.value.rowsPerPage))
     function changeUser (id) {
       store.dispatch('module/chageUser', id)
         .then(function (res) {
           console.log(res)
-          alert('회원정보 수정완료')
+          store.dispatch('module/memberList')
+            .then(function (result) {
+              for (let i = 0; i < result.data.length; i++) {
+                for (let j = 0; j < res.data.length; j++) {
+                  if (result.data[i].department === res.data[j].id) {
+                    result.data[i].department = res.data[j].departmentName
+                  }
+                }
+              }
+              console.log('그룹리스트')
+              store.commit('module/setMemberList', result.data)
+            })
+          console.log('되는거야 마는거야')
+          router.go(0)
         })
         .catch(function (err) {
           console.log(err)
