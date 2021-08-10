@@ -16,11 +16,11 @@ export default defineComponent({
 
 <style scoped>
 #myData{
-  width: 1130px;
-  height: 690px;
+  width: 1500px;
+  height: 850px;
   position: absolute;
-  top:75px;
-  left:400px;
+  top:65px;
+  left:200px;
 }
 table, td, th{
   /* border:3px solid #6581A6; */

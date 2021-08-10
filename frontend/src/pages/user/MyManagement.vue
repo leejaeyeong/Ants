@@ -7,7 +7,7 @@
           {{ year }}년 {{ month }}월
           <q-btn round color="secondary" label="&gt;" @click="calendarData(1)"/>
         </div>
-        <q-markup-table separator="cell" flat bordered class="table has-text-centered is-fullwidth">
+        <q-markup-table separator="cell" flat bordered class="table has-text-centered">
           <thead>
             <th v-for="day in days" :key="day">{{ day }}</th>
           </thead>
@@ -24,11 +24,14 @@
                 <span v-else-if="(secondIdx === 6)" style="color: blue;">{{ day }}</span>
                 <span v-else-if="(today === day && month === currentMonth)" class="today">{{ day }}</span>
                 <span v-else>{{ day }}</span>
+                <div v-for="(work, idx) in monthwork" :key="idx">
+                  <div v-if="(idx === day)" class="work">{{ work[0] }}</div>
+                  <div v-if="(idx === day)" class="work">{{ work[1] }}</div>
+                </div>
               </td>
             </tr>
           </tbody>
         </q-markup-table>
-        {{ monthwork }}
       </section>
     </div>
   </div>
@@ -57,7 +60,8 @@ export default {
       lastMonthStart: 0,
       nextMonthStart: 0,
       today: 0,
-      monthwork: []
+      monthwork: [],
+      worklog: []
     }
   },
   created () {
@@ -68,6 +72,7 @@ export default {
     this.month = this.currentMonth
     this.today = date.getDate() // 오늘 날짜
     this.calendarData(this.month)
+    this.getWork(this.year, this.month)
   },
   methods: {
     calendarData (arg) { // 인자를 추가
@@ -94,9 +99,7 @@ export default {
         lastMonthLastDate
       )
       // 백에 요청
-      this.monthwork = this.getWork(this.year, this.month)
-      console.log(this.monthwork, '111111111111111111111111')
-      return this.monthwork
+      this.getWork(this.year, this.month)
     },
     getFirstDayLastDate (year, month) {
       const firstDay = new Date(year, month - 1, 1).getDay() // 이번 달 시작 요일
@@ -158,44 +161,40 @@ export default {
         method: 'get',
         url: baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
       }
-      const worklog = new Array(31)
+      // const worklog = new Array(31)
       axios(requestData)
-        .then(function (response) {
-          const workdata = response.data
-          // const worklog = new Array(31)
-          console.log(workdata, '워크데이터')
-          for (let i = 0; i < workdata.length; i++) {
-            const workdate = workdata[i].date
-            const workcheckin = workdata[i].checkInTime
-            const workcheckout = workdata[i].checkOutTime
+        .then((response) => {
+          this.worklog = response.data
+          // 31개 빈배열
+          this.monthwork = []
+          for (let i = 0; i < 32; i++) {
+            this.monthwork.push('')
+          }
+          for (let i = 0; i < this.worklog.length; i++) {
+            const workdate = this.worklog[i].date
+            const workcheckin = this.worklog[i].checkInTime
+            const workcheckout = this.worklog[i].checkOutTime
             // 일한날짜
             const workday = workdate.split('-')[2]
-            worklog[workday] = [workcheckin, workcheckout]
+            this.monthwork[Number(workday)] = [workcheckin, workcheckout]
           }
-          console.log(worklog, '워크로그')
         })
         .catch(function (err) {
           console.log(err)
         })
-      console.log(worklog, '엑시오스바깥')
-      return worklog
     }
-  },
-  computed: {
   }
 }
 </script>
 
 <style scoped>
 .today {
-  color: #ffffff;
   display: block;
-  width: 30px;
+  width: 32px;
   background-color: #19CE60;
   height: 30px;
   border-radius: 50%;
   position: relative;
-  opacity: .6;
 }
 
 .other {
@@ -205,5 +204,12 @@ export default {
 .subtitle {
   text-align: center;
   margin: 2% auto;
+}
+.work {
+  color: blue;
+  font-size: 16px;
+  text-align: center;
+  width: 50px;
+  margin-left: 50px;
 }
 </style>

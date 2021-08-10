@@ -1,3 +1,4 @@
+
 export function someGetter (/* state */) {
 }
 
@@ -61,9 +62,13 @@ export function getComments (state) {
   return state.comments
 }
 
-export function getTotalwork (state) {
-  return state.totalwork
+export function getMontlywork (state) {
+  return state.montlyWork
 }
 export function getTotalHourOfWeek (state) {
   return state.totalHourOfWeek
+}
+
+export function getAllusers (state) {
+  return state.allusers
 }

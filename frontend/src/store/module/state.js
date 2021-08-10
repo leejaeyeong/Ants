@@ -73,7 +73,10 @@ const userInfo = {
 
 const roomName = ''
 
-const totalwork = []
+const montlyWork = []
+
+const allusers = []
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -93,7 +96,8 @@ export default function () {
     roomName: roomName,
     comments: comments,
     userInfo: userInfo,
-    totalwork: totalwork,
-    totalHourOfWeek: totalHourOfWeek
+    montlyWork: montlyWork,
+    totalHourOfWeek: totalHourOfWeek,
+    allusers: allusers
   }
 }

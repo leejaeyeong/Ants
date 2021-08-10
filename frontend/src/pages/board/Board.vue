@@ -40,7 +40,9 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
     const columns = computed(() => store.getters['module/getColumns'])
+
     const rows = computed(() => store.getters['module/getRows'])
+    console.log(columns, rows, '보드')
     const pagination = ref({
       sortBy: 'desc',
       descending: false,

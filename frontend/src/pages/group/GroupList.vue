@@ -24,7 +24,7 @@
         </q-td>
       </template>
     </q-table>
-    <div class="row justify-center q-mt-md">
+    <div class="page">
       <q-pagination
         v-model="pagination.page"
         color="grey-8"
@@ -32,12 +32,84 @@
         size="sm"
       />
     </div>
+    <div class="rightside">
+      <q-list bordered padding>
+        <q-item>
+          <q-item-section>
+            <q-item-label overline>승인 대기</q-item-label>
+            <q-item-label></q-item-label>
+            <q-item-label caption>가입 승인 대기자 명단입니다.</q-item-label>
+          </q-item-section>
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-separator spaced />
+        <q-item-label header>대기자 명단</q-item-label>
+        <q-item>
+          <q-item-section>
+            <q-item-label>Single line item</q-item-label>
+            <q-item-label caption lines="2">Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+            <q-icon name="star" color="yellow" />
+          </q-item-section>
+        </q-item>
+        <q-separator spaced inset="item" />
+        <q-item>
+          <q-item-section top avatar>
+            <q-avatar>
+              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Single line item</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+          <q-item-section side top>
+            <q-badge label="NEW" />
+          </q-item-section>
+        </q-item>
+        <q-separator spaced inset="item" />
+        <q-item>
+          <q-item-section top avatar>
+            <q-avatar>
+              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Single line item</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+          <q-item-section side top>
+            <q-badge label="NEW" />
+          </q-item-section>
+        </q-item>
+        <q-separator spaced inset="item" />
+        <q-item>
+          <q-item-section top avatar>
+            <q-avatar>
+              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Single line item</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+          <q-item-section side top>
+            <q-badge label="NEW" />
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-
+import { ref, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 const columns = [
   {
     name: 'name',
@@ -147,12 +219,19 @@ export default {
       rowsPerPage: 5
       // rowsNumber: xx if getting data from a server
     })
+    const store = useStore()
+    const alluserInfo = computed(() => store.getters['module/getAllusers'])
 
+    console.log(alluserInfo, 'allluser')
+    onMounted(() => {
+      console.log(alluserInfo, '온마운티드')
+    })
     return {
       pagination,
       columns,
       rows,
-      pagesNumber: computed(() => Math.ceil(rows.length / pagination.value.rowsPerPage))
+      pagesNumber: computed(() => Math.ceil(rows.length / pagination.value.rowsPerPage)),
+      alluserInfo
     }
   }
 }
@@ -170,9 +249,9 @@ export default {
   background-color: rgb(242, 247, 244);
 }
 .table{
-  margin-left: 200px;
-  margin-top: 60px;
-  width: 1500px;
+  margin-left: 100px;
+  margin-top: 55px;
+  width: 1200px;
   height: 600px;
 }
 .my-table-details {
@@ -182,5 +261,27 @@ export default {
   white-space: normal;
   color: #555;
   margin-top: 4px;
+}
+.rightside {
+  background-color: white;
+  width: 400px;
+  height: 500px;
+  float: right;
+  position: absolute;
+  bottom: 285px;
+  margin-left: 1325px;
+  box-shadow: 5px 5px 30px #a0a0a0;
+}
+.name{
+  display:inline-block;
+  margin-left: 38px;
+  margin-top: 20px;
+  font-size:20px;
+}
+.page{
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-right: 500px;
 }
 </style>

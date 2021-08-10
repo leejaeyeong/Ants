@@ -57,13 +57,13 @@
         <div class="name">Weekly Report</div><span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
         <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div>
-          <q-linear-progress @click="openModal" stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
+          <q-linear-progress stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
             <div class="absolute-full flex flex-center">
                 <q-badge color="white" style="color:#18C75E;" :label="progressLabel1" />
             </div>
           </q-linear-progress>
         </div>
-        <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{state.totalHourOfWeek}} Hour</span>
+        <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{totalHourOfWeek}} Hour</span>
         <span style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</span>
       </div>
       <div id="botRight">
