@@ -73,10 +73,8 @@ export function getTotalHourOfWeek (state) {
   return state.totalHourOfWeek
 }
 
-export function getAllusers (state) {
-  return state.allusers
-}
 export function getMemberList (state) {
+  console.log(state, 'getters')
   return state.memberList
 }
 

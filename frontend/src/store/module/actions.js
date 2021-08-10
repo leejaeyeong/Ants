@@ -181,22 +181,8 @@ export function countView ({ state }, id) {
   const url = baseUrl + 'api/v1/board/' + id
   return $axios.put(url)
 }
+
 // 가입한 모든 회원정보 조회
-export function allUser ({ state }) {
-  console.log('전체유저조회', state)
-  const url = baseUrl + 'api/v1/users'
-  return $axios.get(url)
-}
-
-export function montlyWork({ state }, yearmonth) {
-  console.log('한달근태요청')
-  const year = yearmonth.split('.')[0]
-  const month = yearmonth.split('.')[1]
-  const id = localStorage.getItem('id')
-  const url = baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
-  return $axios.get(url)
-}
-
 export function memberList ({ state }) {
   console.log('memberList', state)
   const url = baseUrl + 'api/v1/users'
