@@ -10,7 +10,7 @@ const columns = [
     required: true,
     label: '글번호',
     align: 'center',
-    field: row => row.id,
+    field: row => `${row.id}` ,
     format: val => `${val}`,
     sortable: true
   },
@@ -77,6 +77,8 @@ const memberList = []
 
 const chatMode = false
 
+const todoList = []
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -98,6 +100,7 @@ export default function () {
     userInfo: userInfo,
     totalHourOfWeek: totalHourOfWeek,
     memberList: memberList,
-    chatMode: chatMode
+    chatMode: chatMode,
+    todoList: todoList
   }
 }

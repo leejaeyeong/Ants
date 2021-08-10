@@ -63,7 +63,7 @@
             </div>
           </q-linear-progress>
         </div>
-        <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{state.totalHourOfWeek}} Hour</span>
+        <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{totalHourOfWeek}} Hour</span>
         <span style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</span>
       </div>
       <div id="botRight">
@@ -83,10 +83,30 @@
       </div>
       <div id="endRight">
         <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
-        <q-btn round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="add" />
-        <div class="todo">17:00 밥먹기</div>
-        <div class="todo">17:30 담배피기</div>
-        <div class="todo">21:00 집가기</div>
+        <q-fab v-model="bt" style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px;" padding="sm" glossy icon="add" direction="left">
+          <div id="todoForm">
+                <q-time v-model="todoTime" />
+            <q-input v-model="state.todoText" color="teal" style="display:inline-block; width:72%; margin-top:5px;" filled label="입력란" />
+            <q-btn @click="registTodo" style="background-color:#18C75E; color:white; font-size:20px; margin-top:-15px; margin-left:6px;" label="등록"/>
+          </div>
+        </q-fab>
+        <div id="todoView">
+          <div class="todo" v-for="(todo, idx) in todoList" :key="idx">
+            <div class="row">
+              <div class="col-1">
+              </div>
+              <div class="col-3">
+                {{ todo.time }}
+              </div>
+              <div class="col-7">
+                {{ todo.title }}
+              </div>
+              <div class="col-1">
+                <q-checkbox v-model="check" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -122,10 +142,14 @@ export default defineComponent({
     const checkOutTime = computed(() => store.getters['module/getCheckOutTime'])
     const loginUser = computed(() => store.getters['module/getLoginUser'])
     const totalHourOfWeek = computed(() => store.getters['module/getTotalHourOfWeek'])
+    const bt = ref(false)
+    const todoTime = ref('14:40')
+    const todoList = computed(() => store.getters['module/getTodoList'])
     const state = reactive({
       time: date.formatDate(currentTime, 'HH:mm:ss'),
       name: localStorage.getItem('name'),
-      profileLocation: localStorage.getItem('profileLocation')
+      profileLocation: localStorage.getItem('profileLocation'),
+      todoText: ''
     })
     const pagination = ref({
       sortBy: 'desc',
@@ -159,6 +183,20 @@ export default defineComponent({
             confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
           })
         })
+      const dpId = localStorage.getItem('departmentId')
+      store.dispatch('module/getTodoList', dpId)
+        .then(function (result) {
+          var tmp = []
+          for (let i = 0; i < result.data.length; i++) {
+            const str1 = result.data[i].time.substr(0, 2)
+            const str2 = result.data[i].time.substr(3, 2)
+            result.data[i].time = str1 + '시 ' + str2 + '분'
+            tmp.push(result.data[i])
+          }
+          store.commit('module/setTodoList', tmp)
+        })
+      console.log('312381273891371298')
+      console.log(rowsM)
     })
     const currentDay = new Date()
     const theYear = currentDay.getFullYear()
@@ -254,6 +292,27 @@ export default defineComponent({
           alert('오류발생')
         })
     }
+
+    const registTodo = function () {
+      const departmentId = localStorage.getItem('departmentId')
+      store.dispatch('module/registTodo', { departmentId: departmentId, time: todoTime.value, title: state.todoText })
+        .then(function () {
+          const dpId = localStorage.getItem('departmentId')
+          store.dispatch('module/getTodoList', dpId)
+            .then(function (result) {
+              var tmp = []
+              for (let i = 0; i < result.data.length; i++) {
+                const str1 = result.data[i].time.substr(0, 2)
+                const str2 = result.data[i].time.substr(3, 2)
+                result.data[i].time = str1 + '시 ' + str2 + '분'
+                tmp.push(result.data[i])
+              }
+              store.commit('module/setTodoList', tmp)
+            })
+        })
+      state.todoText = ''
+      bt.value = false
+    }
     return {
       formattedString,
       formattedString2,
@@ -270,7 +329,12 @@ export default defineComponent({
       loginUser,
       pagination,
       inputText,
-      totalHourOfWeek
+      totalHourOfWeek,
+      bt,
+      registTodo,
+      todoTime,
+      todoList,
+      check: ref(false)
     }
   }
 })
@@ -441,12 +505,24 @@ export default defineComponent({
   border:0.5px solid rgb(212, 212, 212);
   background-color:white;
 }
+#todoForm{
+  width:290px;
+  height:440px;
+  background-color:whitesmoke;
+  margin-top:380px;
+}
 .todo{
   width:90%;
   height:50px;
   line-height:50px;
   margin:0 auto;
   border-bottom:1px solid rgb(212, 212, 212);
+  font-size:20px;
+}
+#todoView{
+  width:550px;
+  height:282px;
+  overflow-y: auto;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';

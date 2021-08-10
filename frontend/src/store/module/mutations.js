@@ -72,3 +72,7 @@ export function setMemberList (state, memberList) {
 export function setChatMode (state, chatMode) {
   state.chatMode = chatMode
 }
+
+export function setTodoList (state, todoList) {
+  state.todoList = todoList
+}
