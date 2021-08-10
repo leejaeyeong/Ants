@@ -138,18 +138,22 @@ export default defineComponent({
           alert('오류발생')
         })
     }
-    const groupList = []
+    const alluserInfo = []
     const mvGroup = function () {
-      // 그룹조회
-      store.dispatch('module/getGroup', { })
+      store.dispatch('module/allUser')
         .then(function (result) {
-          for (let i = 0; i < result.data.list.length; i++) {
-            groupList.push(result.data.list[i])
+          console.log(result.data)
+          for (let i = 0; i < result.data.length; i++) {
+            alluserInfo.push(result.data[i])
           }
+          console.log(alluserInfo, '149')
+          store.commit('module/setAllusers', alluserInfo)
+          const tmp = store.getters['module/getAllusers']
+          console.log(tmp, 'tmp')
           router.push('/group')
         })
         .catch(function (err) {
-          alert(err)
+          console.log(err, '에러')
         })
     }
     return {
