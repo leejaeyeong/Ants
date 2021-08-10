@@ -1,6 +1,7 @@
 package com.ssafy.api.controller;
 
 
+import com.ssafy.api.response.FileInfoRes;
 import com.ssafy.api.service.FileInfoService;
 import com.ssafy.db.entity.FileInfo;
 import io.swagger.annotations.Api;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Api(value = "파일 API", tags = {"FileInfo"})
@@ -46,13 +48,13 @@ public class FileInfoController {
         return ResponseEntity.ok().body(fileInfoService.uploadFile(file, userId));
     }
 
-//    @GetMapping()
-//    @ApiOperation(value = "전체 파일 목록", notes = "전체 파일 목록을 반환한다.")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "전체 파일 반환 성공")
-//    })
-//    public ResponseEntity<> findAllFile() {
-//
-//    }
+    @GetMapping()
+    @ApiOperation(value = "전체 파일 리스트", notes = "전체 파일리스트 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "파일 리스트 반환 성공")
+    })
+    public ResponseEntity<List<FileInfoRes>> findAll () throws IOException {
+        return ResponseEntity.ok().body(fileInfoService.findAll());
+    }
 
 }

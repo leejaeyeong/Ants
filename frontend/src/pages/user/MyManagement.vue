@@ -7,7 +7,7 @@
           {{ year }}년 {{ month }}월
           <q-btn round color="secondary" label="&gt;" @click="calendarData(1)"/>
         </div>
-        <q-markup-table separator="cell" flat bordered class="table has-text-centered is-fullwidth">
+        <q-markup-table separator="cell" flat bordered class="table has-text-centered">
           <thead>
             <th v-for="day in days" :key="day">{{ day }}</th>
           </thead>
@@ -22,8 +22,12 @@
                 <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
                 <span v-else-if="(secondIdx === 0)" style="color: red;">{{ day }}</span>
                 <span v-else-if="(secondIdx === 6)" style="color: blue;">{{ day }}</span>
-                <span v-else-if="(today === day && month === currentMonth)" class="today">{{ day }}</span>
+                <span v-else-if="(today === day && month === currentMonth)" class="today">{{ day }} Today</span>
                 <span v-else>{{ day }}</span>
+                <div v-for="(work, idx) in monthwork" :key="idx">
+                  <div v-if="(idx === day)" class="work">{{ work[0] }}</div>
+                  <div v-if="(idx === day)" class="work">{{ work[1] }}</div>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -55,7 +59,9 @@ export default {
       month: 0,
       lastMonthStart: 0,
       nextMonthStart: 0,
-      today: 0
+      today: 0,
+      monthwork: [],
+      worklog: []
     }
   },
   created () {
@@ -65,8 +71,8 @@ export default {
     this.year = this.currentYear
     this.month = this.currentMonth
     this.today = date.getDate() // 오늘 날짜
-    this.getWork(this.year, this.month)
     this.calendarData(this.month)
+    this.getWork(this.year, this.month)
   },
   methods: {
     calendarData (arg) { // 인자를 추가
@@ -125,7 +131,6 @@ export default {
             prevDay += 1
           }
         }
-        console.log(this.year, this.month, day, '날짜 세팅 배열')
         weekOfDays.push(day)
         if (weekOfDays.length === 7) {
           // 일주일 채우면
@@ -147,28 +152,31 @@ export default {
     },
     // 한달근태기록 조회
     getWork (year, month) {
-      console.log(year, month)
       if (String(month).length === 1) {
         month = '0' + String(month)
       }
-      console.log(year, month)
       const baseUrl = 'https://localhost:8443/'
       const id = localStorage.getItem('id')
       const requestData = {
         method: 'get',
         url: baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
       }
+      // const worklog = new Array(31)
       axios(requestData)
-        .then(function (response) {
-          const workdata = response.data
-          for (let i = 0; i < workdata.length; i++) {
-            console.log(workdata[i])
-            const workdate = workdata[i].date
-            const workcheckin = workdata[i].checkInTime
-            const workcheckout = workdata[i].checkOutTime
-            console.log(workdate, workcheckin, workcheckout)
+        .then((response) => {
+          this.worklog = response.data
+          // 31개 빈배열
+          this.monthwork = []
+          for (let i = 0; i < 32; i++) {
+            this.monthwork.push('')
+          }
+          for (let i = 0; i < this.worklog.length; i++) {
+            const workdate = this.worklog[i].date
+            const workcheckin = this.worklog[i].checkInTime
+            const workcheckout = this.worklog[i].checkOutTime
+            // 일한날짜
             const workday = workdate.split('-')[2]
-            console.log(workday)
+            this.monthwork[Number(workday)] = [workcheckin, workcheckout]
           }
         })
         .catch(function (err) {
@@ -181,14 +189,12 @@ export default {
 
 <style scoped>
 .today {
-  color: #ffffff;
   display: block;
-  width: 30px;
+  width: 32px;
   background-color: #19CE60;
   height: 30px;
   border-radius: 50%;
   position: relative;
-  opacity: .6;
 }
 
 .other {
@@ -198,5 +204,12 @@ export default {
 .subtitle {
   text-align: center;
   margin: 2% auto;
+}
+.work {
+  color: blue;
+  font-size: 16px;
+  text-align: center;
+  width: 50px;
+  margin-left: 50px;
 }
 </style>

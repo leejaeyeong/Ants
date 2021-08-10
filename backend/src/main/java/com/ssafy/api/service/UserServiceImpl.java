@@ -3,16 +3,13 @@ package com.ssafy.api.service;
 import com.ssafy.api.request.UserTeamMappingPutReq;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.common.util.FileUtil;
-import com.ssafy.db.entity.Attendance;
-import com.ssafy.db.entity.Department;
-import com.ssafy.db.entity.Grp;
+import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.api.request.UserRegisterPostReq;
-import com.ssafy.db.entity.User;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -43,6 +40,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	GrpRepositorySupport grpRepositorySupport;
+
+	@Autowired
+	UserStateRepository userStateRepository;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -204,5 +204,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean deleteUser(String userId) {
 		return userRepositorySupport.deleteUserByUserId(userId);
+	}
+
+	@Override
+	public boolean updateUserAuth(String userId) {
+		if (userStateRepository.findById((long)2).isPresent()) {
+			return userRepositorySupport.updateUserAuth(getUserByUserId(userId), userStateRepository.findById((long)2).get());
+		}
+		return false;
 	}
 }

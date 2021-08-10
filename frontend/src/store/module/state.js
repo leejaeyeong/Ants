@@ -1,7 +1,8 @@
 const loginUser = {
   id: '',
   name: '',
-  department: ''
+  department: '',
+  position: ''
 }
 
 const columns = [
@@ -60,6 +61,8 @@ const comments = []
 
 const department = []
 
+const fileInfoList = []
+
 const userInfo = {
   department: '',
   email: '',
@@ -72,6 +75,8 @@ const userInfo = {
 }
 
 const roomName = ''
+
+const montlyWork = []
 
 const memberList = []
 
@@ -98,7 +103,9 @@ export default function () {
     roomName: roomName,
     comments: comments,
     userInfo: userInfo,
+    montlyWork: montlyWork,
     totalHourOfWeek: totalHourOfWeek,
+    fileInfoList: fileInfoList,
     memberList: memberList,
     chatMode: chatMode,
     todoList: todoList

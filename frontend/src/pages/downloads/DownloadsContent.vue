@@ -15,23 +15,24 @@
     <div class="content-body">
       <div class="q-pa-md">
     <q-table
-      title="Treats"
+      title="전체 파일 목록"
       :rows="rows"
       :columns="columns"
-      row-key="name"
+      row-key="fileName"
+      style="cursor:pointer;"
       v-model:pagination="pagination"
       hide-pagination
     >
       <template v-slot:body="props">
-        <q-tr :props="props">
+        <q-tr :props="props" @click="downloadFile(props.row.id)">
           <q-td
             v-for="col in props.cols"
             :key="col.name"
             :props="props"
           >
-            <span v-if="col.name !='Image'" >{{ col.value }}</span>
-            <q-avatar v-if="col.name =='Image'" size="50px" class="shadow-10">
-              <img :src="props.row.image">
+            <span v-if="col.name !='imageLocation'" >{{ col.value }}</span>
+            <q-avatar v-if="col.name =='imageLocation'" size="50px" class="shadow-10">
+              <img :src="props.row.imageLocation">
             </q-avatar>
           </q-td>
         </q-tr>
@@ -57,102 +58,33 @@ import { defineComponent, ref, computed } from 'vue'
 import { useStore } from 'vuex'
 
 const columns = [
-  { name: 'Image', label: '파일 분류', field: 'image', sortable: true, style: 'width: 10px' },
+  { name: 'imageLocation', label: '파일 분류', field: 'imageLocation', sortable: true, style: 'width: 10px' },
+  // { name: 'desc', label: '파일명', field: 'desc', sortable: true },
   {
-    name: 'desc',
+    name: 'fileName',
     required: true,
-    label: 'Dessert (100g serving)',
+    label: '파일명',
     align: 'center',
-    field: row => row.name,
-    format: val => `${val}`,
+    field: 'fileName',
+    // format: val => `${val}`,
     sortable: true
   },
-  { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
-  { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
-  { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
-  { name: 'protein', label: 'Protein (g)', field: 'protein' }
+  { name: 'size', align: 'center', label: '파일 크기', field: 'size', sortable: true },
+  { name: 'date', label: '업로드 날짜', field: 'date', sortable: true },
+  // { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
+  { name: 'uploader', label: '업로더', field: 'uploader' }
 ]
 
-const rows = [
-  {
-    name: 'Frozen Yogurt',
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    image: 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
-  },
-  {
-    name: 'Ice cream sandwich',
-    calories: 237,
-    fat: 9.0,
-    carbs: 37,
-    protein: 4.3,
-    image: 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
-  },
-  {
-    name: 'Eclair',
-    calories: 262,
-    fat: 16.0,
-    carbs: 23,
-    protein: 6.0,
-    image: 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
-  },
-  {
-    name: 'Cupcake',
-    calories: 305,
-    fat: 3.7,
-    carbs: 67,
-    protein: 4.3,
-    image: 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
-  },
-  {
-    name: 'Gingerbread',
-    calories: 356,
-    fat: 16.0,
-    carbs: 49,
-    protein: 3.9,
-    image: 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
-  },
-  {
-    name: 'Jelly bean',
-    calories: 375,
-    fat: 0.0,
-    carbs: 94,
-    protein: 0.0,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFEz9UnOx3StKSJUQs12DuWje3MwDOV6yAfufygK38zgZIuNsizJimqpCRI6ae2gbJuD0&usqp=CAU'
-  },
-  {
-    name: 'Lollipop',
-    calories: 392,
-    fat: 0.2,
-    carbs: 98,
-    protein: 0,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFEz9UnOx3StKSJUQs12DuWje3MwDOV6yAfufygK38zgZIuNsizJimqpCRI6ae2gbJuD0&usqp=CAU'
-  },
-  {
-    name: 'Honeycomb',
-    calories: 408,
-    fat: 3.2,
-    carbs: 87,
-    protein: 6.5,
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFEz9UnOx3StKSJUQs12DuWje3MwDOV6yAfufygK38zgZIuNsizJimqpCRI6ae2gbJuD0&usqp=CAU'
-  }
-  // {
-  //   name: 'Donut',
-  //   calories: 452,
-  //   fat: 25.0,
-  //   carbs: 51,
-  //   protein: 4.9
-  // },
-  // {
-  //   name: 'KitKat',
-  //   calories: 518,
-  //   fat: 26.0,
-  //   carbs: 65,
-  //   protein: 7
-  // }
-]
+// const rows = [
+//   {
+//     name: 'Frozen Yogurt',
+//     calories: 159,
+//     fat: 6.0,
+//     carbs: 24,
+//     protein: 4.0,
+//     image: 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
+//   }
+// ]
 
 export default defineComponent({
   name: 'DonwloadsContent',
@@ -160,21 +92,44 @@ export default defineComponent({
   },
   setup () {
     const store = useStore()
-    console.log(store)
+    const rows = computed(() => store.getters['module/getFileInfoList']).value
+    console.log(rows)
     const pagination = ref({
-      sortBy: 'desc',
+      sortBy: 'date',
       descending: false,
-      page: 2,
-      rowsPerPage: 6
+      page: 1,
+      rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
+    function downloadFile (id) {
+      console.log(id)
+      store.dispatch('module/downloadFile', id)
+        .then(function (result) {
+          const diposition = result.headers['content-disposition']
+          const fileName = diposition.split("''")[1]
+          console.log(result.headers['content-type'])
+          console.log(diposition)
+          const url = window.URL.createObjectURL(new Blob([result.data]))
+          const anchor = document.createElement('a')
+          anchor.href = url
+          anchor.setAttribute('download', fileName)
+          document.body.appendChild(anchor)
+          anchor.click()
+          anchor.remove()
+          window.URL.revokeObjectURL(url)
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    }
     return {
       text: ref(''),
       dense: ref(false),
       pagination,
       columns,
       rows,
-      pagesNumber: computed(() => Math.ceil(rows.length / pagination.value.rowsPerPage))
+      pagesNumber: computed(() => Math.ceil(rows.length / pagination.value.rowsPerPage)),
+      downloadFile
     }
   }
 })

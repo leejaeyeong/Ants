@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <div id="headerLeft">
-      <q-img src="~assets/images/logo.png" style="width:140px; margin-top:0px;"/>
+      <q-img src="~assets/images/logo.png" style="width:90px; margin-top:4px;"/>
     </div>
     <div id="headerRight">
       <!-- <img :src="state.profileLocation" style="border-radius: 50%; width:50px; margin-top:10px; margin-right:140px; float:right;"> -->
@@ -10,7 +10,7 @@
             flat
             no-icon-animation
             dropdown-icon="notifications"
-            style="font-size: 2em; width:20px; margin-top:2px; margin-right:80px; float:right; color:#18C75E;"
+            style="font-size: 1.7em; width:20px; margin-right:20px; float:right; color:#18C75E;"
             size="md" >
         <q-list>
           <q-item clickable v-close-popup @click="onItemClick">
@@ -90,32 +90,31 @@ export default defineComponent({
 
 <style scoped>
 #header{
-  width:90%;
-  height:75px;
+  width:96%;
+  height:60px;
   border-bottom:1px solid rgb(212, 212, 212);
   position: absolute;
   top: 0px;
-  left:100px;
+  left:70px;
 }
 #headerLeft{
-  width:100%;
-  height:75px;
+  width:100px;
+  height:60px;
   float:left;
   text-align: left;
-  font-size:35px;
   position: absolute;
   /* border-right:0.5px solid rgb(212, 212, 212); */
 }
 #headerRight{
   width:88%;
-  height:75px;
+  height:60px;
   float:right;
 }
 .dropdown {
   float:right;
   margin-right:8px;
   line-height:50px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 .dropdown-content {
   display: none;
