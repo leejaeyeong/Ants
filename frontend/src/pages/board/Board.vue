@@ -41,6 +41,7 @@ export default defineComponent({
     const router = useRouter()
     const columns = computed(() => store.getters['module/getColumns'])
     const rows = computed(() => store.getters['module/getRows'])
+    console.log(columns, '콘솔')
     const pagination = ref({
       sortBy: 'desc',
       descending: false,
@@ -76,6 +77,7 @@ export default defineComponent({
               store.commit('module/setDetail', result.data)
               var tmp = []
               for (let i = 0; i<result.data.comments.length; i++) {
+                result.data.comments[i].registrationTime = result.data.comments[i].registrationTime.substr(0, 16)
                 tmp.push(result.data.comments[i])
               }
               store.commit('module/setComments',tmp)

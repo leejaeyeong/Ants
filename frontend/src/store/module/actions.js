@@ -165,3 +165,15 @@ export function memberList ({ state }) {
   const url = baseUrl + 'api/v1/users'
   return $axios.get(url)
 }
+
+export function registTodo ({ state }, body) {
+  console.log('registTodo', state, body)
+  const url = baseUrl + 'api/v1/todo/register'
+  return $axios.post(url, body)
+}
+
+export function getTodoList ({ state }, departmentId) {
+  console.log('getTodoList', state, departmentId)
+  const url = baseUrl + 'api/v1/todo/' + '?departmentId=' + departmentId
+  return $axios.get(url)
+}
