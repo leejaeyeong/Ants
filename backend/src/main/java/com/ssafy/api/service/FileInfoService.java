@@ -24,4 +24,5 @@ public interface FileInfoService {
     FileInfo uploadFile(MultipartFile file, String userId) throws IOException;
     List<FileInfoRes> findAll();
     List<FileInfoRes> findByFileExtension(String extension);
+    List<FileInfoRes> findByFileName(String fileName);
 }

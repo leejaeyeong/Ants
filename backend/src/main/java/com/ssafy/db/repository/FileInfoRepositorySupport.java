@@ -21,4 +21,11 @@ public class FileInfoRepositorySupport {
         if(fileInfos == null) return Optional.empty();
         return Optional.ofNullable(fileInfos);
     }
+
+    public Optional<List<FileInfo>> findByFileName(String fileName) {
+        List<FileInfo> fileInfos  =  jpaQueryFactory.select(qFileInfo).from(qFileInfo)
+                .where(qFileInfo.fileName.like("%" + fileName + "%")).fetch();
+        if(fileInfos == null) return Optional.empty();
+        return Optional.ofNullable(fileInfos);
+    }
 }
