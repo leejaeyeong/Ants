@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.response.BoardRes;
+import com.ssafy.api.response.FileInfoRes;
 import com.ssafy.common.util.FileUtil;
 import com.ssafy.db.entity.FileInfo;
 import com.ssafy.db.entity.User;
@@ -95,6 +96,16 @@ public class FileInfoServiceImpl implements FileInfoService {
         File dest = new File(filePath);
         multiFile.transferTo(dest);
         return fileInfoRepository.save(fileInfo);
+    }
+
+    @Override
+    public List<FileInfoRes> findAll() {
+        List<FileInfo> files = fileInfoRepository.findAll();
+        List<FileInfoRes> fileInfoResList = new ArrayList<>();
+        for (FileInfo fileInfo : files) {
+            fileInfoResList.add(FileInfoRes.of(fileInfo));
+        }
+        return fileInfoResList;
     }
 
     public String computeFileSize(Long size) {

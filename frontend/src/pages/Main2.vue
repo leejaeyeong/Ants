@@ -1,7 +1,7 @@
 <template>
   <div id="content">
     <div id="main">
-      <div id="topLeft">
+      <div id="topLeft" class="shadow-1">
         <div class="name">Today</div>
         <div id="day">
           {{ formattedString }} {{ formattedString2 }}
@@ -25,7 +25,7 @@
           </div>
         </div>
       </div>
-      <div class="bottomleft">
+      <div class="bottomleft shadow-1">
         <div class="name">휴가현황</div>
         <a style="text-decoration:none; color:grey;" href="" class="vacation">휴가 신청>></a>
         <div class="totalimg">
@@ -53,7 +53,7 @@
           <q-btn class="icon" unelevated filled rounded color="orange-5" label="12" />
         </div>
       </div>
-      <div id="topRight">
+      <div id="topRight" class="shadow-1">
         <div class="name">Weekly Report</div><span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
         <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div>
@@ -66,7 +66,7 @@
         <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{totalHourOfWeek}} Hour</span>
         <span style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</span>
       </div>
-      <div id="botRight">
+      <div id="botRight" class="shadow-1">
         <div class="name">최근 게시물</div>
         <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div class="q-pa-md">
@@ -99,10 +99,7 @@
           </q-card>
         </q-dialog> -->
       </div>
-      <div id="endRight">
-        <div class="name">Todo List 📌</div>
-      </div>
-      <div id="endBottom">
+      <div id="endRight" class="shadow-1">
         <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
         <q-btn round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="add" />
         <div class="todo">17:00 밥먹기</div>
@@ -327,6 +324,8 @@ export default defineComponent({
   top:20px;
   left:20px;
   background-color: white;
+  border-radius: 3%;
+  animation: leftFadeIn 0.5s ease-in-out;
   /* background-color:rgb(250, 250, 110); */
 }
 .name{
@@ -381,8 +380,10 @@ export default defineComponent({
   float: left;
   border: 1px solid rgb(212, 212, 212);
   position: absolute;
-  top:540px;
-  left:20px;
+  top:615px;
+  left:120px;
+  border-radius: 4%;
+  animation: leftFadeIn 1s ease-in-out;
 }
 #bot1{
   margin-top:5px;
@@ -442,6 +443,8 @@ export default defineComponent({
   top:20px;
   left:385px;
   background-color: white;
+  border-radius: 10px;
+  animation: topFadeIn 1.2s ease-in-out;
 }
 #endRight{
   float:right;
@@ -460,8 +463,10 @@ export default defineComponent({
   border:0.5px solid rgb(212, 212, 212);
   background-color: white;
   position: absolute;
-  top:315px;
-  left:1215px;
+  top:100px;
+  left:1310px;
+  border-radius: 1.5%;
+  animation: rightFadeIn 0.5s ease-in-out;
 }
 #botLeft{
   position: absolute;
@@ -480,6 +485,8 @@ export default defineComponent({
   left:385px;
   border:0.5px solid rgb(212, 212, 212);
   background-color:white;
+  border-radius: 1.5%;
+  animation: bottomFadeIn 1.5s ease-in-out;
 }
 .todo{
   width:90%;
@@ -487,6 +494,46 @@ export default defineComponent({
   line-height:50px;
   margin:0 auto;
   border-bottom:1px solid rgb(212, 212, 212);
+}
+@keyframes leftFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 3;
+    transform: none;
+  }
+}
+@keyframes rightFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 3;
+    transform: none;
+  }
+}
+@keyframes topFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 3;
+    transform: none;
+  }
+}
+@keyframes bottomFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 3;
+    transform: none;
+  }
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';

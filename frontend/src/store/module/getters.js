@@ -65,10 +65,21 @@ export function getComments (state) {
 export function getMontlywork (state) {
   return state.montlyWork
 }
+export function getFileInfoList (state) {
+  return state.fileInfoList
+}
+
 export function getTotalHourOfWeek (state) {
   return state.totalHourOfWeek
 }
 
 export function getAllusers (state) {
   return state.allusers
+}
+export function getMemberList (state) {
+  return state.memberList
+}
+
+export function getChatMode (state) {
+  return state.chatMode
 }
