@@ -380,8 +380,8 @@ export default defineComponent({
   float: left;
   border: 1px solid rgb(212, 212, 212);
   position: absolute;
-  top:615px;
-  left:120px;
+  top:534px;
+  left:20px;
   border-radius: 4%;
   animation: leftFadeIn 1s ease-in-out;
 }
@@ -455,6 +455,8 @@ export default defineComponent({
   position: absolute;
   top:20px;
   left:1215px;
+  border-radius: 10px;
+  animation: rightFadeIn 1.2s ease-in-out;
 }
 #endBottom{
   float:right;
