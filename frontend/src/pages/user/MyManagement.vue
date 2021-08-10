@@ -22,7 +22,7 @@
                 <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
                 <span v-else-if="(secondIdx === 0)" style="color: red;">{{ day }}</span>
                 <span v-else-if="(secondIdx === 6)" style="color: blue;">{{ day }}</span>
-                <span v-else-if="(today === day && month === currentMonth)" class="today">{{ day }}</span>
+                <span v-else-if="(today === day && month === currentMonth)" class="today">{{ day }} Today</span>
                 <span v-else>{{ day }}</span>
                 <div v-for="(work, idx) in monthwork" :key="idx">
                   <div v-if="(idx === day)" class="work">{{ work[0] }}</div>

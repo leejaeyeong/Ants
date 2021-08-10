@@ -78,6 +78,7 @@ export function setAllusers (state, allusers) {
 
 export function setMemberList (state, memberList) {
   state.memberList = memberList
+  console.log(memberList, '뮤테이션')
 }
 
 export function setChatMode (state, chatMode) {
