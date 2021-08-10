@@ -317,4 +317,15 @@ public class UserController {
 		profile.transferTo(dest);
 		return ResponseEntity.ok().body("success");
 	}
+	// 유저 권한 수정
+	@PutMapping("/{userId}/auth")
+	@ApiOperation(value = "유저 권한 수정", notes = "유저이 권한을 수정한다.")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "성공")
+	})
+
+	public ResponseEntity<? extends BaseResponseBody> updateUserAuth(@PathVariable String userId) {
+		userService.updateUserAuth(userId);
+		return ResponseEntity.ok().build();
+	}
 }

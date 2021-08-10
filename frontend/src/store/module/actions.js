@@ -188,7 +188,7 @@ export function allUser ({ state }) {
   return $axios.get(url)
 }
 
-export function montlyWork({ state }, yearmonth) {
+export function montlyWork ({ state }, yearmonth) {
   console.log('한달근태요청')
   const year = yearmonth.split('.')[0]
   const month = yearmonth.split('.')[1]

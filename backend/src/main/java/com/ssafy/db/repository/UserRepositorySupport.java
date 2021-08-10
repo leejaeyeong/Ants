@@ -6,6 +6,7 @@ import com.ssafy.db.entity.User;
 
 import java.util.Optional;
 
+import com.ssafy.db.entity.UserState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -47,6 +48,17 @@ public class UserRepositorySupport {
             return true;
         return false;
     }
+    @Transactional
+    public boolean updateUserAuth(User user, UserState userState) {
+        Long row = jpaQueryFactory.update(qUser)
+                .set(qUser.userState, userState)
+                .where(qUser.userId.eq(user.getUserId()))
+                .execute();
+        if (row > 0)
+            return true;
+        return false;
+    }
+
     @Transactional
     public boolean deleteUserByUserId(String userId) {
         Long affectedRows = jpaQueryFactory.delete(qUser).where(qUser.userId.eq(userId)).execute();
