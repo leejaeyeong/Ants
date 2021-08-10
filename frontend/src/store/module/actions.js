@@ -154,6 +154,11 @@ export function uploadFile ({ state }, body) {
   return $axios.post(url, body)
 }
 
+export function loadFileDataByFileName ({ state }, fileName) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/files/search' + '?fileName=' + fileName
+  return $axios.get(url)
+}
 // // 그룹 전체목록
 // export function getGroup ({ state }, body) {
 //   const url = baseUrl + 'api/v1/group'

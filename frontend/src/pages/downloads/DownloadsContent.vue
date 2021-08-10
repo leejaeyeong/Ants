@@ -2,12 +2,18 @@
   <div class="content" align="center">
     <div class="content-title">
         <div class="row">
-          <div class="col-2">
+          <div class="col-3">
           </div>
-          <div class="col-6">
-            <q-input outlined v-model="text" :dense="dense" />
+          <div class="col-5">
+            <q-input
+            ref="input"
+            outlined v-model="router.currentRoute.value.query.fileName"
+            :dense="dense"
+            v-on:keyup="keyupEvent"
+            placeholder="파일명으로 자료 검색"
+            />
           </div>
-          <div class="col-2">
+          <div class="col-1">
             <q-btn class="search-btn" @click="clickTest()">자료검색</q-btn>
           </div>
         </div>
@@ -53,10 +59,6 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed, onUpdated } from 'vue'
-// import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
 
 const columns = [
   { name: 'imageLocation', label: '파일 분류', field: 'imageLocation', sortable: true, style: 'width: 10px' },
@@ -86,24 +88,62 @@ const columns = [
 //     image: 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
 //   }
 // ]
+import { defineComponent, ref, computed, onMounted } from 'vue'
+// import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'DonwloadsContent',
   components: {
   },
   setup () {
+    const input = ref(null)
+    onMounted(() => {
+      input.value.focus()
+    })
     console.log('다운로드 컨텐츠 셋업 호출')
     const store = useStore()
     const router = useRouter()
+    console.log(router.query)
     const rows = computed(() => store.getters['module/getFileInfoList']).value
+    const Swal = require('sweetalert2')
+    loadFileData()
     console.log(rows)
     const pagination = ref({
       sortBy: 'date',
       descending: false,
       page: 1,
-      rowsPerPage: 10
+      rowsPerPage: 8
       // rowsNumber: xx if getting data from a server
     })
+    const keyupEvent = function (event) {
+      console.log(event.target.value)
+      const keyword = event.target.value
+      store.dispatch('module/loadFileDataByFileName', keyword)
+        .then(function (result) {
+          console.log(result.data + 'key up잘 받아오는지')
+          for (let i = 0; i < result.data.length; i++) {
+            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+          }
+          store.commit('module/setFileinfoList', result.data)
+          console.log(store.getters['module/getFileInfoList'], '파일 게터스')
+          if (router.currentRoute._rawValue.path === '/downloads') {
+            router.push({ name: 'Downloads2', query: { fileName: keyword } })
+          } else {
+            router.push({ name: 'Downloads', query: { fileName: keyword } })
+          }
+          console.log(router)
+        })
+        .catch(function () {
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">서버오류. 다시 시도해주세요.222</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
+        })
+      // pageChange()
+    }
     function downloadFile (id) {
       console.log(id)
       store.dispatch('module/downloadFile', id)
@@ -125,27 +165,81 @@ export default defineComponent({
           console.log(err)
         })
     }
+    function loadFileData () {
+      store.dispatch('module/loadFileData')
+        .then(function (result) {
+          console.log(result.data + '잘 받아오는지')
+          for (let i = 0; i < result.data.length; i++) {
+            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+          }
+          // setFileinfoList
+          store.commit('module/setFileinfoList', result.data)
+          console.log(store.getters['module/getFileInfoList'], '파일 게터스')
+          // console.log(router)
+        })
+        .catch(function () {
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">서버오류. 다시 시도해주세요.</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
+        })
+    }
+    function pageChange () {
+      console.log(router.currentRoute._rawValue.path)
+      if (router.currentRoute._rawValue.path === '/downloads') {
+        router.push('/downloads2')
+      } else {
+        router.push('/downloads')
+      }
+    }
+    function mountImageUrl (extension) {
+      let imageUrl = ''
+      switch (extension) {
+        case '.ppt':
+        case '.pptx':
+          imageUrl = 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
+          break
+        case '.docx':
+          imageUrl = 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
+          break
+        case '.xlsx':
+          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFEz9UnOx3StKSJUQs12DuWje3MwDOV6yAfufygK38zgZIuNsizJimqpCRI6ae2gbJuD0&usqp=CAU'
+          break
+        case '.pdf':
+          imageUrl = 'https://blog.kakaocdn.net/dn/cj4Y3U/btqMPi7uAh8/sYik4nsvvqUmG36Hhbwwj1/img.png'
+          break
+        case '.jpg':
+        case '.png':
+        case '.JPG':
+        case '.PNG':
+          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU'
+          break
+        default:
+          imageUrl = 'https://i.pinimg.com/474x/78/6d/27/786d27105f7e9f02f92c31040169b2de.jpg'
+      }
+      return imageUrl
+    }
     function clickTest () {
-      alert('test')
       store.dispatch('module/loadFileDataByExtension', '.js')
         .then(function (result) {
           console.log(result.data)
           for (let i = 0; i < result.data.length; i++) {
-            // result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
           }
           // // setFileinfoList
           store.commit('module/setFileinfoList', result.data)
           console.log(store.getters['module/getFileInfoList'], '파일 게터스')
-          router.push('/downloads2')
+          if (router.currentRoute._rawValue.path === '/downloads') {
+            router.push('/downloads2')
+          } else {
+            router.push('/downloads')
+          }
         })
         .catch(function (err) {
           console.log(err)
         })
     }
-    onUpdated(() => {
-      // rows = computed(() => store.getters['module/getFileInfoList']).value
-      console.log('updated!')
-    })
     return {
       text: ref(''),
       dense: ref(false),
@@ -154,7 +248,11 @@ export default defineComponent({
       rows,
       pagesNumber: computed(() => Math.ceil(rows.length / pagination.value.rowsPerPage)),
       downloadFile,
-      clickTest
+      clickTest,
+      keyupEvent,
+      pageChange,
+      router,
+      input
     }
   }
 })
@@ -166,7 +264,7 @@ export default defineComponent({
   height: 800px;
   position: absolute;
   left: 450px;
-  top: 85px;
+  top: 35px;
   /* background: orange; */
 }
 .content-title {
@@ -184,7 +282,6 @@ export default defineComponent({
 }
 .search-btn {
   background-color: #00BF6F;
-  margin-left: 20px;
-  height: 50px;
+  height: 55px;
 }
 </style>

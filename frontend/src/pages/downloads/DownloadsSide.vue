@@ -1,42 +1,8 @@
 <template>
-  <!-- <div>
-    <span align="center">파일 업로드</span>
-    <div class="row">
-    <div v-if="form.images" class="margin-auto file-frame"
-    @drop.prevent="dropInputTag($event)"
-    @dragover.prevent>
-    <div style="margin-left: 60px; margin-top:10px;">
-      <img :src="form.images" alt="image" class="present-image"><br>
-    </div>
-    <div align="center">안녕하dasdasdas세요 안녕</div>
-    </div>
-    <div id="unSelectFileFrame" v-else class="margin-auto file-frame"
-      @click="clickInputTag()"
-      @drop.prevent="dropInputTag($event)"
-      @dragenter="test()"
-      @dragleave="dragLeave()"
-      @dragover.prevent>
-      <div align="center" style="line-height:150px">파일을 끌어서 올려주세요</div>
-      <input ref="image" id="input" type="file" name="image" @change="uploadImage()" v-show="false">
-    </div>
-  </div>
-  <div class="row">
-    <div class="margin-auto">
-      <q-btn @click="regist" class="upload-btn">파일 업로드</q-btn>
-    </div>
-  </div>
-  <q-separator style="margin-bottom:20px" color="green" inset />
-  <span>부서별 자료 검색</span>
-  <div class="row">
-    <ul>
-      <li>벡엔드 개발 부서</li>
-      <li>프론트엔드 개발 부서</li>
-      <li>마켓팅 홍보 부서</li>
-    </ul>
-  </div>
-  </div> -->
   <div class="side shadow-1">
-    <span align="center">파일 업로드</span>
+    <div align="center">
+      <h6 ><span class="highlight-green">파일 업로드</span></h6>
+    </div>
     <div class="row">
     <div v-if="form.images" class="margin-auto file-frame"
     @drop.prevent="dropInputTag($event)"
@@ -58,23 +24,27 @@
   </div>
   <div class="row">
     <div class="margin-auto">
-      <q-btn @click="regist" class="upload-btn">파일 업로드</q-btn>
+      <q-btn class="reset-btn">초기화</q-btn>&nbsp;&nbsp;&nbsp;
+      <q-btn @click="regist" class="upload-btn ">파일 업로드</q-btn>
     </div>
   </div>
   <q-separator style="margin-bottom:20px" color="green" inset />
-  <span>부서별 자료 검색</span>
-  <div class="row">
-    <ul>
-      <li>벡엔드 개발 부서</li>
-      <li>프론트엔드 개발 부서</li>
-      <li>마켓팅 홍보 부서</li>
-    </ul>
+  <div align="center">
+    <h6><span class="highlight-yellow">부서별로 모아보기</span></h6>
   </div>
+  <div class="department-area">
+  </div>
+    <div v-for="department in departmentInfo" :key="department.id" style="margin-left: 40px;">
+      <div class="row">
+        <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 2.5em; color: #18C75E;" name="description"/>
+        <span class="department-list">{{ department.departmentName }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, computed } from 'vue'
 // import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -91,6 +61,7 @@ export default defineComponent({
       tmp: '',
       images: ''
     })
+    const departmentInfo = computed(() => store.getters['module/getDepartmentInfo'])
     const Swal = require('sweetalert2')
     function sweetAlert (title) {
       Swal.fire({
@@ -216,7 +187,7 @@ export default defineComponent({
       return imageUrl
     }
     return {
-      imgLabelClick, form, regist, uploadImage, dropInputTag, clickInputTag, test, dragLeave, sweetAlert
+      imgLabelClick, form, regist, uploadImage, dropInputTag, clickInputTag, test, dragLeave, sweetAlert, departmentInfo
     }
   }
 })
@@ -224,7 +195,6 @@ export default defineComponent({
 
 <style scoped>
 .row {
-  margin-top: 20px;
   margin-bottom: 20px;
   /* border: 1px solid rgba(86,61,124,.2) */
 }
@@ -236,11 +206,14 @@ export default defineComponent({
   width: 220px;
   height: 150px;
   border: 2px dashed gray;
-  margin-top:50px;
+  margin-top:20px;
   border-radius: 5%;
 }
 .upload-btn {
   background-color: #00BF6F;
+}
+.reset-btn {
+  background-color: wheat;
 }
 .present-image {
   width: 100px;
@@ -258,5 +231,21 @@ ul{
   border: 1px solid rgb(212, 212, 212);
   border-radius: 10px;
   background-color: white;
+}
+h6 {
+  margin-bottom: 0px;
+}
+.department-list:hover {
+  background-color:rgb(223, 241, 231);
+  cursor: pointer;
+}
+.department-area {
+  margin-top: 20px;
+}
+.highlight-green {
+  background: linear-gradient(to top, #36fead 40%, transparent 40%);
+}
+.highlight-yellow {
+  background: linear-gradient(to top, khaki 40%, transparent 40%);
 }
 </style>
