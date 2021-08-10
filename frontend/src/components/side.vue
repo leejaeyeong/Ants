@@ -115,6 +115,7 @@ export default defineComponent({
       store.dispatch('module/board', { })
         .then(function (result) {
           for (let i = 0; i < result.data.length; i++) {
+            result.data[i].registrationTime = result.data[i].registrationTime.substr(0, 16)
             rows.push(result.data[i])
           }
           store.commit('module/setRows', rows)
