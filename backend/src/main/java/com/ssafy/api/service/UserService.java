@@ -28,4 +28,5 @@ public interface UserService {
 	Integer findAllByDateBetween(User user, String startDate, String endDate);
 	Department getDepartmentById(long departmentId);
 	Attendance getAttendanceToday(User user);
+	boolean updateUserAuth(String userId);
 }
