@@ -108,6 +108,19 @@ public class FileInfoServiceImpl implements FileInfoService {
         return fileInfoResList;
     }
 
+    @Override
+    public List<FileInfoRes> findByFileExtension(String extension) {
+        List<FileInfoRes> fileInfoResList = null;
+        if (fileInfoRepositorySupport.findAllByFileExtension(extension).isPresent()) {
+            List<FileInfo> files = fileInfoRepositorySupport.findAllByFileExtension(extension).get();
+            fileInfoResList = new ArrayList<>();
+            for (FileInfo fileInfo : files) {
+                fileInfoResList.add(FileInfoRes.of(fileInfo));
+            }
+        }
+        return fileInfoResList;
+    }
+
     public String computeFileSize(Long size) {
         Long ret = size;
         String unit;
