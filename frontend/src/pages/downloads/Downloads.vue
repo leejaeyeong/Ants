@@ -98,6 +98,6 @@ export default defineComponent({
   }
 }
 .side {
-  animation: fadeIn 0.5s ease-in-out;
+  /* animation: fadeIn 0.5s ease-in-out; */
 }
 </style>

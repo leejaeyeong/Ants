@@ -77,20 +77,14 @@ const routes = [
         component: () => import('layouts/rtcTest.vue')
       },
       {
+        name: 'Downloads',
         path: '/downloads',
         component: () => import('pages/downloads/Downloads.vue')
       },
       {
+        name: 'Downloads2',
         path: '/downloads2',
         component: () => import('pages/downloads/Downloads2.vue')
-      },
-      {
-        path: '/justtest',
-        component: () => import('pages/downloads/downloadsContent.vue')
-      },
-      {
-        path: '/oktest',
-        component: () => import('pages/downloads/downloadsSide.vue')
       }
     ]
   },
