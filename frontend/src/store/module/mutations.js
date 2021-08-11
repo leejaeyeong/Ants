@@ -89,3 +89,7 @@ export function setChatMode (state, chatMode) {
 export function setTodoList (state, todoList) {
   state.todoList = todoList
 }
+
+export function setDmRoomList (state, dmRoomList) {
+  state.dmRoomList = dmRoomList
+}

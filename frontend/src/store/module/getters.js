@@ -86,3 +86,7 @@ export function getChatMode (state) {
 export function getTodoList (state) {
   return state.todoList
 }
+
+export function getDmRoomList (state) {
+  return state.dmRoomList
+}
