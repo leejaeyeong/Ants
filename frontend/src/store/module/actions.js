@@ -154,6 +154,11 @@ export function uploadFile ({ state }, body) {
   return $axios.post(url, body)
 }
 
+export function loadFileDataByFileName ({ state }, fileName) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/files/search' + '?fileName=' + fileName
+  return $axios.get(url)
+}
 // // 그룹 전체목록
 // export function getGroup ({ state }, body) {
 //   const url = baseUrl + 'api/v1/group'
@@ -197,11 +202,23 @@ export function montlyWork ({ state }, yearmonth) {
   const url = baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
   return $axios.get(url)
 }
+
 // 가입한 모든 회원정보 조회
 export function memberList ({ state }) {
   console.log('memberList', state)
   const url = baseUrl + 'api/v1/users'
   return $axios.get(url)
+}
+
+export function loadFileDataByExtension ({ state }, extension) {
+  const url = baseUrl + 'api/v1/files/extension' + '?extension=' + extension
+  return $axios.get(url)
+}
+// 유저 권한변경
+export function chageUser ({ state }, id) {
+  console.log('유저 권한 변경', state, id)
+  const url = baseUrl + 'api/v1/users/' + id + '/auth'
+  return $axios.put(url)
 }
 
 export function registTodo ({ state }, body) {
@@ -232,5 +249,9 @@ export function mark ({ state }, id) {
 export function boardMe ({ state }, id) {
   console.log('boardMe', state, id)
   const url = baseUrl + 'api/v1/board/userId/?userId=' + id
+}
+
+export function dmRoomList ({ state }, id) {
+  const url = baseUrl + 'api/v1/dm/' + '?userId=' + id
   return $axios.get(url)
 }
