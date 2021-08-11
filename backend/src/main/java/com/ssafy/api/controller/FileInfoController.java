@@ -57,4 +57,22 @@ public class FileInfoController {
         return ResponseEntity.ok().body(fileInfoService.findAll());
     }
 
+    @GetMapping("/extension")
+    @ApiOperation(value = "확장자를 가진 파일 리스트", notes = "특정 확장자를 가진 파일리스트 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "파일 리스트 반환 성공")
+    })
+    public ResponseEntity<List<FileInfoRes>> findByExtension (@RequestParam String extension) throws IOException {
+        return ResponseEntity.ok().body(fileInfoService.findByFileExtension(extension));
+    }
+
+    @GetMapping("/search")
+    @ApiOperation(value = "해당 파일명을 가진 파일 리스트", notes = "해당 파일명을 가진 파일 리스트 반환")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "파일 리스트 반환 성공")
+    })
+    public ResponseEntity<List<FileInfoRes>> findByFileName (@RequestParam String fileName) throws IOException {
+        return ResponseEntity.ok().body(fileInfoService.findByFileName(fileName));
+    }
+
 }
