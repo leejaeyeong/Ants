@@ -11,11 +11,7 @@ const columns = [
     required: true,
     label: '글번호',
     align: 'center',
-<<<<<<< HEAD
     field: row => row.id,
-=======
-    field: row => `${row.id}`,
->>>>>>> 99889cddef48dc6c4ad4094b99fc69c67f148ca0
     format: val => `${val}`,
     sortable: true
   },
