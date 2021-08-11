@@ -107,6 +107,17 @@ export default defineComponent({
       localStorage.removeItem('id')
       localStorage.removeItem('password')
       localStorage.removeItem('name')
+      localStorage.removeItem('userState')
+      localStorage.removeItem('profileLocation')
+      localStorage.removeItem('department')
+      localStorage.removeItem('departmentId')
+      const logoutUser = {
+        id: '',
+        name: '',
+        department: '',
+        position: ''
+      }
+      store.commit('module/setLoginUser', logoutUser)
       router.push('/')
     }
     let rows = []
@@ -123,13 +134,21 @@ export default defineComponent({
           store.commit('module/setPageNumber', pn)
           rows = []
           store.dispatch('module/boardList', { })
-            .then(function (result) {
-              for (let i = 0; i < result.data.length; i++) {
-                boardList.push(result.data[i])
+            .then(function (res) {
+              for (let i = 0; i < res.data.length; i++) {
+                boardList.push(res.data[i])
               }
               store.commit('module/setBoardList', boardList)
               boardList = []
-              router.push('/board')
+              const userId = localStorage.getItem('id')
+              store.dispatch('module/markList', userId)
+                .then(function (r) {
+                  for (let i = 0; i < r.data.length; i++) {
+                    r.data[i].registrationTime = r.data[i].registrationTime.substr(0, 16)
+                  }
+                  store.commit('module/setMarkList', r.data)
+                  router.push('/board')
+                })
             })
             .catch(function () {
               alert('오류발생')

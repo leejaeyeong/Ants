@@ -1,52 +1,54 @@
   <template>
   <div id="myData">
-    <div style="margin-top:25px; margin-left:30px; font-weight:bold; font-size:25px;">
+    <div style="margin-top:25px; margin-left:200px; font-weight:bold; font-size:25px;">
       <p>개인 정보 수정</p>
     </div>
-    <table class="mypage">
-      <tr>
-        <td class="left">이미지</td>
-        <td>
-          <div>
-            <img :src="userInfo.profileLocation" style="width: 250px; height: 300px;" />
-            <q-btn @click="imgLabelClick" class="imgbtn" >이미지 변경</q-btn>
-            <input ref="imageInput" type="file" style="display: none; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png, .gif" id="profile_img_upload">
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="left">이름</td>
-        <td>{{ userInfo.name }}</td>
-      </tr>
-      <tr>
-        <td class="left">아이디</td>
-        <td>{{ userInfo.userId }}</td>
-      </tr>
-      <tr>
-        <td class="left">이메일</td>
-        <td><q-input color="teal" square outlined v-model="userInfo.email" style="width:400px;"/></td>
-      </tr>
-      <tr>
-        <td class="left">휴가</td>
-        <td>{{ userInfo.holiday }}</td>
-      </tr>
-      <tr>
-        <td class="left">부서</td>
-        <td>{{ userInfo.department }}</td>
-      </tr>
-      <tr>
-        <td class="left">직책</td>
-        <td>{{ userInfo.position }}</td>
-      </tr>
-    </table>
-    <div class="submitbtn">
-      <div @click="remove" class="btn">
-        <q-icon class="icon" name="delete"/>
-        <span>회원 탈퇴</span>
-      </div>
-      <div @click="myEdit" class="btn">
-        <q-icon class="icon" name="build"/>
-        <span>정보 수정</span>
+    <div class="all">
+      <table class="mypage">
+        <tr>
+          <td class="left">이미지</td>
+          <td>
+            <div>
+              <img :src="userInfo.profileLocation" style="width: 250px; height: 300px;" />
+              <q-btn @click="imgLabelClick" class="imgbtn" >이미지 변경</q-btn>
+              <input ref="imageInput" type="file" style="display: none; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png, .gif" id="profile_img_upload">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="left">이름</td>
+          <td>{{ userInfo.name }}</td>
+        </tr>
+        <tr>
+          <td class="left">아이디</td>
+          <td>{{ userInfo.userId }}</td>
+        </tr>
+        <tr>
+          <td class="left">이메일</td>
+          <td><q-input color="teal" square outlined v-model="userInfo.email" style="width:400px;"/></td>
+        </tr>
+        <tr>
+          <td class="left">휴가</td>
+          <td>{{ userInfo.holiday }}</td>
+        </tr>
+        <tr>
+          <td class="left">부서</td>
+          <td>{{ userInfo.department }}</td>
+        </tr>
+        <tr>
+          <td class="left">직책</td>
+          <td>{{ userInfo.position }}</td>
+        </tr>
+      </table>
+      <div class="submitbtn">
+        <div @click="remove" class="btn">
+          <q-icon class="icon" name="delete"/>
+          <span>회원 탈퇴</span>
+        </div>
+        <div @click="myEdit" class="btn">
+          <q-icon class="icon" name="build"/>
+          <span>정보 수정</span>
+        </div>
       </div>
     </div>
 
@@ -157,22 +159,28 @@ export default defineComponent({
 <style scoped>
 table {
   margin: auto;
-  margin-top: 5px;
 }
 table, td, th{
-  /* border:3px solid #6581A6; */
   border:1.5px solid rgb(153, 149, 149);
   border-collapse: collapse;
   border-right: none;
   border-left: none;
   border-bottom: none;
   border-top: none;
+  background-color: white;
+  margin-top: 10px;
 }
 .left{
-  /* background-color: #f9f9f9; */
   font-weight:bold;
   width: 100px;
   align-content: left;
+}
+.all{
+  width: 800px;
+  background-color: white;
+  height: 750px;
+  margin-left: 500px;
+  border-radius: 10px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
@@ -184,18 +192,24 @@ table, td, th{
 td {
   width: 500px;
   margin-right: 4px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 tr {
   height: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .mypage {
   text-align: left;
+  background-color: white;
+  margin-top: 20px;
 }
 .btn{
   cursor: pointer;
   width: 150px;
   float: left;
-  margin-right: 270px;
+  margin-right: 320px;
   text-align: center;
 }
 .icon{
@@ -211,8 +225,9 @@ tr {
 }
 .submitbtn {
   position: absolute;
-  left: 19%;
+  left: 400px;
   margin-top: 10px;
+  margin-left: 150px;
 }
 
 </style>

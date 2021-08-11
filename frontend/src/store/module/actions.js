@@ -232,3 +232,27 @@ export function getTodoList ({ state }, departmentId) {
   const url = baseUrl + 'api/v1/todo/' + '?departmentId=' + departmentId
   return $axios.get(url)
 }
+
+export function markList ({ state }, userId) {
+  console.log('markList', state, userId)
+  const url = baseUrl + 'api/v1/board/marker/' + '?userId=' + userId
+  return $axios.get(url)
+}
+
+export function mark ({ state }, id) {
+  console.log('mark', state, id)
+  const userId = state.loginUser.id
+  const url = baseUrl + 'api/v1/board/' + id + '/marker/?userId=' + userId
+  return $axios.put(url)
+}
+
+export function boardMe ({ state }, id) {
+  console.log('boardMe', state, id)
+  const url = baseUrl + 'api/v1/board/userId/?userId=' + id
+  return $axios.get(url)
+}
+
+export function dmRoomList ({ state }, id) {
+  const url = baseUrl + 'api/v1/dm/' + '?userId=' + id
+  return $axios.get(url)
+}
