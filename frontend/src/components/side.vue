@@ -107,6 +107,17 @@ export default defineComponent({
       localStorage.removeItem('id')
       localStorage.removeItem('password')
       localStorage.removeItem('name')
+      localStorage.removeItem('userState')
+      localStorage.removeItem('profileLocation')
+      localStorage.removeItem('department')
+      localStorage.removeItem('departmentId')
+      const logoutUser = {
+        id: '',
+        name: '',
+        department: '',
+        position: ''
+      }
+      store.commit('module/setLoginUser', logoutUser)
       router.push('/')
     }
     let rows = []
