@@ -38,19 +38,6 @@
                     <q-btn @click="back" round color="amber" icon="reply" style="float:right; margin-top:5px; margin-right:5px;" type="submit"/>
                   </form>
                   <div id="dmChatWindow" class="q-pa-md row justify-center">
-                    <div style="width: 100%; max-width: 400px">
-                      <q-chat-message
-                        name="나"
-                        avatar="https://cdn.quasar.dev/img/avatar1.jpg"
-                        :text="['담배피실?']"
-                        sent
-                      />
-                      <q-chat-message
-                        name="정범진"
-                        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
-                        :text="['ㅇㅋㅇㅋ']"
-                      />
-                    </div>
                   </div>
                 </div>
                 <div id="form">
@@ -70,10 +57,12 @@
 <script>
 import { defineComponent, onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
+import BoardSide from './boardSide.vue'
 
 export default defineComponent({
   name: 'mainpage',
   components: {
+    BoardSide
   },
   methods: {
     mvAttendance () {
@@ -86,10 +75,29 @@ export default defineComponent({
     const chatMode = computed(() => store.getters['module/getChatMode'])
     const dmRoomList = computed(() => store.getters['module/getDmRoomList'])
     const loginUser = computed(() => store.getters['module/getLoginUser'])
+    const sazin = localStorage.getItem('profileLocation')
     const sendTo = {
       name: '',
       roomId: ''
     }
+    const lists = [
+      {
+        name: '훈발놈',
+        text: '안녕'
+      },
+      {
+        name: '황지훈',
+        text: '안녕'
+      },
+      {
+        name: '훈발놈',
+        text: '안녕'
+      },
+      {
+        name: '황지훈',
+        text: '안녕'
+      }
+    ]
     onMounted(() => {
       store.dispatch('module/dmRoomList', store.getters['module/getLoginUser'].id)
         .then(function (result) {
@@ -152,7 +160,9 @@ export default defineComponent({
       loginUser,
       sendTo,
       enter,
-      back
+      back,
+      lists,
+      sazin
     }
   }
 })

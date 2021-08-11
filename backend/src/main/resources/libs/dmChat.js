@@ -51,7 +51,9 @@ function dmShowGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 function dmShowChat(dm) {
-    $("#dmChatWindow").append("<div>" + dm.name + " :text=" + dm.message + "</div>");
+       $("#dmChatWindow").append("<div class='box'><div style='font-weight:bold;'>" + dm.name + "</div><div><div class='left'></div><div class='right'>" + dm.message + "</div></div></div>" )
+       $("#dmChatWindow").append("<div class='box1'><div class='name1' style='font-weight:bold;'>" + dm.name + "</div><div><div class='left1'></div><div class='right1'>" + dm.message + "</div></div></div>" )
+       $('#chatMessage').val('');
 }
 
 //$(function () {
