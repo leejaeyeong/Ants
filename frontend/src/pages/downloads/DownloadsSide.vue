@@ -41,6 +41,18 @@
       </div>
     </div>
   </div>
+  <div class="detail-search" align="center" @click="detailClick()">
+    <q-icon style="font-size: 1.8em; color: #18C75E;" name="north"/><br>
+    <span>상세 검색</span>
+  </div>
+  <div class="sub-side shadow-1" v-if="form.subSdieVisible">
+    <div align="right" style="padding-top: 10px;" @click="close()">
+      <span style="padding-right:15px; color: red; cursor: pointer;">X</span>
+    </div>
+    <div align="center">
+      <h6 style="margin-top: 15px"><span class="highlight-orange">확장자 별 검색</span></h6>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -59,7 +71,8 @@ export default defineComponent({
     const form = reactive({
       image: null,
       tmp: '',
-      images: ''
+      images: '',
+      subSdieVisible: false
     })
     const departmentInfo = computed(() => store.getters['module/getDepartmentInfo'])
     const Swal = require('sweetalert2')
@@ -113,6 +126,14 @@ export default defineComponent({
       //     alert(err)
       //   })
       // 엑시오스
+    }
+    function detailClick () {
+      form.subSdieVisible = !form.subSdieVisible
+      console.log(form.subSdieVisible)
+    }
+    function close () {
+      form.subSdieVisible = false
+      console.log('????')
     }
     function test () {
       const frame = document.getElementById('unSelectFileFrame')
@@ -187,7 +208,18 @@ export default defineComponent({
       return imageUrl
     }
     return {
-      imgLabelClick, form, regist, uploadImage, dropInputTag, clickInputTag, test, dragLeave, sweetAlert, departmentInfo
+      imgLabelClick,
+      form,
+      regist,
+      uploadImage,
+      dropInputTag,
+      clickInputTag,
+      test,
+      dragLeave,
+      sweetAlert,
+      departmentInfo,
+      detailClick,
+      close
     }
   }
 })
@@ -245,7 +277,37 @@ h6 {
 .highlight-green {
   background: linear-gradient(to top, #36fead 40%, transparent 40%);
 }
+.highlight-orange {
+  background: linear-gradient(to top, orange 40%, transparent 40%);
+}
 .highlight-yellow {
   background: linear-gradient(to top, khaki 40%, transparent 40%);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 3;
+    transform: none;
+  }
+}
+.sub-side {
+  width: 350px;
+  height: 370px;
+  position: absolute;
+  top: 480px;
+  left: 90px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid green;
+  animation: fadeIn 0.5s ease-in-out;
+}
+.detail-search {
+  position: absolute;
+  top: 820px;
+  left: 230px;
+  cursor: pointer;
 }
 </style>

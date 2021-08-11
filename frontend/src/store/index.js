@@ -27,6 +27,7 @@ export default store(function (/* { ssrContext } */) {
     // for dev mode and --debug builds only
     strict: process.env.DEBUGGING
   })
+  window.app = store
 
   return Store
 })
