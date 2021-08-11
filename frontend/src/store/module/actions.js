@@ -154,6 +154,21 @@ export function uploadFile ({ state }, body) {
   return $axios.post(url, body)
 }
 
+export function loadFileDataByFileName ({ state }, fileName) {
+  console.log(state)
+  const url = baseUrl + 'api/v1/files/search' + '?fileName=' + fileName
+  return $axios.get(url)
+}
+// // 그룹 전체목록
+// export function getGroup ({ state }, body) {
+//   const url = baseUrl + 'api/v1/group'
+//   return $axios.get(url, body)
+// }
+// // 그룹 생성
+// export function setGroup({ state }, body) {
+//   const url = baseUrl + 'api/v1/group'
+//   return $axios.post(url, body)
+// }
 export function downloadFile ({ state }, id) {
   console.log(state)
   const url = baseUrl + 'api/v1/files/download/' + id
@@ -195,6 +210,10 @@ export function memberList ({ state }) {
   return $axios.get(url)
 }
 
+export function loadFileDataByExtension ({ state }, extension) {
+  const url = baseUrl + 'api/v1/files/extension' + '?extension=' + extension
+  return $axios.get(url)
+}
 // 유저 권한변경
 export function chageUser ({ state }, id) {
   console.log('유저 권한 변경', state, id)
@@ -211,5 +230,29 @@ export function registTodo ({ state }, body) {
 export function getTodoList ({ state }, departmentId) {
   console.log('getTodoList', state, departmentId)
   const url = baseUrl + 'api/v1/todo/' + '?departmentId=' + departmentId
+  return $axios.get(url)
+}
+
+export function markList ({ state }, userId) {
+  console.log('markList', state, userId)
+  const url = baseUrl + 'api/v1/board/marker/' + '?userId=' + userId
+  return $axios.get(url)
+}
+
+export function mark ({ state }, id) {
+  console.log('mark', state, id)
+  const userId = state.loginUser.id
+  const url = baseUrl + 'api/v1/board/' + id + '/marker/?userId=' + userId
+  return $axios.put(url)
+}
+
+export function boardMe ({ state }, id) {
+  console.log('boardMe', state, id)
+  const url = baseUrl + 'api/v1/board/userId/?userId=' + id
+  return $axios.get(url)
+}
+
+export function dmRoomList ({ state }, id) {
+  const url = baseUrl + 'api/v1/dm/' + '?userId=' + id
   return $axios.get(url)
 }

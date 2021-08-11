@@ -11,7 +11,7 @@ const columns = [
     required: true,
     label: '글번호',
     align: 'center',
-    field: row => `${row.id}`,
+    field: row => row.id,
     format: val => `${val}`,
     sortable: true
   },
@@ -85,6 +85,10 @@ const chatMode = false
 
 const todoList = []
 
+const markList = []
+const mark = false
+const dmRoomList = []
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -109,6 +113,9 @@ export default function () {
     fileInfoList: fileInfoList,
     memberList: memberList,
     chatMode: chatMode,
-    todoList: todoList
+    todoList: todoList,
+    markList: markList,
+    mark: mark,
+    dmRoomList: dmRoomList
   }
 }

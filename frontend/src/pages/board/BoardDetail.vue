@@ -2,8 +2,8 @@
   <div id="board">
     <div id="detail">
       <q-input v-model="detail.title" style="width:50%; font-size:20px; color:black; display:inline-block;" filled readonly/>
-      <q-icon style="font-size: 3.5em; color: black;" name="bookmark_border"/>
-      <q-icon style="font-size: 3.5em; color: black;" name="bookmark"/>
+      <q-icon v-if="!mark" @click="markOn" class="mark" style="font-size: 4.0em; color: black;" name="bookmark_border"/>
+      <q-icon v-if="mark" @click="markOff" class="mark" style="font-size: 4.0em; color: black;" name="bookmark"/>
       <div class="q-pa-md" style="max-width: 1200px; margin-left:-17px;">
         <q-input
           filled
@@ -37,6 +37,7 @@ export default defineComponent({
     const router = useRouter()
     const detail = computed(() => store.getters['module/getDetail'])
     const comments = computed(() => store.getters['module/getComments'])
+    const mark = computed(() => store.getters['module/getMark'])
     const form = reactive({
       comment: '',
     })
@@ -65,12 +66,40 @@ export default defineComponent({
           form.comment = ''
         })
     }
+    const markOn = function () {
+      const tmp = store.getters['module/getDetail']
+      const userId = store.getters['module/getLoginUser'].id
+      store.dispatch('module/mark', tmp.id)
+        .then(function () {
+          store.commit('module/setMark', true)
+          store.dispatch('module/markList', userId)
+            .then(function (result) {
+              store.commit('module/setMarkList', result.data)
+              console.log(result.data,'12312312321321')
+            })
+        })
+    }
+    const markOff = function () {
+      const tmp = store.getters['module/getDetail']
+      const userId = store.getters['module/getLoginUser'].id
+      store.dispatch('module/mark', tmp.id)
+        .then(function () {
+          store.commit('module/setMark', false)
+          store.dispatch('module/markList', userId)
+            .then(function (result) {
+              store.commit('module/setMarkList', result.data)
+            })
+        })
+    }
     return {
       detail,
       comments,
       form,
       back,
-      regist
+      regist,
+      mark,
+      markOn,
+      markOff
     }
   }
 })
@@ -96,6 +125,9 @@ export default defineComponent({
     line-height:50px;
     font-size:20px;
     padding-left:10px;
+}
+.mark{
+    cursor: pointer;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';

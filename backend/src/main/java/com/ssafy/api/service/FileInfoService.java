@@ -23,4 +23,6 @@ public interface FileInfoService {
     Map<String, Object> downloadFile(Long id) throws IOException;
     FileInfo uploadFile(MultipartFile file, String userId) throws IOException;
     List<FileInfoRes> findAll();
+    List<FileInfoRes> findByFileExtension(String extension);
+    List<FileInfoRes> findByFileName(String fileName);
 }
