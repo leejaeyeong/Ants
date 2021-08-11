@@ -249,6 +249,7 @@ export function mark ({ state }, id) {
 export function boardMe ({ state }, id) {
   console.log('boardMe', state, id)
   const url = baseUrl + 'api/v1/board/userId/?userId=' + id
+  return $axios.get(url)
 }
 
 export function dmRoomList ({ state }, id) {
