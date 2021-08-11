@@ -25,8 +25,9 @@
                     </div> -->
                     <div v-for="dmRoom in dmRoomList" :key="dmRoom.roomId">
                       {{ dmRoom.username }} {{ dmRoom.departmentName }}
-                      <form onsubmit="dmConnect($(this).find('input').eq(0).val()); return false;">
+                      <form onsubmit="dmConnect($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val()); return false;">
                         <input :value="dmRoom.roomId" style="display:none">
+                        <input :value="loginUser.name" style="display:none">
                         <button type="submit" @click="enter(dmRoom.roomId, dmRoom.username)"/>
                       </form>
                     </div>
@@ -38,27 +39,14 @@
                     <q-btn @click="back" round color="amber" icon="reply" style="float:right; margin-top:5px; margin-right:5px;" type="submit"/>
                   </form>
                   <div id="dmChatWindow" class="q-pa-md row justify-center">
-                    <div style="width: 100%; max-width: 400px">
-                      <q-chat-message
-                        name="나"
-                        avatar="https://cdn.quasar.dev/img/avatar1.jpg"
-                        :text="['담배피실?']"
-                        sent
-                      />
-                      <q-chat-message
-                        name="정범진"
-                        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
-                        :text="['ㅇㅋㅇㅋ']"
-                      />
-                    </div>
                   </div>
                 </div>
                 <div id="form">
                   <form onsubmit="dmSendChat($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val(), $(this).find('input').eq(2).val()); return false;">
                     <input v-model="sendTo.roomId" style="display:none">
-                    <input v-model="sendTo.name" style="display:none">
-                    <input id="chatMessage" style="display:inline-block; width:400px; height:47px;" class="form-control" placeholder="메세지 입력"/>
-                    <button id="chatSend" class="btn btn-default" type="submit">보내기</button>
+                    <input v-model="loginUser.name" style="display:none">
+                    <input id="chatMessage" style="display:inline-block; width:400px; height:47px;" class="form-control" placeholder="메세지 입력" v-model="message"/>
+                    <button id="chatSend" class="btn btn-default" type="submit" @click="sendDm(sendTo.roomId, loginUser.id, message)">보내기</button>
                   </form>
                 </div>
               </div>
@@ -70,10 +58,12 @@
 <script>
 import { defineComponent, onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
+import BoardSide from './boardSide.vue'
 
 export default defineComponent({
   name: 'mainpage',
   components: {
+    BoardSide
   },
   methods: {
     mvAttendance () {
@@ -86,10 +76,12 @@ export default defineComponent({
     const chatMode = computed(() => store.getters['module/getChatMode'])
     const dmRoomList = computed(() => store.getters['module/getDmRoomList'])
     const loginUser = computed(() => store.getters['module/getLoginUser'])
+    const sazin = localStorage.getItem('profileLocation')
     const sendTo = {
       name: '',
       roomId: ''
     }
+    const message = ''
     onMounted(() => {
       store.dispatch('module/dmRoomList', store.getters['module/getLoginUser'].id)
         .then(function (result) {
@@ -137,12 +129,30 @@ export default defineComponent({
       })
     })
     const enter = function (roomId, username) {
+      store.dispatch('module/getDmHistory', roomId)
+        .then(function (result) {
+          console.log(result.data)
+        })
       sendTo.roomId = roomId
       sendTo.name = username
       store.commit('module/setChatMode', true)
     }
     const back = function () {
       store.commit('module/setChatMode', false)
+    }
+    const sendDm = function (room, name, message) {
+      const body = {
+        roomId: room,
+        user: name,
+        message: message
+      }
+      store.dispatch('module/sendDm', body)
+        .then(function (result) {
+          console.log(result.data)
+        })
+    }
+    const test = function () {
+      console.log('vue 함수 호출 테스트')
     }
     return {
       dm: ref(false),
@@ -151,8 +161,11 @@ export default defineComponent({
       dmRoomList,
       loginUser,
       sendTo,
+      message,
       enter,
-      back
+      back,
+      sendDm,
+      test
     }
   }
 })

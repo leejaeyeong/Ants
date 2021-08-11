@@ -256,3 +256,13 @@ export function dmRoomList ({ state }, id) {
   const url = baseUrl + 'api/v1/dm/' + '?userId=' + id
   return $axios.get(url)
 }
+
+export function sendDm ({ state }, body) {
+  const url = baseUrl + 'api/v1/dm/send'
+  return $axios.post(url, body)
+}
+
+export function getDmHistory ({ state }, room) {
+  const url = baseUrl + 'api/v1/dm/history?roomId=' + room
+  return $axios.get(url)
+}
