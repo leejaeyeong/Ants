@@ -13,7 +13,7 @@ function dmSetConnected(connected) {
     $("#greetings").html("");
 }
 
-function dmConnect(room) {
+function dmConnect(room, name) {
     console.log("room: " + room);
     var dmSocket = new SockJS('/websocket');
     dmStompClient = Stomp.over(dmSocket);
@@ -24,7 +24,7 @@ function dmConnect(room) {
 //            dmShowGreeting(JSON.parse(greeting.body).content);
 //        });
         dmStompClient.subscribe('/topic/dm/' + room, function (chat) {
-        	dmShowChat(JSON.parse(chat.body));
+        	dmShowChat(JSON.parse(chat.body), name);
         });
     });
 }
@@ -43,14 +43,21 @@ function dmSendName() {
 }
 
 function dmSendChat(room, name, message) {
-	dmStompClient.send("/app/dm/" + room, {}, JSON.stringify({'name': name, 'message': message}));
+	dmStompClient.send("/app/dm/" + room, {}, JSON.stringify({'user': name, 'message': message, 'roomId': room}));
 }
 
 function dmShowGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
-function dmShowChat(chat) {
-    $("#dmChatWindow").append("<q-chat-message name=" + chat.name + " :text=" + chat.message + "</div>");
+
+function dmShowChat(dm, myName) {
+        if(myName == dm.name) {
+            $("#dmChatWindow").append("<div class='box1'><div class='name1' style='font-weight:bold;'>" + dm.name + "</div><div><div class='left1'></div><div class='right1'>" + dm.message + "</div></div></div>" )
+        }
+        else{
+            $("#dmChatWindow").append("<div class='box'><div style='font-weight:bold;'>" + dm.name + "</div><div><div class='left'></div><div class='right'>" + dm.message + "</div></div></div>" )
+        }
+       $('#chatMessage').val('');
 }
 
 //$(function () {

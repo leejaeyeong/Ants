@@ -17,7 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api(value = "오늘의할일 API", tags = {"Todo"})
 @RestController
@@ -63,5 +65,27 @@ public class TodoController {
             resList.add(todoInfoRes);
         }
         return ResponseEntity.status(200).body(resList);
+    }
+
+    // 할일 목록 가져오기
+    @GetMapping(value = "{year}/{month}/{day}")
+    @ApiOperation(value = "일자별 할일 목록 가져오기")
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "성공"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<List<TodoInfoRes>> getTodoList(
+            @PathVariable Integer year,
+            @PathVariable Integer month,
+            @PathVariable Integer day,
+            @RequestParam Long departmentId) {
+
+        Map<String, Object> dateMap = new HashMap<>();
+        dateMap.put("year", year);
+        dateMap.put("month", month);
+        dateMap.put("day", day);
+        dateMap.put("departmentId", departmentId);
+
+        return ResponseEntity.status(200).body(todoService.findTodoByDate(dateMap));
     }
 }
