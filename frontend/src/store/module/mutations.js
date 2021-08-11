@@ -65,6 +65,7 @@ export function setMontlywork (state, montlyWork) {
 }
 export function setFileinfoList (state, fileInfoList) {
   state.fileInfoList = fileInfoList
+  console.log('setfileinfo 찍혀야지')
 }
 export function setTotalHourOfWeek (state, totalHourOfWeek) {
   state.totalHourOfWeek = totalHourOfWeek
@@ -95,4 +96,8 @@ export function setMarkList (state, markList) {
 
 export function setMark (state, mark) {
   state.mark = mark
+}
+
+export function setDmRoomList (state, dmRoomList) {
+  state.dmRoomList = dmRoomList
 }
