@@ -10,9 +10,9 @@
           <img :src="state.profileLocation" style="width:120px; height:150px;">
         </div>
         <div class="userInfo">
-          {{ loginUser.name }}님
+          {{ loginUser.name }}
           <br>
-          {{ loginUser.position }}
+          {{ loginUser.position }}님
           <br>
           {{ loginUser.department }}
         </div>
@@ -80,24 +80,6 @@
             hide-pagination
           />
         </div>
-        <!-- 일주일 근태 모달 -->
-        <!-- <q-dialog v-model="toolbar">
-          <q-card>
-            <q-toolbar>
-              <q-avatar>
-                <img src="~assets/images/logo.png" style="width: 100px;">
-              </q-avatar>
-
-              <q-toolbar-title><span class="text-weight-bold">Weekly</span> Report</q-toolbar-title>
-
-              <q-btn flat round dense icon="close" v-close-popup />
-            </q-toolbar>
-
-            <q-card-section>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
-            </q-card-section>
-          </q-card>
-        </q-dialog> -->
       </div>
       <div id="endRight" class="shadow-1">
         <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
@@ -125,6 +107,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div id="endBottom" class="shadow-1">
+        <div class="name">뭐하지❓</div>
       </div>
     </div>
   </div>
@@ -367,15 +352,15 @@ export default defineComponent({
 <style scoped>
 #content{
   width:100%;
-  height: 1000px;
+  height: 860px;
 }
 #main{
-  width:100%;
-  height:940px;
+  width:1858px;
+  height:876px;
   float:right;
   position: absolute;
   top: 60px;
-  left: 70px;
+  left: 60px;
   border-bottom:0.5px solid rgb(212, 212, 212);
   background-color: rgb(242, 247, 244);
 }
@@ -447,8 +432,9 @@ export default defineComponent({
   top:534px;
   left:20px;
   border-radius: 4%;
-  animation: leftFadeIn 1s ease-in-out;
+  animation: leftFadeIn 1.1s ease-in-out;
 }
+
 #bot1{
   margin-top:5px;
   height:140px;
@@ -491,13 +477,6 @@ export default defineComponent({
   width: 33%;
   font-size: 16px;
 }
-.show{
-  width:200x;
-  height:100px;
-  margin-top:18px;
-  margin-left:30px;
-  background-color: goldenrod;
-}
 #topRight{
   float:right;
   width:815px;
@@ -508,7 +487,7 @@ export default defineComponent({
   left:385px;
   background-color: white;
   border-radius: 10px;
-  animation: topFadeIn 1.2s ease-in-out;
+  animation: topFadeIn 1.1s ease-in-out;
 }
 #endRight{
   float:right;
@@ -520,19 +499,19 @@ export default defineComponent({
   top:20px;
   left:1215px;
   border-radius: 10px;
-  animation: rightFadeIn 1.2s ease-in-out;
+  animation: rightFadeIn 1.1s ease-in-out;
 }
 #endBottom{
   float:right;
   width:550px;
-  height:495px;
+  height:420px;
   border:0.5px solid rgb(212, 212, 212);
   background-color: white;
   position: absolute;
-  top:100px;
-  left:1310px;
+  top:390px;
+  left: 1215px;
   border-radius: 1.5%;
-  animation: rightFadeIn 0.5s ease-in-out;
+  animation: bottomFadeIn 1.1s ease-in-out;
 }
 #botLeft{
   position: absolute;
@@ -552,7 +531,7 @@ export default defineComponent({
   border:0.5px solid rgb(212, 212, 212);
   background-color:white;
   border-radius: 1.5%;
-  animation: bottomFadeIn 1.5s ease-in-out;
+  animation: bottomFadeIn 1.1s ease-in-out;
 }
 #todoForm{
   width:290px;

@@ -71,7 +71,8 @@ const userInfo = {
   position: '',
   profileLocation: '',
   userId: '',
-  dpID: ''
+  dpID: '',
+  userState: ''
 }
 
 const roomName = ''
