@@ -68,6 +68,10 @@ const routes = [
           {
             path: '/management',
             component: () => import('pages/user/MyManagement.vue')
+          },
+          {
+            path: '/chart',
+            component: () => import('components/Chart.vue')
           }
         ]
       },

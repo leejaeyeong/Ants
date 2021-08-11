@@ -202,6 +202,7 @@ export function montlyWork ({ state }, yearmonth) {
   const url = baseUrl + 'api/v1/users/' + id + '/attendance/' + year + '/' + month
   return $axios.get(url)
 }
+
 // 가입한 모든 회원정보 조회
 export function memberList ({ state }) {
   console.log('memberList', state)
@@ -211,5 +212,23 @@ export function memberList ({ state }) {
 
 export function loadFileDataByExtension ({ state }, extension) {
   const url = baseUrl + 'api/v1/files/extension' + '?extension=' + extension
+  return $axios.get(url)
+}
+// 유저 권한변경
+export function chageUser ({ state }, id) {
+  console.log('유저 권한 변경', state, id)
+  const url = baseUrl + 'api/v1/users/' + id + '/auth'
+  return $axios.put(url)
+}
+
+export function registTodo ({ state }, body) {
+  console.log('registTodo', state, body)
+  const url = baseUrl + 'api/v1/todo/register'
+  return $axios.post(url, body)
+}
+
+export function getTodoList ({ state }, departmentId) {
+  console.log('getTodoList', state, departmentId)
+  const url = baseUrl + 'api/v1/todo/' + '?departmentId=' + departmentId
   return $axios.get(url)
 }
