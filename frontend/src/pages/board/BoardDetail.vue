@@ -48,16 +48,15 @@ export default defineComponent({
       const loginUser = store.getters['module/getLoginUser']
       const id = tmp.id
       const writer = loginUser.id
-      console.log(88888888)
-      console.log(id, writer)
       store.dispatch('module/registComment', { id: id, comment: form.comment, writer: writer })
-        .then(function (result) {
-          console.log(result)
+        .then(function (res) {
+          console.log(res)
           store.dispatch('module/boardDetail', tmp.id)
             .then(function (result) {
               store.commit('module/setDetail', result.data)
               var tmp = []
               for (let i = 0; i<result.data.comments.length; i++) {
+                result.data.comments[i].registrationTime = result.data.comments[i].registrationTime.substr(0, 16)
                 tmp.push(result.data.comments[i])
               }
               store.commit('module/setComments',tmp)

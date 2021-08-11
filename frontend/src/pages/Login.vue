@@ -96,6 +96,7 @@ export default defineComponent({
               }
               localStorage.setItem('name', userInfo.name)
               localStorage.setItem('userState', userInfo.userState)
+              localStorage.setItem('departmentId', userInfo.department)
               store.dispatch('module/departmentInfo')
                 .then(function (result) {
                   for (let i = 0; i < result.data.length; i++) {

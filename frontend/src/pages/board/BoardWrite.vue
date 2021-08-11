@@ -107,8 +107,8 @@ export default defineComponent({
     width: 1130px;
     height: 690px;
     position: absolute;
-    top:60px;
-    left:325px;
+    top:85px;
+    left:390px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
