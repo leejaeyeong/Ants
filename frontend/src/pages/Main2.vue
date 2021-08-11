@@ -71,7 +71,6 @@
         <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div class="q-pa-md">
           <q-table
-            title=""
             :rows="rowsM"
             :columns="columnsM"
             row-key="title"
@@ -205,6 +204,7 @@ export default defineComponent({
         })
       console.log('312381273891371298')
       console.log(rowsM)
+      console.log('312381273891371298')
     })
     const currentDay = new Date()
     const theYear = currentDay.getFullYear()
