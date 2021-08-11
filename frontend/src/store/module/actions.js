@@ -232,3 +232,8 @@ export function getTodoList ({ state }, departmentId) {
   const url = baseUrl + 'api/v1/todo/' + '?departmentId=' + departmentId
   return $axios.get(url)
 }
+
+export function dmRoomList ({ state }, id) {
+  const url = baseUrl + 'api/v1/dm/' + '?userId=' + id
+  return $axios.get(url)
+}

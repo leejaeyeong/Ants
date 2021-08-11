@@ -84,6 +84,8 @@ const chatMode = false
 
 const todoList = []
 
+const dmRoomList = []
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -108,6 +110,7 @@ export default function () {
     fileInfoList: fileInfoList,
     memberList: memberList,
     chatMode: chatMode,
-    todoList: todoList
+    todoList: todoList,
+    dmRoomList: dmRoomList
   }
 }
