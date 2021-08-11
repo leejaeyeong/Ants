@@ -1,28 +1,9 @@
 <template>
   <div class="content" align="center">
-    <div class="content-title">
-        <div class="row">
-          <div class="col-3">
-          </div>
-          <div class="col-5">
-            <!-- <input ref="input" /> -->
-            <input style="padding: 20px"
-            ref="input"
-            outlined v-model="router.currentRoute.value.query.fileName"
-            :dense="dense"
-            v-on:keyup="keyupEvent"
-            placeholder="파일명으로 자료 검색"
-            />
-          </div>
-          <div class="col-1">
-            <q-btn class="search-btn" @click="clickTest()">자료검색</q-btn>
-          </div>
-        </div>
-    </div>
     <div class="content-body">
       <div class="q-pa-md">
     <q-table
-      title="전체 파일 목록"
+      title="검색된 파일 목록"
       :rows="rows"
       :columns="columns"
       row-key="fileName"
@@ -53,6 +34,84 @@
         :max="pagesNumber"
         size="sm"
       />
+    </div>
+    <div class="content-title">
+        <div class="row">
+          <div class="col-3">
+          </div>
+          <div class="col-6">
+            <!-- <input ref="input" /> -->
+            <input id='searchInput'
+            style="padding: 15px; width: 500px; IME-MODE: inactive"
+            ref="input"
+            outlined v-model="router.currentRoute.value.query.fileName"
+            :dense="dense"
+            v-on:keyup="keyupEvent"
+            placeholder="파일명으로 자료 검색"
+            />
+          </div>
+          <div class="col-1">
+            <q-btn class="search-btn" @click="searchBarReset()">초기화</q-btn>
+          </div>
+        </div>
+    </div>
+    <div class="sub-side shadow-1">
+      <div align="right">
+        <span style="padding-right:15px;"></span>
+      </div>
+      <div align="center">
+        <!-- <div><span class="highlight-orange" style="font-size: 20px;">확장자 별 검색</span></div> -->
+        <div class="row" align="left" style="margin-top: 0px; margin-left: 150px;">
+          <div class="col-2">
+            <q-avatar size="60px" class="shadow-10" @click="clickExtension('.zip')">
+              <img src="https://blog.kakaocdn.net/dn/dK3cLI/btqGteLVjDW/ddq5d2gBFO0kxK6eMkreW1/img.png">
+              <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                  <strong style="font-size: 12px;">알집 자료 검색</strong>
+              </q-tooltip>
+            </q-avatar>
+          </div>
+          <div class="col-2">
+            <q-avatar size="60px" class="shadow-10" @click="clickExtension('.pdf')">
+              <img src="https://blog.kakaocdn.net/dn/cj4Y3U/btqMPi7uAh8/sYik4nsvvqUmG36Hhbwwj1/img.png">
+              <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                  <strong style="font-size: 12px;">pdf 자료 검색</strong>
+              </q-tooltip>
+            </q-avatar>
+          </div>
+          <div class="col-2">
+            <q-avatar size="60px" class="shadow-10" @click="clickExtension('.xlsx')">
+              <img src="data:image/png;base64,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">
+              <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                  <strong style="font-size: 12px;">엑셀 자료 검색</strong>
+              </q-tooltip>
+            </q-avatar>
+          </div>
+          <div class="col-2">
+            <q-avatar size="60px" class="shadow-10" @click="clickExtension('.hwp')">
+              <img src="https://lh3.googleusercontent.com/proxy/LN8tmUbRlarEWaIjpx8myVgVguxNxWiokw7jhU5qyK8XQK6A_KiZF8UsNzSW6U2KQNXiErnVsTPnDYCHZ8nj7_UhgCmJITu7dviYP3fg7oEp">
+              <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                  <strong style="font-size: 12px;">한글 자료 검색</strong>
+              </q-tooltip>
+            </q-avatar>
+          </div>
+          <div class="col-2">
+            <q-avatar size="60px" class="shadow-10" @click="clickExtension('.docx')">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Gc35vru52VOvdoidjxRXOHZjLdFOSJND7fh-ADfqKBqz3MMYLbW2II5thFpukmye2nY&usqp=CAU">
+              <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                  <strong style="font-size: 12px;">워드 자료 검색</strong>
+              </q-tooltip>
+            </q-avatar>
+          </div>
+          <div class="col-2">
+            <q-avatar size="60px" class="shadow-10">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU">
+              <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                  <strong style="font-size: 12px;">이미지 자료 검색</strong>
+              </q-tooltip>
+            </q-avatar>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
     </div>
@@ -115,7 +174,7 @@ export default defineComponent({
       sortBy: 'date',
       descending: false,
       page: 1,
-      rowsPerPage: 8
+      rowsPerPage: 6
       // rowsNumber: xx if getting data from a server
     })
     const keyupEvent = function (event) {
@@ -201,11 +260,14 @@ export default defineComponent({
         case '.pptx':
           imageUrl = 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
           break
+        case '.hwp':
+          imageUrl = 'https://lh3.googleusercontent.com/proxy/LN8tmUbRlarEWaIjpx8myVgVguxNxWiokw7jhU5qyK8XQK6A_KiZF8UsNzSW6U2KQNXiErnVsTPnDYCHZ8nj7_UhgCmJITu7dviYP3fg7oEp'
+          break
         case '.docx':
-          imageUrl = 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
+          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Gc35vru52VOvdoidjxRXOHZjLdFOSJND7fh-ADfqKBqz3MMYLbW2II5thFpukmye2nY&usqp=CAU'
           break
         case '.xlsx':
-          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFEz9UnOx3StKSJUQs12DuWje3MwDOV6yAfufygK38zgZIuNsizJimqpCRI6ae2gbJuD0&usqp=CAU'
+          imageUrl = 'data:image/png;base64,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'
           break
         case '.pdf':
           imageUrl = 'https://blog.kakaocdn.net/dn/cj4Y3U/btqMPi7uAh8/sYik4nsvvqUmG36Hhbwwj1/img.png'
@@ -221,8 +283,14 @@ export default defineComponent({
       }
       return imageUrl
     }
-    function clickTest () {
-      store.dispatch('module/loadFileDataByExtension', '.js')
+    function searchBarReset () {
+      const input = document.getElementById('searchInput')
+      console.log(input)
+      input.value = null
+      pageChange()
+    }
+    function clickExtension (extension) {
+      store.dispatch('module/loadFileDataByExtension', extension)
         .then(function (result) {
           console.log(result.data)
           for (let i = 0; i < result.data.length; i++) {
@@ -249,11 +317,12 @@ export default defineComponent({
       rows,
       pagesNumber: computed(() => Math.ceil(rows.length / pagination.value.rowsPerPage)),
       downloadFile,
-      clickTest,
+      clickExtension,
       keyupEvent,
       pageChange,
       router,
-      input
+      input,
+      searchBarReset
     }
   }
 })
@@ -265,7 +334,7 @@ export default defineComponent({
   height: 800px;
   position: absolute;
   left: 450px;
-  top: 35px;
+  top: 220px;
   /* background: orange; */
 }
 .content-title {
@@ -284,5 +353,21 @@ export default defineComponent({
 .search-btn {
   background-color: #00BF6F;
   height: 55px;
+}
+.highlight-orange {
+  background: linear-gradient(to top, orange 40%, transparent 40%);
+}
+.sub-side {
+  width: 1090px;
+  height: 115px;
+  position: absolute;
+  top: -140px;
+  left: 155px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid rgb(212, 212, 212);
+}
+.col-2 {
+  cursor: pointer;
 }
 </style>
