@@ -39,6 +39,32 @@
                     <q-btn @click="back" round color="amber" icon="reply" style="float:right; margin-top:5px; margin-right:5px;" type="submit"/>
                   </form>
                   <div id="dmChatWindow" class="q-pa-md row justify-center">
+                    <div v-for="history in dmHistory" :key="history.id">
+                      <div class='box1' v-show="history.user === loginUser.name">
+                        <div class='name1' style='font-weight:bold;'>
+                          {{ history.user }}
+                        </div>
+                        <div>
+                          <div class='left1'>
+                          </div>
+                          <div class='right1'>
+                            {{ history.message }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class='box' v-show="history.user !== loginUser.name">
+                        <div style='font-weight:bold;'>
+                          {{ history.user }}
+                        </div>
+                        <div>
+                          <div class='left'>
+                          </div>
+                          <div class='right'>
+                            {{ history.message }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div id="form">
@@ -46,7 +72,7 @@
                     <input v-model="sendTo.roomId" style="display:none">
                     <input v-model="loginUser.name" style="display:none">
                     <input id="chatMessage" style="display:inline-block; width:400px; height:47px;" class="form-control" placeholder="메세지 입력" v-model="message"/>
-                    <button id="chatSend" class="btn btn-default" type="submit" @click="sendDm(sendTo.roomId, loginUser.id, message)">보내기</button>
+                    <button id="chatSend" class="btn btn-default" type="submit" @click="sendDm(sendTo.roomId, loginUser.name, message)">보내기</button>
                   </form>
                 </div>
               </div>
@@ -78,6 +104,7 @@ export default defineComponent({
       name: '',
       roomId: ''
     }
+    const dmHistory = computed(() => store.getters['module/getDmHistory'])
     const message = ''
     onMounted(() => {
       store.dispatch('module/dmRoomList', store.getters['module/getLoginUser'].id)
@@ -129,6 +156,7 @@ export default defineComponent({
       store.dispatch('module/getDmHistory', roomId)
         .then(function (result) {
           console.log(result.data)
+          store.commit('module/setDmHistory', result.data)
         })
       sendTo.roomId = roomId
       sendTo.name = username
@@ -148,9 +176,6 @@ export default defineComponent({
           console.log(result.data)
         })
     }
-    const test = function () {
-      console.log('vue 함수 호출 테스트')
-    }
     return {
       dm: ref(false),
       memberList,
@@ -159,10 +184,10 @@ export default defineComponent({
       loginUser,
       sendTo,
       message,
+      dmHistory,
       enter,
       back,
-      sendDm,
-      test
+      sendDm
     }
   }
 })
@@ -236,5 +261,71 @@ export default defineComponent({
 }
 body {
   font-family: 'NEXON Lv1 Gothic OTF';
+}
+.box{
+    width:460px;
+    height:80px;
+    padding-left: 10%;
+}
+.left{
+    height:10px;
+    width:6px;
+    border-top-left-radius:30px;
+    border-bottom-left-radius:0px;
+    margin-left:10px;
+    position:relative;
+    top:21px;
+    display:inline-block;
+    background-color:#18C75E;
+}
+.right{
+    height:55px;
+    background-color:#18C75E;
+    display:inline-block;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    border-bottom-right-radius:10px;
+    line-height:55px;
+    font-size:20px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.box1{
+    width:460px;
+    height:80px;
+    padding-left: 10%;
+}
+
+.name1{
+    text-align:right;
+    margin-right:10px;
+}
+
+.left1{
+    height:10px;
+    width:6px;
+    border-top-right-radius:30px;
+    border-bottom-right-radius:0px;
+    margin-right:10px;
+    position:relative;
+    top:45px;
+    display:inline-block;
+    background-color:#18C75E;
+    float:right;
+}
+
+.right1{
+    height:55px;
+    background-color:#18C75E;
+    display:inline-block;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    border-bottom-left-radius:10px;
+    line-height:55px;
+    font-size:20px;
+    padding-left:10px;
+    padding-right:10px;
+    float:right;
 }
 </style>
