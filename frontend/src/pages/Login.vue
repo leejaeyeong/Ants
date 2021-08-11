@@ -83,7 +83,6 @@ export default defineComponent({
           localStorage.setItem('token', result.data.accessToken)
           localStorage.setItem('id', state.form.id)
           localStorage.setItem('password', state.form.password)
-          router.push('/main')
           store.dispatch('module/requestInfo')
             .then(response => {
               const userInfo = {
@@ -117,7 +116,8 @@ export default defineComponent({
                   }
                   store.commit('module/setRowsM', rowsM)
                   rowsM = []
-                  // router.go()
+                  store.commit('module/setChatMode', false)
+                  router.push('/main')
                 })
             }).catch(err => {
               console.log(err, '에러입니다')
