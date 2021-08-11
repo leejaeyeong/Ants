@@ -85,3 +85,11 @@ export function getChatMode (state) {
 export function getTodoList (state) {
   return state.todoList
 }
+
+export function getMarkList (state) {
+  return state.markList
+}
+
+export function getMark (state) {
+  return state.mark
+}

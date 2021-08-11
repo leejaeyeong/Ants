@@ -40,9 +40,8 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
     const columns = computed(() => store.getters['module/getColumns'])
-
+    const markList = computed(() => store.getters['module/getMarkList'])
     const rows = computed(() => store.getters['module/getRows'])
-    console.log(columns, rows, '보드')
     const pagination = ref({
       sortBy: 'desc',
       descending: false,
@@ -82,6 +81,16 @@ export default defineComponent({
                 tmp.push(result.data.comments[i])
               }
               store.commit('module/setComments',tmp)
+              const markList = store.getters['module/getMarkList']
+              for (let i = 0; i < markList.length; i++) {
+                if (row.id == markList[i].id) {
+                  store.commit('module/setMark', true)
+                  break
+                }
+                if (i == markList.length - 1) {
+                  store.commit('module/setMark', false)
+                }
+              }
               router.push('/boardDetail')
             })
         })
@@ -93,7 +102,8 @@ export default defineComponent({
       pagesNumber,
       form,
       search,
-      detail
+      detail,
+      markList
     }
   }
 })

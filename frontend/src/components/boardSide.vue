@@ -10,7 +10,7 @@
                 <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 2.5em; color: #18C75E;" name="turned_in_not"/>
                 <span class="list2">북마크한 글</span>
             </div>
-            <div class="list1">
+            <div @click="viewMe" class="list1">
                 <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 2.5em; color: #18C75E;" name="edit"/>
                 <span class="list2">내가 쓴 글</span>
             </div>
@@ -47,6 +47,7 @@ export default defineComponent({
       store.dispatch('module/board', { })
         .then(function (result) {
           for (let i = 0; i < result.data.length; i++) {
+            result.data[i].registrationTime = result.data[i].registrationTime.substr(0, 16)
             rows.push(result.data[i])
           }
           store.commit('module/setRows', rows)
@@ -60,13 +61,18 @@ export default defineComponent({
         })
     }
     const viewMark = function () {
-      store.commit('module/setRows', rows)
+      store.commit('module/setRows', store.getters['module/getMarkList'])
       router.push('/boardMark')
     }
     const viewType = function (id) {
       store.dispatch('module/boardType', id)
         .then(function (result) {
+          console.log(result.data)
           for (let i = 0; i < result.data.length; i++) {
+            if (id === 2) {
+              result.data[i].writer = '익명'
+            }
+            result.data[i].registrationTime = result.data[i].registrationTime.substr(0, 16)
             rows.push(result.data[i])
           }
           store.commit('module/setRows', rows)
@@ -76,13 +82,23 @@ export default defineComponent({
           router.push('/boardType')
         })
     }
+    const viewMe = function () {
+      store.dispatch('module/boardMe', store.getters['module/getLoginUser'].id)
+        .then(function (result) {
+          for (let i = 0; i < result.data.legnth; i++) {
+            result.data[i].registrationTime = result.data[i].registrationTime.substr(0, 16)
+          }
+          store.commit('module/setRows', result.data)
+        })
+    }
     return {
       outlinedAllInbox,
       boardList,
       mvWrite,
       viewAll,
       viewMark,
-      viewType
+      viewType,
+      viewMe
     }
   }
 })
