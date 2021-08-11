@@ -13,7 +13,7 @@ function dmSetConnected(connected) {
     $("#greetings").html("");
 }
 
-function dmConnect(room) {
+function dmConnect(room, name) {
     console.log("room: " + room);
     var dmSocket = new SockJS('/websocket');
     dmStompClient = Stomp.over(dmSocket);
@@ -24,8 +24,7 @@ function dmConnect(room) {
 //            dmShowGreeting(JSON.parse(greeting.body).content);
 //        });
         dmStompClient.subscribe('/topic/dm/' + room, function (chat) {
-            console.log(chat);
-        	dmShowChat(JSON.parse(chat.body));
+        	dmShowChat(JSON.parse(chat.body), name);
         });
     });
 }
@@ -50,8 +49,8 @@ function dmSendChat(room, name, message) {
 function dmShowGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
-function dmShowChat(dm) {
-    $("#dmChatWindow").append("<div>" + dm.name + " :text=" + dm.message + "</div>");
+function dmShowChat(dm, myname) {
+    $("#dmChatWindow").append("<div class=\"test\">" + dm.name + " :text=" + dm.message + "</div>");
 }
 
 //$(function () {
