@@ -30,6 +30,9 @@ public class DmRoomRepositorySupport {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private DmRepository dmRepository;
+
     QDmRoom qDmRoom = QDmRoom.dmRoom;
     QDm qDm = QDm.dm;
 
@@ -78,7 +81,20 @@ public class DmRoomRepositorySupport {
         List<Dm> dmHistoryList = jpaQueryFactory.select(qDm).from(qDm)
                 .where(qDm.roomId.eq(roomId)).fetch();
 
-        if(dmHistoryList.size() == 0) return Optional.empty();
+        if(dmHistoryList == null) return Optional.empty();
         return Optional.of(dmHistoryList);
+    }
+
+    public Dm putDm(String roomId, String name, String message){
+        DmRoom dmRoom = jpaQueryFactory.select(qDmRoom).from(qDmRoom)
+                .where(qDmRoom.roomId.eq(roomId)).fetchOne();
+
+        Dm dm = new Dm();
+        dm.setMessage(message);
+        dm.setRoomId(roomId);
+        dm.setUser(name);
+
+
+        return dmRepository.save(dm);
     }
 }

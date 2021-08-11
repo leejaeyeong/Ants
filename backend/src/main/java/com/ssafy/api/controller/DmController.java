@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -48,6 +49,14 @@ public class DmController {
         //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
         List<Dm> list = dmRoomService.getDmHistory(roomId);
         return ResponseEntity.ok(list);
+    }
+
+    @PostMapping("/send")
+    public ResponseEntity<String> sendDm(
+            @RequestBody Dm dm
+    ){
+        dmRoomService.putDm(dm.getRoomId(), dm.getUser(), dm.getMessage());
+        return ResponseEntity.ok("저장 완료");
     }
 }
 

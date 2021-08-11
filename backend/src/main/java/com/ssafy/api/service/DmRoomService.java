@@ -10,4 +10,5 @@ public interface DmRoomService {
 
     public List<DmRoomRes> getDmRoomList(String userId);
     public List<Dm> getDmHistory(String roomId);
+    public Dm putDm(String roomId, String name, String message);
 }
