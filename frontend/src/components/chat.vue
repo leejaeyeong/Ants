@@ -13,7 +13,7 @@
               <div v-show="!chatMode">
                 <h5 style="margin:10px 10px; font-weight:bold;">그룹원 목록</h5>
                 <div id="list">
-                    <div @click="enter" class="det" v-for="member in memberList" :key="member.userId">
+                    <!-- <div @click="enter" class="det" v-for="member in memberList" :key="member.userId">
                       <div class="row">
                         <div class="col-3">
                           <img :src="member.profileLocation" style="margin-top:8px; width:70px; height:70px; border-radius:50px; margin-left:20px;">
@@ -22,80 +22,23 @@
                           {{ member.name }} {{ member.department }}
                         </div>
                       </div>
+                    </div> -->
+                    <div v-for="dmRoom in dmRoomList" :key="dmRoom.roomId">
+                      {{ dmRoom.username }} {{ dmRoom.departmentName }}
+                      <form onsubmit="dmConnect($(this).find('input').eq(0).val()); return false;">
+                        <input :value="dmRoom.roomId" style="display:none">
+                        <button type="submit" @click="enter(dmRoom.roomId, dmRoom.username)"/>
+                      </form>
                     </div>
                 </div>
               </div>
               <div id="chat" v-show="chatMode">
                 <div id="conversation">
-                  <q-btn @click="back" round color="amber" icon="reply" style="float:right; margin-top:5px; margin-right:5px;"/>
-                  <div class="q-pa-md row justify-center">
+                  <form onsubmit="dmDisconnect(); return false;">
+                    <q-btn @click="back" round color="amber" icon="reply" style="float:right; margin-top:5px; margin-right:5px;" type="submit"/>
+                  </form>
+                  <div id="dmChatWindow" class="q-pa-md row justify-center">
                     <div style="width: 100%; max-width: 400px">
-                      <q-chat-message
-                        name="나"
-                        avatar="https://cdn.quasar.dev/img/avatar1.jpg"
-                        :text="['담배피실?']"
-                        sent
-                      />
-                      <q-chat-message
-                        name="정범진"
-                        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
-                        :text="['ㅇㅋㅇㅋ']"
-                      />
-                      <q-chat-message
-                        name="나"
-                        avatar="https://cdn.quasar.dev/img/avatar1.jpg"
-                        :text="['담배피실?']"
-                        sent
-                      />
-                      <q-chat-message
-                        name="정범진"
-                        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
-                        :text="['ㅇㅋㅇㅋ']"
-                      />
-                      <q-chat-message
-                        name="나"
-                        avatar="https://cdn.quasar.dev/img/avatar1.jpg"
-                        :text="['담배피실?']"
-                        sent
-                      />
-                      <q-chat-message
-                        name="정범진"
-                        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
-                        :text="['ㅇㅋㅇㅋ']"
-                      />
-                      <q-chat-message
-                        name="나"
-                        avatar="https://cdn.quasar.dev/img/avatar1.jpg"
-                        :text="['담배피실?']"
-                        sent
-                      />
-                      <q-chat-message
-                        name="정범진"
-                        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
-                        :text="['ㅇㅋㅇㅋ']"
-                      />
-                      <q-chat-message
-                        name="나"
-                        avatar="https://cdn.quasar.dev/img/avatar1.jpg"
-                        :text="['담배피실?']"
-                        sent
-                      />
-                      <q-chat-message
-                        name="정범진"
-                        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
-                        :text="['ㅇㅋㅇㅋ']"
-                      />
-                      <q-chat-message
-                        name="나"
-                        avatar="https://cdn.quasar.dev/img/avatar1.jpg"
-                        :text="['담배피실?']"
-                        sent
-                      />
-                      <q-chat-message
-                        name="정범진"
-                        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
-                        :text="['ㅇㅋㅇㅋ']"
-                      />
                       <q-chat-message
                         name="나"
                         avatar="https://cdn.quasar.dev/img/avatar1.jpg"
@@ -111,8 +54,12 @@
                   </div>
                 </div>
                 <div id="form">
-                  <input id="chatMessage" style="display:inline-block; width:400px; height:47px;" class="form-control" placeholder="메세지 입력"/>
-                  <button id="chatSend" class="btn btn-default" type="submit">보내기</button>
+                  <form onsubmit="dmSendChat($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val(), $(this).find('input').eq(2).val()); return false;">
+                    <input v-model="sendTo.roomId" style="display:none">
+                    <input v-model="sendTo.name" style="display:none">
+                    <input id="chatMessage" style="display:inline-block; width:400px; height:47px;" class="form-control" placeholder="메세지 입력"/>
+                    <button id="chatSend" class="btn btn-default" type="submit">보내기</button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -137,7 +84,19 @@ export default defineComponent({
     const store = useStore()
     const memberList = computed(() => store.getters['module/getMemberList'])
     const chatMode = computed(() => store.getters['module/getChatMode'])
+    const dmRoomList = computed(() => store.getters['module/getDmRoomList'])
+    const loginUser = computed(() => store.getters['module/getLoginUser'])
+    const sendTo = {
+      name: '',
+      roomId: ''
+    }
     onMounted(() => {
+      store.dispatch('module/dmRoomList', store.getters['module/getLoginUser'].id)
+        .then(function (result) {
+          console.log(result.data, '받은 데이터')
+          store.commit('module/setDmRoomList', result.data)
+          console.log(store.getters['module/getDmRoomList'], '테스트 확인')
+        })
       store.dispatch('module/memberList')
         .then(function (result) {
           store.dispatch('module/departmentInfo')
@@ -177,7 +136,9 @@ export default defineComponent({
         }
       })
     })
-    const enter = function () {
+    const enter = function (roomId, username) {
+      sendTo.roomId = roomId
+      sendTo.name = username
       store.commit('module/setChatMode', true)
     }
     const back = function () {
@@ -187,6 +148,9 @@ export default defineComponent({
       dm: ref(false),
       memberList,
       chatMode,
+      dmRoomList,
+      loginUser,
+      sendTo,
       enter,
       back
     }
