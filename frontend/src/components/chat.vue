@@ -58,12 +58,10 @@
 <script>
 import { defineComponent, onMounted, ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import BoardSide from './boardSide.vue'
 
 export default defineComponent({
   name: 'mainpage',
   components: {
-    BoardSide
   },
   methods: {
     mvAttendance () {
@@ -76,7 +74,6 @@ export default defineComponent({
     const chatMode = computed(() => store.getters['module/getChatMode'])
     const dmRoomList = computed(() => store.getters['module/getDmRoomList'])
     const loginUser = computed(() => store.getters['module/getLoginUser'])
-    const sazin = localStorage.getItem('profileLocation')
     const sendTo = {
       name: '',
       roomId: ''
