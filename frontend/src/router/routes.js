@@ -1,3 +1,4 @@
+
 const Swal = require('sweetalert2')
 const userstate = localStorage.getItem('userState')
 
@@ -14,24 +15,23 @@ const routes = [
     path: '/main',
     component: () => import('layouts/main/MainLayout.vue'),
     redirect: '/mainpage',
-    beforeEnter: (to, from, next) => {
-      if (userstate !== '3') {
-        next()
-        Swal.fire({
-          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">환영합니다.</span>',
-          confirmButtonColor: '#19CE60',
-          confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
-        })
-      } else if (userstate === '3') {
-        console.log(userstate)
-        next('/')
-        Swal.fire({
-          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">승인 대기 상태입니다.</span>',
-          confirmButtonColor: '#ce1919',
-          confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
-        })
-      }
-    },
+    // beforeEnter: (to, from, next) => {
+    //   if (userstate === '3') {
+    //     next('/')
+    //     Swal.fire({
+    //       title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">승인 대기 상태입니다.</span>',
+    //       confirmButtonColor: '#ce1919',
+    //       confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+    //     })
+    //   } else {
+    //     next()
+    //     Swal.fire({
+    //       title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">환영합니다.</span>',
+    //       confirmButtonColor: '#19CE60',
+    //       confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+    //     })
+    //   }
+    // },
     children: [
       // 메인 대시보드
       {
