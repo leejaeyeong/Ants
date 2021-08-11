@@ -18,7 +18,6 @@
       <div class="q-pa-md q-gutter-sm">
         <q-editor v-model="form.content" min-height="32rem" style="margin-left:22px; font-size:30px;"/>
       </div>
-      
   </div>
 
 </template>
@@ -52,11 +51,6 @@ export default defineComponent({
       console.log(form.content)
     }
     function regist () {
-      alert('타입 : ' + form.type)
-      alert('제목 : ' + form.title)
-      alert('내용 : ' + form.content)
-      alert('이미지 :' + form.image)
-
       const frm = new FormData()
       frm.append('type', 1) //form.type
       frm.append('writer', localStorage.getItem('id'))
@@ -70,6 +64,20 @@ export default defineComponent({
                 confirmButtonColor: '#19CE60',
                 confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
               })
+               store.dispatch('module/board', { })
+                .then(function (result) {
+                  for (let i = 0; i < result.data.length; i++) {
+                    rows.push(result.data[i])
+                  }
+                  store.commit('module/setRows', rows)
+                  rows = []
+                  const pn = Math.ceil(rows.length / 8)
+                  store.commit('module/setPageNumber', pn)
+                  router.push('/board')
+                })
+                .catch(function () {
+                  alert('오류발생')
+                })
             })
             .catch(function (err) {
               alert(err)
