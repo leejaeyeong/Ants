@@ -37,7 +37,7 @@
       />
     </div>
     <div class="rightside">
-      <q-list bordered padding>
+      <q-list padding no-data-label="I didn't find anything for you" >
         <q-item>
           <q-item-section>
             <q-item-label>승인 대기</q-item-label>
@@ -48,29 +48,32 @@
             <q-item-label caption>5 min ago</q-item-label>
           </q-item-section>
         </q-item>
-        <div v-for="(userInfo, idx) in waitmemeber" :key="idx">
-          <div v-if="waitmemeber.length > 0">
-            <q-item>
-              <q-item-section top avatar>
-                <q-avatar>
-                  <img :src= "userInfo.profileLocation" >
-                </q-avatar>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label>{{ userInfo.name }}</q-item-label>
-                <q-item-label caption>{{ userInfo.email }}</q-item-label>
-                <q-item-label caption style>{{ userInfo.department }}</q-item-label>
-              </q-item-section>
-              <q-item-section side top style="margin-top:-5px;">
-                <q-badge label="NEW" />
-              </q-item-section>
-              <q-item-section side @click="changeUser(userInfo.userId)">
-                <q-icon name="send" color="green" />
-              </q-item-section>
-            </q-item>
+        <q-separator spaced />
+        <q-scroll-area style="height: 410px; max-width: 400px;">
+          <div v-for="(userInfo, idx) in waitmemeber" :key="idx">
+            <div v-if="waitmemeber.length > 0">
+              <q-item>
+                <q-item-section top avatar>
+                  <q-avatar>
+                    <img :src= "userInfo.profileLocation" >
+                  </q-avatar>
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>{{ userInfo.name }}</q-item-label>
+                  <q-item-label caption>{{ userInfo.email }}</q-item-label>
+                  <q-item-label caption style>{{ userInfo.department }}</q-item-label>
+                </q-item-section>
+                <q-item-section side top style="margin-top:-5px;">
+                  <q-badge label="NEW" />
+                </q-item-section>
+                <q-item-section side @click="changeUser(userInfo.userId)">
+                  <q-icon name="send" color="green" clickable />
+                </q-item-section>
+              </q-item>
+            </div>
+            <div v-else>승인 대기중인 사용자가 없습니다.</div>
           </div>
-          <div v-else>승인 대기중인 사용자가 없습니다.</div>
-        </div>
+        </q-scroll-area>
       </q-list>
     </div>
   </div>
@@ -101,6 +104,7 @@ const columns = [
 
 export default {
   setup () {
+    const Swal = require('sweetalert2')
     const router = useRouter()
     const pagination = ref({
       sortBy: 'desc',
@@ -122,28 +126,38 @@ export default {
       }
     }
     const pagesNumber = computed(() => Math.ceil(memberList.value.length / pagination.value.rowsPerPage))
-    function changeUser (id) {
+    const changeUser = function (id) {
+      console.log('유저권한변경', id)
       store.dispatch('module/chageUser', id)
         .then(function (res) {
-          console.log(res)
-          store.dispatch('module/memberList')
-            .then(function (result) {
-              for (let i = 0; i < result.data.length; i++) {
-                for (let j = 0; j < res.data.length; j++) {
-                  if (result.data[i].department === res.data[j].id) {
-                    result.data[i].department = res.data[j].departmentName
-                  }
-                }
-              }
-              console.log('그룹리스트')
-              store.commit('module/setMemberList', result.data)
-            })
-          console.log('되는거야 마는거야')
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">유저 권한변경이 완료되었습니다.</span>',
+            confirmButtonColor: '#19CE60',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
           router.go(0)
         })
-        .catch(function (err) {
-          console.log(err)
-        })
+      //     store.dispatch('module/memberList')
+      //       .then(function (result) {
+      //         console.log(res, 'bbbbbbbbbbbbbbbbb')
+      //         for (let i = 0; i < result.data.length; i++) {
+      //           for (let j = 0; j < res.data.length; j++) {
+      //             if (result.data[i].department === res.data[j].id) {
+      //               result.data[i].department = res.data[j].departmentName
+      //               console.log(res, 'ccccccccccccccccc')
+      //             }
+      //           }
+      //         }
+      //         console.log('그룹리스트')
+      //         store.commit('module/setMemberList', result.data)
+      //         console.log(store.getters['module/getMemberList'], '체인지유저')
+      //       })
+      //     console.log('되는거야 마는거야')
+      //     router.go(0)
+      //   })
+      //   .catch(function (err) {
+      //     console.log(err)
+      //   })
     }
     return {
       pagination,
@@ -160,12 +174,12 @@ export default {
 
 <style>
 #mainContent{
-  width:100%;
-  height:940px;
+  width:1858px;
+  height:876px;
   float:right;
   position: absolute;
   top: 60px;
-  left: 70px;
+  left: 60px;
   border-bottom:0.5px solid rgb(212, 212, 212);
   background-color: rgb(242, 247, 244);
 }
@@ -174,6 +188,7 @@ export default {
   margin-top: 55px;
   width: 1200px;
   height: 600px;
+  border-radius: 12px;
 }
 .my-table-details {
   font-size: 0.85em;
@@ -189,9 +204,11 @@ export default {
   height: 500px;
   float: right;
   position: absolute;
-  bottom: 285px;
+  bottom: 220px;
   margin-left: 1325px;
   box-shadow: 5px 5px 30px #a0a0a0;
+  border-radius: 12px;
+  animation: rightFadeIn 0.9s ease-in-out;
 }
 .name{
   display:inline-block;
@@ -204,5 +221,15 @@ export default {
   justify-content: center;
   margin-top: 15px;
   margin-right: 500px;
+}
+@keyframes rightFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 3;
+    transform: none;
+  }
 }
 </style>

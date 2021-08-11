@@ -1,15 +1,15 @@
 <template>
   <div id="myData">
     <div class="q-pa-md">
-      <section class="section">
-        <div class="subtitle">
-          <q-btn round color="secondary" label="&lt;" @click="calendarData(-1)"/>
+      <div class="section">
+        <div class="subtitle txt">
+          <q-btn flat round color="white" text-color="black" label="&lt;" @click="calendarData(-1)"/>
           {{ year }}년 {{ month }}월
-          <q-btn round color="secondary" label="&gt;" @click="calendarData(1)"/>
+          <q-btn flat round color="white" text-color="black" label="&gt;" @click="calendarData(1)"/>
         </div>
-        <q-markup-table separator="cell" flat bordered class="table has-text-centered">
+        <q-markup-table separator="cell" flat bordered class=" has-text-centered calendar">
           <thead>
-            <th v-for="day in days" :key="day">{{ day }}</th>
+            <th v-for="day in days" :key="day" style="background-color: rgb(3 185 74); font-size: 15px;">{{ day }}</th>
           </thead>
           <tbody>
             <tr v-for="(date, idx) in dates" :key="idx">
@@ -17,7 +17,7 @@
                 v-for="(day, secondIdx) in date"
                 :key="secondIdx"
                 class="q-td--no-hover"
-                style="height: 140px; width:130px;"
+                style="height: 130px; width:115px;"
               >
                 <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
                 <span v-else-if="(secondIdx === 0)" style="color: red;">{{ day }}</span>
@@ -32,7 +32,7 @@
             </tr>
           </tbody>
         </q-markup-table>
-      </section>
+      </div>
     </div>
   </div>
 </template>
@@ -188,6 +188,19 @@ export default {
 </script>
 
 <style scoped>
+.section{
+  width: 1450px;
+  margin-left: 170px;
+  margin-top: -20px;
+  height: 770px;
+}
+.calendar{
+  margin-top: -18px;
+  border-radius: 10px;
+}
+.txt{
+  font-size: 21px;
+}
 .today {
   display: block;
   width: 32px;
@@ -206,7 +219,7 @@ export default {
   margin: 2% auto;
 }
 .work {
-  color: blue;
+  color: rgb(219, 130, 14);
   font-size: 16px;
   text-align: center;
   width: 50px;

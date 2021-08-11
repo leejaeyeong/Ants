@@ -91,11 +91,14 @@ export default defineComponent({
                 department: response.data.department,
                 profileLocation: response.data.profileLocation,
                 userState: response.data.state,
-                dpID: response.data.department
+                dpID: response.data.department,
+                position: response.data.position
               }
+              console.log('유저정보', userInfo)
               localStorage.setItem('name', userInfo.name)
               localStorage.setItem('userState', userInfo.userState)
               localStorage.setItem('departmentId', userInfo.department)
+              localStorage.setItem('position', userInfo.position)
               store.dispatch('module/departmentInfo')
                 .then(function (result) {
                   for (let i = 0; i < result.data.length; i++) {

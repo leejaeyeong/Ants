@@ -16,21 +16,16 @@ export default defineComponent({
 
 <style scoped>
 #myData{
-  width: 1500px;
-  height: 850px;
+  width:1858px;
+  height:876px;
+  float:right;
   position: absolute;
-  top:65px;
-  left:200px;
+  top: 60px;
+  left: 60px;
+  border-bottom:0.5px solid rgb(212, 212, 212);
+  background-color: rgb(242, 247, 244);
 }
-table, td, th{
-  /* border:3px solid #6581A6; */
-  border:1.5px solid rgb(153, 149, 149);
-  border-collapse: collapse;
-}
-.left{
-  background-color: #f9f9f9;
-  font-weight:bold;
-}
+
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
