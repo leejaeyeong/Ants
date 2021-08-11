@@ -59,13 +59,15 @@ public class DmRoomRepositorySupport {
                     dmRoom.setProfileLocation2(userService.getUserByUserId(list2.get(j).getUserId()).getProfileLocation());
                     dmRoom.setRoomId(UUID.randomUUID().toString());
 
-                    if(dmRoom.getUser1() == user1 || dmRoom.getUser2() == user1){
+                    if(dmRoom.getUser1().equals(user1) || dmRoom.getUser2().equals(user1)){
                         list.add(dmRoom);
                     }
 
                     dmRoomRepository.save(dmRoom);
                 } else {
-                    list.add(sample);
+                    if(sample.getUser1().equals(user1) || sample.getUser2().equals(user1)){
+                        list.add(sample);
+                    }
                 }
             }
         }
@@ -78,9 +80,5 @@ public class DmRoomRepositorySupport {
 
         if(dmHistoryList.size() == 0) return Optional.empty();
         return Optional.of(dmHistoryList);
-    }
-
-    public void putDm(Dm dm){
-
     }
 }

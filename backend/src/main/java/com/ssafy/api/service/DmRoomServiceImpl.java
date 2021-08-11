@@ -3,6 +3,7 @@ package com.ssafy.api.service;
 import com.ssafy.api.response.DmRoomRes;
 import com.ssafy.db.entity.Dm;
 import com.ssafy.db.entity.DmRoom;
+import com.ssafy.db.repository.DmRoomRepository;
 import com.ssafy.db.repository.DmRoomRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class DmRoomServiceImpl implements DmRoomService{
 
     @Autowired
     private DmRoomRepositorySupport dmRoomRepositorySupport;
+
+    @Autowired
+    DmRoomRepository dmRoomRepository;
 
     @Override
     public List<DmRoomRes> getDmRoomList(String userId){
@@ -45,4 +49,9 @@ public class DmRoomServiceImpl implements DmRoomService{
         List<Dm> dmHistory = dmRoomRepositorySupport.getDmHistory(roomId).get();
         return dmHistory;
     }
+
+//    public Dm putDm(Dm dm){
+//        Dm target = dm;
+//        return dmRoomRepository.save(target);
+//    }
 }
