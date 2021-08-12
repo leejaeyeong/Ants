@@ -1,6 +1,8 @@
 import $axios from 'axios'
 
 const baseUrl = 'https://localhost:8443/'
+// const baseUrl = 'https://i5b103.p.ssafy.io:8443/'
+
 // 로그인
 export function login ({ state }, payload) {
   console.log('requestLogin', state, payload)
@@ -96,8 +98,8 @@ export function loadAttendanceByWeek ({ state }, payload) {
 }
 
 export function getRooms () {
-  const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
-  return rooms
+  const url = baseUrl + 'api/v1/rtc/'
+  return $axios.get(url)
 }
 
 export function board ({ state }, payload) {
