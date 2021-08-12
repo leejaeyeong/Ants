@@ -4,27 +4,31 @@
       <h6 ><span class="highlight-green">파일 업로드</span></h6>
     </div>
     <div class="row">
+      <!-- 파일 지정된 상태 -->
     <div v-if="form.images" class="margin-auto file-frame"
     @drop.prevent="dropInputTag($event)"
+    @dragenter="dragEnter()"
+    @dragleave="dragLeave()"
     @dragover.prevent>
     <div style="margin-left: 60px; margin-top:10px;">
       <img :src="form.images" alt="image" class="present-image"><br>
     </div>
-    <div align="center">안녕하dasdasdas세요 안녕</div>
+    <div align="center">{{form.image.name}}</div>
     </div>
+    <!-- 파일 미지정 상태 -->
     <div id="unSelectFileFrame" v-else class="margin-auto file-frame"
       @click="clickInputTag()"
       @drop.prevent="dropInputTag($event)"
-      @dragenter="test()"
+      @dragenter="dragEnter()"
       @dragleave="dragLeave()"
       @dragover.prevent>
       <div align="center" style="line-height:150px">파일을 끌어서 올려주세요</div>
-      <input ref="image" id="input" type="file" name="image" @change="uploadImage()" v-show="false">
+      <input ref="image" id="input" type="file" name="image" @change="presentImage()" v-show="false">
     </div>
   </div>
   <div class="row">
     <div class="margin-auto">
-      <q-btn class="reset-btn">초기화</q-btn>&nbsp;&nbsp;&nbsp;
+      <q-btn @click="reset" class="reset-btn">초기화</q-btn>&nbsp;&nbsp;&nbsp;
       <q-btn @click="regist" class="upload-btn ">파일 업로드</q-btn>
     </div>
   </div>
@@ -83,6 +87,10 @@ export default defineComponent({
         confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
       })
     }
+    function reset () {
+      form.image = null
+      form.images = null
+    }
     function regist () {
       if (form.image == null) {
         sweetAlert('업로드할 파일을 지정해주세요.')
@@ -104,28 +112,11 @@ export default defineComponent({
           sweetAlert('파일 업로드 중 문제가 발생했습니다.')
         })
     }
-    // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
-    function imgLabelClick () {
-      const inputImg = document.getElementById('profile_img_upload') // input file 태그 저장
-      console.log(inputImg)
-      inputImg.click() // 클릭이벤트 실행
-    }
-    function uploadImage (file) {
-      const xxx = new FormData()
-      //   const image = file
+    function presentImage (file) {
+      console.log('presentImage start')
       form.images = URL.createObjectURL(file)
       form.image = file
-      xxx.append('file', file)
-      console.log(xxx)
-      console.log('이게 되어야되는데 업로드')
-      // store.dispatch('module/uploadFile', xxx)
-      //   .then(function (result) {
-      //     console.log(result.data)
-      //   })
-      //   .catch(function (err) {
-      //     alert(err)
-      //   })
-      // 엑시오스
+      console.log('presentImage start')
     }
     function detailClick () {
       form.subSdieVisible = !form.subSdieVisible
@@ -135,24 +126,30 @@ export default defineComponent({
       form.subSdieVisible = false
       console.log('????')
     }
-    function test () {
+    function dragEnter () {
       const frame = document.getElementById('unSelectFileFrame')
       frame.style.borderColor = 'green'
     }
     function dragLeave () {
       const frame = document.getElementById('unSelectFileFrame')
-      frame.style.borderColor = 'black'
+      frame.style.borderColor = 'gray'
     }
     function dropInputTag (event) {
-      console.log('이게 되어야되는데 드롭다운')
+      console.log('영역안에 파일이 지정됨')
       const file = Array.from(event.dataTransfer.files, v => v)[0]
-      uploadImage(file)
+      // 파일이 jpg, png가 아니면 다른 파일 객체에
+      const extension = file.name.split('.')[1] // jpg, zip 등
+      console.log(extension)
+      console.log(file)
+      presentImage(file)
+      console.log('영역안에 파일이 지정됨 end')
     }
     function clickInputTag () {
-      console.log('이게 되어야되는데 클릭?')
+      console.log('영역 안을 클릭함')
       // this.$refs.image.click()
       // const file = new File(['image'], './aaa.jpg')
-      form.images = '/media/profile/test-1/test.gif'// URL.createObjectURL(file)
+      // form.images = '/media/profile/test-1/test.gif' URL.createObjectURL(file)
+      console.log('영역 안을 클릭함 end')
     }
     function loadFileData () {
       store.dispatch('module/loadFileData')
@@ -208,18 +205,18 @@ export default defineComponent({
       return imageUrl
     }
     return {
-      imgLabelClick,
       form,
       regist,
-      uploadImage,
+      presentImage,
       dropInputTag,
       clickInputTag,
-      test,
+      dragEnter,
       dragLeave,
       sweetAlert,
       departmentInfo,
       detailClick,
-      close
+      close,
+      reset
     }
   }
 })
