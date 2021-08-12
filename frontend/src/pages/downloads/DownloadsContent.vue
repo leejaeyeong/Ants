@@ -104,7 +104,7 @@
           </div>
           <div class="col-2">
             <q-avatar size="60px" class="shadow-10">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU">
+              <img src="https://us.123rf.com/450wm/dxinerz/dxinerz1509/dxinerz150901426/45612323-jpg-%ED%8C%8C%EC%9D%BC-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6">
               <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong style="font-size: 12px;">이미지 자료 검색</strong>
               </q-tooltip>
@@ -276,7 +276,7 @@ export default defineComponent({
         case '.png':
         case '.JPG':
         case '.PNG':
-          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU'
+          imageUrl = 'https://us.123rf.com/450wm/dxinerz/dxinerz1509/dxinerz150901426/45612323-jpg-%ED%8C%8C%EC%9D%BC-%EC%95%84%EC%9D%B4%EC%BD%98.jpg?ver=6'
           break
         default:
           imageUrl = 'https://i.pinimg.com/474x/78/6d/27/786d27105f7e9f02f92c31040169b2de.jpg'
