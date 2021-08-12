@@ -102,3 +102,7 @@ export function getDmRoomList (state) {
 export function getDmHistory (state) {
   return state.dmHistory
 }
+
+export function getFileImage (state) {
+  return state.fileImage
+}
