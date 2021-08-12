@@ -98,3 +98,7 @@ export function getMark (state) {
 export function getDmRoomList (state) {
   return state.dmRoomList
 }
+
+export function getDmHistory (state) {
+  return state.dmHistory
+}

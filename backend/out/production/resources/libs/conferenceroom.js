@@ -25,7 +25,7 @@ window.onbeforeunload = function() {
 };
 
 ws.onmessage = function(message) {
-	var parsedMessage = JSON.parse(message.data);
+	let parsedMessage = JSON.parse(message.data);
 	console.info('Received message: ' + message.data);
 
 	switch (parsedMessage.id) {
@@ -56,13 +56,13 @@ ws.onmessage = function(message) {
 
 function register() {
 	name = document.getElementById('name').value;
-	var room = document.getElementById('roomName').value;
+	let room = document.getElementById('roomName').value;
 
 	document.getElementById('room-header').innerText = 'ROOM ' + room;
 	document.getElementById('join').style.display = 'none';
 	document.getElementById('room').style.display = 'block';
 
-	var message = {
+	let message = {
 		id : 'joinRoom',
 		name : name,
 		room : room,
@@ -71,24 +71,22 @@ function register() {
 	sendMessage(message);
 }
 
-function joinConference(name, room) {
+function joinConference(n, r) {
 //	name = document.getElementById('joinUser').value;
 //	var room = document.getElementById('joinConferenceRoom').value;
 //    console.log($(this));
-    console.log(name);
-    console.log(room);
 //
 	document.getElementById('room-header').innerText = 'ROOM ' + room;
 	document.getElementById('join').style.display = 'none';
 	document.getElementById('room').style.display = 'block';
 
-	var message = {
+	let m = {
 		id : 'joinRoom',
-		name : name,
-		room : room,
+		name : n,
+		room : r,
 	}
-	connect(room);
-	sendMessage(message);
+	connect(r);
+	sendMessage(m);
 }
 
 function onNewParticipant(request) {
@@ -113,7 +111,7 @@ function callResponse(message) {
 }
 
 function onExistingParticipants(msg) {
-	var constraints = {
+	let constraints = {
 		audio : true,
 		video : {
 			mandatory : {
@@ -124,11 +122,11 @@ function onExistingParticipants(msg) {
 		}
 	};
 	console.log(name + " registered in room " + room);
-	var participant = new Participant(name);
+	let participant = new Participant(name);
 	participants[name] = participant;
-	var video = participant.getVideoElement();
+	let video = participant.getVideoElement();
 
-	var options = {
+	let options = {
 	      localVideo: video,
 	      mediaConstraints: constraints,
 	      onicecandidate: participant.onIceCandidate.bind(participant)
@@ -149,7 +147,7 @@ function leaveRoom() {
 		id : 'leaveRoom'
 	});
 
-	for ( var key in participants) {
+	for ( let key in participants) {
 		participants[key].dispose();
 	}
 
@@ -161,11 +159,11 @@ function leaveRoom() {
 }
 
 function receiveVideo(sender) {
-	var participant = new Participant(sender);
+	let participant = new Participant(sender);
 	participants[sender] = participant;
-	var video = participant.getVideoElement();
+	let video = participant.getVideoElement();
 
-	var options = {
+	let options = {
       remoteVideo: video,
       onicecandidate: participant.onIceCandidate.bind(participant)
     }
@@ -187,7 +185,7 @@ function onParticipantLeft(request) {
 }
 
 function sendMessage(message) {
-	var jsonMessage = JSON.stringify(message);
+	let jsonMessage = JSON.stringify(message);
 	console.log('Sending message: ' + jsonMessage);
 	ws.send(jsonMessage);
 }
@@ -239,8 +237,8 @@ function disconnect() {
 //    sendChat();
 //}
 
-function sendChat(name, message, room) {
-	stompClient.send("/app/" + room, {}, JSON.stringify({'name': name, 'message': message}));
+function sendChat(n, m, r) {
+	stompClient.send("/app/" + r, {}, JSON.stringify({'name': n, 'message': m}));
 }
 
 function showGreeting(message) {
@@ -251,11 +249,11 @@ function showChat(chat) {
     $('#chatMessage').val('');
 }
 
-$(function () {
-    $('form').on('submit', function (e) {
-        e.preventDefault();
-    });
-    console.log("hi");
+//$(function () {
+//    $('form').on('submit', function (e) {
+//        e.preventDefault();
+//    });
+//    console.log("hi");
 //    connect();
 //    sendName();
 //    sendChat();
@@ -266,4 +264,4 @@ $(function () {
 //    $("#disconnect").click(function() { disconnect(); });
 //    $("#chatSend").click(function() { sendName(); });
 //    $("#chatSend").click(function(){ sendChat(); });
-});
+//});

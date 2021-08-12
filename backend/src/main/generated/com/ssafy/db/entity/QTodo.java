@@ -31,6 +31,8 @@ public class QTodo extends EntityPathBase<Todo> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
+    public final BooleanPath isDone = createBoolean("isDone");
+
     public final TimePath<java.time.LocalTime> time = createTime("time", java.time.LocalTime.class);
 
     public final StringPath title = createString("title");

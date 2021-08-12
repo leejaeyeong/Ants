@@ -8,7 +8,7 @@
                       <input v-show="false" v-model="state.roomName" style="margin-top:10px;" type="text" name="room" id="roomName" placeholder="Room" required>
                   </p>
                   <p>
-                      <input v-show="false" v-model="state.id" type="text" name="name" id="name" placeholder="Username" required>
+                      <input v-show="false" v-model="state.id" type="text" name="name" id="rtcName" placeholder="Username" required>
                   </p>
                   <p class="submit"><input id="submit" type="submit" name="commit" value="회의생성" @click="getRoomName(state.roomName)">
                   </p>

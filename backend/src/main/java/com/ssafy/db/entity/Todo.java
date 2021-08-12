@@ -17,13 +17,15 @@ public class Todo extends BaseEntity{
     LocalTime time;
     LocalDate date;
     String title;
+    boolean isDone;
 
     @ManyToOne
     @JoinColumn(name = "department", nullable = false)
     private Department department;
 
     @PrePersist
-    public void setUp(){
+    public void setUp() {
         this.date = LocalDate.now();
+        this.isDone = false;
     }
 }

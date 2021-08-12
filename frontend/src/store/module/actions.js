@@ -266,3 +266,9 @@ export function getDmHistory ({ state }, room) {
   const url = baseUrl + 'api/v1/dm/history?roomId=' + room
   return $axios.get(url)
 }
+
+export function sendEmail ({ state }, { name, email }) {
+  console.log(state, name, email, '이메일 보냄')
+  const url = baseUrl + 'api/v1/email/' + name + '/' + email
+  return $axios.get(url)
+}

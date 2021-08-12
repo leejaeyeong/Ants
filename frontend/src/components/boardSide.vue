@@ -5,17 +5,25 @@
       <div id="mid1">
         <img :src="userInfo.profileLocation" style="width:100px; height:130px;">
       </div>
-        <div class="userInfo">
-          {{ userInfo.name }}
-          <br>
-          {{ userInfo.position }}님
-          <br>
-          {{ userInfo.department }}
-        </div>
-      <div id="bot1">
-        <div id="detail1">
+      <div class="userInfo">
+        {{ userInfo.name }}
+        <br>
+        {{ userInfo.position }}님
+        <br>
+        {{ userInfo.department }}
       </div>
-      <q-btn @click="mvWrite" style="margin-top:40px; width:70%; margin-left:42px; color: white; background-color: #18C75E; font-size:18px" icon="mail" label="글쓰기" />
+      <div>
+        <div class="my">
+          <div @click="viewMark" class="mylist1">
+            <q-icon style="font-size: 20px; color: #18C75E;" name="turned_in_not"/>
+            <span class="mylist2">북마크한 글</span>
+          </div>
+          <div @click="viewMe" class="mylist1">
+            <q-icon style="font-size: 20px; color: #18C75E;" name="edit"/>
+            <span class="mylist2">내가 쓴 글</span>
+          </div>
+        </div>
+      <q-btn @click="mvWrite" style="margin-top:20px; width:70%; margin-left:42px; color: white; background-color: #18C75E; font-size:18px" icon="mail" label="글쓰기" />
     </div>
   </div>
         <!-- <div id="listTop">
@@ -33,9 +41,9 @@
             </div>
         </div> -->
         <div id="listBot">
-            <span style="font-weight:bold; font-size:24px; margin-top:0px; margin-left:27px; display:inline-block;">사내 게시판 목록</span>
+            <span style="font-weight:bold; font-size:22px; margin-top:0px; margin-left:27px; display:inline-block;">사내 게시판 목록</span>
             <div @click="viewType(list.id)" v-for="list in boardList" :key="list.id" class="list1">
-                <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 2.5em; color: #18C75E;" name="description"/>
+                <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 1.8em; color: #18C75E;" name="description"/>
                 <span class="list2">{{ list.type }}</span>
             </div>
         </div>
@@ -139,7 +147,7 @@ export default defineComponent({
     border-bottom:1px solid rgb(216, 210, 210);
 }
 .list1{
-    width:95%;
+    width:250px;
     margin-top:5px;
     margin-left:0px;
 }
@@ -149,7 +157,7 @@ export default defineComponent({
 }
 .list2{
     margin-left:17px;
-    font-size:18px;
+    font-size:16px;
 }
 #listBot{
     width:80%;
@@ -181,5 +189,12 @@ export default defineComponent({
   width: 150px;
   height: 30px;
 }
-
+.mylist2 {
+  font-size: 14px;
+}
+.mylist1 {
+  width: 200px;
+  height: 40px;
+  float: left;
+}
 </style>
