@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <!-- 파일 지정된 상태 -->
-    <div v-if="form.images" class="margin-auto file-frame"
+    <div v-if="form.images" class="margin-auto file-mounted"
     @drop.prevent="dropInputTag($event)"
     @dragover.prevent>
     <div style="margin-left: 60px; margin-top:10px;">
@@ -141,11 +141,16 @@ export default defineComponent({
     }
     function dragEnter () {
       const frame = document.getElementById('unSelectFileFrame')
-      frame.style.borderColor = 'green'
+      // frame.style.borderColor = 'green'
+      // file-mounted
+      // frame.className = 'file-mounted'
+      frame.classList.add('file-mounted', 'margin-auto')
     }
     function dragLeave () {
       const frame = document.getElementById('unSelectFileFrame')
-      frame.style.borderColor = 'gray'
+      frame.classList.remove('file-mounted')
+      frame.classList.add('file-frame')
+      // frame.style.borderColor = 'gray'
     }
     function dropInputTag (event) {
       console.log('영역안에 파일이 지정됨')
@@ -317,5 +322,33 @@ h6 {
   top: 820px;
   left: 230px;
   cursor: pointer;
+}
+.file-mounted {
+  width: 220px;
+  height: 160px;
+  border: 2px dashed transparent;
+  margin-top:20px;
+  border-radius: 5%;
+  animation: changeColor 1.8s infinite linear
+}
+@keyframes changeColor {
+  0% {
+    border-color: rgb(255, 10, 10);
+  }
+  20% {
+    border-color: rgb(236, 145, 7);
+  }
+  40% {
+    border-color: rgb(225, 238, 37);
+  }
+  60% {
+    border-color: rgb(20, 155, 49);
+  }
+  80% {
+    border-color: rgb(32, 67, 143);
+  }
+  100% {
+    border-color: rgb(22, 17, 97);
+  }
 }
 </style>
