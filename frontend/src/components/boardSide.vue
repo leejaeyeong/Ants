@@ -57,7 +57,7 @@ import { useStore } from 'vuex'
 import { outlinedAllInbox } from '@quasar/extras/material-icons-outlined'
 
 export default defineComponent({
-  name: 'boardSide',
+  name: 'BoardSide',
   methods: {
   },
   setup () {
