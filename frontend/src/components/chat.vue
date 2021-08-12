@@ -36,11 +36,11 @@
               <div id="chat" v-show="chatMode">
                 <div id="conversation">
                   <form onsubmit="dmDisconnect(); return false;">
-                    <q-btn @click="back" round color="amber" icon="reply" style="float:right; margin-top:5px; margin-right:5px;" type="submit"/>
+                    <q-btn @click="back" round color="amber" icon="reply" style="position:relative; left:430px;" type="submit"/>
                   </form>
                   <div id="dmChatWindow" class="q-pa-md row justify-center">
                     <div v-for="history in dmHistory" :key="history.id">
-                      <div class='box1' v-show="history.user === loginUser.name">
+                      <div class='box1' v-if="history.user === loginUser.name">
                         <div class='name1' style='font-weight:bold;'>
                           {{ history.user }}
                         </div>
@@ -52,7 +52,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class='box' v-show="history.user !== loginUser.name">
+                      <div class='box' v-if="history.user !== loginUser.name">
                         <div style='font-weight:bold;'>
                           {{ history.user }}
                         </div>
@@ -205,17 +205,20 @@ export default defineComponent({
 #dm{
   width: 500px;
   height:500px;
-  background-color:whitesmoke;
-  border-radius:15px;
+  border:1px solid #18C75E;
+  background-color:white;
 }
 #list{
   width:100%;
-  height:448px;
+  height:438px;
   padding-left:20px;
   border-bottom:1px solid rgb(212, 212, 212);
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   overflow-y: scroll;
+}
+.detail:hover{
+  background-color:rgb(212, 212, 212);
 }
 .det{
   width:95%;
@@ -228,9 +231,10 @@ export default defineComponent({
 .det:hover{
   background-color:rgb(168, 163, 163);
 }
-#conversation{
-  height:450px;
+#dmChatWindow{
+  height:420px;
   overflow-y:scroll;
+  overflow-x:hidden;
 }
 #form{
   height:50px;
@@ -247,13 +251,13 @@ export default defineComponent({
   padding:10px;
   font-size:15px;
   cursor:pointer;
-  width:99px;
+  width:98px;
   margin-top:3px;
 }
 .enter{
   /* border:0.5px solid #18C75E; */
   /* background:url('~assets/images/send2.png') no-repeat #18C75E; */
-  border:1px solid whitesmoke;
+  border:1px solid rgb(212, 212, 212);
   background:no-repeat;
   background-size:60px 60px;
   background-position: center;
@@ -263,9 +267,12 @@ export default defineComponent({
   cursor: pointer;
 }
 .detail{
+  width:90%;
   font-size:20px;
   padding-top:5px;
   padding-bottom:5px;
+  padding-left:15px;
+  border-bottom:1px solid rgb(212, 212, 212)
 }
 .txt{
   margin-left:15px;
@@ -288,7 +295,6 @@ body {
 .box{
     width:460px;
     height:80px;
-    padding-left: 10%;
 }
 .left{
     height:10px;
@@ -334,13 +340,13 @@ body {
     position:relative;
     top:45px;
     display:inline-block;
-    background-color:#18C75E;
+    background-color:rgb(212, 212, 212);
     float:right;
 }
 
 .right1{
     height:55px;
-    background-color:#18C75E;
+    background-color:rgb(212, 212, 212);
     display:inline-block;
     border-top-left-radius:10px;
     border-top-right-radius:10px;

@@ -108,7 +108,7 @@
         </div>
       </div>
       <div id="endBottom" class="shadow-1">
-        <div class="name">뭐하지❓</div>
+        <div class="name">오늘의 점심은❓ 아님 오늘 뉴스</div>
       </div>
     </div>
   </div>
@@ -162,7 +162,7 @@ export default defineComponent({
       sortBy: 'desc',
       descending: false,
       page: 1,
-      rowsPerPage: 8
+      rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
     onMounted(() => {
@@ -352,11 +352,11 @@ export default defineComponent({
 <style scoped>
 #content{
   width:100%;
-  height: 860px;
+  height: 908px;
 }
 #main{
   width:1858px;
-  height:876px;
+  height:908px;
   float:right;
   position: absolute;
   top: 60px;
@@ -366,11 +366,11 @@ export default defineComponent({
 }
 #topLeft{
   width:350px;
-  height:500px;
+  height:530px;
   border: 1px solid rgb(212, 212, 212);
   display:inline-block;
   position:absolute;
-  top:20px;
+  top:15px;
   left:20px;
   background-color: white;
   border-radius: 3%;
@@ -425,11 +425,11 @@ export default defineComponent({
 .bottomleft {
   background-color: white;
   width: 350px;
-  height: 275px;
+  height: 333px;
   float: left;
   border: 1px solid rgb(212, 212, 212);
   position: absolute;
-  top:534px;
+  top:561px;
   left:20px;
   border-radius: 4%;
   animation: leftFadeIn 1.1s ease-in-out;
@@ -459,7 +459,7 @@ export default defineComponent({
 }
 .totalimg {
   margin-left: 37px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 .totaltext{
   margin-left: 37px;
@@ -483,7 +483,7 @@ export default defineComponent({
   height:230px;
   border:0.5px solid rgb(212, 212, 212);
   position: absolute;
-  top:20px;
+  top:15px;
   left:385px;
   background-color: white;
   border-radius: 10px;
@@ -496,7 +496,7 @@ export default defineComponent({
   border:0.5px solid rgb(212, 212, 212);
   background-color: white;
   position: absolute;
-  top:20px;
+  top:15px;
   left:1215px;
   border-radius: 10px;
   animation: rightFadeIn 1.1s ease-in-out;
@@ -504,11 +504,11 @@ export default defineComponent({
 #endBottom{
   float:right;
   width:550px;
-  height:420px;
+  height:513px;
   border:0.5px solid rgb(212, 212, 212);
   background-color: white;
   position: absolute;
-  top:390px;
+  top:381px;
   left: 1215px;
   border-radius: 1.5%;
   animation: bottomFadeIn 1.1s ease-in-out;
@@ -525,8 +525,8 @@ export default defineComponent({
 #botRight{
   position: absolute;
   width:815px;
-  height:540px;
-  top:270px;
+  height:633px;
+  top:261px;
   left:385px;
   border:0.5px solid rgb(212, 212, 212);
   background-color:white;
