@@ -106,7 +106,6 @@ export function board ({ state }, payload) {
   console.log('board axios', state, payload)
   const url = baseUrl + 'api/v1/board'
   const body = payload
-  console.log('이거 몇 번 나오나')
   return $axios.get(url, body)
 }
 
@@ -138,7 +137,7 @@ export function departmentInfo ({ state }) {
 
 // 게시글 등록
 export function registBoard ({ state }, body) {
-  console.log(state)
+  console.log(state, '게시글등록')
   const url = baseUrl + 'api/v1/board'
   return $axios.post(url, body)
 }

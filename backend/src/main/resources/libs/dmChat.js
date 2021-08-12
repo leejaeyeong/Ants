@@ -58,6 +58,7 @@ function dmShowChat(dm, myName) {
             $("#nowChat").append("<div class='box'><div style='font-weight:bold;'>" + dm.name + "</div><div><div class='left'></div><div class='right'>" + dm.message + "</div></div></div>" )
         }
        $('#chatMessage').val('');
+       $('#dmChatWindow').scrollTop($('#dmChatWindow').height());
 }
 
 //$(function () {
