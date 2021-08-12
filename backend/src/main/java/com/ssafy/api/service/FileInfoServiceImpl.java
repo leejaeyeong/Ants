@@ -3,8 +3,10 @@ package com.ssafy.api.service;
 import com.ssafy.api.response.BoardRes;
 import com.ssafy.api.response.FileInfoRes;
 import com.ssafy.common.util.FileUtil;
+import com.ssafy.db.entity.Department;
 import com.ssafy.db.entity.FileInfo;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.repository.DepartmentRepository;
 import com.ssafy.db.repository.FileInfoRepository;
 import com.ssafy.db.repository.FileInfoRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ import java.util.*;
 public class FileInfoServiceImpl implements FileInfoService {
     @Autowired
     FileInfoRepository fileInfoRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
 
     @Autowired
     UserService userService;
@@ -126,6 +131,20 @@ public class FileInfoServiceImpl implements FileInfoService {
         List<FileInfoRes> fileInfoResList = null;
         if (fileInfoRepositorySupport.findByFileName(fileName).isPresent()) {
             List<FileInfo> files = fileInfoRepositorySupport.findByFileName(fileName).get();
+            fileInfoResList = new ArrayList<>();
+            for (FileInfo fileInfo : files) {
+                fileInfoResList.add(FileInfoRes.of(fileInfo));
+            }
+        }
+        return fileInfoResList;
+    }
+
+    @Override
+    public List<FileInfoRes> findByDepartment(Long id) {
+        List<FileInfoRes> fileInfoResList = null;
+        Department department = departmentRepository.findDepartmentById(id).get();
+        if (fileInfoRepositorySupport.findByDepartment(department).isPresent()) {
+            List<FileInfo> files = fileInfoRepositorySupport.findByDepartment(department).get();
             fileInfoResList = new ArrayList<>();
             for (FileInfo fileInfo : files) {
                 fileInfoResList.add(FileInfoRes.of(fileInfo));
