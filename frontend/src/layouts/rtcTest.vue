@@ -1,7 +1,7 @@
 <template>
   <div id="container">
       <div id="wrapper">
-          <div id="join" class="animate join">
+          <div id="join" style="position:absolute; left:60px; top:-30px;" class="animate join">
               <!-- <h1>Join a Room</h1> -->
               <form onsubmit="register(); return false;" accept-charset="UTF-8">
                   <p>
@@ -15,7 +15,8 @@
               </form>
               <div class="q-pa-md row items-start q-gutter-md">
                 <q-card v-for="room in rooms" :key="room.id" class="my-card" style="margin-top:100px;">
-                    <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
+                    <!-- <q-img src="https://cdn.quasar.dev/img/parallax2.jpg"> -->
+                    <q-img src="~assets/images/office.jpg" style="">
                       <div class="absolute-bottom">
                         <div class="text-h6">{{ room.roomName }}</div>
                         <div class="text-subtitle2">{{ room.id }}</div>
@@ -59,7 +60,13 @@
               </div>
               <!-- 나가기 버튼 -->
               <form class="form-inline" onsubmit="disconnect(); return false;" accept-charset="UTF-8">
-                <input type="button" id="button-leave" onmouseup="leaveRoom();" value="나가기">
+                <div class='btDiv1'>
+                  <q-icon style="font-size: 2.8em; color: white;" name="mic"/>
+                </div>
+                <div class=btDiv2>
+                  <q-icon style="font-size: 2.8em; color: white;" name="photo_camera"/>
+                </div>
+                <input type="button" id="button-leave" onmouseup="leaveRoom();">
               </form>
           </div>
       </div>
@@ -135,6 +142,16 @@ export default defineComponent({
 })
 </script>
 <style>
+#wrapper{
+  width:1858px;
+  height:908px;
+  float:right;
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  border-bottom:0.5px solid rgb(212, 212, 212);
+  background-color: rgb(242, 247, 244);
+}
 #submit{
     background-color:#18C75E;
     font-weight:bold;
@@ -145,8 +162,8 @@ export default defineComponent({
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:880px;
-    left:1650px;
+    top:850px;
+    left:1590px;
 }
 #submit:hover{
     opacity: 0.7;
@@ -155,8 +172,8 @@ export default defineComponent({
     width:1340px;
     height:892px;
     position:absolute;
-    top:75px;
-    left:90px;
+    top:15px;
+    left:30px;
 }
 #chat{
     width:490px;
@@ -164,25 +181,28 @@ export default defineComponent({
     border-left:1px solid rgb(212, 212, 212);
     border-top: 1px solid rgb(212, 212, 212);
     position:absolute;
-    left:1410px;
-    top:75px;
+    left:1350px;
+    top:15px;
 }
 #button-leave{
     position:absolute;
-    top:90%;
-    left:120px;
-    background-color:#18C75E;
+    width:50px;
+    height:50px;
+    top:850px;
+    left:705px;
     border:0.5px solid #18C75E;
     font-weight:bold;
     color:white;
     padding:10px;
     font-size:30px;
     cursor: pointer;
-    border-radius:5px;
+    border-radius:50px;
+    background: url('~assets/images/exit.png') no-repeat right center #18C75E;
 }
 .my-card{
   width:380px;
   margin:30px 0 0 30px;
+  box-shadow: 5px 5px 5px;
 }
 .enter{
   background-color:#18C75E;
@@ -219,5 +239,29 @@ export default defineComponent({
 }
 .msg{
   font-size:20px;
+}
+.btDiv1{
+  width:50px;
+  height:50px;
+  border-radius: 50px;
+  position:absolute;
+  top:850px;
+  left:585px;
+  background-color:#18C75E;
+  cursor: pointer;
+  padding-left:5px;
+  padding-top:5px;
+}
+.btDiv2{
+  width:50px;
+  height:50px;
+  border-radius: 50px;
+  position:absolute;
+  top:850px;
+  left:645px;
+  background-color:#18C75E;
+  cursor: pointer;
+  padding-left:5px;
+  padding-top:5px;
 }
 </style>
