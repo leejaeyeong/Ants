@@ -52,10 +52,10 @@ function dmSendChat(room, name, message) {
 
 function dmShowChat(dm, myName) {
         if(myName == dm.name) {
-            $("#dmChatWindow").append("<div class='box1'><div class='name1' style='font-weight:bold;'>" + dm.name + "</div><div><div class='left1'></div><div class='right1'>" + dm.message + "</div></div></div>" )
+            $("#nowChat").append("<div class='box1'><div class='name1' style='font-weight:bold;'>" + dm.name + "</div><div><div class='left1'></div><div class='right1'>" + dm.message + "</div></div></div>" )
         }
         else{
-            $("#dmChatWindow").append("<div class='box'><div style='font-weight:bold;'>" + dm.name + "</div><div><div class='left'></div><div class='right'>" + dm.message + "</div></div></div>" )
+            $("#nowChat").append("<div class='box'><div style='font-weight:bold;'>" + dm.name + "</div><div><div class='left'></div><div class='right'>" + dm.message + "</div></div></div>" )
         }
        $('#chatMessage').val('');
        $('#dmChatWindow').scrollTop($('#dmChatWindow').height());
