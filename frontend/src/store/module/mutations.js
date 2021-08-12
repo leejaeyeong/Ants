@@ -101,3 +101,7 @@ export function setMark (state, mark) {
 export function setDmRoomList (state, dmRoomList) {
   state.dmRoomList = dmRoomList
 }
+
+export function setDmHistory (state, dmHistory) {
+  state.dmHistory = dmHistory
+}

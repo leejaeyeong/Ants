@@ -36,7 +36,7 @@
         size="sm"
       />
     </div>
-    <div class="rightside">
+    <div class="rightside shadow-1">
       <q-list padding no-data-label="I didn't find anything for you" >
         <q-item>
           <q-item-section>
@@ -66,7 +66,7 @@
                 <q-item-section side top style="margin-top:-5px;">
                   <q-badge label="NEW" />
                 </q-item-section>
-                <q-item-section side @click="changeUser(userInfo.userId)">
+                <q-item-section side @click="changeUser(userInfo.userId, userInfo.name, userInfo.email)">
                   <q-icon name="send" color="green" clickable />
                 </q-item-section>
               </q-item>
@@ -82,7 +82,7 @@
 <script>
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 
 const columns = [
   { name: 'profileLocation', align: 'left', label: '', field: 'profileLocation', style: 'width: 10px' },
@@ -105,7 +105,7 @@ const columns = [
 export default {
   setup () {
     const Swal = require('sweetalert2')
-    const router = useRouter()
+    // const router = useRouter()
     const pagination = ref({
       sortBy: 'desc',
       descending: false,
@@ -126,7 +126,7 @@ export default {
       }
     }
     const pagesNumber = computed(() => Math.ceil(memberList.value.length / pagination.value.rowsPerPage))
-    const changeUser = function (id) {
+    const changeUser = function (id, name, email) {
       console.log('유저권한변경', id)
       store.dispatch('module/chageUser', id)
         .then(function (res) {
@@ -135,7 +135,14 @@ export default {
             confirmButtonColor: '#19CE60',
             confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
           })
-          router.go(0)
+          store.dispatch('module/sendEmail', { name, email })
+            .then(function (res) {
+              alert('가입 승인메일이 전송되었습니다')
+            })
+            .catch(function (err) {
+              console.log(err)
+            })
+          // router.go(0)
         })
       //     store.dispatch('module/memberList')
       //       .then(function (result) {
@@ -206,7 +213,6 @@ export default {
   position: absolute;
   bottom: 220px;
   margin-left: 1325px;
-  box-shadow: 5px 5px 30px #a0a0a0;
   border-radius: 12px;
   animation: rightFadeIn 0.9s ease-in-out;
 }
