@@ -15,7 +15,7 @@ function dmSetConnected(connected) {
 
 function dmConnect(room, name) {
     console.log("room: " + room);
-    var dmSocket = new SockJS('/websocket');
+    let dmSocket = new SockJS('/websocket');
     dmStompClient = Stomp.over(dmSocket);
     dmStompClient.connect({}, function (frame) {
         dmSetConnected(true);
@@ -37,18 +37,18 @@ function dmDisconnect() {
     console.log("Disconnected");
 }
 
-function dmSendName() {
-    dmStompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
-    dmSendChat();
-}
+//function dmSendName() {
+//    dmStompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+//    dmSendChat();
+//}
 
 function dmSendChat(room, name, message) {
 	dmStompClient.send("/app/dm/" + room, {}, JSON.stringify({'user': name, 'message': message, 'roomId': room}));
 }
 
-function dmShowGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
-}
+//function dmShowGreeting(message) {
+//    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+//}
 
 function dmShowChat(dm, myName) {
         if(myName == dm.name) {
