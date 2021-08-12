@@ -335,6 +335,7 @@ export default defineComponent({
   position: absolute;
   left: 450px;
   top: 220px;
+  background-color: rgb(242, 247, 244);
   /* background: orange; */
 }
 .content-title {
