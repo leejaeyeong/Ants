@@ -2,7 +2,7 @@
     <div id="side">
         <div @click="mvHome" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.6em; color: white;" name="home"/>
+                <q-icon style="font-size: 3.0em; color: white;" name="home"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>HOME</strong>
                   </q-tooltip>
@@ -13,7 +13,7 @@
         </div>
         <div @click="mvBoard" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.6em; color: white;" name="content_paste"/>
+                <q-icon style="font-size: 3.0em; color: white;" name="content_paste"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Board</strong>
                   </q-tooltip>
@@ -24,7 +24,7 @@
         </div>
         <div @click="mvGroup" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.6em; color: white;" name="people_alt"/>
+                <q-icon style="font-size: 3.0em; color: white;" name="people_alt"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Group</strong>
                   </q-tooltip>
@@ -35,7 +35,7 @@
         </div>
         <div @click="mvRTC" class="list">
             <div class="img">
-                <q-icon style="font-size: 2.6em; color: white;" name="support_agent"/>
+                <q-icon style="font-size: 3.0em; color: white;" name="support_agent"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>RTC</strong>
                   </q-tooltip>
@@ -46,7 +46,7 @@
         </div>
         <div class="list"  @click="mvDownloads">
             <div class="img">
-                <q-icon style="font-size: 2.5em; color: white;" name="download"/>
+                <q-icon style="font-size: 3.0em; color: white;" name="download"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>다운로드</strong>
                   </q-tooltip>
@@ -57,7 +57,7 @@
         </div>
         <div class="list">
             <div class="img">
-                <q-icon style="font-size: 2.6em; color: white;" name="settings"/>
+                <q-icon style="font-size: 3.0em; color: white;" name="settings"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                     <strong>Settings</strong>
                   </q-tooltip>
@@ -68,7 +68,7 @@
         </div>
         <div @click="logout" class="list" id="logout">
             <div class="img">
-                <q-icon style="font-size: 2.6em; color: white;" name="logout"/>
+                <q-icon style="font-size: 3.0em; color: white;" name="logout"/>
                 <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong>Logout</strong>
                 </q-tooltip>
@@ -178,7 +178,7 @@ export default defineComponent({
   float:left;
   border-right:0.5px solid rgb(212, 212, 212);
   border-bottom:0.5px solid rgb(212, 212, 212);
-  background: linear-gradient( to top, #90e5ab, green );
+  background: linear-gradient( to top, #51bb74, green );
   position: absolute;
   top:0px;
 }
@@ -196,7 +196,7 @@ export default defineComponent({
 }
 .img{
   text-align:center;
-  padding-top: 8px;
+  padding-top: 15px;
   margin-top:20px;
 }
 .detail{
@@ -205,6 +205,6 @@ export default defineComponent({
   font-size:20px;
 }
 #logout{
-  margin-top:325px;
+  margin-top:350px;
 }
 </style>

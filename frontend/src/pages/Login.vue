@@ -5,7 +5,7 @@
             <div id='loginbox'>
                 <div id="left">
                   <div id="mark">
-                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:135px; margin-top:50px;"/>
+                    <q-img src="~assets/images/logo.png" style="width:200px; margin-left:135px; margin-top:75px;"/>
                   </div>
                   <div id="form">
                     <q-input color="teal" v-on:keyup.enter="login" v-model="state.form.id" class="input" filled label="ID" />
