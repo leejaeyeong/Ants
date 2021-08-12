@@ -8,6 +8,7 @@ import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.Department;
 import com.ssafy.db.entity.User;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,8 @@ public interface UserService {
 	boolean updateUserTeamInfo(UserTeamMappingPutReq userTeamMappingPutReq);
 	boolean updateUser(User user);
 	boolean deleteUser(String userId);
-	boolean checkInUser(User user);
-	boolean checkOutUser(User user);
+	LocalTime checkInUser(User user);
+	LocalTime checkOutUser(User user);
 	List<Attendance> findAllByDateBetween(Map<String, Object> dateMap);
 	Integer findAllByDateBetween(User user, String startDate, String endDate);
 	Department getDepartmentById(long departmentId);

@@ -179,7 +179,7 @@ function receiveVideo(sender) {
 				  return console.error(error);
 			  }
 			  this.generateOffer (participant.offerToReceiveVideo.bind(participant));
-	});;
+	});
 }
 
 function onParticipantLeft(request) {
@@ -254,6 +254,15 @@ function showChat(chat) {
     $('#chatMessage').val('');
 }
 
+function rtcMute(name){
+    if(participants[name].rtcPeer.audioEnabled === true) participants[name].rtcPeer.audioEnabled = false;
+    else participants[name].rtcPeer.audioEnabled = true;
+}
+
+function rtcVideoVision(name){
+    if(participants[name].rtcPeer.videoEnabled === true) participants[name].rtcPeer.videoEnabled = false;
+    else participants[name].rtcPeer.videoEnabled = true;
+}
 //$(function () {
 //    $('form').on('submit', function (e) {
 //        e.preventDefault();
