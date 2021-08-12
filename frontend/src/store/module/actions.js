@@ -46,20 +46,18 @@ export function deleteUser ({ state }) {
   return $axios.delete(url)
 }
 // 출근
-export function go ({ state }, payload) {
-  console.log('go', state, payload)
+export function go ({ state }) {
+  console.log('go', state)
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id + '/check-in'
-  const body = payload
-  return $axios.post(url, body)
+  return $axios.post(url)
 }
 // 퇴근
-export function out ({ state }, payload) {
-  console.log('out', state, payload)
+export function out ({ state }) {
+  console.log('out', state)
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id + '/check-out'
-  const body = payload
-  return $axios.put(url, body)
+  return $axios.put(url)
 }
 // 당일근태
 export function check ({ state }, payload) {

@@ -152,26 +152,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkInUser(User user) {
+	public LocalTime checkInUser(User user) {
 		if (attendanceRepositorySupport.getAttendanceToday(user).isPresent()) {
-			return false;
+			return null;
 		}
 		Attendance attendance = new Attendance();
 		attendance.setUser(user);
 		attendance.setCheckInTime(LocalTime.now());
 		attendanceRepository.save(attendance);
-		return true;
+		return attendance.getCheckInTime();
 	}
 
 	@Override
-	public boolean checkOutUser(User user) {
+	public LocalTime checkOutUser(User user) {
 		// 출석 정보 가져오기
 		Attendance attendance = attendanceRepositorySupport.findAttendanceByUserId(user.getUserId());
 		if (attendance == null) {
-			return  false;
+			return  null;
 		}
 		attendance.setCheckOutTime(LocalTime.now());
-		return attendanceRepositorySupport.checkOutUser(attendance);
+		attendanceRepositorySupport.checkOutUser(attendance);
+		return attendance.getCheckOutTime();
 	}
 
 	@Override
