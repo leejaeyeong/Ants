@@ -6,15 +6,16 @@ const loginUser = {
 }
 
 const columns = [
-  {
-    name: 'id',
-    required: true,
-    label: '글번호',
-    align: 'center',
-    field: row => row.id,
-    format: val => `${val}`,
-    sortable: true
-  },
+  // {
+  //   name: 'type',
+  //   required: true,
+  //   label: ' ',
+  //   align: 'left',
+  //   field: row => row.type,
+  //   format: val => `${val}`,
+  //   sortable: true
+  // },
+  { name: 'id', align: 'center', label: '글번호', field: 'id', sortable: true },
   { name: 'title', align: 'center', label: '제목', field: 'title', sortable: true },
   { name: 'writer', label: '글쓴이', field: 'writer', sortable: true },
   { name: 'registrationTime', label: '작성시간', field: 'registrationTime', sortable: true },
@@ -23,15 +24,16 @@ const columns = [
 const rows = []
 
 const columnsM = [
-  {
-    name: 'title',
-    required: true,
-    label: '제목',
-    align: 'center',
-    field: row => row.title,
-    format: val => `${val}`,
-    sortable: true
-  },
+  // {
+  //   name: 'type',
+  //   // required: true,
+  //   label: ' ',
+  //   align: 'left',
+  //   field: row => row.type,
+  //   format: val => `${val}`,
+  //   sortable: true
+  // },
+  { name: 'title', align: 'center', label: '제목', field: 'title', sortable: true },
   { name: 'writer', align: 'center', label: '글쓴이', field: 'writer', sortable: true },
   { name: 'view', align: 'center', label: '조회수', field: 'view', sortable: true }
 ]

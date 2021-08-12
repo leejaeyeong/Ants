@@ -272,7 +272,7 @@ export default defineComponent({
   border-bottom:1px solid rgb(212, 212, 212)
 }
 .txt{
-  margin-left:15px;
+  margin-left:20px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
