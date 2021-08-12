@@ -7,13 +7,12 @@
       <!-- 파일 지정된 상태 -->
     <div v-if="form.images" class="margin-auto file-frame"
     @drop.prevent="dropInputTag($event)"
-    @dragenter="dragEnter()"
-    @dragleave="dragLeave()"
     @dragover.prevent>
     <div style="margin-left: 60px; margin-top:10px;">
       <img :src="form.images" alt="image" class="present-image"><br>
     </div>
-    <div align="center">{{form.image.name}}</div>
+    <div align="center">test</div>
+    <!-- {{form.image.name}} -->
     </div>
     <!-- 파일 미지정 상태 -->
     <div id="unSelectFileFrame" v-else class="margin-auto file-frame"
@@ -148,7 +147,7 @@ export default defineComponent({
       console.log('영역 안을 클릭함')
       // this.$refs.image.click()
       // const file = new File(['image'], './aaa.jpg')
-      // form.images = '/media/profile/test-1/test.gif' URL.createObjectURL(file)
+      form.images = '/media/profile/test-1/test.gif' // URL.createObjectURL(file)
       console.log('영역 안을 클릭함 end')
     }
     function loadFileData () {
