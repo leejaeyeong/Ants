@@ -82,11 +82,11 @@
       </div>
       <div id="endRight" class="shadow-1">
         <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
-        <q-fab v-model="bt" style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px;" padding="sm" glossy icon="add" direction="left">
+        <q-fab v-model="bt" style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px;" padding="sm" icon="add" direction="left">
           <div id="todoForm">
-                <q-time v-model="todoTime" />
-            <q-input v-model="state.todoText" color="teal" style="display:inline-block; width:72%; margin-top:5px;" filled label="입력란" />
-            <q-btn @click="registTodo" style="background-color:#18C75E; color:white; font-size:20px; margin-top:-15px; margin-left:6px;" label="등록"/>
+            <q-time v-model="todoTime" color="orange-4" text-color="black" flat/>
+            <q-input v-model="state.todoText" color="teal" style="display:inline-block; width:72%; margin-top:5px; margin-left: 5px;" label="오늘의 할 일을 입력하세요" />
+            <q-btn @click="registTodo" style="background-color:#18C75E; color:white; font-size:14px; margin-top:-15px; margin-left:6px;" label="등록"/>
           </div>
         </q-fab>
         <div id="todoView">
@@ -534,10 +534,11 @@ export default defineComponent({
   animation: bottomFadeIn 1.1s ease-in-out;
 }
 #todoForm{
-  width:290px;
+  /* width:290px; */
   height:440px;
-  background-color:whitesmoke;
+  background-color:white;
   margin-top:380px;
+  border:1px solid rgb(212, 212, 212);
 }
 .todo{
   width:90%;
