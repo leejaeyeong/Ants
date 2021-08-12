@@ -271,3 +271,8 @@ export function sendEmail ({ state }, { name, email }) {
   const url = baseUrl + 'api/v1/email/' + name + '/' + email
   return $axios.get(url)
 }
+
+export function loadFileDataByDepartment ({ state }, id) {
+  const url = baseUrl + 'api/v1/files/department' + '?id=' + id
+  return $axios.get(url)
+}
