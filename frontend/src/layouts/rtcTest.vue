@@ -61,10 +61,18 @@
               <!-- 나가기 버튼 -->
               <form class="form-inline" onsubmit="disconnect(); return false;" accept-charset="UTF-8">
                 <div class='btDiv1'>
-                  <q-icon style="font-size: 2.8em; color: white;" name="mic"/>
+                  <form onsubmit="rtcMute($(this).find('input').eq(0).val()); return false;">
+                    <input :value="id" style="display:none">
+                    <!-- <q-icon style="font-size: 2.8em; color: white;" name="mic" type="submit"/> -->
+                    <button type="submit" value="mute"/>
+                  </form>
                 </div>
                 <div class=btDiv2>
-                  <q-icon style="font-size: 2.8em; color: white;" name="photo_camera"/>
+                  <form onsubmit="rtcVideoVision($(this).find('input').eq(0).val()); return false;">
+                    <input :value="id" style="display:none">
+                    <!-- <q-icon style="font-size: 2.8em; color: white;" name="photo_camera"/> -->
+                    <button type="submit" value="mute"/>
+                  </form>
                 </div>
                 <input type="button" id="button-leave" onmouseup="leaveRoom();">
               </form>
