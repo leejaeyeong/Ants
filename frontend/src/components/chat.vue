@@ -11,7 +11,7 @@
         >
             <div id="dm">
               <div v-show="!chatMode">
-                <h5 style="margin:10px 10px; font-weight:bold;">그룹원 목록</h5>
+                <h4 style="margin:10px 10px; font-weight:bold;">그룹원 목록</h4>
                 <div id="list">
                     <!-- <div @click="enter" class="det" v-for="member in memberList" :key="member.userId">
                       <div class="row">
@@ -24,11 +24,11 @@
                       </div>
                     </div> -->
                     <div v-for="dmRoom in dmRoomList" :key="dmRoom.roomId">
-                      {{ dmRoom.username }} {{ dmRoom.departmentName }}
-                      <form onsubmit="dmConnect($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val()); return false;">
+                      <form class="detail" onsubmit="dmConnect($(this).find('input').eq(0).val(), $(this).find('input').eq(1).val()); return false;">
                         <input :value="dmRoom.roomId" style="display:none">
                         <input :value="loginUser.name" style="display:none">
-                        <button type="submit" @click="enter(dmRoom.roomId, dmRoom.username)"/>
+                        <input v-bind:style="{ backgroundImage: 'url(' + dmRoom.profileLocation + ')' }" class='enter' type="submit" @click="enter(dmRoom.roomId, dmRoom.username)" value=" "/>
+                        <span class="txt">{{ dmRoom.username }}</span> <span class="txt">{{ dmRoom.departmentName }}</span>
                       </form>
                     </div>
                 </div>
@@ -181,9 +181,9 @@ export default defineComponent({
   border-radius:15px;
 }
 #list{
-  width:90%;
+  width:100%;
   height:448px;
-  margin: 0 auto;
+  padding-left:20px;
   border-bottom:1px solid rgb(212, 212, 212);
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -221,6 +221,26 @@ export default defineComponent({
   cursor:pointer;
   width:99px;
   margin-top:3px;
+}
+.enter{
+  /* border:0.5px solid #18C75E; */
+  /* background:url('~assets/images/send2.png') no-repeat #18C75E; */
+  border:1px solid whitesmoke;
+  background:no-repeat;
+  background-size:60px 60px;
+  background-position: center;
+  width:60px;
+  height:60px;
+  border-radius:30px;
+  cursor: pointer;
+}
+.detail{
+  font-size:20px;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+.txt{
+  margin-left:15px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
