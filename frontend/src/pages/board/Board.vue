@@ -1,31 +1,36 @@
 <template>
-  <div id="board">
-    <div>
-        <q-input filled color="teal" v-model="form.key" style="height:40px; display:inline-block; width:20%; margin-top:35px; margin-left:40px;" label="제목, 내용" />
-        <q-btn @click="search" round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:50px; width:50px;" icon="search" />
-    </div>
-    <div class="q-pa-md" style="width:120%; margin-top:30px; margin-left:25px;">
-      <q-table
-        title="공지사항"
-        :rows="rows"
-        :columns="columns"
-        row-key="id"
-        v-model:pagination="pagination"
-        @row-click="detail"
-        style="cursor:pointer;"
-        hide-pagination
-      />
-      <div class="row justify-center q-mt-md">
-        <q-pagination
-          v-model="pagination.page"
-          color="grey-8"
-          :max="pagesNumber"
-          size="lg"
+  <div id="allBoard">
+    <div id="board">
+      <div style="margin-top:25px; margin-left:50px; font-size:23px; display:inline-block;">
+        <p style="font-weight:bold;">전체 글 페이지</p>
+        <div style="margin-top:5px;font-size:14px; display:inline-block;">전체 글 조회가 가능한 페이지 입니다.</div>
+      </div>
+      <div id="search">
+        <q-input color="teal" v-model="form.key" style="height:30px; width:60%; display:inline-block; margin-top:35px; margin-left:100px;" label="제목 또는 내용으로 검색" />
+        <q-btn @click="search" round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:30px; width:30px;" icon="search" />
+      </div>
+      <div style="width:100%; margin-top:30px;">
+        <q-table
+          title=""
+          :rows="rows"
+          :columns="columns"
+          row-key="id"
+          v-model:pagination="pagination"
+          @row-click="detail"
+          style="cursor:pointer;"
+          hide-pagination
         />
+        <div class="row justify-center page">
+          <q-pagination
+            v-model="pagination.page"
+            color="grey-8"
+            :max="pagesNumber"
+            size="md"
+          />
+        </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -49,7 +54,9 @@ export default defineComponent({
       rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
-    const pagesNumber = computed(() => store.getters['module/getPageNumber'])
+    // 페이지수 계산
+    const pagesNumber = computed(() => Math.ceil(rows.value.length / pagination.value.rowsPerPage))
+    // const pagesNumber = computed(() => store.getters['module/getPageNumber'])
     
     const form = reactive({
       key: ''
@@ -76,7 +83,7 @@ export default defineComponent({
             .then(function (result) {
               store.commit('module/setDetail', result.data)
               var tmp = []
-              for (let i = 0; i<result.data.comments.length; i++) {
+              for (let i = 1; i<result.data.comments.length; i++) {
                 result.data.comments[i].registrationTime = result.data.comments[i].registrationTime.substr(0, 16)
                 tmp.push(result.data.comments[i])
               }
@@ -112,17 +119,26 @@ export default defineComponent({
 <style scoped>
 
 #board{
-    width: 1130px;
-    height: 690px;
-    position: absolute;
-    top:75px;
-    left:390px;
+  width: 1350px;
+  height: 750px;
+  position: absolute;
+  top:30px;
+  left:100px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+}
+#search { 
+  width: 450px;
+  display:inline-block;
+  margin-left: 590px;
+}
+.page{
+  margin-top: 15px;
+  font-size: 15px;
 }
 /* div{
   font-family: 'NEXON Lv1 Gothic OTF';

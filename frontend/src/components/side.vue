@@ -103,14 +103,15 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
     const logout = function () {
-      localStorage.removeItem('token')
-      localStorage.removeItem('id')
-      localStorage.removeItem('password')
-      localStorage.removeItem('name')
-      localStorage.removeItem('userState')
-      localStorage.removeItem('profileLocation')
-      localStorage.removeItem('department')
-      localStorage.removeItem('departmentId')
+      // localStorage.removeItem('token')
+      // localStorage.removeItem('id')
+      // localStorage.removeItem('password')
+      // localStorage.removeItem('name')
+      // localStorage.removeItem('userState')
+      // localStorage.removeItem('profileLocation')
+      // localStorage.removeItem('department')
+      // localStorage.removeItem('departmentId')
+      localStorage.clear()
       const logoutUser = {
         id: '',
         name: '',

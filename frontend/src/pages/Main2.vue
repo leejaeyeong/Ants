@@ -108,7 +108,7 @@
         </div>
       </div>
       <div id="endBottom" class="shadow-1">
-        <div class="name">뭐하지❓</div>
+        <div class="name">오늘의 점심은❓ 아님 오늘 뉴스</div>
       </div>
     </div>
   </div>
@@ -230,10 +230,10 @@ export default defineComponent({
     console.log(inputText)
 
     const go = function () {
-      store.dispatch('module/go', { time: state.time })
+      store.dispatch('module/go')
         .then(function (result) {
-          console.log(result)
-          store.commit('module/setCheckInTime', state.time)
+          console.log('go', result.data.substring(0, 8))
+          store.commit('module/setCheckInTime', result.data.substring(0, 8))
         })
         .catch(function () {
           Swal.fire({
@@ -245,10 +245,10 @@ export default defineComponent({
     }
 
     const out = function () {
-      store.dispatch('module/out', { time: state.time })
+      store.dispatch('module/out')
         .then(function (result) {
-          console.log(result)
-          store.commit('module/setCheckOutTime', state.time)
+          console.log('out', result.data.substring(0, 8))
+          store.commit('module/setCheckOutTime', result.data.substring(0, 8))
           store.dispatch('module/loadAttendanceByWeek', { })
             .then(function (result) {
               store.commit('module/setTotalHourOfWeek', result.data.totalHour)
@@ -264,7 +264,7 @@ export default defineComponent({
         })
         .catch(function () {
           Swal.fire({
-            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">서버오류. 다시 시도해주세요.</span>',
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">먼저 출근을 진행해주세요.</span>',
             confirmButtonColor: '#ce1919',
             confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
           })
