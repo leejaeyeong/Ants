@@ -1,6 +1,8 @@
 import $axios from 'axios'
 
 const baseUrl = 'https://localhost:8443/'
+// const baseUrl = 'https://i5b103.p.ssafy.io:8443/'
+
 // 로그인
 export function login ({ state }, payload) {
   console.log('requestLogin', state, payload)
@@ -46,20 +48,18 @@ export function deleteUser ({ state }) {
   return $axios.delete(url)
 }
 // 출근
-export function go ({ state }, payload) {
-  console.log('go', state, payload)
+export function go ({ state }) {
+  console.log('go', state)
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id + '/check-in'
-  const body = payload
-  return $axios.post(url, body)
+  return $axios.post(url)
 }
 // 퇴근
-export function out ({ state }, payload) {
-  console.log('out', state, payload)
+export function out ({ state }) {
+  console.log('out', state)
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id + '/check-out'
-  const body = payload
-  return $axios.put(url, body)
+  return $axios.put(url)
 }
 // 당일근태
 export function check ({ state }, payload) {
@@ -96,8 +96,8 @@ export function loadAttendanceByWeek ({ state }, payload) {
 }
 
 export function getRooms () {
-  const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
-  return rooms
+  const url = baseUrl + 'api/v1/rtc/'
+  return $axios.get(url)
 }
 
 export function board ({ state }, payload) {

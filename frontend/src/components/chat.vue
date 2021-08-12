@@ -65,6 +65,8 @@
                         </div>
                       </div>
                     </div>
+                    <div id="nowChat">
+                    </div>
                   </div>
                 </div>
                 <div id="form">
@@ -155,6 +157,7 @@ export default defineComponent({
     const enter = function (roomId, username) {
       store.dispatch('module/getDmHistory', roomId)
         .then(function (result) {
+          document.getElementById('nowChat').innerHTML = ''
           console.log(result.data)
           store.commit('module/setDmHistory', result.data)
         })
@@ -272,7 +275,7 @@ export default defineComponent({
   border-bottom:1px solid rgb(212, 212, 212)
 }
 .txt{
-  margin-left:15px;
+  margin-left:20px;
 }
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF';

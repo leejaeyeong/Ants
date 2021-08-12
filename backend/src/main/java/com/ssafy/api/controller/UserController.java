@@ -32,6 +32,7 @@ import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -206,15 +207,16 @@ public class UserController {
 			@ApiResponse(code = 404, message = "사용자 없음"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity checkInUser(@PathVariable String userId) {
+	public ResponseEntity<LocalTime> checkInUser(@PathVariable String userId) {
 		User user = userService.getUserByUserId(userId);
 		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		if (userService.checkInUser(user)) {
-			return ResponseEntity.ok().build();
+		LocalTime checkInTime = userService.checkInUser(user);
+		if (checkInTime == null) {
+			return ResponseEntity.status(409).body(null);
 		}
-		return ResponseEntity.status(409).body(BaseResponseBody.of(409, "Attendance Duplicate"));
+		return ResponseEntity.ok().body(checkInTime);
 	}
 
 	// 유저 퇴근
@@ -226,13 +228,16 @@ public class UserController {
 			@ApiResponse(code = 404, message = "사용자 없음"),
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<? extends BaseResponseBody> checkOutUser(@PathVariable String userId) {
+	public ResponseEntity<LocalTime> checkOutUser(@PathVariable String userId) {
 		User user = userService.getUserByUserId(userId);
 		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		userService.checkOutUser(user);
-		return ResponseEntity.noContent().build();
+		LocalTime checkOutTime = userService.checkOutUser(user);
+		if (checkOutTime == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(checkOutTime);
 	}
 
 	// 유저 1개월 단위 근태 조회
