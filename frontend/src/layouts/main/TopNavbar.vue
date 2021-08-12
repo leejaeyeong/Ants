@@ -5,7 +5,7 @@
     </div>
     <div id="headerRight">
       <!-- <img :src="state.profileLocation" style="border-radius: 50%; width:50px; margin-top:10px; margin-right:140px; float:right;"> -->
-      <q-btn-dropdown class="nav-item"
+      <!-- <q-btn-dropdown class="nav-item"
             title="알림"
             flat
             no-icon-animation
@@ -38,7 +38,7 @@
             </q-item-section>
           </q-item>
         </q-list>
-      </q-btn-dropdown>
+      </q-btn-dropdown> -->
       <div class="dropdown">
         <q-btn class="dropbtn" flat>{{ state.name }} 님 &#9660;</q-btn>
         <div class="dropdown-content">
@@ -71,10 +71,11 @@ export default defineComponent({
     })
     const router = useRouter()
     const logout = function () {
-      localStorage.removeItem('token')
-      localStorage.removeItem('id')
-      localStorage.removeItem('password')
-      localStorage.removeItem('name')
+      // localStorage.removeItem('token')
+      // localStorage.removeItem('id')
+      // localStorage.removeItem('password')
+      // localStorage.removeItem('name')
+      localStorage.clear()
       router.push('/')
     }
     return {
@@ -112,7 +113,7 @@ export default defineComponent({
 }
 .dropdown {
   float:right;
-  margin-right:8px;
+  margin-right:150px;
   line-height:50px;
   margin-top: 10px;
 }

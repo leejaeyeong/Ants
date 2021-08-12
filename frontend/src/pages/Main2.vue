@@ -108,7 +108,7 @@
         </div>
       </div>
       <div id="endBottom" class="shadow-1">
-        <div class="name">뭐하지❓</div>
+        <div class="name">오늘의 점심은❓ 아님 오늘 뉴스</div>
       </div>
     </div>
   </div>

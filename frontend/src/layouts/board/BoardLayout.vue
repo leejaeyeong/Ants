@@ -18,12 +18,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#myData{
-  width: 1130px;
-  height: 690px;
+#allBoard{
+  width: 1578px;
+  height: 876px;
   position: absolute;
   top:60px;
-  left:325px;
+  left:340px;
+  background-color: rgb(242, 247, 244);
 }
 table, td, th{
   /* border:3px solid #6581A6; */
