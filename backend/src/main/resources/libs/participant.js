@@ -28,6 +28,7 @@ const PARTICIPANT_CLASS = 'participant';
  */
 function Participant(name) {
 	this.name = name;
+	console.log("이름!!: " + name);
 	var container = document.createElement('div');
 	container.className = isPresentMainParticipant() ? PARTICIPANT_CLASS : PARTICIPANT_MAIN_CLASS;
 	container.id = name;

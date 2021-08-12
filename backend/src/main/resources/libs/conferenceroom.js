@@ -30,18 +30,23 @@ ws.onmessage = function(message) {
 
 	switch (parsedMessage.id) {
 	case 'existingParticipants':
+	    console.log('existingParticipants');
 		onExistingParticipants(parsedMessage);
 		break;
 	case 'newParticipantArrived':
+	    console.log('newParticipantArrived');
 		onNewParticipant(parsedMessage);
 		break;
 	case 'participantLeft':
+	    console.log('participantLeft');
 		onParticipantLeft(parsedMessage);
 		break;
 	case 'receiveVideoAnswer':
+	    console.log('receiveVideoAnswer');
 		receiveVideoResponse(parsedMessage);
 		break;
 	case 'iceCandidate':
+	    console.log('iceCandidate');
 		participants[parsedMessage.name].rtcPeer.addIceCandidate(parsedMessage.candidate, function (error) {
 	        if (error) {
 		      console.error("Error adding candidate: " + error);
@@ -55,7 +60,7 @@ ws.onmessage = function(message) {
 }
 
 function register() {
-	name = document.getElementById('name').value;
+	name = document.getElementById('rtcName').value;
 	let room = document.getElementById('roomName').value;
 
 	document.getElementById('room-header').innerText = 'ROOM ' + room;
@@ -72,7 +77,7 @@ function register() {
 }
 
 function joinConference(n, r) {
-//	name = document.getElementById('joinUser').value;
+	name = n;
 //	var room = document.getElementById('joinConferenceRoom').value;
 //    console.log($(this));
 //

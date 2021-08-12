@@ -88,6 +88,7 @@ const todoList = []
 const markList = []
 const mark = false
 const dmRoomList = []
+const dmHistory = []
 
 export default function () {
   return {
@@ -116,6 +117,7 @@ export default function () {
     todoList: todoList,
     markList: markList,
     mark: mark,
-    dmRoomList: dmRoomList
+    dmRoomList: dmRoomList,
+    dmHistory: dmHistory
   }
 }

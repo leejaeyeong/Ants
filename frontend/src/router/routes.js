@@ -80,11 +80,6 @@ const routes = [
             })
           } else if (userstate === '1') {
             next()
-            Swal.fire({
-              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">관리자입니다.</span>',
-              confirmButtonColor: '#19CE60',
-              confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
-            })
           }
         }
       },
