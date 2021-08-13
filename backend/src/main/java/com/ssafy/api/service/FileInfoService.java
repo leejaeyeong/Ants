@@ -25,4 +25,5 @@ public interface FileInfoService {
     List<FileInfoRes> findAll();
     List<FileInfoRes> findByFileExtension(String extension);
     List<FileInfoRes> findByFileName(String fileName);
+    List<FileInfoRes> findByDepartment(Long id);
 }
