@@ -1,7 +1,17 @@
 <template>
   <div id="content">
     <div id="main">
-      <div id="topLeft" class="shadow-1">
+      <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1770px;">
+        <q-fab v-model="mode" color="amber" text-color="white" icon="keyboard_arrow_down" direction="down">
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode1" icon="person" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode2" icon="beach_access" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode3" icon="insert_invitation" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode4" icon="content_paste" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode5" icon="check" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode6" icon="help_outline" />
+        </q-fab>
+      </div>
+      <div id="topLeft" v-show="mode1" class="shadow-1">
         <div class="name">Today</div>
         <div id="day">
           {{ formattedString }} {{ formattedString2 }}
@@ -16,19 +26,19 @@
           <br>
           {{ loginUser.department }}
         </div>
-        <div id="bot1">
+        <div>
           <q-btn flat @click="go" class="checkbtn" label="출근" />
           <q-btn flat @click="out" class="checkbtn" label="퇴근" />
           <div id="detail1">
             <div style="font-size:16px; margin-bottom:10px;">출근 시간<div class="time">{{ checkInTime }}</div></div>
             <div style="font-size:16px;">퇴근 시간<div class="time">{{ checkOutTime }}</div></div>
           </div>
-          <div id="clock">
-            <h3 class="realtime">{{ init() }}</h3>
-          </div>
+        </div>
+        <div class="clock">
+          <p id="realtime">{{ init() }}</p>
         </div>
       </div>
-      <div class="bottomleft shadow-1">
+      <div id="bottomLeft" v-show="mode2" class="bottomleft shadow-1">
         <div class="name">휴가현황</div>
         <a style="text-decoration:none; color:grey;" href="" class="vacation">휴가 신청>></a>
         <div class="totalimg">
@@ -56,7 +66,7 @@
           <q-btn class="icon" unelevated filled rounded color="orange-5" label="12" />
         </div>
       </div>
-      <div id="topRight" class="shadow-1">
+      <div id="topRight" v-show="mode3" class="shadow-1">
         <div class="name">Weekly Report</div><span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
         <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div>
@@ -69,7 +79,7 @@
         <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{totalHourOfWeek}} Hour</span>
         <span style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</span>
       </div>
-      <div id="botRight" class="shadow-1">
+      <div id="botRight" v-show="mode4" class="shadow-1">
         <div class="name">최근 게시물</div>
         <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div class="q-pa-md">
@@ -83,7 +93,7 @@
           />
         </div>
       </div>
-      <div id="endRight" class="shadow-1">
+      <div id="endRight" v-show="mode5" class="shadow-1">
         <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
         <q-fab v-model="bt" style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px;" padding="sm" icon="add" direction="left">
           <div id="todoForm">
@@ -110,9 +120,15 @@
           </div>
         </div>
       </div>
-      <div id="endBottom" class="shadow-1">
+      <div id="endBottom" v-show="mode6" class="shadow-1">
         <div class="name">즐겨찾는 웹사이트</div>
-        <div></div>
+        <div class="weblist">
+          <q-input v-model="text" label="Standard" id="inputSiteURL"/>
+          <button >등록하기</button>
+            <!-- <div>Meta Keyword: <div id="kw"></div></div>
+            <div>Description: <div id="des"></div></div>
+            <div>image: <div id="img"></div></div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -156,6 +172,13 @@ export default defineComponent({
     const bt = ref(false)
     const todoTime = ref('14:40')
     const todoList = computed(() => store.getters['module/getTodoList'])
+    const mode = ref(false)
+    const mode1 = computed(() => store.getters['module/getMode1'])
+    const mode2 = computed(() => store.getters['module/getMode2'])
+    const mode3 = computed(() => store.getters['module/getMode3'])
+    const mode4 = computed(() => store.getters['module/getMode4'])
+    const mode5 = computed(() => store.getters['module/getMode5'])
+    const mode6 = computed(() => store.getters['module/getMode6'])
     const state = reactive({
       time: date.formatDate(currentTime, 'HH:mm:ss'),
       name: localStorage.getItem('name'),
@@ -169,18 +192,28 @@ export default defineComponent({
       rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
-    const clock = document.querySelector('.realtime')
+    // 현재시간 불러오기
     const getTimenow = function () {
       const time = new Date()
       const hour = time.getHours()
       const minutes = time.getMinutes()
       const seconds = time.getSeconds()
-      clock.innerHTML = `${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+      document.getElementById('realtime').innerHTML = `${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
     }
+    // 1초마다 실행하기
     const init = function () {
       setInterval(getTimenow, 1000)
     }
+    // 웹 메타데이터
+    // const registerurl = function () {
+    //   axios({
+    //     url: 'https://cors-anywhere.herokuapp.com/' + 'https://quasar.dev/'
+    //   }).then(function (data) {
+    //     console.log(data, '엑시오스보냄')
+    //   })
+    // }
     onMounted(() => {
+      var count = 1
       store.dispatch('module/check', { })
         .then(function (result) {
           store.commit('module/setCheckInTime', result.data.checkInTime)
@@ -217,9 +250,151 @@ export default defineComponent({
           }
           store.commit('module/setTodoList', tmp)
         })
-      console.log('312381273891371298')
-      console.log(rowsM)
-      console.log('312381273891371298')
+
+      // 이동 함수 시작
+      const today = document.getElementById('topLeft')
+      const topLeft = document.getElementById('topLeft')
+      var x1 = 0
+      var y1 = 0
+      var mousedown1 = false
+
+      today.addEventListener('mousedown', function (e) {
+        mousedown1 = true
+        x1 = topLeft.offsetLeft - e.clientX
+        y1 = topLeft.offsetTop - e.clientY
+        today.style.zIndex = count++
+      }, true)
+
+      today.addEventListener('mouseup', function (e) {
+        mousedown1 = false
+      }, true)
+
+      today.addEventListener('mousemove', function (e) {
+        if (mousedown1) {
+          topLeft.style.left = e.clientX + x1 + 'px'
+          topLeft.style.top = e.clientY + y1 + 'px'
+        }
+      })
+
+      const vacation = document.getElementById('bottomLeft')
+      const bottomLeft = document.getElementById('bottomLeft')
+      var x2 = 0
+      var y2 = 0
+      var mousedown2 = false
+
+      vacation.addEventListener('mousedown', function (e) {
+        mousedown2 = true
+        x2 = bottomLeft.offsetLeft - e.clientX
+        y2 = bottomLeft.offsetTop - e.clientY
+        vacation.style.zIndex = count++
+      }, true)
+
+      vacation.addEventListener('mouseup', function (e) {
+        mousedown2 = false
+      }, true)
+
+      vacation.addEventListener('mousemove', function (e) {
+        if (mousedown2) {
+          bottomLeft.style.left = e.clientX + x2 + 'px'
+          bottomLeft.style.top = e.clientY + y2 + 'px'
+        }
+      })
+
+      const week = document.getElementById('topRight')
+      const topRight = document.getElementById('topRight')
+      var x3 = 0
+      var y3 = 0
+      var mousedown3 = false
+
+      week.addEventListener('mousedown', function (e) {
+        mousedown3 = true
+        x3 = topRight.offsetLeft - e.clientX
+        y3 = topRight.offsetTop - e.clientY
+        week.style.zIndex = count++
+      }, true)
+
+      week.addEventListener('mouseup', function (e) {
+        mousedown3 = false
+      }, true)
+
+      week.addEventListener('mousemove', function (e) {
+        if (mousedown3) {
+          topRight.style.left = e.clientX + x3 + 'px'
+          topRight.style.top = e.clientY + y3 + 'px'
+        }
+      })
+
+      const recent = document.getElementById('botRight')
+      const botRight = document.getElementById('botRight')
+      var x4 = 0
+      var y4 = 0
+      var mousedown4 = false
+
+      recent.addEventListener('mousedown', function (e) {
+        mousedown4 = true
+        x4 = botRight.offsetLeft - e.clientX
+        y4 = botRight.offsetTop - e.clientY
+        recent.style.zIndex = count++
+      }, true)
+
+      recent.addEventListener('mouseup', function (e) {
+        mousedown4 = false
+      }, true)
+
+      recent.addEventListener('mousemove', function (e) {
+        if (mousedown4) {
+          botRight.style.left = e.clientX + x4 + 'px'
+          botRight.style.top = e.clientY + y4 + 'px'
+        }
+      })
+
+      const todo = document.getElementById('endRight')
+      const endRight = document.getElementById('endRight')
+      var x5 = 0
+      var y5 = 0
+      var mousedown5 = false
+
+      todo.addEventListener('mousedown', function (e) {
+        mousedown5 = true
+        x5 = endRight.offsetLeft - e.clientX
+        y5 = endRight.offsetTop - e.clientY
+        todo.style.zIndex = count++
+      }, true)
+
+      todo.addEventListener('mouseup', function (e) {
+        mousedown5 = false
+      }, true)
+
+      todo.addEventListener('mousemove', function (e) {
+        if (mousedown5) {
+          endRight.style.left = e.clientX + x5 + 'px'
+          endRight.style.top = e.clientY + y5 + 'px'
+        }
+      })
+
+      const end = document.getElementById('endBottom')
+      const endBottom = document.getElementById('endBottom')
+      var x6 = 0
+      var y6 = 0
+      var mousedown6 = false
+
+      end.addEventListener('mousedown', function (e) {
+        mousedown6 = true
+        x6 = endBottom.offsetLeft - e.clientX
+        y6 = endBottom.offsetTop - e.clientY
+        end.style.zIndex = count++
+      }, true)
+
+      end.addEventListener('mouseup', function (e) {
+        mousedown6 = false
+      }, true)
+
+      end.addEventListener('mousemove', function (e) {
+        if (mousedown6) {
+          endBottom.style.left = e.clientX + x6 + 'px'
+          endBottom.style.top = e.clientY + y6 + 'px'
+        }
+      })
     })
     const currentDay = new Date()
     const theYear = currentDay.getFullYear()
@@ -336,6 +511,36 @@ export default defineComponent({
       state.todoText = ''
       bt.value = false
     }
+    const CheckMode1 = function () {
+      const tmp = store.getters['module/getMode1']
+      store.commit('module/setMode1', !tmp)
+      mode.value = true
+    }
+    const CheckMode2 = function () {
+      const tmp = store.getters['module/getMode2']
+      store.commit('module/setMode2', !tmp)
+      mode.value = true
+    }
+    const CheckMode3 = function () {
+      const tmp = store.getters['module/getMode3']
+      store.commit('module/setMode3', !tmp)
+      mode.value = true
+    }
+    const CheckMode4 = function () {
+      const tmp = store.getters['module/getMode4']
+      store.commit('module/setMode4', !tmp)
+      mode.value = true
+    }
+    const CheckMode5 = function () {
+      const tmp = store.getters['module/getMode5']
+      store.commit('module/setMode5', !tmp)
+      mode.value = true
+    }
+    const CheckMode6 = function () {
+      const tmp = store.getters['module/getMode6']
+      store.commit('module/setMode6', !tmp)
+      mode.value = true
+    }
     return {
       formattedString,
       formattedString2,
@@ -359,7 +564,21 @@ export default defineComponent({
       todoList,
       check: ref(false),
       getTimenow,
-      init
+      init,
+      mode1,
+      mode2,
+      mode3,
+      mode4,
+      mode5,
+      mode6,
+      CheckMode1,
+      CheckMode2,
+      CheckMode3,
+      CheckMode4,
+      CheckMode5,
+      CheckMode6,
+      mode,
+      text: ref('')
     }
   }
 })
@@ -400,6 +619,7 @@ export default defineComponent({
   margin-left: 38px;
   margin-top: 20px;
   font-size:24px;
+  cursor:pointer;
 }
 #day{
   height:30px;
@@ -415,6 +635,16 @@ export default defineComponent({
   margin-top: 10px;
   float: left;
 }
+#bot1{
+  margin-top:5px;
+  height:140px;
+}
+#detail1{
+  float:right;
+  width:80%;
+  height:60px;
+  margin-right: 38px;
+}
 .userInfo {
   float: left;
   width: 150px;
@@ -423,6 +653,16 @@ export default defineComponent({
   line-height: 40px;
   font-size: 16px;
   margin-top: 10px;
+}
+.clock {
+  height: 50px;
+  width: 250px;
+  margin-left: 37px;
+  margin-top: 350px;
+  text-align: center;
+  font-size: 45px;
+  font-family: 'LAB디지털';
+  color: rgb(240, 171, 44)
 }
 .checkbtn {
   border-right:1px;
@@ -451,17 +691,6 @@ export default defineComponent({
   border-radius: 4%;
   animation: leftFadeIn 1.1s ease-in-out;
 }
-
-#bot1{
-  margin-top:5px;
-  height:140px;
-}
-#detail1{
-  float:right;
-  width:80%;
-  height:60px;
-  margin-right: 38px;
-}
 .img {
   float: left;
   width: 33%;
@@ -482,6 +711,7 @@ export default defineComponent({
   margin-left: 37px;
   margin-top: 10px;
 }
+
 .icon {
   float: left;
   width: 60px;
@@ -621,6 +851,12 @@ export default defineComponent({
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/Eulyoo1945-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+}
+@font-face {
+  font-family: 'LAB디지털';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/LAB디지털.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 body {
   font-family: 'NEXON Lv1 Gothic OTF';
