@@ -149,7 +149,6 @@ export default function () {
     mode4: mode4,
     mode5: mode5,
     mode6: mode6,
-    dmHistory: dmHistory.length,
     fileImage: fileImage
   }
 }
