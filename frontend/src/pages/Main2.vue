@@ -23,6 +23,9 @@
             <div style="font-size:16px; margin-bottom:10px;">출근 시간<div class="time">{{ checkInTime }}</div></div>
             <div style="font-size:16px;">퇴근 시간<div class="time">{{ checkOutTime }}</div></div>
           </div>
+          <div id="clock">
+            <h3 class="realtime">{{ init() }}</h3>
+          </div>
         </div>
       </div>
       <div class="bottomleft shadow-1">
@@ -108,7 +111,8 @@
         </div>
       </div>
       <div id="endBottom" class="shadow-1">
-        <div class="name">오늘의 점심은❓ 아님 오늘 뉴스</div>
+        <div class="name">즐겨찾는 웹사이트</div>
+        <div></div>
       </div>
     </div>
   </div>
@@ -165,6 +169,17 @@ export default defineComponent({
       rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
+    const clock = document.querySelector('.realtime')
+    const getTimenow = function () {
+      const time = new Date()
+      const hour = time.getHours()
+      const minutes = time.getMinutes()
+      const seconds = time.getSeconds()
+      clock.innerHTML = `${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+    }
+    const init = function () {
+      setInterval(getTimenow, 1000)
+    }
     onMounted(() => {
       store.dispatch('module/check', { })
         .then(function (result) {
@@ -342,7 +357,9 @@ export default defineComponent({
       registTodo,
       todoTime,
       todoList,
-      check: ref(false)
+      check: ref(false),
+      getTimenow,
+      init
     }
   }
 })
