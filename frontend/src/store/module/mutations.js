@@ -105,3 +105,27 @@ export function setDmRoomList (state, dmRoomList) {
 export function setDmHistory (state, dmHistory) {
   state.dmHistory = dmHistory
 }
+
+export function setMode1 (state, mode1) {
+  state.mode1 = mode1
+}
+
+export function setMode2 (state, mode2) {
+  state.mode2 = mode2
+}
+
+export function setMode3 (state, mode3) {
+  state.mode3 = mode3
+}
+
+export function setMode4 (state, mode4) {
+  state.mode4 = mode4
+}
+
+export function setMode5 (state, mode5) {
+  state.mode5 = mode5
+}
+
+export function setMode6 (state, mode6) {
+  state.mode6 = mode6
+}
