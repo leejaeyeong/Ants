@@ -156,6 +156,7 @@ export default {
         month = '0' + String(month)
       }
       const baseUrl = 'https://localhost:8443/'
+      // const baseUrl = 'https://i5b103.p.ssafy.io:8443/'
       const id = localStorage.getItem('id')
       const requestData = {
         method: 'get',

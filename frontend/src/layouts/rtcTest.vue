@@ -1,7 +1,7 @@
 <template>
   <div id="container">
       <div id="wrapper">
-          <div id="join" class="animate join">
+          <div id="join" style="position:absolute; left:60px; top:-30px;" class="animate join">
               <!-- <h1>Join a Room</h1> -->
               <form onsubmit="register(); return false;" accept-charset="UTF-8">
                   <p>
@@ -15,7 +15,8 @@
               </form>
               <div class="q-pa-md row items-start q-gutter-md">
                 <q-card v-for="room in rooms" :key="room.id" class="my-card" style="margin-top:100px;">
-                    <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
+                    <!-- <q-img src="https://cdn.quasar.dev/img/parallax2.jpg"> -->
+                    <q-img src="~assets/images/office.jpg" style="">
                       <div class="absolute-bottom">
                         <div class="text-h6">{{ room.roomName }}</div>
                         <div class="text-subtitle2">{{ room.id }}</div>
@@ -57,10 +58,22 @@
                     </form>
                   </div>
               </div>
-              <!-- 나가기 버튼 -->
-              <form class="form-inline" onsubmit="disconnect(); return false;" accept-charset="UTF-8">
-                <input type="button" id="button-leave" onmouseup="leaveRoom();" value="나가기">
-              </form>
+              <div id="btDiv">
+                <!-- 나가기 버튼 -->
+                <form class="form-inline" onsubmit="disconnect(); return false;" accept-charset="UTF-8">
+                    <form style="display:inline-block;" onsubmit="rtcMute($(this).find('input').eq(0).val()); return false;">
+                      <input :value="id" style="display:none">
+                      <!-- <q-icon style="font-size: 2.8em; color: white;" name="mic" type="submit"/> -->
+                      <button class="bt1" type="submit" value="mute"/>
+                    </form>
+                    <form style="display:inline-block;" onsubmit="rtcVideoVision($(this).find('input').eq(0).val()); return false;">
+                      <input :value="id" style="display:none">
+                      <!-- <q-icon style="font-size: 2.8em; color: white;" name="photo_camera"/> -->
+                      <button  class="bt2" type="submit" value="mute"/>
+                    </form>
+                  <input type="button" id="button-leave" onmouseup="leaveRoom();">
+                </form>
+              </div>
           </div>
       </div>
   </div>
@@ -135,6 +148,16 @@ export default defineComponent({
 })
 </script>
 <style>
+#wrapper{
+  width:1858px;
+  height:908px;
+  float:right;
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  border-bottom:0.5px solid rgb(212, 212, 212);
+  background-color: rgb(242, 247, 244);
+}
 #submit{
     background-color:#18C75E;
     font-weight:bold;
@@ -145,8 +168,8 @@ export default defineComponent({
     border:0.5px solid #18C75E;
     border-radius:5px;
     position:absolute;
-    top:880px;
-    left:1650px;
+    top:850px;
+    left:1590px;
 }
 #submit:hover{
     opacity: 0.7;
@@ -155,8 +178,8 @@ export default defineComponent({
     width:1340px;
     height:892px;
     position:absolute;
-    top:75px;
-    left:90px;
+    top:15px;
+    left:30px;
 }
 #chat{
     width:490px;
@@ -164,25 +187,13 @@ export default defineComponent({
     border-left:1px solid rgb(212, 212, 212);
     border-top: 1px solid rgb(212, 212, 212);
     position:absolute;
-    left:1410px;
-    top:75px;
-}
-#button-leave{
-    position:absolute;
-    top:90%;
-    left:120px;
-    background-color:#18C75E;
-    border:0.5px solid #18C75E;
-    font-weight:bold;
-    color:white;
-    padding:10px;
-    font-size:30px;
-    cursor: pointer;
-    border-radius:5px;
+    left:1350px;
+    top:15px;
 }
 .my-card{
   width:380px;
   margin:30px 0 0 30px;
+  box-shadow: 5px 5px 5px;
 }
 .enter{
   background-color:#18C75E;
@@ -219,5 +230,46 @@ export default defineComponent({
 }
 .msg{
   font-size:20px;
+}
+#btDiv{
+  width:180px;
+  position:absolute;
+  top:850px;
+  left:585px;
+}
+#button-leave{
+    width:50px;
+    height:50px;
+    border-radius:50px;
+    border:0.5px solid #18C75E;
+    display:inline-block;
+    color:white;
+    padding:10px;
+    cursor: pointer;
+    margin-left:10px;
+    background: url('~assets/images/exit.png') no-repeat right center #18C75E;
+}
+.bt1{
+  background: url('~assets/images/mic.png') no-repeat right center #18C75E;
+  border-radius: 50px;
+  width:50px;
+  height:50px;
+  cursor: pointer;
+  display:inline-block;
+  padding-left:5px;
+  padding-top:5px;
+  border:0.5px solid #18C75E;
+}
+.bt2{
+  background: url('~assets/images/video.png') no-repeat right center #18C75E;
+  border-radius: 50px;
+  width:50px;
+  height:50px;
+  cursor: pointer;
+  display:inline-block;
+  padding-left:5px;
+  padding-top:5px;
+  border:0.5px solid #18C75E;
+  margin-left:10px;
 }
 </style>

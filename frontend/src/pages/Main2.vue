@@ -1,7 +1,17 @@
 <template>
   <div id="content">
     <div id="main">
-      <div id="topLeft" class="shadow-1">
+       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1770px;">
+        <q-fab v-model="mode" color="amber" text-color="white" icon="keyboard_arrow_down" direction="down">
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode1" icon="person" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode2" icon="beach_access" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode3" icon="insert_invitation" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode4" icon="content_paste" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode5" icon="check" />
+          <q-fab-action color="amber" text-color="white"  @click="CheckMode6" icon="help_outline" />
+        </q-fab>
+       </div>
+      <div id="topLeft" v-show="mode1" class="shadow-1">
         <div class="name">Today</div>
         <div id="day">
           {{ formattedString }} {{ formattedString2 }}
@@ -25,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="bottomleft shadow-1">
+      <div id="bottomLeft" v-show="mode2" class="bottomleft shadow-1">
         <div class="name">휴가현황</div>
         <a style="text-decoration:none; color:grey;" href="" class="vacation">휴가 신청>></a>
         <div class="totalimg">
@@ -53,7 +63,7 @@
           <q-btn class="icon" unelevated filled rounded color="orange-5" label="12" />
         </div>
       </div>
-      <div id="topRight" class="shadow-1">
+      <div id="topRight" v-show="mode3" class="shadow-1">
         <div class="name">Weekly Report</div><span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
         <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div>
@@ -66,7 +76,7 @@
         <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{totalHourOfWeek}} Hour</span>
         <span style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</span>
       </div>
-      <div id="botRight" class="shadow-1">
+      <div id="botRight" v-show="mode4" class="shadow-1">
         <div class="name">최근 게시물</div>
         <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" />
         <div class="q-pa-md">
@@ -80,7 +90,7 @@
           />
         </div>
       </div>
-      <div id="endRight" class="shadow-1">
+      <div id="endRight" v-show="mode5" class="shadow-1">
         <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
         <q-fab v-model="bt" style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px;" padding="sm" glossy icon="add" direction="left">
           <div id="todoForm">
@@ -107,8 +117,8 @@
           </div>
         </div>
       </div>
-      <div id="endBottom" class="shadow-1">
-        <div class="name">뭐하지❓</div>
+      <div id="endBottom" v-show="mode6" class="shadow-1">
+        <div class="name">오늘의 점심은❓ 아님 오늘 뉴스</div>
       </div>
     </div>
   </div>
@@ -152,6 +162,13 @@ export default defineComponent({
     const bt = ref(false)
     const todoTime = ref('14:40')
     const todoList = computed(() => store.getters['module/getTodoList'])
+    const mode = ref(false)
+    const mode1 = computed(() => store.getters['module/getMode1'])
+    const mode2 = computed(() => store.getters['module/getMode2'])
+    const mode3 = computed(() => store.getters['module/getMode3'])
+    const mode4 = computed(() => store.getters['module/getMode4'])
+    const mode5 = computed(() => store.getters['module/getMode5'])
+    const mode6 = computed(() => store.getters['module/getMode6'])
     const state = reactive({
       time: date.formatDate(currentTime, 'HH:mm:ss'),
       name: localStorage.getItem('name'),
@@ -162,10 +179,11 @@ export default defineComponent({
       sortBy: 'desc',
       descending: false,
       page: 1,
-      rowsPerPage: 8
+      rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
     onMounted(() => {
+      var count = 1
       store.dispatch('module/check', { })
         .then(function (result) {
           store.commit('module/setCheckInTime', result.data.checkInTime)
@@ -202,9 +220,151 @@ export default defineComponent({
           }
           store.commit('module/setTodoList', tmp)
         })
-      console.log('312381273891371298')
-      console.log(rowsM)
-      console.log('312381273891371298')
+
+      // 이동 함수 시작
+      const today = document.getElementById('topLeft')
+      const topLeft = document.getElementById('topLeft')
+      var x1 = 0
+      var y1 = 0
+      var mousedown1 = false
+
+      today.addEventListener('mousedown', function (e) {
+        mousedown1 = true
+        x1 = topLeft.offsetLeft - e.clientX
+        y1 = topLeft.offsetTop - e.clientY
+        today.style.zIndex = count++
+      }, true)
+
+      today.addEventListener('mouseup', function (e) {
+        mousedown1 = false
+      }, true)
+
+      today.addEventListener('mousemove', function (e) {
+        if (mousedown1) {
+          topLeft.style.left = e.clientX + x1 + 'px'
+          topLeft.style.top = e.clientY + y1 + 'px'
+        }
+      })
+
+      const vacation = document.getElementById('bottomLeft')
+      const bottomLeft = document.getElementById('bottomLeft')
+      var x2 = 0
+      var y2 = 0
+      var mousedown2 = false
+
+      vacation.addEventListener('mousedown', function (e) {
+        mousedown2 = true
+        x2 = bottomLeft.offsetLeft - e.clientX
+        y2 = bottomLeft.offsetTop - e.clientY
+        vacation.style.zIndex = count++
+      }, true)
+
+      vacation.addEventListener('mouseup', function (e) {
+        mousedown2 = false
+      }, true)
+
+      vacation.addEventListener('mousemove', function (e) {
+        if (mousedown2) {
+          bottomLeft.style.left = e.clientX + x2 + 'px'
+          bottomLeft.style.top = e.clientY + y2 + 'px'
+        }
+      })
+
+      const week = document.getElementById('topRight')
+      const topRight = document.getElementById('topRight')
+      var x3 = 0
+      var y3 = 0
+      var mousedown3 = false
+
+      week.addEventListener('mousedown', function (e) {
+        mousedown3 = true
+        x3 = topRight.offsetLeft - e.clientX
+        y3 = topRight.offsetTop - e.clientY
+        week.style.zIndex = count++
+      }, true)
+
+      week.addEventListener('mouseup', function (e) {
+        mousedown3 = false
+      }, true)
+
+      week.addEventListener('mousemove', function (e) {
+        if (mousedown3) {
+          topRight.style.left = e.clientX + x3 + 'px'
+          topRight.style.top = e.clientY + y3 + 'px'
+        }
+      })
+
+      const recent = document.getElementById('botRight')
+      const botRight = document.getElementById('botRight')
+      var x4 = 0
+      var y4 = 0
+      var mousedown4 = false
+
+      recent.addEventListener('mousedown', function (e) {
+        mousedown4 = true
+        x4 = botRight.offsetLeft - e.clientX
+        y4 = botRight.offsetTop - e.clientY
+        recent.style.zIndex = count++
+      }, true)
+
+      recent.addEventListener('mouseup', function (e) {
+        mousedown4 = false
+      }, true)
+
+      recent.addEventListener('mousemove', function (e) {
+        if (mousedown4) {
+          botRight.style.left = e.clientX + x4 + 'px'
+          botRight.style.top = e.clientY + y4 + 'px'
+        }
+      })
+
+      const todo = document.getElementById('endRight')
+      const endRight = document.getElementById('endRight')
+      var x5 = 0
+      var y5 = 0
+      var mousedown5 = false
+
+      todo.addEventListener('mousedown', function (e) {
+        mousedown5 = true
+        x5 = endRight.offsetLeft - e.clientX
+        y5 = endRight.offsetTop - e.clientY
+        todo.style.zIndex = count++
+      }, true)
+
+      todo.addEventListener('mouseup', function (e) {
+        mousedown5 = false
+      }, true)
+
+      todo.addEventListener('mousemove', function (e) {
+        if (mousedown5) {
+          endRight.style.left = e.clientX + x5 + 'px'
+          endRight.style.top = e.clientY + y5 + 'px'
+        }
+      })
+
+      const end = document.getElementById('endBottom')
+      const endBottom = document.getElementById('endBottom')
+      var x6 = 0
+      var y6 = 0
+      var mousedown6 = false
+
+      end.addEventListener('mousedown', function (e) {
+        mousedown6 = true
+        x6 = endBottom.offsetLeft - e.clientX
+        y6 = endBottom.offsetTop - e.clientY
+        end.style.zIndex = count++
+      }, true)
+
+      end.addEventListener('mouseup', function (e) {
+        mousedown6 = false
+      }, true)
+
+      end.addEventListener('mousemove', function (e) {
+        if (mousedown6) {
+          endBottom.style.left = e.clientX + x6 + 'px'
+          endBottom.style.top = e.clientY + y6 + 'px'
+        }
+      })
     })
     const currentDay = new Date()
     const theYear = currentDay.getFullYear()
@@ -230,10 +390,10 @@ export default defineComponent({
     console.log(inputText)
 
     const go = function () {
-      store.dispatch('module/go', { time: state.time })
+      store.dispatch('module/go')
         .then(function (result) {
-          console.log(result)
-          store.commit('module/setCheckInTime', state.time)
+          console.log('go', result.data.substring(0, 8))
+          store.commit('module/setCheckInTime', result.data.substring(0, 8))
         })
         .catch(function () {
           Swal.fire({
@@ -245,10 +405,10 @@ export default defineComponent({
     }
 
     const out = function () {
-      store.dispatch('module/out', { time: state.time })
+      store.dispatch('module/out')
         .then(function (result) {
-          console.log(result)
-          store.commit('module/setCheckOutTime', state.time)
+          console.log('out', result.data.substring(0, 8))
+          store.commit('module/setCheckOutTime', result.data.substring(0, 8))
           store.dispatch('module/loadAttendanceByWeek', { })
             .then(function (result) {
               store.commit('module/setTotalHourOfWeek', result.data.totalHour)
@@ -264,7 +424,7 @@ export default defineComponent({
         })
         .catch(function () {
           Swal.fire({
-            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">서버오류. 다시 시도해주세요.</span>',
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">먼저 출근을 진행해주세요.</span>',
             confirmButtonColor: '#ce1919',
             confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
           })
@@ -321,6 +481,36 @@ export default defineComponent({
       state.todoText = ''
       bt.value = false
     }
+    const CheckMode1 = function () {
+      const tmp = store.getters['module/getMode1']
+      store.commit('module/setMode1', !tmp)
+      mode.value = true
+    }
+    const CheckMode2 = function () {
+      const tmp = store.getters['module/getMode2']
+      store.commit('module/setMode2', !tmp)
+      mode.value = true
+    }
+    const CheckMode3 = function () {
+      const tmp = store.getters['module/getMode3']
+      store.commit('module/setMode3', !tmp)
+      mode.value = true
+    }
+    const CheckMode4 = function () {
+      const tmp = store.getters['module/getMode4']
+      store.commit('module/setMode4', !tmp)
+      mode.value = true
+    }
+    const CheckMode5 = function () {
+      const tmp = store.getters['module/getMode5']
+      store.commit('module/setMode5', !tmp)
+      mode.value = true
+    }
+    const CheckMode6 = function () {
+      const tmp = store.getters['module/getMode6']
+      store.commit('module/setMode6', !tmp)
+      mode.value = true
+    }
     return {
       formattedString,
       formattedString2,
@@ -342,7 +532,20 @@ export default defineComponent({
       registTodo,
       todoTime,
       todoList,
-      check: ref(false)
+      check: ref(false),
+      mode1,
+      mode2,
+      mode3,
+      mode4,
+      mode5,
+      mode6,
+      CheckMode1,
+      CheckMode2,
+      CheckMode3,
+      CheckMode4,
+      CheckMode5,
+      CheckMode6,
+      mode
     }
   }
 })
@@ -352,11 +555,11 @@ export default defineComponent({
 <style scoped>
 #content{
   width:100%;
-  height: 860px;
+  height: 908px;
 }
 #main{
   width:1858px;
-  height:876px;
+  height:908px;
   float:right;
   position: absolute;
   top: 60px;
@@ -366,11 +569,11 @@ export default defineComponent({
 }
 #topLeft{
   width:350px;
-  height:500px;
+  height:530px;
   border: 1px solid rgb(212, 212, 212);
   display:inline-block;
   position:absolute;
-  top:20px;
+  top:15px;
   left:20px;
   background-color: white;
   border-radius: 3%;
@@ -383,6 +586,7 @@ export default defineComponent({
   margin-left: 38px;
   margin-top: 20px;
   font-size:24px;
+  cursor:pointer;
 }
 #day{
   height:30px;
@@ -425,11 +629,11 @@ export default defineComponent({
 .bottomleft {
   background-color: white;
   width: 350px;
-  height: 275px;
+  height: 333px;
   float: left;
   border: 1px solid rgb(212, 212, 212);
   position: absolute;
-  top:534px;
+  top:561px;
   left:20px;
   border-radius: 4%;
   animation: leftFadeIn 1.1s ease-in-out;
@@ -459,7 +663,7 @@ export default defineComponent({
 }
 .totalimg {
   margin-left: 37px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 .totaltext{
   margin-left: 37px;
@@ -483,7 +687,7 @@ export default defineComponent({
   height:230px;
   border:0.5px solid rgb(212, 212, 212);
   position: absolute;
-  top:20px;
+  top:15px;
   left:385px;
   background-color: white;
   border-radius: 10px;
@@ -496,7 +700,7 @@ export default defineComponent({
   border:0.5px solid rgb(212, 212, 212);
   background-color: white;
   position: absolute;
-  top:20px;
+  top:15px;
   left:1215px;
   border-radius: 10px;
   animation: rightFadeIn 1.1s ease-in-out;
@@ -504,11 +708,11 @@ export default defineComponent({
 #endBottom{
   float:right;
   width:550px;
-  height:420px;
+  height:513px;
   border:0.5px solid rgb(212, 212, 212);
   background-color: white;
   position: absolute;
-  top:390px;
+  top:381px;
   left: 1215px;
   border-radius: 1.5%;
   animation: bottomFadeIn 1.1s ease-in-out;
@@ -525,8 +729,8 @@ export default defineComponent({
 #botRight{
   position: absolute;
   width:815px;
-  height:540px;
-  top:270px;
+  height:633px;
+  top:261px;
   left:385px;
   border:0.5px solid rgb(212, 212, 212);
   background-color:white;

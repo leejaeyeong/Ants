@@ -64,7 +64,7 @@
         <div class="row" align="left" style="margin-top: 0px; margin-left: 150px;">
           <div class="col-2">
             <q-avatar size="60px" class="shadow-10" @click="clickExtension('.zip')">
-              <img src="https://blog.kakaocdn.net/dn/dK3cLI/btqGteLVjDW/ddq5d2gBFO0kxK6eMkreW1/img.png">
+              <img :src="present.image.zip">
               <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong style="font-size: 12px;">알집 자료 검색</strong>
               </q-tooltip>
@@ -72,7 +72,7 @@
           </div>
           <div class="col-2">
             <q-avatar size="60px" class="shadow-10" @click="clickExtension('.pdf')">
-              <img src="https://blog.kakaocdn.net/dn/cj4Y3U/btqMPi7uAh8/sYik4nsvvqUmG36Hhbwwj1/img.png">
+              <img :src="present.image.pdf">
               <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong style="font-size: 12px;">pdf 자료 검색</strong>
               </q-tooltip>
@@ -80,7 +80,7 @@
           </div>
           <div class="col-2">
             <q-avatar size="60px" class="shadow-10" @click="clickExtension('.xlsx')">
-              <img src="data:image/png;base64,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">
+              <img :src="present.image.xlsx">
               <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong style="font-size: 12px;">엑셀 자료 검색</strong>
               </q-tooltip>
@@ -88,7 +88,7 @@
           </div>
           <div class="col-2">
             <q-avatar size="60px" class="shadow-10" @click="clickExtension('.hwp')">
-              <img src="https://lh3.googleusercontent.com/proxy/LN8tmUbRlarEWaIjpx8myVgVguxNxWiokw7jhU5qyK8XQK6A_KiZF8UsNzSW6U2KQNXiErnVsTPnDYCHZ8nj7_UhgCmJITu7dviYP3fg7oEp">
+              <img :src="present.image.hwp">
               <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong style="font-size: 12px;">한글 자료 검색</strong>
               </q-tooltip>
@@ -96,7 +96,7 @@
           </div>
           <div class="col-2">
             <q-avatar size="60px" class="shadow-10" @click="clickExtension('.docx')">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Gc35vru52VOvdoidjxRXOHZjLdFOSJND7fh-ADfqKBqz3MMYLbW2II5thFpukmye2nY&usqp=CAU">
+              <img :src="present.image.docx">
               <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong style="font-size: 12px;">워드 자료 검색</strong>
               </q-tooltip>
@@ -104,7 +104,7 @@
           </div>
           <div class="col-2">
             <q-avatar size="60px" class="shadow-10">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU">
+              <img :src="present.image.jpg">
               <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong style="font-size: 12px;">이미지 자료 검색</strong>
               </q-tooltip>
@@ -148,7 +148,7 @@ const columns = [
 //     image: 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
 //   }
 // ]
-import { defineComponent, ref, computed, onMounted } from 'vue'
+import { defineComponent, ref, computed, onMounted, reactive } from 'vue'
 // import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -167,6 +167,10 @@ export default defineComponent({
     const router = useRouter()
     console.log(router.query)
     const rows = computed(() => store.getters['module/getFileInfoList']).value
+    const fileImage = computed(() => store.getters['module/getFileImage']).value
+    const present = reactive({
+      image: fileImage
+    })
     const Swal = require('sweetalert2')
     loadFileData()
     console.log(rows)
@@ -184,16 +188,15 @@ export default defineComponent({
         .then(function (result) {
           console.log(result.data + 'key up잘 받아오는지')
           for (let i = 0; i < result.data.length; i++) {
-            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+            const extension = result.data[i].fileExtension.substring(1, result.data[i].fileExtension.length)
+            result.data[i].imageLocation = (fileImage[extension] === undefined) ? fileImage.other : fileImage[extension]
           }
           store.commit('module/setFileinfoList', result.data)
-          console.log(store.getters['module/getFileInfoList'], '파일 게터스')
           if (router.currentRoute._rawValue.path === '/downloads') {
             router.push({ name: 'Downloads2', query: { fileName: keyword } })
           } else {
             router.push({ name: 'Downloads', query: { fileName: keyword } })
           }
-          console.log(router)
         })
         .catch(function () {
           Swal.fire({
@@ -228,14 +231,11 @@ export default defineComponent({
     function loadFileData () {
       store.dispatch('module/loadFileData')
         .then(function (result) {
-          console.log(result.data + '잘 받아오는지')
           for (let i = 0; i < result.data.length; i++) {
-            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+            const extension = result.data[i].fileExtension.substring(1, result.data[i].fileExtension.length)
+            result.data[i].imageLocation = (fileImage[extension] === undefined) ? fileImage.other : fileImage[extension]
           }
-          // setFileinfoList
           store.commit('module/setFileinfoList', result.data)
-          console.log(store.getters['module/getFileInfoList'], '파일 게터스')
-          // console.log(router)
         })
         .catch(function () {
           Swal.fire({
@@ -253,39 +253,8 @@ export default defineComponent({
         router.push('/downloads')
       }
     }
-    function mountImageUrl (extension) {
-      let imageUrl = ''
-      switch (extension) {
-        case '.ppt':
-        case '.pptx':
-          imageUrl = 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
-          break
-        case '.hwp':
-          imageUrl = 'https://lh3.googleusercontent.com/proxy/LN8tmUbRlarEWaIjpx8myVgVguxNxWiokw7jhU5qyK8XQK6A_KiZF8UsNzSW6U2KQNXiErnVsTPnDYCHZ8nj7_UhgCmJITu7dviYP3fg7oEp'
-          break
-        case '.docx':
-          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7Gc35vru52VOvdoidjxRXOHZjLdFOSJND7fh-ADfqKBqz3MMYLbW2II5thFpukmye2nY&usqp=CAU'
-          break
-        case '.xlsx':
-          imageUrl = 'data:image/png;base64,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'
-          break
-        case '.pdf':
-          imageUrl = 'https://blog.kakaocdn.net/dn/cj4Y3U/btqMPi7uAh8/sYik4nsvvqUmG36Hhbwwj1/img.png'
-          break
-        case '.jpg':
-        case '.png':
-        case '.JPG':
-        case '.PNG':
-          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU'
-          break
-        default:
-          imageUrl = 'https://i.pinimg.com/474x/78/6d/27/786d27105f7e9f02f92c31040169b2de.jpg'
-      }
-      return imageUrl
-    }
     function searchBarReset () {
       const input = document.getElementById('searchInput')
-      console.log(input)
       input.value = null
       pageChange()
     }
@@ -294,16 +263,12 @@ export default defineComponent({
         .then(function (result) {
           console.log(result.data)
           for (let i = 0; i < result.data.length; i++) {
-            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+            const extension = result.data[i].fileExtension.substring(1, result.data[i].fileExtension.length)
+            result.data[i].imageLocation = (fileImage[extension] === undefined) ? fileImage.other : fileImage[extension]
           }
           // // setFileinfoList
           store.commit('module/setFileinfoList', result.data)
-          console.log(store.getters['module/getFileInfoList'], '파일 게터스')
-          if (router.currentRoute._rawValue.path === '/downloads') {
-            router.push('/downloads2')
-          } else {
-            router.push('/downloads')
-          }
+          pageChange()
         })
         .catch(function (err) {
           console.log(err)
@@ -322,7 +287,8 @@ export default defineComponent({
       pageChange,
       router,
       input,
-      searchBarReset
+      searchBarReset,
+      present
     }
   }
 })
@@ -335,6 +301,7 @@ export default defineComponent({
   position: absolute;
   left: 450px;
   top: 220px;
+  background-color: rgb(242, 247, 244);
   /* background: orange; */
 }
 .content-title {

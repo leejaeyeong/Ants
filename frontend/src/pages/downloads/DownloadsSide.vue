@@ -4,27 +4,31 @@
       <h6 ><span class="highlight-green">파일 업로드</span></h6>
     </div>
     <div class="row">
-    <div v-if="form.images" class="margin-auto file-frame"
+      <!-- 파일 지정된 상태 -->
+    <div v-if="form.images" class="margin-auto file-mounted"
     @drop.prevent="dropInputTag($event)"
     @dragover.prevent>
     <div style="margin-left: 60px; margin-top:10px;">
       <img :src="form.images" alt="image" class="present-image"><br>
     </div>
-    <div align="center">안녕하dasdasdas세요 안녕</div>
+    <div align="center">{{form.image.name}}</div>
+    <div align="center">{{ fileSizeFilter }}</div>
+    <!-- {{form.image.name}} -->
     </div>
+    <!-- 파일 미지정 상태 -->
     <div id="unSelectFileFrame" v-else class="margin-auto file-frame"
       @click="clickInputTag()"
       @drop.prevent="dropInputTag($event)"
-      @dragenter="test()"
+      @dragenter="dragEnter()"
       @dragleave="dragLeave()"
       @dragover.prevent>
       <div align="center" style="line-height:150px">파일을 끌어서 올려주세요</div>
-      <input ref="image" id="input" type="file" name="image" @change="uploadImage()" v-show="false">
+      <!-- <input ref="image" id="input" type="file" name="image" @change="presentImage()" v-show="false"> -->
     </div>
   </div>
   <div class="row">
     <div class="margin-auto">
-      <q-btn class="reset-btn">초기화</q-btn>&nbsp;&nbsp;&nbsp;
+      <q-btn @click="reset" class="reset-btn">초기화</q-btn>&nbsp;&nbsp;&nbsp;
       <q-btn @click="regist" class="upload-btn ">파일 업로드</q-btn>
     </div>
   </div>
@@ -37,7 +41,7 @@
     <div v-for="department in departmentInfo" :key="department.id" style="margin-left: 40px;">
       <div class="row">
         <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 2.5em; color: #18C75E;" name="description"/>
-        <span class="department-list">{{ department.departmentName }}</span>
+        <span @click="searchByDepartment(department.id)" class="department-list">{{ department.departmentName }}</span>
       </div>
     </div>
   </div>
@@ -65,6 +69,20 @@ export default defineComponent({
   name: 'DonwloadsSide',
   components: {
   },
+  computed: {
+    fileSizeFilter () {
+      const size = this.form.image.size
+      let convertedFileSize = ''
+      if (size / 1000000 >= 1) {
+        convertedFileSize = (size / 1000000).toFixed(2) + 'MB'
+      } else if (size / 1000 >= 1) {
+        convertedFileSize = (size / 1000).toFixed(2) + 'KB'
+      } else {
+        convertedFileSize = size + 'B'
+      }
+      return convertedFileSize
+    }
+  },
   setup () {
     const router = useRouter()
     const store = useStore()
@@ -74,6 +92,7 @@ export default defineComponent({
       images: '',
       subSdieVisible: false
     })
+    const fileImage = computed(() => store.getters['module/getFileImage']).value
     const departmentInfo = computed(() => store.getters['module/getDepartmentInfo'])
     const Swal = require('sweetalert2')
     function sweetAlert (title) {
@@ -82,6 +101,10 @@ export default defineComponent({
         confirmButtonColor: '#19CE60',
         confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
       })
+    }
+    function reset () {
+      form.image = null
+      form.images = null
     }
     function regist () {
       if (form.image == null) {
@@ -104,28 +127,10 @@ export default defineComponent({
           sweetAlert('파일 업로드 중 문제가 발생했습니다.')
         })
     }
-    // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
-    function imgLabelClick () {
-      const inputImg = document.getElementById('profile_img_upload') // input file 태그 저장
-      console.log(inputImg)
-      inputImg.click() // 클릭이벤트 실행
-    }
-    function uploadImage (file) {
-      const xxx = new FormData()
-      //   const image = file
+    function presentImage (file) {
+      console.log('presentImage start')
       form.images = URL.createObjectURL(file)
-      form.image = file
-      xxx.append('file', file)
-      console.log(xxx)
-      console.log('이게 되어야되는데 업로드')
-      // store.dispatch('module/uploadFile', xxx)
-      //   .then(function (result) {
-      //     console.log(result.data)
-      //   })
-      //   .catch(function (err) {
-      //     alert(err)
-      //   })
-      // 엑시오스
+      console.log('presentImage start')
     }
     function detailClick () {
       form.subSdieVisible = !form.subSdieVisible
@@ -133,44 +138,51 @@ export default defineComponent({
     }
     function close () {
       form.subSdieVisible = false
-      console.log('????')
     }
-    function test () {
+    function dragEnter () {
       const frame = document.getElementById('unSelectFileFrame')
-      frame.style.borderColor = 'green'
+      // frame.style.borderColor = 'green'
+      // file-mounted
+      // frame.className = 'file-mounted'
+      frame.classList.add('file-mounted', 'margin-auto')
     }
     function dragLeave () {
       const frame = document.getElementById('unSelectFileFrame')
-      frame.style.borderColor = 'black'
+      frame.classList.remove('file-mounted')
+      frame.classList.add('file-frame')
+      // frame.style.borderColor = 'gray'
     }
     function dropInputTag (event) {
-      console.log('이게 되어야되는데 드롭다운')
+      console.log('영역안에 파일이 지정됨')
       const file = Array.from(event.dataTransfer.files, v => v)[0]
-      uploadImage(file)
+      // 파일이 jpg, png가 아니면 다른 파일 객체에
+      const extension = file.name.split('.')[1] // jpg, zip 등
+
+      const imageExtension = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'gif', 'GIF']
+      if (imageExtension.includes(extension)) {
+        form.images = URL.createObjectURL(file)
+      } else {
+        form.images = (fileImage[extension] === undefined) ? fileImage.other : fileImage[extension]
+      }
+      form.image = file
+      // presentImage(file)
+      console.log('영역안에 파일이 지정됨 end')
     }
     function clickInputTag () {
-      console.log('이게 되어야되는데 클릭?')
-      // this.$refs.image.click()
-      // const file = new File(['image'], './aaa.jpg')
-      form.images = '/media/profile/test-1/test.gif'// URL.createObjectURL(file)
+      console.log('영역 안을 클릭함')
+      console.log('영역 안을 클릭함 end')
     }
     function loadFileData () {
       store.dispatch('module/loadFileData')
         .then(function (result) {
           console.log(result.data + '잘 받아오는지')
           for (let i = 0; i < result.data.length; i++) {
-            result.data[i].imageLocation = mountImageUrl(result.data[i].fileExtension)
+            const extension = result.data[i].fileExtension.substring(1, result.data[i].fileExtension.length)
+            result.data[i].imageLocation = (fileImage[extension] === undefined) ? fileImage.other : fileImage[extension]
           }
           // setFileinfoList
           store.commit('module/setFileinfoList', result.data)
-          console.log(store.getters['module/getFileInfoList'], '파일 게터스')
-          // console.log(router)
-          console.log(router.currentRoute._rawValue.path)
-          if (router.currentRoute._rawValue.path === '/downloads') {
-            router.push('/downloads2')
-          } else {
-            router.push('/downloads')
-          }
+          pageChange()
         })
         .catch(function () {
           Swal.fire({
@@ -180,46 +192,47 @@ export default defineComponent({
           })
         })
     }
-    function mountImageUrl (extension) {
-      let imageUrl = ''
-      switch (extension) {
-        case '.ppt':
-        case '.pptx':
-          imageUrl = 'https://aux.iconspalace.com/uploads/freeform-powerpoint-icon-256.png'
-          break
-        case '.docx':
-          imageUrl = 'https://i.pinimg.com/474x/ea/83/d6/ea83d672e55bdda2fa44e676eacad9ff.jpg'
-          break
-        case '.xlsx':
-          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFEz9UnOx3StKSJUQs12DuWje3MwDOV6yAfufygK38zgZIuNsizJimqpCRI6ae2gbJuD0&usqp=CAU'
-          break
-        case '.pdf':
-          imageUrl = 'https://blog.kakaocdn.net/dn/cj4Y3U/btqMPi7uAh8/sYik4nsvvqUmG36Hhbwwj1/img.png'
-          break
-        case '.jpg':
-        case '.png':
-        case '.JPG':
-        case '.PNG':
-          imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQJ46V8yCbzB4RrjehKqyhVMB-maX5XI-Ysw5gFxdiLRLSX0R-KSFpHMcivZW2xaLUZbs&usqp=CAU'
-          break
-        default:
-          imageUrl = 'https://i.pinimg.com/474x/78/6d/27/786d27105f7e9f02f92c31040169b2de.jpg'
+    function pageChange () {
+      console.log(router.currentRoute._rawValue.path)
+      if (router.currentRoute._rawValue.path === '/downloads') {
+        router.push('/downloads2')
+      } else {
+        router.push('/downloads')
       }
-      return imageUrl
+    }
+    function searchByDepartment (id) {
+      store.dispatch('module/loadFileDataByDepartment', id)
+        .then(function (result) {
+          for (let i = 0; i < result.data.length; i++) {
+            const extension = result.data[i].fileExtension.substring(1, result.data[i].fileExtension.length)
+            result.data[i].imageLocation = (fileImage[extension] === undefined) ? fileImage.other : fileImage[extension]
+          }
+          store.commit('module/setFileinfoList', result.data)
+          pageChange()
+        })
+        .catch(function () {
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">서버오류. 다시 시도해주세요.</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
+        })
     }
     return {
-      imgLabelClick,
       form,
       regist,
-      uploadImage,
+      presentImage,
       dropInputTag,
       clickInputTag,
-      test,
+      dragEnter,
       dragLeave,
       sweetAlert,
       departmentInfo,
       detailClick,
-      close
+      close,
+      reset,
+      searchByDepartment,
+      pageChange
     }
   }
 })
@@ -236,7 +249,7 @@ export default defineComponent({
 }
 .file-frame {
   width: 220px;
-  height: 150px;
+  height: 160px;
   border: 2px dashed gray;
   margin-top:20px;
   border-radius: 5%;
@@ -309,5 +322,33 @@ h6 {
   top: 820px;
   left: 230px;
   cursor: pointer;
+}
+.file-mounted {
+  width: 220px;
+  height: 160px;
+  border: 2px dashed transparent;
+  margin-top:20px;
+  border-radius: 5%;
+  animation: changeColor 1.8s infinite linear
+}
+@keyframes changeColor {
+  0% {
+    border-color: rgb(255, 10, 10);
+  }
+  20% {
+    border-color: rgb(236, 145, 7);
+  }
+  40% {
+    border-color: rgb(225, 238, 37);
+  }
+  60% {
+    border-color: rgb(20, 155, 49);
+  }
+  80% {
+    border-color: rgb(32, 67, 143);
+  }
+  100% {
+    border-color: rgb(22, 17, 97);
+  }
 }
 </style>
