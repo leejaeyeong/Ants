@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="clock">
-          <p id="realtime">{{ init() }}</p>
+          <!-- <p class="realtime">{{ }}</p> -->
         </div>
       </div>
       <div id="bottomLeft" v-show="mode2" class="bottomleft shadow-1">
@@ -153,6 +153,7 @@ export default defineComponent({
     mvAttendance () {
       this.$router.push('/management')
     }
+
   },
   setup () {
     const timeStamp = Date.now()
@@ -192,18 +193,7 @@ export default defineComponent({
       rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
-    // 현재시간 불러오기
-    const getTimenow = function () {
-      const time = new Date()
-      const hour = time.getHours()
-      const minutes = time.getMinutes()
-      const seconds = time.getSeconds()
-      document.getElementById('realtime').innerHTML = `${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
-    }
-    // 1초마다 실행하기
-    const init = function () {
-      setInterval(getTimenow, 1000)
-    }
+
     // 웹 메타데이터
     // const registerurl = function () {
     //   axios({
@@ -250,7 +240,19 @@ export default defineComponent({
           }
           store.commit('module/setTodoList', tmp)
         })
-
+      // // 현재시간 불러오기
+      // const getTimenow = function () {
+      //   const time = new Date()
+      //   const hour = time.getHours()
+      //   const minutes = time.getMinutes()
+      //   const seconds = time.getSeconds()
+      //   document.querySelector('.realtime').innerHTML = `${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+      // }
+      // // 1초마다 실행하기
+      // const run = function () {
+      //   setInterval(getTimenow, 1000)
+      // }
+      // run()
       // 이동 함수 시작
       const today = document.getElementById('topLeft')
       const topLeft = document.getElementById('topLeft')
@@ -563,8 +565,6 @@ export default defineComponent({
       todoTime,
       todoList,
       check: ref(false),
-      getTimenow,
-      init,
       mode1,
       mode2,
       mode3,
