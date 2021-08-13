@@ -126,3 +126,7 @@ export function getMode5 (state) {
 export function getMode6 (state) {
   return state.mode6
 }
+
+export function getFileImage (state) {
+  return state.fileImage
+}
