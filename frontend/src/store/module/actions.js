@@ -1,6 +1,8 @@
 import $axios from 'axios'
 
 const baseUrl = 'https://localhost:8443/'
+// const baseUrl = 'https://i5b103.p.ssafy.io:8443/'
+
 // 로그인
 export function login ({ state }, payload) {
   console.log('requestLogin', state, payload)
@@ -46,20 +48,18 @@ export function deleteUser ({ state }) {
   return $axios.delete(url)
 }
 // 출근
-export function go ({ state }, payload) {
-  console.log('go', state, payload)
+export function go ({ state }) {
+  console.log('go', state)
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id + '/check-in'
-  const body = payload
-  return $axios.post(url, body)
+  return $axios.post(url)
 }
 // 퇴근
-export function out ({ state }, payload) {
-  console.log('out', state, payload)
+export function out ({ state }) {
+  console.log('out', state)
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id + '/check-out'
-  const body = payload
-  return $axios.put(url, body)
+  return $axios.put(url)
 }
 // 당일근태
 export function check ({ state }, payload) {
@@ -96,15 +96,14 @@ export function loadAttendanceByWeek ({ state }, payload) {
 }
 
 export function getRooms () {
-  const rooms = $axios.get('http://localhost:8080/api/v1/rtc/')
-  return rooms
+  const url = baseUrl + 'api/v1/rtc/'
+  return $axios.get(url)
 }
 
 export function board ({ state }, payload) {
   console.log('board axios', state, payload)
   const url = baseUrl + 'api/v1/board'
   const body = payload
-  console.log('이거 몇 번 나오나')
   return $axios.get(url, body)
 }
 
@@ -136,7 +135,7 @@ export function departmentInfo ({ state }) {
 
 // 게시글 등록
 export function registBoard ({ state }, body) {
-  console.log(state)
+  console.log(state, '게시글등록')
   const url = baseUrl + 'api/v1/board'
   return $axios.post(url, body)
 }
@@ -270,5 +269,10 @@ export function getDmHistory ({ state }, room) {
 export function sendEmail ({ state }, { name, email }) {
   console.log(state, name, email, '이메일 보냄')
   const url = baseUrl + 'api/v1/email/' + name + '/' + email
+  return $axios.get(url)
+}
+
+export function loadFileDataByDepartment ({ state }, id) {
+  const url = baseUrl + 'api/v1/files/department' + '?id=' + id
   return $axios.get(url)
 }
