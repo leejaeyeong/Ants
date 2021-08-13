@@ -58,24 +58,22 @@
                     </form>
                   </div>
               </div>
-              <!-- 나가기 버튼 -->
-              <form class="form-inline" onsubmit="disconnect(); return false;" accept-charset="UTF-8">
-                <div class='btDiv1'>
-                  <form onsubmit="rtcMute($(this).find('input').eq(0).val()); return false;">
-                    <input :value="id" style="display:none">
-                    <!-- <q-icon style="font-size: 2.8em; color: white;" name="mic" type="submit"/> -->
-                    <button type="submit" value="mute"/>
-                  </form>
-                </div>
-                <div class=btDiv2>
-                  <form onsubmit="rtcVideoVision($(this).find('input').eq(0).val()); return false;">
-                    <input :value="id" style="display:none">
-                    <!-- <q-icon style="font-size: 2.8em; color: white;" name="photo_camera"/> -->
-                    <button type="submit" value="mute"/>
-                  </form>
-                </div>
-                <input type="button" id="button-leave" onmouseup="leaveRoom();">
-              </form>
+              <div id="btDiv">
+                <!-- 나가기 버튼 -->
+                <form class="form-inline" onsubmit="disconnect(); return false;" accept-charset="UTF-8">
+                    <form style="display:inline-block;" onsubmit="rtcMute($(this).find('input').eq(0).val()); return false;">
+                      <input :value="id" style="display:none">
+                      <!-- <q-icon style="font-size: 2.8em; color: white;" name="mic" type="submit"/> -->
+                      <button class="bt1" type="submit" value="mute"/>
+                    </form>
+                    <form style="display:inline-block;" onsubmit="rtcVideoVision($(this).find('input').eq(0).val()); return false;">
+                      <input :value="id" style="display:none">
+                      <!-- <q-icon style="font-size: 2.8em; color: white;" name="photo_camera"/> -->
+                      <button  class="bt2" type="submit" value="mute"/>
+                    </form>
+                  <input type="button" id="button-leave" onmouseup="leaveRoom();">
+                </form>
+              </div>
           </div>
       </div>
   </div>
@@ -192,21 +190,6 @@ export default defineComponent({
     left:1350px;
     top:15px;
 }
-#button-leave{
-    position:absolute;
-    width:50px;
-    height:50px;
-    top:850px;
-    left:705px;
-    border:0.5px solid #18C75E;
-    font-weight:bold;
-    color:white;
-    padding:10px;
-    font-size:30px;
-    cursor: pointer;
-    border-radius:50px;
-    background: url('~assets/images/exit.png') no-repeat right center #18C75E;
-}
 .my-card{
   width:380px;
   margin:30px 0 0 30px;
@@ -248,28 +231,45 @@ export default defineComponent({
 .msg{
   font-size:20px;
 }
-.btDiv1{
-  width:50px;
-  height:50px;
-  border-radius: 50px;
+#btDiv{
+  width:180px;
   position:absolute;
   top:850px;
   left:585px;
-  background-color:#18C75E;
-  cursor: pointer;
-  padding-left:5px;
-  padding-top:5px;
 }
-.btDiv2{
+#button-leave{
+    width:50px;
+    height:50px;
+    border-radius:50px;
+    border:0.5px solid #18C75E;
+    display:inline-block;
+    color:white;
+    padding:10px;
+    cursor: pointer;
+    margin-left:10px;
+    background: url('~assets/images/exit.png') no-repeat right center #18C75E;
+}
+.bt1{
+  background: url('~assets/images/mic.png') no-repeat right center #18C75E;
+  border-radius: 50px;
   width:50px;
   height:50px;
-  border-radius: 50px;
-  position:absolute;
-  top:850px;
-  left:645px;
-  background-color:#18C75E;
   cursor: pointer;
+  display:inline-block;
   padding-left:5px;
   padding-top:5px;
+  border:0.5px solid #18C75E;
+}
+.bt2{
+  background: url('~assets/images/video.png') no-repeat right center #18C75E;
+  border-radius: 50px;
+  width:50px;
+  height:50px;
+  cursor: pointer;
+  display:inline-block;
+  padding-left:5px;
+  padding-top:5px;
+  border:0.5px solid #18C75E;
+  margin-left:10px;
 }
 </style>

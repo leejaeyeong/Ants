@@ -92,6 +92,13 @@ const mark = false
 const dmRoomList = []
 const dmHistory = []
 
+const mode1 = true
+const mode2 = true
+const mode3 = true
+const mode4 = true
+const mode5 = true
+const mode6 = true
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -120,6 +127,12 @@ export default function () {
     markList: markList,
     mark: mark,
     dmRoomList: dmRoomList,
-    dmHistory: dmHistory
+    dmHistory: dmHistory,
+    mode1: mode1,
+    mode2: mode2,
+    mode3: mode3,
+    mode4: mode4,
+    mode5: mode5,
+    mode6: mode6
   }
 }

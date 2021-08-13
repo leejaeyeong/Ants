@@ -102,3 +102,27 @@ export function getDmRoomList (state) {
 export function getDmHistory (state) {
   return state.dmHistory
 }
+
+export function getMode1 (state) {
+  return state.mode1
+}
+
+export function getMode2 (state) {
+  return state.mode2
+}
+
+export function getMode3 (state) {
+  return state.mode3
+}
+
+export function getMode4 (state) {
+  return state.mode4
+}
+
+export function getMode5 (state) {
+  return state.mode5
+}
+
+export function getMode6 (state) {
+  return state.mode6
+}
