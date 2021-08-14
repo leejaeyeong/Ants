@@ -503,7 +503,8 @@ export default defineComponent({
 
     const registTodo = function () {
       const departmentId = localStorage.getItem('departmentId')
-      store.dispatch('module/registTodo', { departmentId: departmentId, time: todoTime.value, title: state.todoText })
+      const userId = localStorage.getItem('id')
+      store.dispatch('module/registTodo', { userId: userId, departmentId: departmentId, time: todoTime.value, title: state.todoText })
         .then(function () {
           const dpId = localStorage.getItem('departmentId')
           store.dispatch('module/getTodoList', dpId)

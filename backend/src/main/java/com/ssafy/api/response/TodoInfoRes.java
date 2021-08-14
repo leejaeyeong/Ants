@@ -17,6 +17,8 @@ public class TodoInfoRes {
     String title;
     String departmentName;
     boolean isDone;
+    String userName;
+    String profileLocation;
 
     public static TodoInfoRes of (Todo todo) {
         TodoInfoRes tir = new TodoInfoRes();
@@ -25,6 +27,8 @@ public class TodoInfoRes {
         tir.setTitle(todo.getTitle());
         tir.setDepartmentName(todo.getDepartment().getDepartmentName());
         tir.setDone(todo.isDone());
+        tir.setUserName(todo.getUser().getName());
+        tir.setUserName(todo.getUser().getProfileLocation());
         return tir;
     }
 }
