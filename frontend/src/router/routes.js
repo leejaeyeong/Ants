@@ -53,6 +53,10 @@ const routes = [
             component: () => import('pages/board/BoardMark.vue')
           },
           {
+            path: '/boardMe',
+            component: () => import('pages/board/BoardMe.vue')
+          },
+          {
             path: '/boardType',
             component: () => import('pages/board/BoardType.vue')
           },
