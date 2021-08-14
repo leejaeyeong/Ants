@@ -24,6 +24,7 @@ public class FileInfoRes {
 	String fileName;
 	String size;
 	String uploader;
+	LocalTime time;
 
 	public static FileInfoRes of (FileInfo fileInfo) {
 		FileInfoRes fileInfoRes = new FileInfoRes();
@@ -34,6 +35,7 @@ public class FileInfoRes {
 		fileInfoRes.setFileName(fileInfo.getFileName());
 		fileInfoRes.setSize(fileInfo.getSize());
 		fileInfoRes.setUploader(fileInfo.getUser().getUserId());
+		fileInfoRes.setTime(fileInfo.getTime());
 		return fileInfoRes;
 	}
 }
