@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class BoardRes {
     String title;
     String content;
     LocalDateTime registrationTime;
+    LocalTime time;
     Long typeId;
     String writer;
     String profileLocation;
@@ -33,6 +35,7 @@ public class BoardRes {
                 board.getTitle(),
                 board.getContent(),
                 board.getRegistrationTime(),
+                board.getTime(),
                 board.getBoardType().getId(),
                 board.getWriter().getUserId(),
                 board.getView(),
@@ -43,12 +46,13 @@ public class BoardRes {
         boardRes.setComments(comments);
         return boardRes;
     }
-    public BoardRes(Long id, String title, String content, LocalDateTime registrationTime,
+    public BoardRes(Long id, String title, String content, LocalDateTime registrationTime, LocalTime time,
                     Long typeId, String writer, int view, String profileLocation, boolean isMarker, String imageLocation) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.registrationTime = registrationTime;
+        this.time = time;
         this.typeId = typeId;
         this.writer = writer;
         this.view = view;

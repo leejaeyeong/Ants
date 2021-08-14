@@ -185,6 +185,7 @@ public class BoardServiceImpl implements BoardService {
                     board.getTitle(),
                     board.getContent(),
                     board.getRegistrationTime(),
+                    board.getTime(),
                     board.getBoardType().getId(),
                     board.getWriter().getUserId(),
                     board.getView(),
