@@ -21,6 +21,7 @@ public class FileInfo extends BaseEntity {
 
     String fileName;
     LocalDate date;
+    LocalTime time;
     String fileLocation;
     String fileExtension;
     String size;
@@ -29,5 +30,6 @@ public class FileInfo extends BaseEntity {
     public void init() {
         this.date = LocalDate.now();
         this.department = user.getDepartment();
+        this.time = LocalTime.now();
     }
 }
