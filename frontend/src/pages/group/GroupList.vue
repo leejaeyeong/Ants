@@ -67,7 +67,7 @@
                   <q-badge label="NEW" />
                 </q-item-section>
                 <q-item-section side @click="changeUser(userInfo.userId, userInfo.name, userInfo.email)">
-                  <q-icon name="send" color="green" clickable />
+                  <q-icon name="send" color="green" clickable style="cursor: pointer" />
                 </q-item-section>
               </q-item>
             </div>
@@ -82,7 +82,7 @@
 <script>
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 const columns = [
   { name: 'profileLocation', align: 'left', label: '', field: 'profileLocation', style: 'width: 10px' },
@@ -105,13 +105,12 @@ const columns = [
 export default {
   setup () {
     const Swal = require('sweetalert2')
-    // const router = useRouter()
+    const router = useRouter()
     const pagination = ref({
       sortBy: 'desc',
       descending: false,
       page: 1,
       rowsPerPage: 7
-      // rowsNumber: xx if getting data from a server
     })
     const store = useStore()
     const acceptmemeber = []
@@ -126,23 +125,41 @@ export default {
       }
     }
     const pagesNumber = computed(() => Math.ceil(memberList.value.length / pagination.value.rowsPerPage))
+    // 유저의 state(권한)변경
     const changeUser = function (id, name, email) {
       console.log('유저권한변경', id)
       store.dispatch('module/chageUser', id)
         .then(function (res) {
-          Swal.fire({
-            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">유저 권한변경이 완료되었습니다.</span>',
-            confirmButtonColor: '#19CE60',
-            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
-          })
           store.dispatch('module/sendEmail', { name, email })
             .then(function (res) {
-              alert('가입 승인메일이 전송되었습니다')
+              Swal.fire({
+                title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">가입 승인 메일이 발송되었습니다.</span>',
+                confirmButtonColor: '#19CE60',
+                confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+              })
+              store.dispatch('module/memberList')
+                .then(function (result) {
+                  console.log(result, '멤버리스트 디스패치보냈다')
+                  for (let i = 0; i < result.data.length; i++) {
+                    for (let j = 0; j < res.data.length; j++) {
+                      if (result.data[i].department === res.data[j].id) {
+                        result.data[i].department = res.data[j].departmentName
+                        console.log(res)
+                      }
+                    }
+                  }
+                  console.log('그룹페이지에서 포문 끝났음')
+                  store.commit('module/setMemberList', result.data)
+                  console.log('커밋했음')
+                  router.go(0)
+                })
+                .catch(function (err) {
+                  console.log(err, '세번째 디스패치 에러')
+                })
             })
             .catch(function (err) {
-              console.log(err)
+              console.log(err, '두번째 디스패치 에러')
             })
-          // router.go(0)
         })
       //     store.dispatch('module/memberList')
       //       .then(function (result) {
