@@ -1,7 +1,7 @@
 <template>
   <div id="content">
     <div id="main">
-       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1770px;">
+       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
         <q-fab v-model="mode" color="amber" text-color="white" icon="keyboard_arrow_down" direction="down">
           <q-fab-action color="amber" text-color="white"  @click="CheckMode1" icon="person" />
           <q-fab-action color="amber" text-color="white"  @click="CheckMode2" icon="beach_access" />
@@ -9,6 +9,7 @@
           <q-fab-action color="amber" text-color="white"  @click="CheckMode4" icon="content_paste" />
           <q-fab-action color="amber" text-color="white"  @click="CheckMode5" icon="check" />
           <q-fab-action color="amber" text-color="white"  @click="CheckMode6" icon="help_outline" />
+          <q-fab-action color="amber" text-color="white"  @click="reset" icon="undo" />
         </q-fab>
        </div>
       <div id="topLeft" v-show="mode1" class="shadow-1">
@@ -104,14 +105,20 @@
             <div class="row">
               <div class="col-1">
               </div>
-              <div class="col-3">
+              <div v-if="todo.do" class="col-3" style="text-decoration:line-through">
                 {{ todo.time }}
               </div>
-              <div class="col-7">
+              <div v-if="!todo.do" class="col-3">
+                {{ todo.time }}
+              </div>
+              <div v-if="todo.do" class="col-7" style="text-decoration:line-through">
+                {{ todo.title }}
+              </div>
+              <div v-if="!todo.do" class="col-7">
                 {{ todo.title }}
               </div>
               <div class="col-1">
-                <q-checkbox v-model="check" />
+                <q-checkbox v-model="todo.do"/>
               </div>
             </div>
           </div>
@@ -215,6 +222,7 @@ export default defineComponent({
           for (let i = 0; i < result.data.length; i++) {
             const str1 = result.data[i].time.substr(0, 2)
             const str2 = result.data[i].time.substr(3, 2)
+            result.data[i].do = false
             result.data[i].time = str1 + '시 ' + str2 + '분'
             tmp.push(result.data[i])
           }
@@ -223,15 +231,14 @@ export default defineComponent({
 
       // 이동 함수 시작
       const today = document.getElementById('topLeft')
-      const topLeft = document.getElementById('topLeft')
       var x1 = 0
       var y1 = 0
       var mousedown1 = false
 
       today.addEventListener('mousedown', function (e) {
         mousedown1 = true
-        x1 = topLeft.offsetLeft - e.clientX
-        y1 = topLeft.offsetTop - e.clientY
+        x1 = today.offsetLeft - e.clientX
+        y1 = today.offsetTop - e.clientY
         today.style.zIndex = count++
       }, true)
 
@@ -241,21 +248,21 @@ export default defineComponent({
 
       today.addEventListener('mousemove', function (e) {
         if (mousedown1) {
-          topLeft.style.left = e.clientX + x1 + 'px'
-          topLeft.style.top = e.clientY + y1 + 'px'
+          today.style.left = e.clientX + x1 + 'px'
+          today.style.top = e.clientY + y1 + 'px'
+          // store.commit('module/setModePx1', [e.clientX + x1, e.clientX + y1])
         }
       })
 
       const vacation = document.getElementById('bottomLeft')
-      const bottomLeft = document.getElementById('bottomLeft')
       var x2 = 0
       var y2 = 0
       var mousedown2 = false
 
       vacation.addEventListener('mousedown', function (e) {
         mousedown2 = true
-        x2 = bottomLeft.offsetLeft - e.clientX
-        y2 = bottomLeft.offsetTop - e.clientY
+        x2 = vacation.offsetLeft - e.clientX
+        y2 = vacation.offsetTop - e.clientY
         vacation.style.zIndex = count++
       }, true)
 
@@ -265,21 +272,21 @@ export default defineComponent({
 
       vacation.addEventListener('mousemove', function (e) {
         if (mousedown2) {
-          bottomLeft.style.left = e.clientX + x2 + 'px'
-          bottomLeft.style.top = e.clientY + y2 + 'px'
+          vacation.style.left = e.clientX + x2 + 'px'
+          vacation.style.top = e.clientY + y2 + 'px'
+          // store.commit('module/setModePx2', [e.clientX + x2, e.clientX + y2])
         }
       })
 
       const week = document.getElementById('topRight')
-      const topRight = document.getElementById('topRight')
       var x3 = 0
       var y3 = 0
       var mousedown3 = false
 
       week.addEventListener('mousedown', function (e) {
         mousedown3 = true
-        x3 = topRight.offsetLeft - e.clientX
-        y3 = topRight.offsetTop - e.clientY
+        x3 = week.offsetLeft - e.clientX
+        y3 = week.offsetTop - e.clientY
         week.style.zIndex = count++
       }, true)
 
@@ -289,21 +296,21 @@ export default defineComponent({
 
       week.addEventListener('mousemove', function (e) {
         if (mousedown3) {
-          topRight.style.left = e.clientX + x3 + 'px'
-          topRight.style.top = e.clientY + y3 + 'px'
+          week.style.left = e.clientX + x3 + 'px'
+          week.style.top = e.clientY + y3 + 'px'
+          // store.commit('module/setModePx3', [e.clientX + x3, e.clientX + y3])
         }
       })
 
       const recent = document.getElementById('botRight')
-      const botRight = document.getElementById('botRight')
       var x4 = 0
       var y4 = 0
       var mousedown4 = false
 
       recent.addEventListener('mousedown', function (e) {
         mousedown4 = true
-        x4 = botRight.offsetLeft - e.clientX
-        y4 = botRight.offsetTop - e.clientY
+        x4 = recent.offsetLeft - e.clientX
+        y4 = recent.offsetTop - e.clientY
         recent.style.zIndex = count++
       }, true)
 
@@ -313,21 +320,21 @@ export default defineComponent({
 
       recent.addEventListener('mousemove', function (e) {
         if (mousedown4) {
-          botRight.style.left = e.clientX + x4 + 'px'
-          botRight.style.top = e.clientY + y4 + 'px'
+          recent.style.left = e.clientX + x4 + 'px'
+          recent.style.top = e.clientY + y4 + 'px'
+          // store.commit('module/setModePx4', [e.clientX + x4, e.clientX + y4])
         }
       })
 
       const todo = document.getElementById('endRight')
-      const endRight = document.getElementById('endRight')
       var x5 = 0
       var y5 = 0
       var mousedown5 = false
 
       todo.addEventListener('mousedown', function (e) {
         mousedown5 = true
-        x5 = endRight.offsetLeft - e.clientX
-        y5 = endRight.offsetTop - e.clientY
+        x5 = todo.offsetLeft - e.clientX
+        y5 = todo.offsetTop - e.clientY
         todo.style.zIndex = count++
       }, true)
 
@@ -337,21 +344,21 @@ export default defineComponent({
 
       todo.addEventListener('mousemove', function (e) {
         if (mousedown5) {
-          endRight.style.left = e.clientX + x5 + 'px'
-          endRight.style.top = e.clientY + y5 + 'px'
+          todo.style.left = e.clientX + x5 + 'px'
+          todo.style.top = e.clientY + y5 + 'px'
+          // store.commit('module/setModePx5', [e.clientX + x5, e.clientX + y5])
         }
       })
 
       const end = document.getElementById('endBottom')
-      const endBottom = document.getElementById('endBottom')
       var x6 = 0
       var y6 = 0
       var mousedown6 = false
 
       end.addEventListener('mousedown', function (e) {
         mousedown6 = true
-        x6 = endBottom.offsetLeft - e.clientX
-        y6 = endBottom.offsetTop - e.clientY
+        x6 = end.offsetLeft - e.clientX
+        y6 = end.offsetTop - e.clientY
         end.style.zIndex = count++
       }, true)
 
@@ -361,8 +368,9 @@ export default defineComponent({
 
       end.addEventListener('mousemove', function (e) {
         if (mousedown6) {
-          endBottom.style.left = e.clientX + x6 + 'px'
-          endBottom.style.top = e.clientY + y6 + 'px'
+          end.style.left = e.clientX + x6 + 'px'
+          end.style.top = e.clientY + y6 + 'px'
+          // store.commit('module/setModePx6', [e.clientX + x6, e.clientX + y6])
         }
       })
     })
@@ -470,6 +478,7 @@ export default defineComponent({
             .then(function (result) {
               var tmp = []
               for (let i = 0; i < result.data.length; i++) {
+                result.data[i].do = false
                 const str1 = result.data[i].time.substr(0, 2)
                 const str2 = result.data[i].time.substr(3, 2)
                 result.data[i].time = str1 + '시 ' + str2 + '분'
@@ -511,6 +520,43 @@ export default defineComponent({
       store.commit('module/setMode6', !tmp)
       mode.value = true
     }
+    const reset = function () {
+      store.commit('module/setModePx1', [15, 20])
+      store.commit('module/setModePx2', [561, 20])
+      store.commit('module/setModePx3', [15, 385])
+      store.commit('module/setModePx4', [261, 385])
+      store.commit('module/setModePx5', [15, 1215])
+      store.commit('module/setModePx6', [381, 1215])
+
+      const today = document.getElementById('topLeft')
+      const vacation = document.getElementById('bottomLeft')
+      const week = document.getElementById('topRight')
+      const recent = document.getElementById('botRight')
+      const todo = document.getElementById('endRight')
+      const end = document.getElementById('endBottom')
+
+      today.style.top = 15 + 'px'
+      today.style.left = 20 + 'px'
+      vacation.style.top = 561 + 'px'
+      vacation.style.left = 20 + 'px'
+      week.style.top = 15 + 'px'
+      week.style.left = 385 + 'px'
+      recent.style.top = 261 + 'px'
+      recent.style.left = 385 + 'px'
+      todo.style.top = 15 + 'px'
+      todo.style.left = 1215 + 'px'
+      end.style.top = 381 + 'px'
+      end.style.left = 1215 + 'px'
+
+      store.commit('module/setMode1', true)
+      store.commit('module/setMode2', true)
+      store.commit('module/setMode3', true)
+      store.commit('module/setMode4', true)
+      store.commit('module/setMode5', true)
+      store.commit('module/setMode6', true)
+
+      mode.value = true
+    }
     return {
       formattedString,
       formattedString2,
@@ -545,7 +591,8 @@ export default defineComponent({
       CheckMode4,
       CheckMode5,
       CheckMode6,
-      mode
+      mode,
+      reset
     }
   }
 })

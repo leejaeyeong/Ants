@@ -15,15 +15,15 @@
       <div>
         <div class="my">
           <div @click="viewMark" class="mylist1">
-            <q-icon style="font-size: 20px; color: #18C75E;" name="turned_in_not"/>
+            <q-icon style="font-size: 2.0em; color: #18C75E; margin-bottom:7px;" name="turned_in_not"/>
             <span class="mylist2">북마크한 글</span>
           </div>
           <div @click="viewMe" class="mylist1">
-            <q-icon style="font-size: 20px; color: #18C75E;" name="subject"/>
+            <q-icon style="font-size: 2.0em; color: #18C75E; margin-bottom:7px;;" name="subject"/>
             <span class="mylist2">내가 쓴 글</span>
           </div>
         </div>
-      <q-btn @click="mvWrite" style="margin-top:20px; width:170px; margin-left:50px; color: white; background-color: #ffa726; font-size:14px" icon="edit" label="게시판 글쓰기" />
+      <q-btn @click="mvWrite" style="margin-top:20px; width:170px; margin-left:45px; color: white; background-color: #ffa726; font-size:14px" icon="edit" label="게시판 글쓰기" />
     </div>
   </div>
         <!-- <div id="listTop">
@@ -107,6 +107,18 @@ export default defineComponent({
           }
           store.commit('module/setRows', rows)
           rows = []
+
+          for (let j = 0; j < boardList.value.length; j++) {
+            if (id === boardList.value[j].id) {
+              if (id === 0 || id === 1) {
+                store.commit('module/setBoardType', { name: boardList.value[j].type, intro: boardList.value[j].type + '입니다.' })
+                break
+              } else if (id === 2 || id === 3 || id === 4 || id === 5) {
+                store.commit('module/setBoardType', { name: boardList.value[j].type, intro: boardList.value[j].type + ' 게시판입니다.' })
+                break
+              }
+            }
+          }
           const pn = Math.ceil(rows.length / 8)
           store.commit('module/setPageNumber', pn)
           router.push('/boardType')
@@ -115,10 +127,11 @@ export default defineComponent({
     const viewMe = function () {
       store.dispatch('module/boardMe', store.getters['module/getLoginUser'].id)
         .then(function (result) {
-          for (let i = 0; i < result.data.legnth; i++) {
+          for (let i = 0; i < result.data.length; i++) {
             result.data[i].registrationTime = result.data[i].registrationTime.substr(0, 16)
           }
           store.commit('module/setRows', result.data)
+          router.push('/boardMe')
         })
     }
     return {
@@ -138,7 +151,7 @@ export default defineComponent({
 <style scoped>
 #mainSide{
   width: 280px;
-  height: 876px;
+  height: 908px;
   border-right:1px solid rgb(212, 212, 212);
   position: absolute;
   top:60px;
@@ -162,7 +175,7 @@ export default defineComponent({
 }
 .list2{
     margin-left:17px;
-    font-size:15px;
+    font-size:18px;
 }
 #listBot{
     width:80%;
@@ -195,14 +208,17 @@ export default defineComponent({
   height: 30px;
 }
 .mylist2 {
-  font-size: 14px;
+  font-size: 18px;
   margin-left: 10px;
+  display:inline-block;
+  padding-top:8px;
 }
 .mylist1 {
   width: 200px;
   height: 40px;
   float: left;
   margin-left: 20px;
+  padding-left: 10px;
 }
 .mylist1:hover{
   background-color:rgb(223, 241, 231);
