@@ -11,7 +11,7 @@
           <q-fab-action color="amber" text-color="white"  @click="CheckMode6" icon="help_outline" />
           <q-fab-action color="amber" text-color="white"  @click="reset" icon="undo" />
         </q-fab>
-       </div>
+      </div>
       <div id="topLeft" v-show="mode1" class="shadow-1">
         <div class="name">Today</div>
         <div id="day">
@@ -27,13 +27,16 @@
           <br>
           {{ loginUser.department }}
         </div>
-        <div id="bot1">
+        <div>
           <q-btn flat @click="go" class="checkbtn" label="출근" />
           <q-btn flat @click="out" class="checkbtn" label="퇴근" />
           <div id="detail1">
             <div style="font-size:16px; margin-bottom:10px;">출근 시간<div class="time">{{ checkInTime }}</div></div>
             <div style="font-size:16px;">퇴근 시간<div class="time">{{ checkOutTime }}</div></div>
           </div>
+        </div>
+        <div class="clock">
+          <!-- <p class="realtime">{{ }}</p> -->
         </div>
       </div>
       <div id="bottomLeft" v-show="mode2" class="bottomleft shadow-1">
@@ -93,11 +96,11 @@
       </div>
       <div id="endRight" v-show="mode5" class="shadow-1">
         <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
-        <q-fab v-model="bt" style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px;" padding="sm" glossy icon="add" direction="left">
+        <q-fab v-model="bt" style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px;" padding="sm" icon="add" direction="left">
           <div id="todoForm">
-                <q-time v-model="todoTime" />
-            <q-input v-model="state.todoText" color="teal" style="display:inline-block; width:72%; margin-top:5px;" filled label="입력란" />
-            <q-btn @click="registTodo" style="background-color:#18C75E; color:white; font-size:20px; margin-top:-15px; margin-left:6px;" label="등록"/>
+            <q-time v-model="todoTime" color="orange-4" text-color="black" flat/>
+            <q-input v-model="state.todoText" color="teal" style="display:inline-block; width:72%; margin-top:5px; margin-left: 5px;" label="오늘의 할 일을 입력하세요" />
+            <q-btn @click="registTodo" style="background-color:#18C75E; color:white; font-size:14px; margin-top:-15px; margin-left:6px;" label="등록"/>
           </div>
         </q-fab>
         <div id="todoView">
@@ -125,7 +128,14 @@
         </div>
       </div>
       <div id="endBottom" v-show="mode6" class="shadow-1">
-        <div class="name">오늘의 점심은❓ 아님 오늘 뉴스</div>
+        <div class="name">즐겨찾는 웹사이트</div>
+        <div class="weblist">
+          <q-input v-model="text" label="Standard" id="inputSiteURL"/>
+          <button >등록하기</button>
+            <!-- <div>Meta Keyword: <div id="kw"></div></div>
+            <div>Description: <div id="des"></div></div>
+            <div>image: <div id="img"></div></div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -150,6 +160,7 @@ export default defineComponent({
     mvAttendance () {
       this.$router.push('/management')
     }
+
   },
   setup () {
     const timeStamp = Date.now()
@@ -189,6 +200,15 @@ export default defineComponent({
       rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
+
+    // 웹 메타데이터
+    // const registerurl = function () {
+    //   axios({
+    //     url: 'https://cors-anywhere.herokuapp.com/' + 'https://quasar.dev/'
+    //   }).then(function (data) {
+    //     console.log(data, '엑시오스보냄')
+    //   })
+    // }
     onMounted(() => {
       var count = 1
       store.dispatch('module/check', { })
@@ -228,7 +248,19 @@ export default defineComponent({
           }
           store.commit('module/setTodoList', tmp)
         })
-
+      // // 현재시간 불러오기
+      // const getTimenow = function () {
+      //   const time = new Date()
+      //   const hour = time.getHours()
+      //   const minutes = time.getMinutes()
+      //   const seconds = time.getSeconds()
+      //   document.querySelector('.realtime').innerHTML = `${hour < 10 ? `0${hour}` : hour}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+      // }
+      // // 1초마다 실행하기
+      // const run = function () {
+      //   setInterval(getTimenow, 1000)
+      // }
+      // run()
       // 이동 함수 시작
       const today = document.getElementById('topLeft')
       var x1 = 0
@@ -592,7 +624,8 @@ export default defineComponent({
       CheckMode5,
       CheckMode6,
       mode,
-      reset
+      reset,
+      text: ref('')
     }
   }
 })
@@ -649,6 +682,16 @@ export default defineComponent({
   margin-top: 10px;
   float: left;
 }
+#bot1{
+  margin-top:5px;
+  height:140px;
+}
+#detail1{
+  float:right;
+  width:80%;
+  height:60px;
+  margin-right: 38px;
+}
 .userInfo {
   float: left;
   width: 150px;
@@ -657,6 +700,16 @@ export default defineComponent({
   line-height: 40px;
   font-size: 16px;
   margin-top: 10px;
+}
+.clock {
+  height: 50px;
+  width: 250px;
+  margin-left: 37px;
+  margin-top: 350px;
+  text-align: center;
+  font-size: 45px;
+  font-family: 'LAB디지털';
+  color: rgb(240, 171, 44)
 }
 .checkbtn {
   border-right:1px;
@@ -685,17 +738,6 @@ export default defineComponent({
   border-radius: 4%;
   animation: leftFadeIn 1.1s ease-in-out;
 }
-
-#bot1{
-  margin-top:5px;
-  height:140px;
-}
-#detail1{
-  float:right;
-  width:80%;
-  height:60px;
-  margin-right: 38px;
-}
 .img {
   float: left;
   width: 33%;
@@ -716,6 +758,7 @@ export default defineComponent({
   margin-left: 37px;
   margin-top: 10px;
 }
+
 .icon {
   float: left;
   width: 60px;
@@ -785,10 +828,11 @@ export default defineComponent({
   animation: bottomFadeIn 1.1s ease-in-out;
 }
 #todoForm{
-  width:290px;
+  /* width:290px; */
   height:440px;
-  background-color:whitesmoke;
+  background-color:white;
   margin-top:380px;
+  border:1px solid rgb(212, 212, 212);
 }
 .todo{
   width:90%;
@@ -854,6 +898,12 @@ export default defineComponent({
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/Eulyoo1945-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+}
+@font-face {
+  font-family: 'LAB디지털';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/LAB디지털.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 body {
   font-family: 'NEXON Lv1 Gothic OTF';
