@@ -26,12 +26,15 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
+    @Autowired
+    private UserService userService;
+
     public Todo registerTodo(TodoRegisterReq todoRegisterReq){
         Todo todo = new Todo();
         todo.setDepartment(departmentRepository.findDepartmentById(todoRegisterReq.getDepartmentId()).get());
         todo.setTime(todoRegisterReq.getTime());
         todo.setTitle(todoRegisterReq.getTitle());
-
+        todo.setUser(userService.getUserByUserId(todoRegisterReq.getUserId()));
         System.out.println("등록 전");
         todoRepository.save(todo);
         System.out.println("등록 후");
