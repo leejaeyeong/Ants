@@ -11,9 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.api.request.UserRegisterPostReq;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,24 +92,6 @@ public class UserServiceImpl implements UserService {
 		user.setDepartment(getDepartmentById(userRegisterInfo.getDepartment()));
 		user.setEmail(userRegisterInfo.getEmail());
 
-//		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
-//		System.out.println("rootPath: " + rootPath);
-//
-//		String basePath = rootPath + "/" + "profile";
-//		System.out.println("basePath: " + basePath);
-//
-//		File file = new File(basePath);
-//		if (!file.exists()) {
-//			file.mkdir();
-//		}
-//		String filePath = basePath + "/" + userRegisterInfo.getProfile().getOriginalFilename();
-//		System.out.println("filePath: " + filePath);
-//		user.setProfileLocation(filePath);
-//
-//		File dest = new File(filePath);
-//		userRegisterInfo.getProfile().transferTo(dest);
-
-
 		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
 		System.out.println("rootPath: " + rootPath);
 
@@ -165,9 +149,25 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updateUser(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return userRepositorySupport.updateUser(user);
+	public boolean updateUser(User user, String email, MultipartFile profile) throws IOException {
+//		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		File t = new File("..");
+		String path = t.getCanonicalPath();
+		fileUtil.createFilePath(path += "/media");
+		fileUtil.createFilePath(path += "/profile");
+		File file = fileUtil.createFilePath(path + "/" + user.getUserId());
+
+
+		String filePath = file.getAbsoluteFile() + "/" + profile.getOriginalFilename();
+
+		File ts = new File("..");
+
+//		user.setProfileLocation("/media/profile/" + user.getUserId() + "/" + profile.getOriginalFilename());
+		String profilePath = "/media/profile/" + user.getUserId() + "/" + profile.getOriginalFilename();
+		File dest = new File(filePath);
+		profile.transferTo(dest);
+		return userRepositorySupport.updateUser(user, email, profilePath);
 	}
 
 	@Override
@@ -179,7 +179,8 @@ public class UserServiceImpl implements UserService {
 		if(grp == null) return false;
 
 //		user.setGrp(grp);
-		return userRepositorySupport.updateUser(user);
+//		return userRepositorySupport.updateUser(user);
+		return false;
 	}
 
 	@Override
@@ -238,6 +239,7 @@ public class UserServiceImpl implements UserService {
 		boardCommentRepository.deleteAll(boardRepositorySupport.getBoardCommentByUserId(userId));
 		userMarkerBoardRepository.deleteAll(boardRepositorySupport.getUserMarkerBoardByUserId(userId));
 		List<Board> boards = boardRepositorySupport.getBoardByUserId(userId);
+		System.out.println(boards.size() + "해당 유저의 게시물 게수");
 		for (Board board : boards) {
 			List<BoardComment> comments = boardRepositorySupport.getBoardCommentByBoardId(board.getId());
 			for (BoardComment comment : comments) {
@@ -249,6 +251,7 @@ public class UserServiceImpl implements UserService {
 		boardRepository.deleteAll(boardRepositorySupport.getBoardByUserId(userId));
 		todoRepository.deleteAll(todoRepositorySupport.getTodoListByUserId(userId));
 		fileInfoRepository.deleteAll(fileInfoRepositorySupport.findByUserId(userId));
+		attendanceRepository.deleteAll(attendanceRepositorySupport.getAttendanceByUserId(userId));
 		return userRepositorySupport.deleteUserByUserId(userId);
 	}
 

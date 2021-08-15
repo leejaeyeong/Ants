@@ -33,12 +33,12 @@ export function requestInfo ({ state }, header) {
   return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
 // 유저정보 수정
-export function editInfo ({ state }, header) {
-  console.log('editInfo', state, header)
+export function editInfo ({ state }, body) {
+  console.log('editInfo', state, body)
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id
-  const userToken = localStorage.token
-  return $axios.put(url, { headers: { Authorization: `Bearer ${userToken}` } })
+  // const userToken = localStorage.token
+  return $axios.put(url, body)
 }
 // 유저 탈퇴
 export function deleteUser ({ state }) {
