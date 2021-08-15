@@ -30,11 +30,13 @@ public class Board extends BaseEntity {
     int view;
     String imageLocation;
     LocalTime time;
+    LocalDate date;
 
     LocalDateTime registrationTime;
     @PrePersist
     public void dateTimeNow() {
         this.registrationTime = LocalDateTime.now();
         this.time = LocalTime.now();
+        this.date = LocalDate.now();
     }
 }
