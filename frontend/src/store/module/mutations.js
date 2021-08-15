@@ -157,3 +157,7 @@ export function setMode6 (state, mode6) {
 export function setBoardType (state, boardType) {
   state.boardType = boardType
 }
+
+export function setDayLog (state, dayLog) {
+  state.dayLog = dayLog
+}
