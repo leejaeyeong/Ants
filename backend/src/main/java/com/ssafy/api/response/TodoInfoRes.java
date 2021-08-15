@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @ApiModel("TodoResponse")
-public class TodoInfoRes {
+public class TodoInfoRes extends CalendarDetail {
     LocalDate date;
     LocalTime time;
     String title;
@@ -28,7 +28,7 @@ public class TodoInfoRes {
         tir.setDepartmentName(todo.getDepartment().getDepartmentName());
         tir.setDone(todo.isDone());
         tir.setUserName(todo.getUser().getName());
-        tir.setUserName(todo.getUser().getProfileLocation());
+        tir.setProfileLocation(todo.getUser().getProfileLocation());
         return tir;
     }
 }

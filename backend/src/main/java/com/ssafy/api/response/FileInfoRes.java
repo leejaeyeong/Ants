@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @ApiModel("FileInfoResponse")
-public class FileInfoRes {
+public class FileInfoRes extends CalendarDetail {
 	Long id;
 	LocalDate date;
 	String fileExtension;
