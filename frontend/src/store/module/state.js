@@ -119,6 +119,8 @@ const boardType = {
   intro: ''
 }
 
+const dayLog = []
+
 const linkList = []
 
 // const modePx1 = [15, 20]
@@ -171,6 +173,7 @@ export default function () {
     // modePx5: modePx5,
     // modePx6: modePx6
     boardType: boardType,
+    dayLog: dayLog,
     linkList: linkList
   }
 }
