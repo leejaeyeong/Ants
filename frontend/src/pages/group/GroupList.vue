@@ -71,7 +71,7 @@
                 </q-item-section>
               </q-item>
             </div>
-            <div v-else>승인 대기중인 사용자가 없습니다.</div>
+            <div v-else-if="waitmemeber.length === 0">승인 대기중인 사용자가 없습니다.</div>
           </div>
         </q-scroll-area>
       </q-list>

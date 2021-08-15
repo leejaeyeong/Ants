@@ -119,6 +119,9 @@ const boardType = {
   intro: ''
 }
 
+const dayLog = {
+}
+
 // const modePx1 = [15, 20]
 // const modePx2 = [561, 20]
 // const modePx3 = [15, 385]
@@ -168,6 +171,7 @@ export default function () {
     // modePx4: modePx4,
     // modePx5: modePx5,
     // modePx6: modePx6
-    boardType: boardType
+    boardType: boardType,
+    dayLog: dayLog
   }
 }

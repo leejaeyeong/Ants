@@ -18,6 +18,7 @@
                 :key="secondIdx"
                 class="q-td--no-hover"
                 style="height: 130px; width:80px;"
+                @click="requestLog(year, month, day)"
               >
                 <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
                 <span v-else-if="(secondIdx === 0)" style="color: red;">{{ day }}</span>
@@ -36,12 +37,37 @@
     </div>
     <div class="subDay">
       <div class="title">오늘의 기록</div>
+      <q-scroll-area style="height: 420px; max-width: 300px;">
+        <div v-for="(data, idx) in dayLog" :key="idx">
+          <ul>
+            <div class="vl"></div>
+            <div class="user">
+              <img :src= "data.profileLocation" style="width:30px; height:30px;">
+              <span v-if="data.writer">{{data.writer}}님이 작성했습니다.</span>
+              <span v-if="data.uploader">{{data.uploader}}님이 업로드 했습니다.</span>
+              <span v-if="data.userName">{{data.userName}}님이 작성했습니다.</span>
+            </div>
+            <div class="logTitle">
+              <q-item-label v-if="data.title">{{data.title}}</q-item-label>
+              <q-item-label v-if="data.fileName">{{data.fileName}}</q-item-label>
+            </div>
+              <!-- <q-item-label caption lines="2" v-if="data.writer">{{data.writer}}님이 작성했습니다.</q-item-label>
+              <q-item-label caption lines="2" v-if="data.uploader">{{data.uploader}}님이 업로드했습니다.</q-item-label>
+              <q-item-label caption lines="2" v-if="data.userName">{{data.userName}}님이 작성했습니다.</q-item-label> -->
+            <div class="time">
+              <q-item-label caption>{{data.time}}</q-item-label>
+            </div>
+          </ul>
+        </div>
+      </q-scroll-area>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 export default {
   name: 'management',
   data () {
@@ -187,6 +213,25 @@ export default {
           console.log(err)
         })
     }
+  },
+  setup () {
+    const dayLog = computed(() => store.getters['module/getDayLog'])
+    const store = useStore()
+    const requestLog = function (year, month, day) {
+      console.log(year, month, day, '누른 날짜')
+      const departmentId = localStorage.getItem('departmentId')
+      store.dispatch('module/getAlllog', { year, month, day, departmentId })
+        .then(function (result) {
+          const daylog = []
+          console.log(result.data, '달력에서 로그요청보냄')
+          for (let i = 0; i < result.data.length; i++) {
+            daylog.push(result.data[i])
+          }
+          console.log(daylog, '데이로그')
+          store.commit('module/setDayLog', daylog)
+        })
+    }
+    return { requestLog, dayLog }
   }
 }
 </script>
@@ -242,6 +287,30 @@ export default {
   margin-left: 38px;
   margin-top: 20px;
   font-size:20px;
-  cursor:pointer;
+}
+.vl {
+  border-left: 6px solid green;
+  height: 80px;
+  float: left;
+  display: inline-block;
+  border-radius: 5px;
+}
+.user{
+  width: 250px;
+  height: 50px;
+  margin-left: 25px;
+  color: grey;
+  font-size: 12px;
+}
+.logTitle{
+  width: 250px;
+  height: 25px;
+  margin-left: 25px;
+  font-size: 16px;
+}
+.time{
+  width: 250px;
+  height: 25px;
+  margin-left: 25px;
 }
 </style>
