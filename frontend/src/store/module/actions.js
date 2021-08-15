@@ -276,3 +276,13 @@ export function loadFileDataByDepartment ({ state }, id) {
   const url = baseUrl + 'api/v1/files/department' + '?id=' + id
   return $axios.get(url)
 }
+
+export function getLinkList ({ state }, id) {
+  const url = baseUrl + 'api/v1/open/links?id=' + id
+  return $axios.get(url)
+}
+
+export function addLinkList ({ state }, body) {
+  const url = baseUrl + 'api/v1/open/addLink?id=' + body.id + '&link=' + body.link
+  return $axios.get(url)
+}

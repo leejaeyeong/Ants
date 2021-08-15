@@ -157,3 +157,11 @@ export function setMode6 (state, mode6) {
 export function setBoardType (state, boardType) {
   state.boardType = boardType
 }
+
+export function setLinkList (state, linkList) {
+  state.linkList = linkList
+}
+
+export function addLinkList (state, link) {
+  state.linkList.push(link)
+}

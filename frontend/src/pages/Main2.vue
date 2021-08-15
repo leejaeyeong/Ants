@@ -129,9 +129,24 @@
       </div>
       <div id="endBottom" v-show="mode6" class="shadow-1">
         <div class="name">즐겨찾는 웹사이트</div>
-        <div class="weblist">
-          <q-input v-model="text" label="Standard" id="inputSiteURL"/>
-          <button >등록하기</button>
+        <div class="row" style="margin: 1%;">
+          <q-input v-model="text" id="inputSiteURL" style="width: 75%"/>
+          <q-btn @click="addLink(loginUser.id, text)" style="width: 20%; color: green;">등록하기</q-btn>
+        </div>
+        <div class="weblist" style="width: 100%; height: 75%; overflow: scroll">
+          <div v-for="link in linkList" :key="link.id">
+            <div class="row">
+              <q-card style="width: 100%; margin: 2%;">
+              <a :href="link.link" class="col-12 row" style="text-decoration: none; color: black;">
+                <img :src="link.image" class="col-2" style="width: 100px; height: 100px;"/>
+                <div class="col-9" style="margin: auto 2%;">
+                  <div style="font-size: 120%;">{{ link.title }}</div>
+                  <div style="overflow: hidden; margin-top: 2%;">{{ link.link }}</div>
+                </div>
+              </a>
+              </q-card>
+            </div>
+          </div>
             <!-- <div>Meta Keyword: <div id="kw"></div></div>
             <div>Description: <div id="des"></div></div>
             <div>image: <div id="img"></div></div> -->
@@ -200,6 +215,7 @@ export default defineComponent({
       rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
+    const linkList = computed(() => store.getters['module/getLinkList'])
 
     // 웹 메타데이터
     // const registerurl = function () {
@@ -405,6 +421,12 @@ export default defineComponent({
           // store.commit('module/setModePx6', [e.clientX + x6, e.clientX + y6])
         }
       })
+
+      store.dispatch('module/getLinkList', store.getters['module/getLoginUser'].id)
+        .then(function (result) {
+          console.log(result.data, '외부링크 목록')
+          store.commit('module/setLinkList', result.data)
+        })
     })
     const currentDay = new Date()
     const theYear = currentDay.getFullYear()
@@ -590,6 +612,24 @@ export default defineComponent({
 
       mode.value = true
     }
+    const addLink = function (id, link) {
+      const body = {
+        id: id,
+        link: link
+      }
+      store.dispatch('module/addLinkList', body)
+        .then(function (result) {
+          store.commit('module/addLinkList', result.data)
+          console.log(result.data)
+        })
+        .catch(function () {
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">해당 주소는 북마크 지정할 수 없습니다.</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
+        })
+    }
     return {
       formattedString,
       formattedString2,
@@ -626,7 +666,9 @@ export default defineComponent({
       CheckMode6,
       mode,
       reset,
-      text: ref('')
+      text: ref(''),
+      linkList,
+      addLink
     }
   }
 })
