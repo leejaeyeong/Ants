@@ -62,6 +62,14 @@ public class BoardRepositorySupport {
         return Optional.ofNullable(board);
     }
 
+    public Optional<List<Board>> getBoardByDate(String date) {
+//        List<Board> board  =  jpaQueryFactory.select(qBoard).from(qBoard)
+//                .where(qBoard.registrationTime).fetch();
+//        if(board == null) return Optional.empty();
+//        return Optional.ofNullable(board);
+        return null;
+    }
+
     public BoardType getBoardType(Long id) {
         BoardType boardType = jpaQueryFactory
                 .select(qBoardType)

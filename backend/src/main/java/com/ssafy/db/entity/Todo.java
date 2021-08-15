@@ -20,6 +20,10 @@ public class Todo extends BaseEntity{
     boolean isDone;
 
     @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
+    User user;
+
+    @ManyToOne
     @JoinColumn(name = "department", nullable = false)
     private Department department;
 

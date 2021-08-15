@@ -17,4 +17,6 @@ public class TodoRegisterReq {
     String title;
     @ApiModelProperty(name="할일 적용할 부서", example="")
     Long departmentId;
+    @ApiModelProperty(name="유저 id", example="")
+    String userId;
 }
