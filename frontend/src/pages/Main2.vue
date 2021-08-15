@@ -41,7 +41,7 @@
       </div>
       <div id="bottomLeft" v-show="mode2" class="bottomleft shadow-1">
         <div class="name">휴가현황</div>
-        <a style="text-decoration:none; color:grey;" href="" class="vacation">휴가 신청>></a>
+        <a style="text-decoration:none; color:grey;" href="" class="vacation to-right-underline"><strong>휴가 신청 ></strong></a>
         <div class="totalimg">
           <div class="img">
             <q-icon name="mood"/>
@@ -68,8 +68,10 @@
         </div>
       </div>
       <div id="topRight" v-show="mode3" class="shadow-1">
-        <div class="name">Weekly Report</div><span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
-        <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" />
+        <div class="name">Weekly Report</div>
+        <span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
+        <span @click="mvAttendance" class="to-right-underline" style="margin-left:320px; font-size:13px; color:grey; cursor: pointer;"><strong>근태관리 ></strong></span>
+        <!-- <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" /> -->
         <div>
           <q-linear-progress stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
             <div class="absolute-full flex flex-center">
@@ -82,7 +84,8 @@
       </div>
       <div id="botRight" v-show="mode4" class="shadow-1">
         <div class="name">최근 게시물</div>
-        <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" />
+        <span @click="mvAttendance" class="to-right-underline" style="margin-left:535px; font-size:13px; color:grey; cursor: pointer;"><strong>게시물 더 보기 ></strong></span>
+        <!-- <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" /> -->
         <div class="q-pa-md">
           <q-table
             :rows="rowsM"
@@ -889,6 +892,26 @@ export default defineComponent({
   width:550px;
   height:282px;
   overflow-y: auto;
+}
+.to-right-underline{
+  position: relative;
+}
+.to-right-underline:after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0px;
+  height: 2px;
+  margin: 5px 0 0;
+  transition: all 0.2s ease-in-out;
+  transition-duration: 0.3s;
+  opacity: 0;
+  background-color: #8fd3f4;
+}
+.to-right-underline:hover:after{
+  width: 100%;
+  opacity: 1;
 }
 @keyframes leftFadeIn {
   from {
