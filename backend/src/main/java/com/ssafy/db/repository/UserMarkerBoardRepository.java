@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserMarkerBoardRepository extends JpaRepository<UserMarkerBoard, Long> {
+    @Override
+    void deleteAll(Iterable<? extends UserMarkerBoard> entities);
 }

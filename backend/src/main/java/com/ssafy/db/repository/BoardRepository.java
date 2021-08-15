@@ -19,4 +19,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByTitleContains(String title);
     Board findBoardById(Long id);
     List<Board> findAllByDate(LocalDate date);
+    @Override
+    void deleteAll(Iterable<? extends Board> entities);
 }
