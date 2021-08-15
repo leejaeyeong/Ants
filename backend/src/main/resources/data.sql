@@ -37,16 +37,16 @@ insert into board_type values(6, "마켓팅 전략팀") ON DUPLICATE KEY UPDATE 
 
 -- 게시물 초기 데이터 sql
 insert into board values (1, '공지사항 내용입니다.', now(),null, now(),now(),'공지제목', 13,1,'test-1')  ON DUPLICATE KEY UPDATE id=1;
-insert into board values (2, '익명 글 2', now(),null, now(),now(),'2021 하반기 공채입니다 2', 20,2,'test-1')  ON DUPLICATE KEY UPDATE id=2;
-insert into board values (3, '익명 글 3',now(), null, now(),now(),'2021 하반기 공채입니다 3', 20,2,'test-1')  ON DUPLICATE KEY UPDATE id=3;
-insert into board values (4, '익명 글 4', now(),null, now(),now(),'2021 하반기 공채입니다 4', 20,2,'test-1')  ON DUPLICATE KEY UPDATE id=4;
-insert into board values (5, '익명 글 5', now(),null, now(),now(),'2021 하반기 공채입니다 5', 20,2,'test-1')  ON DUPLICATE KEY UPDATE id=5;
+insert into board values (2, '익명 글 2', now(),null, now(),now(),'2021 하반기 공채입니다 2', 20,2,'admin')  ON DUPLICATE KEY UPDATE id=2;
+insert into board values (3, '익명 글 3',now(), null, now(),now(),'2021 하반기 공채입니다 3', 20,2,'admin')  ON DUPLICATE KEY UPDATE id=3;
+insert into board values (4, '익명 글 4', now(),null, now(),now(),'2021 하반기 공채입니다 4', 20,2,'admin')  ON DUPLICATE KEY UPDATE id=4;
+insert into board values (5, '익명 글 5', now(),null, now(),now(),'2021 하반기 공채입니다 5', 20,2,'admin')  ON DUPLICATE KEY UPDATE id=5;
 insert into board values (6, '익명 글 6', now(),null, now(),now(),'2021 하반기 공채입니다 6', 20,2,'test-1')  ON DUPLICATE KEY UPDATE id=6;
 insert into board values (7, '익명 글 7', now(),null, now(),now(),'2021 하반기 공채입니다 7', 20,2,'test-1')  ON DUPLICATE KEY UPDATE id=7;
 insert into board values (8, '익명 글 8', now(),null, now(),now(),'2021 하반기 공채입니다 8', 20,2,'test-1')  ON DUPLICATE KEY UPDATE id=8;
 insert into board values (9, '2021 하반기 공채 내용 9', now(),null, now(),now(),'2021 하반기 공채입니다 9', 20,4,'test-1')  ON DUPLICATE KEY UPDATE id=9;
 insert into board values (10, '2021 하반기 공채 내용 10', now(),null, now(),now(),'2021 하반기 공채입니다 10', 20,4,'test-1')  ON DUPLICATE KEY UPDATE id=10;
-insert into board values (11, '2021 하반기 공채 내용 11', now(),null, now(),now(),'2021 하반기 공채입니다 11', 20,4,'test-1')  ON DUPLICATE KEY UPDATE id=11;
+insert into board values (11, '2021 하반기 공채 내용 11', now(),null, now(),now(),'2021 하반기 공채입니다 11', 20,4,'admin')  ON DUPLICATE KEY UPDATE id=11;
 insert into board values (12, '2021 하반기 공채 내용 12', now(),null, now(),now(),'2021 하반기 공채입니다 12', 20,4,'test-1')  ON DUPLICATE KEY UPDATE id=12;
 insert into board values (13, '2021 하반기 공채 내용 13', now(),null, now(),now(),'2021 하반기 공채입니다 13', 20,5,'test-1')  ON DUPLICATE KEY UPDATE id=13;
 insert into board values (14, '2021 하반기 공채 내용 14', now(),null, now(),now(),'2021 하반기 공채입니다 14', 20,5,'test-1')  ON DUPLICATE KEY UPDATE id=14;

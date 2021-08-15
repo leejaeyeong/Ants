@@ -18,7 +18,7 @@
           {{ formattedString }} {{ formattedString2 }}
         </div>
         <div id="mid1">
-          <img :src="state.profileLocation" style="width:120px; height:150px;">
+          <img :src="state.profileLocation" style="width:120px; height:150px; border-radius: 10px;">
         </div>
         <div class="userInfo">
           {{ loginUser.name }}
