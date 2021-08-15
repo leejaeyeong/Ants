@@ -15,7 +15,7 @@ function dmSetConnected(connected) {
 
 function dmConnect(room, name) {
     console.log("room: " + room);
-    var dmSocket = new SockJS('/websocket');
+    let dmSocket = new SockJS('/websocket');
     dmStompClient = Stomp.over(dmSocket);
     dmStompClient.connect({}, function (frame) {
         dmSetConnected(true);
@@ -37,27 +37,28 @@ function dmDisconnect() {
     console.log("Disconnected");
 }
 
-function dmSendName() {
-    dmStompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
-    dmSendChat();
-}
+//function dmSendName() {
+//    dmStompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+//    dmSendChat();
+//}
 
 function dmSendChat(room, name, message) {
 	dmStompClient.send("/app/dm/" + room, {}, JSON.stringify({'user': name, 'message': message, 'roomId': room}));
 }
 
-function dmShowGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
-}
+//function dmShowGreeting(message) {
+//    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+//}
 
 function dmShowChat(dm, myName) {
         if(myName == dm.name) {
-            $("#dmChatWindow").append("<div class='box1'><div class='name1' style='font-weight:bold;'>" + dm.name + "</div><div><div class='left1'></div><div class='right1'>" + dm.message + "</div></div></div>" )
+            $("#nowChat").append("<div class='box1'><div class='name1' style='font-weight:bold;'>" + dm.name + "</div><div><div class='left1'></div><div class='right1'>" + dm.message + "</div></div></div>" )
         }
         else{
-            $("#dmChatWindow").append("<div class='box'><div style='font-weight:bold;'>" + dm.name + "</div><div><div class='left'></div><div class='right'>" + dm.message + "</div></div></div>" )
+            $("#nowChat").append("<div class='box'><div style='font-weight:bold;'>" + dm.name + "</div><div><div class='left'></div><div class='right'>" + dm.message + "</div></div></div>" )
         }
        $('#chatMessage').val('');
+       $('#dmChatWindow').scrollTop($('#nowChat').height() + $('#dmChatWindow').height());
 }
 
 //$(function () {

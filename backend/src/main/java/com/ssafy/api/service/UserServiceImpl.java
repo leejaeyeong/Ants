@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.db.entity.outLink;
 import com.ssafy.api.request.UserTeamMappingPutReq;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.common.util.FileUtil;
@@ -46,6 +47,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	LinkReposiroty linkReposiroty;
+
+	@Autowired
+	LinkRepositorySupport linkRepositorySupport;
 
 	FileUtil fileUtil = FileUtil.getInstance();
 	
@@ -213,5 +220,13 @@ public class UserServiceImpl implements UserService {
 			return userRepositorySupport.updateUserAuth(getUserByUserId(userId), userStateRepository.findById((long)2).get());
 		}
 		return false;
+	}
+
+	public List<outLink> getLinks(String id){
+		return linkRepositorySupport.findLinksByUserId(id).get();
+	}
+
+	public void addLink(outLink link){
+		linkReposiroty.save(link);
 	}
 }
