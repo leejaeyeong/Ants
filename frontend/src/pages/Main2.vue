@@ -12,7 +12,7 @@
           <q-fab-action color="amber" text-color="white"  @click="reset" icon="undo" />
         </q-fab>
       </div>
-      <div id="topLeft" v-show="mode1" class="shadow-1">
+      <div id="topLeft" v-show="mode1" class="shadow-1" ondrag="dragStart($event)">
         <div class="name">Today</div>
         <div id="day">
           {{ formattedString }} {{ formattedString2 }}
@@ -80,7 +80,7 @@
           </q-linear-progress>
         </div>
         <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{totalHourOfWeek}} Hour</span>
-        <span style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</span>
+        <spfan style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</spfan>
       </div>
       <div id="botRight" v-show="mode4" class="shadow-1">
         <div class="name">최근 게시물</div>
@@ -133,18 +133,30 @@
       <div id="endBottom" v-show="mode6" class="shadow-1">
         <div class="name">즐겨찾는 웹사이트</div>
         <div class="row" style="margin: 1%;">
-          <q-input v-model="text" id="inputSiteURL" style="width: 75%"/>
-          <q-btn @click="addLink(loginUser.id, text)" style="width: 20%; color: green;">등록하기</q-btn>
+          <div class="col-1"></div>
+          <div class="col-7">
+            <q-input v-model="text" id="inputSiteURL" style="width: 90%"/>
+          </div>
+          <div class="col-4">
+            <q-btn @click="addLink(loginUser.id, text)" style="width: 60%; height:90%; color: green;">등록하기</q-btn>
+          </div>
+          <!-- <q-input v-model="text" id="inputSiteURL" style="width: 75%"/>
+          <q-btn @click="addLink(loginUser.id, text)" style="width: 20%; color: green;">등록하기</q-btn> -->
         </div>
-        <div class="weblist" style="width: 100%; height: 75%; overflow: scroll">
+        <div id="weblist" style="width: 100%; height: 75%; overflow-y: scroll">
           <div v-for="link in linkList" :key="link.id">
             <div class="row">
               <q-card style="width: 100%; margin: 2%;">
               <a :href="link.link" class="col-12 row" style="text-decoration: none; color: black;">
                 <img :src="link.image" class="col-2" style="width: 100px; height: 100px;"/>
-                <div class="col-9" style="margin: auto 2%;">
+                <div class="col-8" style="margin: auto 2%;">
                   <div style="font-size: 120%;">{{ link.title }}</div>
-                  <div style="overflow: hidden; margin-top: 2%;">{{ link.link }}</div>
+                  <div style="margin-top: 2%;">{{ link.link }}</div>
+                </div>
+                <div class="col-1">
+                  <div style="line-height: 90px;">
+                    <q-icon @click="deleteSite()" class="deleteIcon" name="delete"/>
+                  </div>
                 </div>
               </a>
               </q-card>
@@ -616,6 +628,7 @@ export default defineComponent({
       mode.value = true
     }
     const addLink = function (id, link) {
+      this.text = ''
       const body = {
         id: id,
         link: link
@@ -632,6 +645,16 @@ export default defineComponent({
             confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
           })
         })
+      setTimeout(function () {
+        const bar = document.getElementById('weblist')
+        bar.scrollTop = bar.scrollHeight
+      }, 300)
+    }
+    const deleteSite = function () {
+      alert('삭제')
+    }
+    const dragStart = function (e) {
+      console.log('sss')
     }
     return {
       formattedString,
@@ -671,7 +694,9 @@ export default defineComponent({
       reset,
       text: ref(''),
       linkList,
-      addLink
+      addLink,
+      deleteSite,
+      dragStart
     }
   }
 })
@@ -912,6 +937,20 @@ export default defineComponent({
 .to-right-underline:hover:after{
   width: 100%;
   opacity: 1;
+}
+.deleteIcon {
+  font-size: 2.0rem;
+  color: gray;
+}
+.deleteIcon:hover {
+  color: rgb(241, 74, 74);
+}
+#weblist {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+#weblist::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 @keyframes leftFadeIn {
   from {

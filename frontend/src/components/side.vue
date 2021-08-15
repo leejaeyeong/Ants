@@ -1,6 +1,6 @@
 <template>
     <div id="side">
-        <div @click="mvHome" class="list">
+        <div @click="mvHome" class="list clicked">
             <div class="img">
                 <q-icon style="font-size: 3.0em; color: white;" name="home"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
