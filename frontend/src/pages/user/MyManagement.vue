@@ -17,7 +17,7 @@
                 v-for="(day, secondIdx) in date"
                 :key="secondIdx"
                 class="q-td--no-hover"
-                style="height: 130px; width:115px;"
+                style="height: 130px; width:80px;"
               >
                 <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
                 <span v-else-if="(secondIdx === 0)" style="color: red;">{{ day }}</span>
@@ -33,6 +33,9 @@
           </tbody>
         </q-markup-table>
       </div>
+    </div>
+    <div class="subDay">
+      <div class="title">오늘의 기록</div>
     </div>
   </div>
 </template>
@@ -191,8 +194,7 @@ export default {
 <style scoped>
 .section{
   width: 1450px;
-  margin-left: 170px;
-  margin-top: -20px;
+  margin-left: 40px;
   height: 770px;
 }
 .calendar{
@@ -225,5 +227,21 @@ export default {
   text-align: center;
   width: 50px;
   margin-left: 50px;
+}
+.subDay {
+  background-color: white;
+  height: 500px;
+  width: 300px;
+  position: absolute;
+  bottom: 300px;
+  margin-left: 1530px;
+  border-radius: 10px;
+}
+.title{
+  font-weight:bold;
+  margin-left: 38px;
+  margin-top: 20px;
+  font-size:20px;
+  cursor:pointer;
 }
 </style>
