@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +54,41 @@ public class BoardRepositorySupport {
                 .where(qBoardComment.board.id.eq(id)).fetch();
         if(boardComment == null) return Optional.empty();
         return Optional.ofNullable(boardComment);
+    }
+
+    public List<BoardComment> getBoardCommentByUserId(String userId) {
+        List<BoardComment> boardComment  =  jpaQueryFactory.select(qBoardComment).from(qBoardComment)
+                .where(qBoardComment.writer.userId.eq(userId)).fetch();
+        if(boardComment == null) return new ArrayList<>();
+        return boardComment;
+    }
+
+    public List<BoardComment> getBoardCommentByBoardId (Long id) {
+        List<BoardComment> boardComments  =  jpaQueryFactory.select(qBoardComment).from(qBoardComment)
+                .where(qBoardComment.board.id.eq(id)).fetch();
+        if(boardComments == null) return new ArrayList<>();
+        return boardComments;
+    }
+
+    public List<UserMarkerBoard> getUserMarkerBoardByUserId (String userId) {
+        List<UserMarkerBoard> userMarkerBoards  =  jpaQueryFactory.select(qUserMarkerBoard).from(qUserMarkerBoard)
+                .where(qUserMarkerBoard.user.userId.eq(userId)).fetch();
+        if(userMarkerBoards == null) return new ArrayList<>();
+        return userMarkerBoards;
+    }
+
+    public List<UserMarkerBoard> getUserMarkerBoardByBoardId (Long id) {
+        List<UserMarkerBoard> userMarkerBoards  =  jpaQueryFactory.select(qUserMarkerBoard).from(qUserMarkerBoard)
+                .where(qUserMarkerBoard.board.id.eq(id)).fetch();
+        if(userMarkerBoards == null) return new ArrayList<>();
+        return userMarkerBoards;
+    }
+
+    public List<Board> getBoardByUserId (String userId) {
+        List<Board> boards  =  jpaQueryFactory.select(qBoard).from(qBoard)
+                .where(qBoard.writer.userId.eq(userId)).fetch();
+        if(boards == null) return new ArrayList<>();
+        return boards;
     }
 
     public Optional<List<Board>> getBoardByWriterId(String userId) {

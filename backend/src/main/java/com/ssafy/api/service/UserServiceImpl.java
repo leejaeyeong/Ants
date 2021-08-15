@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.db.entity.outLink;
 import com.ssafy.api.request.UserTeamMappingPutReq;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.common.util.FileUtil;
@@ -46,6 +47,36 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	LinkReposiroty linkReposiroty;
+
+	@Autowired
+	LinkRepositorySupport linkRepositorySupport;
+
+	@Autowired
+	TodoRepositorySupport todoRepositorySupport;
+
+	@Autowired
+	TodoRepository todoRepository;
+
+	@Autowired
+	BoardCommentRepository boardCommentRepository;
+
+	@Autowired
+	BoardRepositorySupport boardRepositorySupport;
+
+	@Autowired
+	UserMarkerBoardRepository userMarkerBoardRepository;
+
+	@Autowired
+	BoardRepository boardRepository;
+
+	@Autowired
+	FileInfoRepository fileInfoRepository;
+
+	@Autowired
+	FileInfoRepositorySupport fileInfoRepositorySupport;
 
 	FileUtil fileUtil = FileUtil.getInstance();
 	
@@ -204,6 +235,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean deleteUser(String userId) {
+		boardCommentRepository.deleteAll(boardRepositorySupport.getBoardCommentByUserId(userId));
+		userMarkerBoardRepository.deleteAll(boardRepositorySupport.getUserMarkerBoardByUserId(userId));
+		List<Board> boards = boardRepositorySupport.getBoardByUserId(userId);
+		for (Board board : boards) {
+			List<BoardComment> comments = boardRepositorySupport.getBoardCommentByBoardId(board.getId());
+			for (BoardComment comment : comments) {
+				boardCommentRepository.delete(comment); // 해당 보드 id를 갖는 코멘트 삭제
+			}
+			List<UserMarkerBoard> userMarkerBoards = boardRepositorySupport.getUserMarkerBoardByBoardId(board.getId());
+			userMarkerBoardRepository.deleteAll(userMarkerBoards);
+		}
+		boardRepository.deleteAll(boardRepositorySupport.getBoardByUserId(userId));
+		todoRepository.deleteAll(todoRepositorySupport.getTodoListByUserId(userId));
+		fileInfoRepository.deleteAll(fileInfoRepositorySupport.findByUserId(userId));
 		return userRepositorySupport.deleteUserByUserId(userId);
 	}
 
@@ -213,5 +258,13 @@ public class UserServiceImpl implements UserService {
 			return userRepositorySupport.updateUserAuth(getUserByUserId(userId), userStateRepository.findById((long)2).get());
 		}
 		return false;
+	}
+
+	public List<outLink> getLinks(String id){
+		return linkRepositorySupport.findLinksByUserId(id).get();
+	}
+
+	public void addLink(outLink link){
+		linkReposiroty.save(link);
 	}
 }

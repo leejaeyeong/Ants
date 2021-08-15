@@ -1,6 +1,7 @@
 package com.ssafy.db.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.db.entity.outLink;
 import com.ssafy.db.entity.QUser;
 import com.ssafy.db.entity.User;
 
@@ -65,5 +66,4 @@ public class UserRepositorySupport {
         if(affectedRows >= 1) return true;
         return false;
     }
-
 }

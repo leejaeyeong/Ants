@@ -162,3 +162,7 @@ export function getBoardType (state) {
 export function getDayLog (state) {
   return state.dayLog
 }
+
+export function getLinkList (state) {
+  return state.linkList
+}
