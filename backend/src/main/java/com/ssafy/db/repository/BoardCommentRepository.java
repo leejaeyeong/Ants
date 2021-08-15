@@ -12,4 +12,9 @@ import java.util.List;
  */
 @Repository
 public interface BoardCommentRepository extends JpaRepository<BoardComment, Long> {
+    @Override
+    void deleteAll(Iterable<? extends BoardComment> entities);
+    @Override
+    void delete(BoardComment entity);
+    List<BoardComment> findAllByWriterId(Long boardId);
 }

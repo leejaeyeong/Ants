@@ -58,10 +58,12 @@
 <script>
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'mypage',
   setup () {
+    const router = useRouter()
     const userInfo = computed(() => store.getters['module/getUserInfo'])
     const store = useStore()
     const Swal = require('sweetalert2')
@@ -131,7 +133,9 @@ export default defineComponent({
                 confirmButtonColor: '#18C75E',
                 confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
               })
-              this.$router.push('/')
+                .then(function () {
+                  router.push('/')
+                })
             })
             .catch(function (err) {
               console.log(err)
