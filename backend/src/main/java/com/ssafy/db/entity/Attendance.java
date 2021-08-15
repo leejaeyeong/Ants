@@ -20,7 +20,7 @@ import java.time.LocalTime;
 //@Table(indexes = { @Index(name = "udis",  columnList="user_id", unique = true) })
 
 public class Attendance extends BaseEntity {
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     User user;
 

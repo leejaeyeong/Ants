@@ -47,6 +47,30 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	@Autowired
+	TodoRepositorySupport todoRepositorySupport;
+
+	@Autowired
+	TodoRepository todoRepository;
+
+	@Autowired
+	BoardCommentRepository boardCommentRepository;
+
+	@Autowired
+	BoardRepositorySupport boardRepositorySupport;
+
+	@Autowired
+	UserMarkerBoardRepository userMarkerBoardRepository;
+
+	@Autowired
+	BoardRepository boardRepository;
+
+	@Autowired
+	FileInfoRepository fileInfoRepository;
+
+	@Autowired
+	FileInfoRepositorySupport fileInfoRepositorySupport;
+
 	FileUtil fileUtil = FileUtil.getInstance();
 	
 	@Override
@@ -204,6 +228,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean deleteUser(String userId) {
+		boardCommentRepository.deleteAll(boardRepositorySupport.getBoardCommentByUserId(userId));
+		userMarkerBoardRepository.deleteAll(boardRepositorySupport.getUserMarkerBoardByUserId(userId));
+		List<Board> boards = boardRepositorySupport.getBoardByUserId(userId);
+		for (Board board : boards) {
+			List<BoardComment> comments = boardRepositorySupport.getBoardCommentByBoardId(board.getId());
+			for (BoardComment comment : comments) {
+				boardCommentRepository.delete(comment); // 해당 보드 id를 갖는 코멘트 삭제
+			}
+			List<UserMarkerBoard> userMarkerBoards = boardRepositorySupport.getUserMarkerBoardByBoardId(board.getId());
+			userMarkerBoardRepository.deleteAll(userMarkerBoards);
+		}
+		boardRepository.deleteAll(boardRepositorySupport.getBoardByUserId(userId));
+		todoRepository.deleteAll(todoRepositorySupport.getTodoListByUserId(userId));
+		fileInfoRepository.deleteAll(fileInfoRepositorySupport.findByUserId(userId));
 		return userRepositorySupport.deleteUserByUserId(userId);
 	}
 

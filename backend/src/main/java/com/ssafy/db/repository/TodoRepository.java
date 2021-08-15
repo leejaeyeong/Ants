@@ -12,4 +12,6 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository<Todo, Long> {
     List<Todo> findAllByDateBetween(LocalDate start, LocalDate end);
     List<Todo> findAllByDate(LocalDate date);
+    List<Todo> findAllByUserId(String userId);
+//    void deleteAllByUserId(String userId);
 }
