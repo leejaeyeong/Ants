@@ -37,6 +37,8 @@ public class QTodo extends EntityPathBase<Todo> {
 
     public final StringPath title = createString("title");
 
+    public final QUser user;
+
     public QTodo(String variable) {
         this(Todo.class, forVariable(variable), INITS);
     }
@@ -56,6 +58,7 @@ public class QTodo extends EntityPathBase<Todo> {
     public QTodo(Class<? extends Todo> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.department = inits.isInitialized("department") ? new QDepartment(forProperty("department")) : null;
+        this.user = inits.isInitialized("user") ? new QUser(forProperty("user"), inits.get("user")) : null;
     }
 
 }

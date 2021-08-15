@@ -161,7 +161,10 @@ public class UserController {
 			@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<? extends BaseResponseBody> deleteUser(@PathVariable String userId, @ApiIgnore Authentication authentication) {
-		if(userService.deleteUser(userId)) return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Delete Success"));
+		if(userService.deleteUser(userId)) {
+			System.out.println("이게 왜 안되는거야");
+			return ResponseEntity.status(204).body(BaseResponseBody.of(204, "Delete Success"));
+		}
 		return ResponseEntity.status(404).body(BaseResponseBody.of(404, "Delete Fail"));
 	}
 
