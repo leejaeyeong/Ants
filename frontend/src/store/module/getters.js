@@ -158,3 +158,7 @@ export function getFileImage (state) {
 export function getBoardType (state) {
   return state.boardType
 }
+
+export function getLinkList (state) {
+  return state.linkList
+}
