@@ -45,5 +45,4 @@ public class User extends BaseEntity implements Serializable {
         userState.setId((long)3);
         this.userState = userState;
     }
-
 }
