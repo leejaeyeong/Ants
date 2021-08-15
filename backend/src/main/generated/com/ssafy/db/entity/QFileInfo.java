@@ -39,6 +39,8 @@ public class QFileInfo extends EntityPathBase<FileInfo> {
 
     public final StringPath size = createString("size");
 
+    public final TimePath<java.time.LocalTime> time = createTime("time", java.time.LocalTime.class);
+
     public final QUser user;
 
     public QFileInfo(String variable) {

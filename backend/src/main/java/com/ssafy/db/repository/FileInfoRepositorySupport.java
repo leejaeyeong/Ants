@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +35,12 @@ public class FileInfoRepositorySupport {
                 .where(qFileInfo.department.eq(department)).fetch();
         if(fileInfos == null) return Optional.empty();
         return Optional.ofNullable(fileInfos);
+    }
+
+    public List<FileInfo> findByUserId(String userId) {
+        List<FileInfo> fileInfos  =  jpaQueryFactory.select(qFileInfo).from(qFileInfo)
+                .where(qFileInfo.user.userId.eq(userId)).fetch();
+        if(fileInfos == null) return new ArrayList<>();
+        return fileInfos;
     }
 }

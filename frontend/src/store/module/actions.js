@@ -284,5 +284,14 @@ export function getAlllog ({ state }, { year, month, day, departmentId }) {
   console.log(date)
   const url = baseUrl + 'api/v1/calendar' + '?date=' + date + '&departmentId=' + departmentId
   console.log(url)
+}
+
+export function getLinkList ({ state }, id) {
+  const url = baseUrl + 'api/v1/open/links?id=' + id
+  return $axios.get(url)
+}
+
+export function addLinkList ({ state }, body) {
+  const url = baseUrl + 'api/v1/open/addLink?id=' + body.id + '&link=' + body.link
   return $axios.get(url)
 }

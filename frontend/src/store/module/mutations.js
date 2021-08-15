@@ -161,3 +161,11 @@ export function setBoardType (state, boardType) {
 export function setDayLog (state, dayLog) {
   state.dayLog = dayLog
 }
+
+export function setLinkList (state, linkList) {
+  state.linkList = linkList
+}
+
+export function addLinkList (state, link) {
+  state.linkList.push(link)
+}
