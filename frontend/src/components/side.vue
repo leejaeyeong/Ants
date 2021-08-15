@@ -4,11 +4,33 @@
             <div class="img">
                 <q-icon style="font-size: 3.0em; color: white;" name="home"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
-                    <strong>HOME</strong>
+                    <strong>Home</strong>
                   </q-tooltip>
             </div>
             <!-- <div class="detail" style="color: white;">
                 Home
+            </div> -->
+        </div>
+        <div class="list" @click="mvManagement">
+          <div class="img">
+              <q-icon style="font-size: 3.0em; color: white;" name="event_available"/>
+                <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                  <strong>Calendar</strong>
+                </q-tooltip>
+          </div>
+          <!-- <div class="detail" style="color: white; ">
+              Setting
+          </div> -->
+        </div>
+        <div @click="mvRTC" class="list">
+            <div class="img">
+                <q-icon style="font-size: 3.0em; color: white;" name="support_agent"/>
+                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
+                    <strong>Conference</strong>
+                  </q-tooltip>
+            </div>
+            <!-- <div class="detail" style="color: white; ">
+                RTC
             </div> -->
         </div>
         <div @click="mvBoard" class="list">
@@ -22,48 +44,27 @@
                 Board
             </div> -->
         </div>
-        <div @click="mvGroup" class="list">
-            <div class="img">
-                <q-icon style="font-size: 3.0em; color: white;" name="people_alt"/>
-                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
-                    <strong>Group</strong>
-                  </q-tooltip>
-            </div>
-            <!-- <div class="detail" style="color: white; ">
-                Group
-            </div> -->
-        </div>
-        <div @click="mvRTC" class="list">
-            <div class="img">
-                <q-icon style="font-size: 3.0em; color: white;" name="support_agent"/>
-                  <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
-                    <strong>RTC</strong>
-                  </q-tooltip>
-            </div>
-            <!-- <div class="detail" style="color: white; ">
-                RTC
-            </div> -->
-        </div>
-        <div class="list"  @click="mvDownloads">
+        <div class="list" @click="mvDownloads">
             <div class="img">
                 <q-icon style="font-size: 3.0em; color: white;" name="download"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
-                    <strong>다운로드</strong>
+                    <strong>Download</strong>
                   </q-tooltip>
             </div>
             <!-- <div class="detail" style="color: white; ">
                 다운로드
             </div> -->
         </div>
-        <div class="list">
+
+        <div @click="mvGroup" class="list">
             <div class="img">
-                <q-icon style="font-size: 3.0em; color: white;" name="settings"/>
+                <q-icon style="font-size: 3.0em; color: white;" name="groups"/>
                   <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
-                    <strong>Settings</strong>
+                    <strong>MyGroup</strong>
                   </q-tooltip>
             </div>
             <!-- <div class="detail" style="color: white; ">
-                Setting
+                Group
             </div> -->
         </div>
         <div @click="logout" class="list" id="logout">
@@ -97,6 +98,9 @@ export default defineComponent({
     },
     mvDownloads () {
       this.$router.push('/downloads')
+    },
+    mvManagement () {
+      this.$router.push('/management')
     }
   },
   setup () {
