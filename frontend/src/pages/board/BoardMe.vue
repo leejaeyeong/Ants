@@ -7,7 +7,7 @@
       </div>
       <div id="search">
         <q-input color="teal" v-model="form.key" style="height:30px; width:60%; display:inline-block; margin-top:35px; margin-left:100px;" label="제목 또는 내용으로 검색" />
-        <q-btn @click="search" round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:30px; width:30px;" icon="search" />
+        <q-btn @click="search" round style="margin-top:-20px; margin-left:10px; background-color: #249752; color:white; height:30px; width:30px;" icon="search" />
       </div>
       <div class="q-pa-md" style="width:100%; margin-top:30px; margin-left:25px;">
         <q-table

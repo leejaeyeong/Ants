@@ -280,10 +280,13 @@ export function loadFileDataByDepartment ({ state }, id) {
 // 매일매일의 기록 요청
 export function getAlllog ({ state }, { year, month, day, departmentId }) {
   console.log(year, month, day, departmentId, '정해진 날의 기록 요청')
+  if (String(month).length === 1) {
+    month = '0' + String(month)
+  }
   const date = year + '-' + month + '-' + day
   console.log(date)
   const url = baseUrl + 'api/v1/calendar' + '?date=' + date + '&departmentId=' + departmentId
-  console.log(url)
+  return $axios.get(url)
 }
 
 export function getLinkList ({ state }, id) {
@@ -294,4 +297,9 @@ export function getLinkList ({ state }, id) {
 export function addLinkList ({ state }, body) {
   const url = baseUrl + 'api/v1/open/addLink?id=' + body.id + '&link=' + body.link
   return $axios.get(url)
+}
+
+export function deleteLink ({ state }, id) {
+  const url = baseUrl + 'api/v1/open/link/' + id
+  return $axios.delete(url)
 }

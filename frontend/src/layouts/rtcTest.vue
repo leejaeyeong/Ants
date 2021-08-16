@@ -3,7 +3,7 @@
       <div id="wrapper">
           <div id="join" style="position:absolute; left:60px; top:-30px;" class="animate join">
               <!-- <h1>Join a Room</h1> -->
-              <div v-if="rooms.length === 0" style="font-size:50px; color:grey; position:absolute; top:400px; left:530px; width:700px;">
+              <div v-if="rooms.length === 0" style="font-size:45px; font-weight: bold; color:grey; position:absolute; top:400px; left:530px; width:700px;">
                 현재 개설된 회의가 없습니다.
               </div>
               <form onsubmit="register(); return false;" accept-charset="UTF-8">
@@ -40,7 +40,7 @@
               <div id="participants"></div>
               <!-- 채팅 섹션 -->
               <div id="down" v-if="downMode">
-                <q-btn @click="reRtcFileList" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" icon="refresh" />
+                <q-btn @click="reRtcFileList" round style="background-color:#249752; color:white; float:right; margin-right:5px; margin-top:5px; width:10px;" icon="refresh" />
                 <div id="registFile">
                    <!-- 파일 지정 상태 -->
                    <div v-if="form.images" class="margin-auto file-mounted"
@@ -395,13 +395,13 @@ export default defineComponent({
   background-color: rgb(242, 247, 244);
 }
 #submit{
-    background-color:#18C75E;
+    background-color:#249752;
     font-weight:bold;
     color:white;
     padding:10px;
-    font-size:30px;
+    font-size:28px;
     cursor: pointer;
-    border:0.5px solid #18C75E;
+    border:0.5px solid #249752;
     border-radius:5px;
     position:absolute;
     top:850px;
@@ -499,8 +499,8 @@ export default defineComponent({
   box-shadow: 5px 5px 5px;
 }
 .enter{
-  background-color:#18C75E;
-  border:0.5px solid #18C75E;
+  background-color:#249752;
+  border:0.5px solid #249752;
   width:100%;
   margin:0 auto;
   font-weight:bold;
@@ -513,8 +513,8 @@ export default defineComponent({
   opacity: 0.7;
 }
 #chatSend{
-  background-color:#18C75E;
-  border:0.5px solid #18C75E;
+  background-color:#249752;
+  border:0.5px solid #249752;
   font-weight:bold;
   color:white;
   padding:10px;
@@ -544,28 +544,28 @@ export default defineComponent({
     width:50px;
     height:50px;
     border-radius:50px;
-    border:0.5px solid #18C75E;
+    border:0.5px solid #249752;
     display:inline-block;
     color:white;
     padding:10px;
     cursor: pointer;
     margin-left:10px;
-    background: url('~assets/images/exit.png') no-repeat right center #18C75E;
+    background: url('~assets/images/exit.png') no-repeat right center #249752;
 }
 #downBt{
     width:50px;
     height:50px;
     border-radius:50px;
-    border:0.5px solid #18C75E;
+    border:0.5px solid #249752;
     display:inline-block;
     color:white;
     padding:10px;
     cursor: pointer;
     margin-left:10px;
-    background: url('~assets/images/download.png') no-repeat right center #18C75E;
+    background: url('~assets/images/download.png') no-repeat right center #249752;
 }
 .bt1{
-  background: url('~assets/images/mic.png') no-repeat right center #18C75E;
+  background: url('~assets/images/mic.png') no-repeat right center #249752;
   border-radius: 50px;
   width:50px;
   height:50px;
@@ -573,10 +573,10 @@ export default defineComponent({
   display:inline-block;
   padding-left:5px;
   padding-top:5px;
-  border:0.5px solid #18C75E;
+  border:0.5px solid #249752;
 }
 .bt2{
-  background: url('~assets/images/video.png') no-repeat right center #18C75E;
+  background: url('~assets/images/video.png') no-repeat right center #249752;
   border-radius: 50px;
   width:50px;
   height:50px;
@@ -584,7 +584,10 @@ export default defineComponent({
   display:inline-block;
   padding-left:5px;
   padding-top:5px;
-  border:0.5px solid #18C75E;
+  border:0.5px solid #249752;
   margin-left:10px;
+}
+body {
+  font-family: 'NEXON Lv1 Gothic OTF';
 }
 </style>
