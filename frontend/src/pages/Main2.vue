@@ -1,6 +1,17 @@
 <template>
   <div id="content">
     <div id="main">
+<<<<<<< HEAD
+       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
+        <q-fab v-model="mode" color="amber" text-color="white" icon="keyboard_arrow_down" direction="down">
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode1" @mouseout="colorMode11" @click="CheckMode1" icon="person" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode2" @mouseout="colorMode22" @click="CheckMode2" icon="beach_access" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode3" @mouseout="colorMode33" @click="CheckMode3" icon="insert_invitation" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode4" @mouseout="colorMode44" @click="CheckMode4" icon="content_paste" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode5" @mouseout="colorMode55" @click="CheckMode5" icon="check" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode6" @mouseout="colorMode66" @click="CheckMode6" icon="help_outline" />
+          <q-fab-action color="amber" text-color="white" @click="reset" icon="undo" />
+=======
       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
         <q-fab v-model="mode" color="yellow-10" text-color="white" icon="keyboard_arrow_down" direction="down">
           <div>
@@ -46,9 +57,10 @@
             </q-tooltip>
           </div>
 
+>>>>>>> 3d7a2adaed63eb036302ceb877975d907a16c046
         </q-fab>
       </div>
-      <div id="topLeft" v-show="mode1" class="shadow-1" ondrag="dragStart($event)">
+      <div id="topLeft" v-show="mode1" class="shadow-1">
         <div class="name">Today</div>
         <div id="day">
           {{ formattedString }} {{ formattedString2 }}
@@ -183,6 +195,28 @@
           <div v-for="link in linkList" :key="link.id">
             <div class="row">
               <q-card style="width: 100%; margin: 2%;">
+                <div class="row" style="height: 100px;">
+                  <div class="col-2">
+                    <a :href="link.link" target="_blank" style="text-decoration: none; color: black;">
+                      <img :src="link.image" class="col-2" style="width: 100px; height: 100px;"/>
+                    </a>
+                  </div>
+                  <div class="col-9" style="line-height:30px;">
+                    <a :href="link.link" target="_blank" style="text-decoration: none; color: black;">
+                      <div style="margin-left: 20px; margin-top: 15px; font-size: 120%;">{{ link.title }}</div>
+                      <div style="margin-left: 20px;">{{ link.link }}</div>
+                    </a>
+                  </div>
+                  <div class="col-1">
+                    <div style="line-height: 90px; cursor: pointer;">
+                      <q-icon @click="deleteSite(link.id)" class="deleteIcon" name="delete"/>
+                    </div>
+                  </div>
+                </div>
+              </q-card>
+            </div>
+            <!-- <div class="row">
+              <q-card style="width: 100%; margin: 2%;">
               <a :href="link.link" class="col-12 row" style="text-decoration: none; color: black;">
                 <img :src="link.image" class="col-2" style="width: 100px; height: 100px;"/>
                 <div class="col-8" style="margin: auto 2%;">
@@ -196,7 +230,7 @@
                 </div>
               </a>
               </q-card>
-            </div>
+            </div> -->
           </div>
             <!-- <div>Meta Keyword: <div id="kw"></div></div>
             <div>Description: <div id="des"></div></div>
@@ -686,11 +720,51 @@ export default defineComponent({
         bar.scrollTop = bar.scrollHeight
       }, 300)
     }
-    const deleteSite = function () {
-      alert('삭제')
+    const deleteSite = function (id) {
+      console.log(id)
+      store.dispatch('module/deleteLink', id)
+        .then(function () {
+          store.dispatch('module/getLinkList', store.getters['module/getLoginUser'].id)
+            .then(function (result) {
+              store.commit('module/setLinkList', result.data)
+            })
+        })
     }
-    const dragStart = function (e) {
-      console.log('sss')
+    const colorMode1 = function () {
+      document.getElementById('topLeft').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode11 = function () {
+      document.getElementById('topLeft').style.background = 'white'
+    }
+    const colorMode2 = function () {
+      document.getElementById('bottomLeft').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode22 = function () {
+      document.getElementById('bottomLeft').style.background = 'white'
+    }
+    const colorMode3 = function () {
+      document.getElementById('topRight').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode33 = function () {
+      document.getElementById('topRight').style.background = 'white'
+    }
+    const colorMode4 = function () {
+      document.getElementById('botRight').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode44 = function () {
+      document.getElementById('botRight').style.background = 'white'
+    }
+    const colorMode5 = function () {
+      document.getElementById('endRight').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode55 = function () {
+      document.getElementById('endRight').style.background = 'white'
+    }
+    const colorMode6 = function () {
+      document.getElementById('endBottom').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode66 = function () {
+      document.getElementById('endBottom').style.background = 'white'
     }
     return {
       formattedString,
@@ -732,7 +806,20 @@ export default defineComponent({
       linkList,
       addLink,
       deleteSite,
-      dragStart
+      dragStart,
+      colorMode1,
+      colorMode11,
+      colorMode2,
+      colorMode22,
+      colorMode3,
+      colorMode33,
+      colorMode4,
+      colorMode44,
+      colorMode5,
+      colorMode55,
+      colorMode6,
+      colorMode66,
+      deleteSite
     }
   }
 })
@@ -866,7 +953,6 @@ export default defineComponent({
   margin-left: 37px;
   margin-top: 10px;
 }
-
 .icon {
   float: left;
   width: 60px;

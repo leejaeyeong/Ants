@@ -77,4 +77,10 @@ public class JsoupController {
 
         return ResponseEntity.ok().body(outLink);
     }
+
+    @DeleteMapping("/link/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        userServiceImpl.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
