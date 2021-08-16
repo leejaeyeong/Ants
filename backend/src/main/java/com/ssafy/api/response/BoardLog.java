@@ -23,6 +23,7 @@ public class BoardLog extends CalendarDetail {
     String profileLocation;
     int view;
     int commentCount;
+    String type = "board-write";
 
    public static BoardLog of (Board board, int commentCount) {
        BoardLog boardLog = new BoardLog();
