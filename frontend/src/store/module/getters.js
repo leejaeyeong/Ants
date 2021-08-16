@@ -166,3 +166,11 @@ export function getDownMode (state) {
 export function getRtcFileList (state) {
   return state.rtcFileList
 }
+
+export function getDayLog (state) {
+  return state.dayLog
+}
+
+export function getLinkList (state) {
+  return state.linkList
+}

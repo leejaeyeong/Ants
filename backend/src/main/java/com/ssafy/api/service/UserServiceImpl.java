@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.db.entity.outLink;
 import com.ssafy.api.request.UserTeamMappingPutReq;
 import com.ssafy.api.response.UserRes;
 import com.ssafy.common.util.FileUtil;
@@ -10,9 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.api.request.UserRegisterPostReq;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,36 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
+	@Autowired
+	LinkReposiroty linkReposiroty;
+
+	@Autowired
+	LinkRepositorySupport linkRepositorySupport;
+
+	@Autowired
+	TodoRepositorySupport todoRepositorySupport;
+
+	@Autowired
+	TodoRepository todoRepository;
+
+	@Autowired
+	BoardCommentRepository boardCommentRepository;
+
+	@Autowired
+	BoardRepositorySupport boardRepositorySupport;
+
+	@Autowired
+	UserMarkerBoardRepository userMarkerBoardRepository;
+
+	@Autowired
+	BoardRepository boardRepository;
+
+	@Autowired
+	FileInfoRepository fileInfoRepository;
+
+	@Autowired
+	FileInfoRepositorySupport fileInfoRepositorySupport;
+
 	FileUtil fileUtil = FileUtil.getInstance();
 	
 	@Override
@@ -58,24 +91,6 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setDepartment(getDepartmentById(userRegisterInfo.getDepartment()));
 		user.setEmail(userRegisterInfo.getEmail());
-
-//		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
-//		System.out.println("rootPath: " + rootPath);
-//
-//		String basePath = rootPath + "/" + "profile";
-//		System.out.println("basePath: " + basePath);
-//
-//		File file = new File(basePath);
-//		if (!file.exists()) {
-//			file.mkdir();
-//		}
-//		String filePath = basePath + "/" + userRegisterInfo.getProfile().getOriginalFilename();
-//		System.out.println("filePath: " + filePath);
-//		user.setProfileLocation(filePath);
-//
-//		File dest = new File(filePath);
-//		userRegisterInfo.getProfile().transferTo(dest);
-
 
 		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
 		System.out.println("rootPath: " + rootPath);
@@ -134,9 +149,25 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updateUser(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		return userRepositorySupport.updateUser(user);
+	public boolean updateUser(User user, String email, MultipartFile profile) throws IOException {
+//		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+		File t = new File("..");
+		String path = t.getCanonicalPath();
+		fileUtil.createFilePath(path += "/media");
+		fileUtil.createFilePath(path += "/profile");
+		File file = fileUtil.createFilePath(path + "/" + user.getUserId());
+
+
+		String filePath = file.getAbsoluteFile() + "/" + profile.getOriginalFilename();
+
+		File ts = new File("..");
+
+//		user.setProfileLocation("/media/profile/" + user.getUserId() + "/" + profile.getOriginalFilename());
+		String profilePath = "/media/profile/" + user.getUserId() + "/" + profile.getOriginalFilename();
+		File dest = new File(filePath);
+		profile.transferTo(dest);
+		return userRepositorySupport.updateUser(user, email, profilePath);
 	}
 
 	@Override
@@ -148,7 +179,8 @@ public class UserServiceImpl implements UserService {
 		if(grp == null) return false;
 
 //		user.setGrp(grp);
-		return userRepositorySupport.updateUser(user);
+//		return userRepositorySupport.updateUser(user);
+		return false;
 	}
 
 	@Override
@@ -204,6 +236,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean deleteUser(String userId) {
+		boardCommentRepository.deleteAll(boardRepositorySupport.getBoardCommentByUserId(userId));
+		userMarkerBoardRepository.deleteAll(boardRepositorySupport.getUserMarkerBoardByUserId(userId));
+		List<Board> boards = boardRepositorySupport.getBoardByUserId(userId);
+		System.out.println(boards.size() + "해당 유저의 게시물 게수");
+		for (Board board : boards) {
+			List<BoardComment> comments = boardRepositorySupport.getBoardCommentByBoardId(board.getId());
+			for (BoardComment comment : comments) {
+				boardCommentRepository.delete(comment); // 해당 보드 id를 갖는 코멘트 삭제
+			}
+			List<UserMarkerBoard> userMarkerBoards = boardRepositorySupport.getUserMarkerBoardByBoardId(board.getId());
+			userMarkerBoardRepository.deleteAll(userMarkerBoards);
+		}
+		boardRepository.deleteAll(boardRepositorySupport.getBoardByUserId(userId));
+		todoRepository.deleteAll(todoRepositorySupport.getTodoListByUserId(userId));
+		fileInfoRepository.deleteAll(fileInfoRepositorySupport.findByUserId(userId));
+		attendanceRepository.deleteAll(attendanceRepositorySupport.getAttendanceByUserId(userId));
 		return userRepositorySupport.deleteUserByUserId(userId);
 	}
 
@@ -213,5 +261,13 @@ public class UserServiceImpl implements UserService {
 			return userRepositorySupport.updateUserAuth(getUserByUserId(userId), userStateRepository.findById((long)2).get());
 		}
 		return false;
+	}
+
+	public List<outLink> getLinks(String id){
+		return linkRepositorySupport.findLinksByUserId(id).get();
+	}
+
+	public void addLink(outLink link){
+		linkReposiroty.save(link);
 	}
 }

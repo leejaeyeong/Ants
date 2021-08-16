@@ -12,13 +12,13 @@
           <q-fab-action color="amber" text-color="white"  @click="reset" icon="undo" />
         </q-fab>
       </div>
-      <div id="topLeft" v-show="mode1" class="shadow-1">
+      <div id="topLeft" v-show="mode1" class="shadow-1" ondrag="dragStart($event)">
         <div class="name">Today</div>
         <div id="day">
           {{ formattedString }} {{ formattedString2 }}
         </div>
         <div id="mid1">
-          <img :src="state.profileLocation" style="width:120px; height:150px;">
+          <img :src="state.profileLocation" style="width:120px; height:150px; border-radius: 10px;">
         </div>
         <div class="userInfo">
           {{ loginUser.name }}
@@ -41,7 +41,7 @@
       </div>
       <div id="bottomLeft" v-show="mode2" class="bottomleft shadow-1">
         <div class="name">휴가현황</div>
-        <a style="text-decoration:none; color:grey;" href="" class="vacation">휴가 신청>></a>
+        <a style="text-decoration:none; color:grey;" href="" class="vacation to-right-underline"><strong>휴가 신청 ></strong></a>
         <div class="totalimg">
           <div class="img">
             <q-icon name="mood"/>
@@ -68,8 +68,10 @@
         </div>
       </div>
       <div id="topRight" v-show="mode3" class="shadow-1">
-        <div class="name">Weekly Report</div><span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
-        <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" />
+        <div class="name">Weekly Report</div>
+        <span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
+        <span @click="mvAttendance" class="to-right-underline" style="margin-left:320px; font-size:13px; color:grey; cursor: pointer;"><strong>근태관리 ></strong></span>
+        <!-- <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" /> -->
         <div>
           <q-linear-progress stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
             <div class="absolute-full flex flex-center">
@@ -78,11 +80,12 @@
           </q-linear-progress>
         </div>
         <span style="font-size:16px; margin-top:13px; float:left; margin-left:100px;">{{totalHourOfWeek}} Hour</span>
-        <span style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</span>
+        <spfan style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</spfan>
       </div>
       <div id="botRight" v-show="mode4" class="shadow-1">
         <div class="name">최근 게시물</div>
-        <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" />
+        <span @click="mvAttendance" class="to-right-underline" style="margin-left:535px; font-size:13px; color:grey; cursor: pointer;"><strong>게시물 더 보기 ></strong></span>
+        <!-- <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" /> -->
         <div class="q-pa-md">
           <q-table
             :rows="rowsM"
@@ -129,9 +132,36 @@
       </div>
       <div id="endBottom" v-show="mode6" class="shadow-1">
         <div class="name">즐겨찾는 웹사이트</div>
-        <div class="weblist">
-          <q-input v-model="text" label="Standard" id="inputSiteURL"/>
-          <button >등록하기</button>
+        <div class="row" style="margin: 1%;">
+          <div class="col-1"></div>
+          <div class="col-7">
+            <q-input v-model="text" id="inputSiteURL" style="width: 90%"/>
+          </div>
+          <div class="col-4">
+            <q-btn @click="addLink(loginUser.id, text)" style="width: 60%; height:90%; color: green;">등록하기</q-btn>
+          </div>
+          <!-- <q-input v-model="text" id="inputSiteURL" style="width: 75%"/>
+          <q-btn @click="addLink(loginUser.id, text)" style="width: 20%; color: green;">등록하기</q-btn> -->
+        </div>
+        <div id="weblist" style="width: 100%; height: 75%; overflow-y: scroll">
+          <div v-for="link in linkList" :key="link.id">
+            <div class="row">
+              <q-card style="width: 100%; margin: 2%;">
+              <a :href="link.link" class="col-12 row" style="text-decoration: none; color: black;">
+                <img :src="link.image" class="col-2" style="width: 100px; height: 100px;"/>
+                <div class="col-8" style="margin: auto 2%;">
+                  <div style="font-size: 120%;">{{ link.title }}</div>
+                  <div style="margin-top: 2%;">{{ link.link }}</div>
+                </div>
+                <div class="col-1">
+                  <div style="line-height: 90px;">
+                    <q-icon @click="deleteSite()" class="deleteIcon" name="delete"/>
+                  </div>
+                </div>
+              </a>
+              </q-card>
+            </div>
+          </div>
             <!-- <div>Meta Keyword: <div id="kw"></div></div>
             <div>Description: <div id="des"></div></div>
             <div>image: <div id="img"></div></div> -->
@@ -200,6 +230,7 @@ export default defineComponent({
       rowsPerPage: 10
       // rowsNumber: xx if getting data from a server
     })
+    const linkList = computed(() => store.getters['module/getLinkList'])
 
     // 웹 메타데이터
     // const registerurl = function () {
@@ -405,6 +436,12 @@ export default defineComponent({
           // store.commit('module/setModePx6', [e.clientX + x6, e.clientX + y6])
         }
       })
+
+      store.dispatch('module/getLinkList', store.getters['module/getLoginUser'].id)
+        .then(function (result) {
+          console.log(result.data, '외부링크 목록')
+          store.commit('module/setLinkList', result.data)
+        })
     })
     const currentDay = new Date()
     const theYear = currentDay.getFullYear()
@@ -503,7 +540,8 @@ export default defineComponent({
 
     const registTodo = function () {
       const departmentId = localStorage.getItem('departmentId')
-      store.dispatch('module/registTodo', { departmentId: departmentId, time: todoTime.value, title: state.todoText })
+      const userId = localStorage.getItem('id')
+      store.dispatch('module/registTodo', { userId: userId, departmentId: departmentId, time: todoTime.value, title: state.todoText })
         .then(function () {
           const dpId = localStorage.getItem('departmentId')
           store.dispatch('module/getTodoList', dpId)
@@ -589,6 +627,35 @@ export default defineComponent({
 
       mode.value = true
     }
+    const addLink = function (id, link) {
+      this.text = ''
+      const body = {
+        id: id,
+        link: link
+      }
+      store.dispatch('module/addLinkList', body)
+        .then(function (result) {
+          store.commit('module/addLinkList', result.data)
+          console.log(result.data)
+        })
+        .catch(function () {
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size : 16px;">해당 주소는 북마크 지정할 수 없습니다.</span>',
+            confirmButtonColor: '#ce1919',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
+        })
+      setTimeout(function () {
+        const bar = document.getElementById('weblist')
+        bar.scrollTop = bar.scrollHeight
+      }, 300)
+    }
+    const deleteSite = function () {
+      alert('삭제')
+    }
+    const dragStart = function (e) {
+      console.log('sss')
+    }
     return {
       formattedString,
       formattedString2,
@@ -625,7 +692,11 @@ export default defineComponent({
       CheckMode6,
       mode,
       reset,
-      text: ref('')
+      text: ref(''),
+      linkList,
+      addLink,
+      deleteSite,
+      dragStart
     }
   }
 })
@@ -846,6 +917,40 @@ export default defineComponent({
   width:550px;
   height:282px;
   overflow-y: auto;
+}
+.to-right-underline{
+  position: relative;
+}
+.to-right-underline:after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0px;
+  height: 2px;
+  margin: 5px 0 0;
+  transition: all 0.2s ease-in-out;
+  transition-duration: 0.3s;
+  opacity: 0;
+  background-color: #8fd3f4;
+}
+.to-right-underline:hover:after{
+  width: 100%;
+  opacity: 1;
+}
+.deleteIcon {
+  font-size: 2.0rem;
+  color: gray;
+}
+.deleteIcon:hover {
+  color: rgb(241, 74, 74);
+}
+#weblist {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+#weblist::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 @keyframes leftFadeIn {
   from {

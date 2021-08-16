@@ -7,7 +7,9 @@ import com.ssafy.api.response.UserRes;
 import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.Department;
 import com.ssafy.db.entity.User;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +23,7 @@ public interface UserService {
 	List<UserRes> findAll();
 	boolean getTeamByUserId(String userId);
 	boolean updateUserTeamInfo(UserTeamMappingPutReq userTeamMappingPutReq);
-	boolean updateUser(User user);
+	boolean updateUser(User user, String email, MultipartFile profile) throws IOException;
 	boolean deleteUser(String userId);
 	LocalTime checkInUser(User user);
 	LocalTime checkOutUser(User user);

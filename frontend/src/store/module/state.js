@@ -120,6 +120,10 @@ const boardType = {
   intro: ''
 }
 
+const dayLog = []
+
+const linkList = []
+
 // const modePx1 = [15, 20]
 // const modePx2 = [561, 20]
 // const modePx3 = [15, 385]
@@ -173,6 +177,8 @@ export default function () {
     // modePx6: modePx6
     boardType: boardType,
     downMode: downMode,
-    rtcFileList: rtcFileList
+    rtcFileList: rtcFileList,
+    dayLog: dayLog,
+    linkList: linkList
   }
 }

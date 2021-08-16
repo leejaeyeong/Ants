@@ -4,6 +4,8 @@ import com.ssafy.db.entity.FileInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -12,5 +14,6 @@ import java.util.List;
 @Repository
 public interface FileInfoRepository extends JpaRepository<FileInfo, Long> {
     FileInfo findFileById(Long id);
+    List<FileInfo> findAllByDate(LocalDate date);
     List<FileInfo> findAll();
 }
