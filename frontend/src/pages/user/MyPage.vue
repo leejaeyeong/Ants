@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -82,34 +82,46 @@ export default defineComponent({
     const router = useRouter()
     const store = useStore()
     const Swal = require('sweetalert2')
-    store.dispatch('module/requestInfo')
-      .then(function (result) {
-        console.log(result.data, 'result')
-        const userInfo = {
-          userId: result.data.userId,
-          name: result.data.name,
-          department: result.data.department,
-          profileLocation: result.data.profileLocation,
-          email: result.data.email,
-          holiday: result.data.holiday,
-          position: result.data.position
-        }
-        store.dispatch('module/departmentInfo')
-          .then(function (result) {
-            for (let i = 0; i < result.data.length; i++) {
-              if (userInfo.department === result.data[i].id) {
-                userInfo.department = result.data[i].departmentName
-              }
-            }
-          })
-        console.log(userInfo, '마이페이지 유저인포')
-        store.commit('module/setUserInfo', userInfo)
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
     const userInfomation = computed(() => store.getters['module/getUserInfo'])
-    console.log(userInfomation, '흠?')
+    const userInfo = {
+      userId: '',
+      name: '',
+      department: '',
+      profileLocation: '',
+      email: '',
+      holiday: '',
+      position: ''
+    }
+    onMounted(() => {
+      console.log(store.getters['module/getLoginUser'], '로그인한 유저')
+      store.dispatch('module/requestInfo')
+        .then(function (result) {
+          console.log(result.data, 'result')
+          userInfo.userId = result.data.userId
+          userInfo.name = result.data.name
+          userInfo.department = result.data.department
+          userInfo.profileLocation = result.data.profileLocation
+          userInfo.email = result.data.email
+          userInfo.holiday = result.data.holiday
+          userInfo.position = result.data.position
+          store.dispatch('module/departmentInfo')
+            .then(function (result) {
+              for (let i = 0; i < result.data.length; i++) {
+                if (userInfo.department === result.data[i].id) {
+                  userInfo.department = result.data[i].departmentName
+                  break
+                }
+              }
+            })
+            .catch(function (err) {
+              console.log(err, '부서 에러')
+            })
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+      store.commit('module/setUserInfo', userInfo)
+    })
     // 사진업로드
     function onClickImageUpload () {
       this.$refs.imageInput.click()
