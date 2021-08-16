@@ -112,6 +112,7 @@ export default defineComponent({
                   break
                 }
               }
+              store.commit('module/setUserInfo', userInfo)
             })
             .catch(function (err) {
               console.log(err, '부서 에러')
@@ -120,7 +121,6 @@ export default defineComponent({
         .catch(function (err) {
           console.log(err)
         })
-      store.commit('module/setUserInfo', userInfo)
     })
     // 사진업로드
     function onClickImageUpload () {
