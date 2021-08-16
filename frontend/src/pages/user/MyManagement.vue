@@ -42,7 +42,7 @@
           <ul>
             <div class="vl"></div>
             <div class="user">
-              <img :src= "data.profileLocation" style="width:30px; height:30px;">
+              <img :src= "data.profileLocation" style="width:30px; height:30px; margin-right:8px;">
               <span v-if="data.writer">{{data.writer}}님이 작성했습니다.</span>
               <span v-if="data.uploader">{{data.uploader}}님이 업로드 했습니다.</span>
               <span v-if="data.userName">{{data.userName}}님이 작성했습니다.</span>
@@ -223,6 +223,7 @@ export default {
       store.dispatch('module/getAlllog', { year, month, day, departmentId })
         .then(function (result) {
           const daylog = []
+          console.log(result)
           console.log(result.data, '달력에서 로그요청보냄')
           for (let i = 0; i < result.data.length; i++) {
             daylog.push(result.data[i])
@@ -289,11 +290,11 @@ export default {
   font-size:20px;
 }
 .vl {
-  border-left: 6px solid green;
-  height: 80px;
+  border-left: 5px solid green;
+  height: 70px;
   float: left;
   display: inline-block;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 .user{
   width: 250px;
@@ -304,13 +305,17 @@ export default {
 }
 .logTitle{
   width: 250px;
-  height: 25px;
+  height: 27px;
   margin-left: 25px;
-  font-size: 16px;
+  font-size: 15px;
+  margin-bottom: 5px;
+  margin-top: -10px;
 }
 .time{
   width: 250px;
   height: 25px;
-  margin-left: 25px;
+  margin-left: 150px;
+  margin-top: 7px;
+  font-size: 12px;
 }
 </style>
