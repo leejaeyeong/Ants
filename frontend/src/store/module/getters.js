@@ -159,6 +159,14 @@ export function getBoardType (state) {
   return state.boardType
 }
 
+export function getDownMode (state) {
+  return state.downMode
+}
+
+export function getRtcFileList (state) {
+  return state.rtcFileList
+}
+
 export function getDayLog (state) {
   return state.dayLog
 }

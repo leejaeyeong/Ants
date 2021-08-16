@@ -79,6 +79,7 @@ const comments = []
 const department = []
 
 const fileInfoList = []
+const rtcFileList = []
 
 const userInfo = {
   department: '',
@@ -130,6 +131,8 @@ const linkList = []
 // const modePx5 = [15, 1215]
 // const modePx6 = [381, 1215]
 
+const downMode = false
+
 export default function () {
   return {
     loginUser: loginUser,
@@ -173,6 +176,8 @@ export default function () {
     // modePx5: modePx5,
     // modePx6: modePx6
     boardType: boardType,
+    downMode: downMode,
+    rtcFileList: rtcFileList,
     dayLog: dayLog,
     linkList: linkList
   }
