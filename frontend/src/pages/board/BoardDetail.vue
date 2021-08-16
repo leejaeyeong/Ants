@@ -3,8 +3,8 @@
     <div id="board">
       <div id="detail">
         <q-input v-model="detail.title" style="width:50%; font-size:20px; color:black; display:inline-block;" filled readonly/>
-        <q-icon v-if="!mark" @click="markOn" class="mark" style="font-size: 4.0em; color: black;" name="bookmark_border"/>
-        <q-icon v-if="mark" @click="markOff" class="mark" style="font-size: 4.0em; color: black;" name="bookmark"/>
+        <q-icon v-if="!mark" @click="markOn" class="mark" style="font-size: 4.0em; color: #249752;" name="bookmark_border"/>
+        <q-icon v-if="mark" @click="markOff" class="mark" style="font-size: 4.0em; color: #249752;" name="bookmark"/>
         <div class="q-pa-md" style="max-width: 1200px; margin-left:-17px;">
           <q-input
             filled
@@ -16,8 +16,8 @@
           />
         </div>
         <q-input v-model="form.comment" style="font-size:20px; width:86%; display:inline-block;" label="댓글입력란" filled/>
-        <q-btn @click="regist" style="color: white; background-color: #18C75E; font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" label="등록" />
-        <q-btn @click="back" style="font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" color="amber" glossy label="뒤로" />
+        <q-btn @click="regist" style="color: white; background-color: #249752; font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" label="등록" />
+        <q-btn @click="back" style="font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" color="orange-5" label="뒤로" />
         <div class="comment" v-for="(comment, index) in comments" :key="index">
           {{ comment.writer }}님 : {{ comment.comment }} <span style="float:right; color:grey;">{{ comment.registrationTime }}</span>
         </div>

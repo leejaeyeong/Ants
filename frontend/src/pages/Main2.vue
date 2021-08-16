@@ -2,14 +2,50 @@
   <div id="content">
     <div id="main">
       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
-        <q-fab v-model="mode" color="amber" text-color="white" icon="keyboard_arrow_down" direction="down">
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode1" icon="person" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode2" icon="beach_access" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode3" icon="insert_invitation" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode4" icon="content_paste" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode5" icon="check" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode6" icon="help_outline" />
-          <q-fab-action color="amber" text-color="white"  @click="reset" icon="undo" />
+        <q-fab v-model="mode" color="yellow-10" text-color="white" icon="keyboard_arrow_down" direction="down">
+          <div>
+            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode1" icon="assignment_ind" />
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
+              <strong style="font-size: 12px;">Today</strong>
+            </q-tooltip>
+          </div>
+          <div>
+            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode2" icon="flight_takeoff" />
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
+              <strong style="font-size: 12px;">Annual Leave</strong>
+            </q-tooltip>
+          </div>
+          <div>
+            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode3" icon="leaderboard" />
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
+              <strong style="font-size: 12px;">Weekly Report</strong>
+            </q-tooltip>
+          </div>
+          <div>
+            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode4" icon="content_paste" />
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
+              <strong style="font-size: 12px;">Recently Post</strong>
+            </q-tooltip>
+          </div>
+          <div>
+            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode5" icon="toc" />
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
+              <strong style="font-size: 12px;">Work Sharing</strong>
+            </q-tooltip>
+          </div>
+          <div>
+            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode6" icon="hotel_class" />
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
+              <strong style="font-size: 12px;">Bookmark</strong>
+            </q-tooltip>
+          </div>
+          <div>
+            <q-fab-action color="yellow-9" text-color="white"  @click="reset" icon="undo" />
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
+              <strong style="font-size: 12px;">Reset</strong>
+            </q-tooltip>
+          </div>
+
         </q-fab>
       </div>
       <div id="topLeft" v-show="mode1" class="shadow-1">
@@ -40,8 +76,8 @@
         </div>
       </div>
       <div id="bottomLeft" v-show="mode2" class="bottomleft shadow-1">
-        <div class="name">휴가현황</div>
-        <a style="text-decoration:none; color:grey;" href="" class="vacation to-right-underline"><strong>휴가 신청 ></strong></a>
+        <div class="name">Annual Leave</div>
+        <a style="text-decoration:none; color:grey;" href="" class="vacation to-right-underline"><strong>More ></strong></a>
         <div class="totalimg">
           <div class="img">
             <q-icon name="mood"/>
@@ -62,20 +98,20 @@
           <div class="txt">남은 일수</div>
         </div>
         <div class="totalicon">
-          <q-btn class="icon" unelevated filled rounded color="blue-2" label="14" />
-          <q-btn class="icon" unelevated filled rounded color="blue-2" label="2" />
-          <q-btn class="icon" unelevated filled rounded color="orange-5" label="12" />
+          <q-btn class="icon" unelevated filled rounded color="green-6" label="14" />
+          <q-btn class="icon" unelevated filled rounded color="green-6" label="0" />
+          <q-btn class="icon" unelevated filled rounded color="yellow-10" label="14" />
         </div>
       </div>
       <div id="topRight" v-show="mode3" class="shadow-1">
         <div class="name">Weekly Report</div>
         <span style="margin-left:25px; font-size:13px;">{{ inputText }}</span>
-        <span @click="mvAttendance" class="to-right-underline" style="margin-left:320px; font-size:13px; color:grey; cursor: pointer;"><strong>근태관리 ></strong></span>
-        <!-- <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:10px; margin-top:10px; width:10px;" color="deep-oranges" icon="trending_up" /> -->
+        <span @click="mvAttendance" class="to-right-underline" style="margin-left:320px; font-size:13px; color:grey; cursor: pointer;"><strong>More ></strong></span>
+        <!-- <q-btn @click="mvAttendance" round style="background-color:#18C75E; color:white; float:right; margin-right:12px; margin-top:12px; width:12px;" color="deep-oranges" icon="trending_up" /> -->
         <div>
-          <q-linear-progress stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#18C75E;" size="30px" :value="progress1">
+          <q-linear-progress stripe rounded style="border-radius:30px; height:40px; width:80%; margin-top:35px; margin-left:100px; cursor:pointer; color:#249752;" size="30px" :value="progress1">
             <div class="absolute-full flex flex-center">
-                <q-badge color="white" style="color:#18C75E;" :label="progressLabel1" />
+                <q-badge color="white" style="color:#249752;" :label="progressLabel1" />
             </div>
           </q-linear-progress>
         </div>
@@ -83,9 +119,9 @@
         <spfan style="float:right; margin-right:70px; font-size:18px; margin-top:13px; font-weight:bold;">40 Hour</spfan>
       </div>
       <div id="botRight" v-show="mode4" class="shadow-1">
-        <div class="name">최근 게시물</div>
-        <span @click="mvAttendance" class="to-right-underline" style="margin-left:535px; font-size:13px; color:grey; cursor: pointer;"><strong>게시물 더 보기 ></strong></span>
-        <!-- <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px; margin-right:10px; width:10px;" color="deep-oranges" icon="trending_up" /> -->
+        <div class="name">Recently Post</div>
+        <span @click="mvAttendance" class="to-right-underline" style="margin-left:535px; font-size:13px; color:grey; cursor: pointer;"><strong>More ></strong></span>
+        <!-- <q-btn @click="mvBoard" round style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:12px; margin-right:12px; width:12px;" color="deep-oranges" icon="trending_up" /> -->
         <div class="q-pa-md">
           <q-table
             :rows="rowsM"
@@ -98,12 +134,12 @@
         </div>
       </div>
       <div id="endRight" v-show="mode5" class="shadow-1">
-        <div class="name" style="margin-bottom:10px;">오늘의 할일</div>
-        <q-fab v-model="bt" style="background-color:#18C75E; color:white; float:right; margin-right:5px; margin-top:10px;" padding="sm" icon="add" direction="left">
+        <div class="name" style="margin-bottom:10px;">Work Sharing</div>
+        <q-fab flat v-model="bt" style="background-color:withe; font-weight:bold; color:#249752; float:right; margin-right:5px; margin-top:10px;" padding="sm" icon="add" direction="left">
           <div id="todoForm">
-            <q-time v-model="todoTime" color="orange-4" text-color="black" flat/>
+            <q-time v-model="todoTime" color="yellow-10" text-color="black" flat/>
             <q-input v-model="state.todoText" color="teal" style="display:inline-block; width:72%; margin-top:5px; margin-left: 5px;" label="오늘의 할 일을 입력하세요" />
-            <q-btn @click="registTodo" style="background-color:#18C75E; color:white; font-size:14px; margin-top:-15px; margin-left:6px;" label="등록"/>
+            <q-btn @click="registTodo" style="background-color:#249752; color:white; font-size:14px; margin-top:-15px; margin-left:6px;" label="등록"/>
           </div>
         </q-fab>
         <div id="todoView">
@@ -131,14 +167,14 @@
         </div>
       </div>
       <div id="endBottom" v-show="mode6" class="shadow-1">
-        <div class="name">즐겨찾는 웹사이트</div>
+        <div class="name">Bookmark</div>
         <div class="row" style="margin: 1%;">
           <div class="col-1"></div>
           <div class="col-7">
-            <q-input v-model="text" id="inputSiteURL" style="width: 90%"/>
+            <q-input v-model="text" id="inputSiteURL" color="teal" style="width: 100%; margin-left:30px;" label="url을 등록하세요"/>
           </div>
           <div class="col-4">
-            <q-btn @click="addLink(loginUser.id, text)" style="width: 60%; height:90%; color: green;">등록하기</q-btn>
+            <q-btn flat @click="addLink(loginUser.id, text)" style="width: 100px; color: #249752; margin-top:12px; margin-left:30px;">등록하기</q-btn>
           </div>
           <!-- <q-input v-model="text" id="inputSiteURL" style="width: 75%"/>
           <q-btn @click="addLink(loginUser.id, text)" style="width: 20%; color: green;">등록하기</q-btn> -->
@@ -810,7 +846,8 @@ export default defineComponent({
 .checkbtn {
   border-right:1px;
   Font-size:20px;
-  color: #18C75E;
+  color: #249752;
+  font-weight: bold;
   float: left;
   margin-top: 13px;
   margin-left: 37px;
@@ -837,7 +874,7 @@ export default defineComponent({
 .img {
   float: left;
   width: 33%;
-  color: cornflowerblue;
+  color: #249752;
   font-size: 4rem;
 }
 .vacation{

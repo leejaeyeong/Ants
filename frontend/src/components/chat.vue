@@ -5,7 +5,7 @@
             v-model="dm"
             label="메신저"
             vertical-actions-align="left"
-            color="purple"
+            color="yellow-10"
             icon="keyboard_arrow_down"
             direction="down"
         >
