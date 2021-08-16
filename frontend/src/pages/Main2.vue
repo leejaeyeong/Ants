@@ -1,51 +1,40 @@
 <template>
   <div id="content">
     <div id="main">
-<<<<<<< HEAD
-       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
-        <q-fab v-model="mode" color="amber" text-color="white" icon="keyboard_arrow_down" direction="down">
-          <q-fab-action color="amber" text-color="white" @mouseover="colorMode1" @mouseout="colorMode11" @click="CheckMode1" icon="person" />
-          <q-fab-action color="amber" text-color="white" @mouseover="colorMode2" @mouseout="colorMode22" @click="CheckMode2" icon="beach_access" />
-          <q-fab-action color="amber" text-color="white" @mouseover="colorMode3" @mouseout="colorMode33" @click="CheckMode3" icon="insert_invitation" />
-          <q-fab-action color="amber" text-color="white" @mouseover="colorMode4" @mouseout="colorMode44" @click="CheckMode4" icon="content_paste" />
-          <q-fab-action color="amber" text-color="white" @mouseover="colorMode5" @mouseout="colorMode55" @click="CheckMode5" icon="check" />
-          <q-fab-action color="amber" text-color="white" @mouseover="colorMode6" @mouseout="colorMode66" @click="CheckMode6" icon="help_outline" />
-          <q-fab-action color="amber" text-color="white" @click="reset" icon="undo" />
-=======
       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
         <q-fab v-model="mode" color="yellow-10" text-color="white" icon="keyboard_arrow_down" direction="down">
           <div>
-            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode1" icon="assignment_ind" />
+            <q-fab-action color="yellow-9" text-color="white" @mouseover="colorMode1" @mouseout="colorMode11" @click="CheckMode1" icon="assignment_ind" />
             <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
               <strong style="font-size: 12px;">Today</strong>
             </q-tooltip>
           </div>
           <div>
-            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode2" icon="flight_takeoff" />
+            <q-fab-action color="yellow-9" text-color="white" @mouseover="colorMode2" @mouseout="colorMode22" @click="CheckMode2" icon="flight_takeoff" />
             <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
               <strong style="font-size: 12px;">Annual Leave</strong>
             </q-tooltip>
           </div>
           <div>
-            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode3" icon="leaderboard" />
+            <q-fab-action color="yellow-9" text-color="white" @mouseover="colorMode3" @mouseout="colorMode33" @click="CheckMode3" icon="leaderboard" />
             <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
               <strong style="font-size: 12px;">Weekly Report</strong>
             </q-tooltip>
           </div>
           <div>
-            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode4" icon="content_paste" />
+            <q-fab-action color="yellow-9" text-color="white" @mouseover="colorMode4" @mouseout="colorMode44" @click="CheckMode4" icon="content_paste" />
             <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
               <strong style="font-size: 12px;">Recently Post</strong>
             </q-tooltip>
           </div>
           <div>
-            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode5" icon="toc" />
+            <q-fab-action color="yellow-9" text-color="white" @mouseover="colorMode5" @mouseout="colorMode55" @click="CheckMode5" icon="toc" />
             <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
               <strong style="font-size: 12px;">Work Sharing</strong>
             </q-tooltip>
           </div>
           <div>
-            <q-fab-action color="yellow-9" text-color="white"  @click="CheckMode6" icon="hotel_class" />
+            <q-fab-action color="yellow-9" text-color="white" @mouseover="colorMode6" @mouseout="colorMode66" @click="CheckMode6" icon="hotel_class" />
             <q-tooltip anchor="center left" self="center right" :offset="[10, 10]" max-width="150px">
               <strong style="font-size: 12px;">Bookmark</strong>
             </q-tooltip>
@@ -57,7 +46,6 @@
             </q-tooltip>
           </div>
 
->>>>>>> 3d7a2adaed63eb036302ceb877975d907a16c046
         </q-fab>
       </div>
       <div id="topLeft" v-show="mode1" class="shadow-1">
@@ -805,8 +793,7 @@ export default defineComponent({
       text: ref(''),
       linkList,
       addLink,
-      deleteSite,
-      dragStart,
+      // dragStart,
       colorMode1,
       colorMode11,
       colorMode2,
