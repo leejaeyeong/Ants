@@ -7,6 +7,7 @@ import com.ssafy.api.response.UserRes;
 import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.Department;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.outLink;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -32,4 +33,5 @@ public interface UserService {
 	Department getDepartmentById(long departmentId);
 	Attendance getAttendanceToday(User user);
 	boolean updateUserAuth(String userId);
+	void delete(Long id);
 }

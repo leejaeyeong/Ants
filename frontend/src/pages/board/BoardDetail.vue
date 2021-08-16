@@ -16,10 +16,13 @@
           />
         </div>
         <q-input v-model="form.comment" style="font-size:20px; width:86%; display:inline-block;" label="댓글입력란" filled/>
-        <q-btn @click="regist" style="color: white; background-color: #249752; font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" label="등록" />
-        <q-btn @click="back" style="font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" color="orange-5" label="뒤로" />
-        <div class="comment" v-for="(comment, index) in comments" :key="index">
+        <q-btn @click="regist" style="color: white; background-color: #18C75E; font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" label="등록" />
+        <q-btn @click="back" style="font-size:20px; margin-top:-20px; margin-left:10px; padding:10px;" color="amber" glossy label="뒤로" />
+        <div v-for="(comment, index) in comments" :key="index">
+          <img :src="comment.profileLocation" style="display:inline-block;width:50px; height:50px; border-radius:25px; position:relative; top:10px;">
+          <div class="comment" style="display:inline-block; line-height:50px;">
           {{ comment.writer }}님 : {{ comment.comment }} <span style="float:right; color:grey;">{{ comment.registrationTime }}</span>
+          </div>
         </div>
       </div>
     </div>
