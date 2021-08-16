@@ -270,4 +270,8 @@ public class UserServiceImpl implements UserService {
 	public void addLink(outLink link){
 		linkReposiroty.save(link);
 	}
+
+	public void delete(Long id) {
+		linkReposiroty.delete(linkReposiroty.findById(id).get());;
+	}
 }

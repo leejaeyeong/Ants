@@ -130,8 +130,8 @@ export default defineComponent({
       console.log(e.target.files)
       console.log(e.target)
       const file = e.target.files[0] // Get first index in files
-      this.userInfo.profileLocation = URL.createObjectURL(file)
-      this.userInfo.image = file // Create File URL
+      this.userInfomation.profileLocation = URL.createObjectURL(file)
+      this.userInfomation.image = file // Create File URL
     }
     // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
     function imgLabelClick () {
