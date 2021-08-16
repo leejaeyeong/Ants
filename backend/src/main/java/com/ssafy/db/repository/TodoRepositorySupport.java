@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
@@ -33,6 +30,13 @@ public class TodoRepositorySupport {
                 .where(qTodo.department.id.eq(departmentId).and(qTodo.date.eq(LocalDate.now()))).fetch();
         if(list == null) return Optional.empty();
         return Optional.of(list);
+    }
+
+    public List<Todo> getTodoListByUserId(String userId) {
+        List<Todo> list = jpaQueryFactory.select(qTodo).from(qTodo)
+                .where(qTodo.user.userId.eq(userId)).fetch();
+        if(list == null) return new ArrayList<>();
+        return list;
     }
 
     // 특정 부서의 투두 리스트 1개월 단위 반환

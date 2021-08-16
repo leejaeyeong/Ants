@@ -17,7 +17,7 @@ export default defineComponent({
 <style scoped>
 #myData{
   width:1858px;
-  height:876px;
+  height:908px;
   float:right;
   position: absolute;
   top: 60px;
