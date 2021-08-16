@@ -47,7 +47,7 @@
               <img :src= "data.profileLocation" style="width:30px; height:30px; margin-right:8px; border-radius: 20px; ">
               <span v-if="data.writer">{{data.userName}}님이 <span class="board-write">게시글</span>을 작성했습니다.</span>
               <span v-if="data.uploader">{{data.userName}}님이 <span class="file-upload">파일</span>을 업로드 했습니다.</span>
-              <span v-if="data.userName">{{data.userName}}님이 <span class="todo-write">일정</span>을 등록했습니다.</span>
+              <span v-if="data.userId">{{data.userName}}님이 <span class="todo-write">일정</span>을 등록했습니다.</span>
             </div>
             <div class="logTitle">
               <q-item-label v-if="data.title">{{data.title}}</q-item-label>
@@ -365,13 +365,13 @@ ul {
   padding: 1px;
 }
 .todo-write {
-  color: rgb(224, 34, 65);
+  color: rgb(33, 218, 95);
   border: 1px solid rgb(100, 97, 97);
   border-radius: 5px;
   padding: 1px;
 }
 .file-upload {
-  color: rgb(224, 34, 65);
+  color: rgb(48, 87, 218);
   border: 1px solid rgb(100, 97, 97);
   border-radius: 5px;
   padding: 1px;
