@@ -208,7 +208,8 @@ public class BoardServiceImpl implements BoardService {
                     board.getView(),
                     board.getWriter().getProfileLocation(),
                     isMarker(board.getId(), board.getWriter().getUserId()),
-                    board.getImageLocation()
+                    board.getImageLocation(),
+                    board.getWriter().getName()
             ));
         }
         return boardResList;
