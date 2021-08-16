@@ -157,3 +157,11 @@ export function setMode6 (state, mode6) {
 export function setBoardType (state, boardType) {
   state.boardType = boardType
 }
+
+export function setDownMode (state, downMode) {
+  state.downMode = downMode
+}
+
+export function setRtcFileList (state, rtcFileList) {
+  state.rtcFileList = rtcFileList
+}
