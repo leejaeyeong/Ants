@@ -3,8 +3,8 @@
     <div id="board">
       <div id="detail">
         <q-input v-model="detail.title" style="width:50%; font-size:20px; color:black; display:inline-block;" filled readonly/>
-        <q-icon v-if="!mark" @click="markOn" class="mark" style="font-size: 4.0em; color: black;" name="bookmark_border"/>
-        <q-icon v-if="mark" @click="markOff" class="mark" style="font-size: 4.0em; color: black;" name="bookmark"/>
+        <q-icon v-if="!mark" @click="markOn" class="mark" style="font-size: 4.0em; color: #249752;" name="bookmark_border"/>
+        <q-icon v-if="mark" @click="markOff" class="mark" style="font-size: 4.0em; color: #249752;" name="bookmark"/>
         <div class="q-pa-md" style="max-width: 1200px; margin-left:-17px;">
           <q-input
             filled
