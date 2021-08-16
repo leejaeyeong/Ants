@@ -1,7 +1,7 @@
 <template>
   <div id="content">
     <div id="main">
-       <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
+      <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
         <q-fab v-model="mode" color="amber" text-color="white" icon="keyboard_arrow_down" direction="down">
           <q-fab-action color="amber" text-color="white"  @click="CheckMode1" icon="person" />
           <q-fab-action color="amber" text-color="white"  @click="CheckMode2" icon="beach_access" />
@@ -770,7 +770,7 @@ export default defineComponent({
   text-align: center;
   line-height: 40px;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 25px;
 }
 .clock {
   height: 50px;
@@ -784,7 +784,7 @@ export default defineComponent({
 }
 .checkbtn {
   border-right:1px;
-  Font-size:16px;
+  Font-size:20px;
   color: #18C75E;
   float: left;
   margin-top: 13px;

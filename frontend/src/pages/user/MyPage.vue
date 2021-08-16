@@ -9,7 +9,7 @@
           <td class="left">이미지</td>
           <td>
             <div>
-              <img :src="userInfo.profileLocation" style="margin-top: 50px; width: 220px; height: 270px; border-radius: 10px;" />
+              <img :src="userInfomation.profileLocation" style="margin-top: 50px; width: 220px; height: 270px; border-radius: 10px;" />
               <q-btn @click="imgLabelClick" class="imgbtn" >이미지 변경</q-btn>
               <input ref="imageInput" type="file" style="display: none; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png, .gif" id="profile_img_upload">
             </div>
@@ -17,27 +17,27 @@
         </tr>
         <tr>
           <td class="left">이름</td>
-          <td>{{ userInfo.name }}</td>
+          <td>{{ userInfomation.name }}</td>
         </tr>
         <tr>
           <td class="left">아이디</td>
-          <td>{{ userInfo.userId }}</td>
+          <td>{{ userInfomation.userId }}</td>
         </tr>
         <tr>
           <td class="left">이메일</td>
-          <td><q-input color="teal" square outlined v-model="userInfo.email" style="width:400px;"/></td>
+          <td><q-input color="teal" square outlined v-model="userInfomation.email" style="width:400px;"/></td>
         </tr>
         <tr>
           <td class="left">휴가</td>
-          <td>{{ userInfo.holiday }}</td>
+          <td>{{ userInfomation.holiday }}</td>
         </tr>
         <tr>
           <td class="left">부서</td>
-          <td>{{ userInfo.department }}</td>
+          <td>{{ userInfomation.department }}</td>
         </tr>
         <tr>
           <td class="left">직책</td>
-          <td>{{ userInfo.position }}</td>
+          <td>{{ userInfomation.position }}</td>
         </tr>
       </table>
       <div class="submitbtn">
@@ -68,7 +68,6 @@
         </div> -->
       </div>
     </div>
-
   </div>
 </template>
 
@@ -81,12 +80,11 @@ export default defineComponent({
   name: 'mypage',
   setup () {
     const router = useRouter()
-    const userInfo = computed(() => store.getters['module/getUserInfo'])
     const store = useStore()
     const Swal = require('sweetalert2')
     store.dispatch('module/requestInfo')
       .then(function (result) {
-        console.log(result.data)
+        console.log(result.data, 'result')
         const userInfo = {
           userId: result.data.userId,
           name: result.data.name,
@@ -96,12 +94,22 @@ export default defineComponent({
           holiday: result.data.holiday,
           position: result.data.position
         }
-        console.log(userInfo)
+        store.dispatch('module/departmentInfo')
+          .then(function (result) {
+            for (let i = 0; i < result.data.length; i++) {
+              if (userInfo.department === result.data[i].id) {
+                userInfo.department = result.data[i].departmentName
+              }
+            }
+          })
+        console.log(userInfo, '마이페이지 유저인포')
         store.commit('module/setUserInfo', userInfo)
       })
       .catch(function (err) {
         console.log(err)
       })
+    const userInfomation = computed(() => store.getters['module/getUserInfo'])
+    console.log(userInfomation, '흠?')
     // 사진업로드
     function onClickImageUpload () {
       this.$refs.imageInput.click()
@@ -122,9 +130,10 @@ export default defineComponent({
     // 수정하기
     function myEdit () {
       const frm = new FormData()
-      frm.append('email', userInfo.value.email)
-      frm.append('profile', userInfo.value.image)
-      if (userInfo.value.image === undefined) {
+      frm.append('email', userInfomation.value.email)
+      frm.append('profile', userInfomation.value.image)
+      console.log(userInfomation.value.image, '사진변경?')
+      if (userInfomation.value.image === undefined) {
         Swal.fire({
           title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">프로필 사진을 변경해주세요.</span>',
           confirmButtonColor: '#18C75E',
@@ -201,7 +210,7 @@ export default defineComponent({
       })
     }
     return {
-      userInfo,
+      userInfomation,
       remove,
       myEdit,
       onClickImageUpload,
