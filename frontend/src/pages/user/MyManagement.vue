@@ -9,7 +9,7 @@
         </div>
         <q-markup-table separator="cell" flat bordered class=" has-text-centered calendar">
           <thead>
-            <th v-for="day in days" :key="day" style="background-color: rgb(3 185 74); font-size: 15px;">{{ day }}</th>
+            <th v-for="day in days" :key="day" style="background-color: #249752; font-size: 15px;">{{ day }}</th>
           </thead>
           <tbody>
             <tr v-for="(date, idx) in dates" :key="idx">
@@ -35,17 +35,19 @@
         </q-markup-table>
       </div>
     </div>
-    <div class="subDay">
-      <div class="title">오늘의 기록</div>
-      <q-scroll-area style="height: 420px; max-width: 300px;">
+    <div class="subDay shadow-1">
+      <div class="title">Team Log</div>
+      <q-scroll-area style="height: 600px; max-width: 300px;">
         <div v-for="(data, idx) in dayLog" :key="idx">
-          <ul>
-            <div class="vl"></div>
+          <ul style="width:300px;">
+            <div v-if="data.type === 'todo-write' " class="vl"></div>
+            <div v-if="data.type === 'board-write' " class="v2"></div>
+            <div v-if="data.type === 'file-upload' " class="v3"></div>
             <div class="user">
-              <img :src= "data.profileLocation" style="width:30px; height:30px; margin-right:8px;">
-              <span v-if="data.writer">{{data.writer}}님이 작성했습니다.</span>
-              <span v-if="data.uploader">{{data.uploader}}님이 업로드 했습니다.</span>
-              <span v-if="data.userName">{{data.userName}}님이 작성했습니다.</span>
+              <img :src= "data.profileLocation" style="width:30px; height:30px; margin-right:8px; border-radius: 20px; ">
+              <span v-if="data.writer">{{data.writer}}님이 게시글을 작성했습니다.</span>
+              <span v-if="data.uploader">{{data.uploader}}님이 파일을 업로드 했습니다.</span>
+              <span v-if="data.userName">{{data.userName}}님이 일정을 등록했습니다.</span>
             </div>
             <div class="logTitle">
               <q-item-label v-if="data.title">{{data.title}}</q-item-label>
@@ -240,7 +242,7 @@ export default {
 <style scoped>
 .section{
   width: 1450px;
-  margin-left: 40px;
+  margin-left: 18px;
   height: 770px;
 }
 .calendar{
@@ -249,11 +251,12 @@ export default {
 }
 .txt{
   font-size: 21px;
+  font-weight: bold;
 }
 .today {
   display: block;
   width: 32px;
-  background-color: #19CE60;
+  background-color: rgb(219, 130, 14);
   height: 30px;
   border-radius: 50%;
   position: relative;
@@ -268,20 +271,23 @@ export default {
   margin: 2% auto;
 }
 .work {
-  color: rgb(219, 130, 14);
+  /* color: rgb(219, 130, 14); */
+  color: #249752;
   font-size: 16px;
   text-align: center;
   width: 50px;
   margin-left: 50px;
+  font-weight: bold;
 }
 .subDay {
   background-color: white;
-  height: 500px;
-  width: 300px;
+  height: 690px;
+  width: 325px;
   position: absolute;
-  bottom: 300px;
-  margin-left: 1530px;
-  border-radius: 10px;
+  bottom: 120px;
+  margin-left: 1510px;
+  border-radius: 12px;
+  animation: rightFadeIn 0.9s ease-in-out;
 }
 .title{
   font-weight:bold;
@@ -290,8 +296,22 @@ export default {
   font-size:20px;
 }
 .vl {
-  border-left: 5px solid green;
-  height: 70px;
+  border-left: 10px solid #1e61b8;
+  height: 55px;
+  float: left;
+  display: inline-block;
+  border-radius: 8px;
+}
+.v2 {
+  border-left: 10px solid rgb(0, 0, 0);
+  height: 55px;
+  float: left;
+  display: inline-block;
+  border-radius: 8px;
+}
+.v3 {
+  border-left: 10px solid rgb(167, 34, 172);
+  height: 55px;
   float: left;
   display: inline-block;
   border-radius: 8px;
@@ -314,7 +334,7 @@ export default {
 .time{
   width: 250px;
   height: 25px;
-  margin-left: 150px;
+  margin-left: 200px;
   margin-top: 7px;
   font-size: 12px;
 }

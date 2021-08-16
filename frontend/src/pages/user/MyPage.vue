@@ -293,11 +293,11 @@ tr {
   margin-bottom:5px;
   margin-left:15px;
   font-size: 2em;
-  color: #18C75E;
+  color: #249752;
 }
 .imgbtn {
   margin-left: 50px;
-  background-color: rgb(0, 191, 111);
+  background-color: #249752;
   margin-bottom: 27px;
 }
 .submitbtn {

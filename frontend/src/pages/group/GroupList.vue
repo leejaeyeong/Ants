@@ -71,7 +71,9 @@
                 </q-item-section>
               </q-item>
             </div>
-            <div v-else-if="waitmemeber.length === 0">승인 대기중인 사용자가 없습니다.</div>
+            <div v-else>
+              승인 대기중인 사용자가 없습니다.
+            </div>
           </div>
         </q-scroll-area>
       </q-list>
@@ -225,10 +227,10 @@ export default {
 .rightside {
   background-color: white;
   width: 400px;
-  height: 500px;
+  height: 600px;
   float: right;
   position: absolute;
-  bottom: 220px;
+  bottom: 150px;
   margin-left: 1325px;
   border-radius: 12px;
   animation: rightFadeIn 0.9s ease-in-out;
