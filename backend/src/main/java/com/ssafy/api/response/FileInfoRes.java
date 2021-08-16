@@ -27,6 +27,7 @@ public class FileInfoRes extends CalendarDetail {
 	LocalTime time;
 	String type = "file-upload";
 	String userName;
+	String profileLocation;
 
 	public static FileInfoRes of (FileInfo fileInfo) {
 		FileInfoRes fileInfoRes = new FileInfoRes();
@@ -39,6 +40,7 @@ public class FileInfoRes extends CalendarDetail {
 		fileInfoRes.setUploader(fileInfo.getUser().getUserId());
 		fileInfoRes.setTime(fileInfo.getTime());
 		fileInfoRes.setUserName(fileInfo.getUser().getName());
+		fileInfoRes.setProfileLocation(fileInfo.getUser().getProfileLocation());
 		return fileInfoRes;
 	}
 }
