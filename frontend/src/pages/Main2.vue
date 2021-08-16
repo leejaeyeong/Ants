@@ -12,7 +12,7 @@
           <q-fab-action color="amber" text-color="white"  @click="reset" icon="undo" />
         </q-fab>
       </div>
-      <div id="topLeft" v-show="mode1" class="shadow-1" ondrag="dragStart($event)">
+      <div id="topLeft" v-show="mode1" class="shadow-1">
         <div class="name">Today</div>
         <div id="day">
           {{ formattedString }} {{ formattedString2 }}
@@ -147,6 +147,28 @@
           <div v-for="link in linkList" :key="link.id">
             <div class="row">
               <q-card style="width: 100%; margin: 2%;">
+                <div class="row" style="height: 100px;">
+                  <div class="col-2">
+                    <a :href="link.link" target="_blank" style="text-decoration: none; color: black;">
+                      <img :src="link.image" class="col-2" style="width: 100px; height: 100px;"/>
+                    </a>
+                  </div>
+                  <div class="col-9" style="line-height:30px;">
+                    <a :href="link.link" target="_blank" style="text-decoration: none; color: black;">
+                      <div style="margin-left: 20px; margin-top: 15px; font-size: 120%;">{{ link.title }}</div>
+                      <div style="margin-left: 20px;">{{ link.link }}</div>
+                    </a>
+                  </div>
+                  <div class="col-1">
+                    <div style="line-height: 90px; cursor: pointer;">
+                      <q-icon @click="deleteSite(link.id)" class="deleteIcon" name="delete"/>
+                    </div>
+                  </div>
+                </div>
+              </q-card>
+            </div>
+            <!-- <div class="row">
+              <q-card style="width: 100%; margin: 2%;">
               <a :href="link.link" class="col-12 row" style="text-decoration: none; color: black;">
                 <img :src="link.image" class="col-2" style="width: 100px; height: 100px;"/>
                 <div class="col-8" style="margin: auto 2%;">
@@ -160,7 +182,7 @@
                 </div>
               </a>
               </q-card>
-            </div>
+            </div> -->
           </div>
             <!-- <div>Meta Keyword: <div id="kw"></div></div>
             <div>Description: <div id="des"></div></div>
@@ -650,11 +672,15 @@ export default defineComponent({
         bar.scrollTop = bar.scrollHeight
       }, 300)
     }
-    const deleteSite = function () {
-      alert('삭제')
-    }
-    const dragStart = function (e) {
-      console.log('sss')
+    const deleteSite = function (id) {
+      console.log(id)
+      store.dispatch('module/deleteLink', id)
+        .then(function () {
+          store.dispatch('module/getLinkList', store.getters['module/getLoginUser'].id)
+            .then(function (result) {
+              store.commit('module/setLinkList', result.data)
+            })
+        })
     }
     return {
       formattedString,
@@ -695,8 +721,7 @@ export default defineComponent({
       text: ref(''),
       linkList,
       addLink,
-      deleteSite,
-      dragStart
+      deleteSite
     }
   }
 })

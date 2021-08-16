@@ -298,3 +298,8 @@ export function addLinkList ({ state }, body) {
   const url = baseUrl + 'api/v1/open/addLink?id=' + body.id + '&link=' + body.link
   return $axios.get(url)
 }
+
+export function deleteLink ({ state }, id) {
+  const url = baseUrl + 'api/v1/open/link/' + id
+  return $axios.delete(url)
+}
