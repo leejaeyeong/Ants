@@ -149,7 +149,7 @@ export function registComment ({ state }, body) {
 // 파일 업로드
 export function uploadFile ({ state }, body) {
   console.log(state)
-  const url = baseUrl + 'api/v1/files/upload' + '?userId=test-1'
+  const url = baseUrl + 'api/v1/files/upload' + '?userId=' + localStorage.getItem('id')
   return $axios.post(url, body)
 }
 
