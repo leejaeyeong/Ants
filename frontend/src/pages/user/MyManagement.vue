@@ -9,7 +9,7 @@
         </div>
         <q-markup-table separator="cell" flat bordered class=" has-text-centered calendar">
           <thead>
-            <th v-for="day in days" :key="day" style="background-color: rgb(3 185 74); font-size: 15px;">{{ day }}</th>
+            <th v-for="day in days" :key="day" style="background-color: #249752; font-size: 15px;">{{ day }}</th>
           </thead>
           <tbody>
             <tr v-for="(date, idx) in dates" :key="idx">
@@ -249,11 +249,12 @@ export default {
 }
 .txt{
   font-size: 21px;
+  font-weight: bold;
 }
 .today {
   display: block;
   width: 32px;
-  background-color: #19CE60;
+  background-color: rgb(219, 130, 14);
   height: 30px;
   border-radius: 50%;
   position: relative;
@@ -268,11 +269,13 @@ export default {
   margin: 2% auto;
 }
 .work {
-  color: rgb(219, 130, 14);
+  /* color: rgb(219, 130, 14); */
+  color: #249752;
   font-size: 16px;
   text-align: center;
   width: 50px;
   margin-left: 50px;
+  font-weight: bold;
 }
 .subDay {
   background-color: white;
