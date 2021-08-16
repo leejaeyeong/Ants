@@ -20,11 +20,11 @@
                 style="height: 130px; width:80px;"
                 @click="requestLog(year, month, day)"
               >
-                <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
-                <span v-else-if="(secondIdx === 0)" style="color: red;">{{ day }}</span>
-                <span v-else-if="(secondIdx === 6)" style="color: blue;">{{ day }}</span>
+                <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other" style="cursor: not-allowed;">{{ day }}</span>
+                <span v-else-if="(secondIdx === 0)" style="color: red; cursor: pointer;">{{ day }}</span>
+                <span v-else-if="(secondIdx === 6)" style="color: blue; cursor: pointer;">{{ day }}</span>
                 <span v-else-if="(today === day && month === currentMonth)" class="today">{{ day }} Today</span>
-                <span v-else>{{ day }}</span>
+                <span v-else style="cursor: pointer;">{{ day }}</span>
                 <div v-for="(work, idx) in monthwork" :key="idx">
                   <div v-if="(idx === day)" class="work">{{ work[0] }}</div>
                   <div v-if="(idx === day)" class="work">{{ work[1] }}</div>
@@ -60,6 +60,9 @@
               <q-item-label caption>{{data.time}}</q-item-label>
             </div>
           </ul>
+        </div>
+        <div v-if="dayLog.length === 0" class="empty">
+          공유된 기록이 없습니다.
         </div>
       </q-scroll-area>
     </div>
@@ -260,8 +263,16 @@ export default {
   height: 30px;
   border-radius: 50%;
   position: relative;
+  cursor: pointer;
 }
-
+.dayLog{
+    display: block;
+  width: 32px;
+  background-color: rgb(219, 14, 14);
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+}
 .other {
   opacity: .3;
 }
@@ -337,5 +348,11 @@ export default {
   margin-left: 200px;
   margin-top: 7px;
   font-size: 12px;
+}
+.empty{
+  margin-left: 55px;
+  margin-top: 20px;
+  color: rgb(145, 145, 145);
+  font-size: 20px;
 }
 </style>
