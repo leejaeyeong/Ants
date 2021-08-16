@@ -25,6 +25,7 @@ public class FileInfoRes extends CalendarDetail {
 	String size;
 	String uploader;
 	LocalTime time;
+	String type = "file-upload";
 
 	public static FileInfoRes of (FileInfo fileInfo) {
 		FileInfoRes fileInfoRes = new FileInfoRes();

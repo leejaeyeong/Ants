@@ -19,6 +19,7 @@ public class TodoInfoRes extends CalendarDetail {
     boolean isDone;
     String userName;
     String profileLocation;
+    String type = "todo-write";
 
     public static TodoInfoRes of (Todo todo) {
         TodoInfoRes tir = new TodoInfoRes();
