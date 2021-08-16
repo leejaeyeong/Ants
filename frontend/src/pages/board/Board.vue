@@ -89,6 +89,8 @@ export default defineComponent({
                 tmp.push(result.data.comments[i])
               }
               store.commit('module/setComments',tmp)
+              console.log('132931839128932189')
+              console.log(store.getters['module/getComments'])
               const markList = store.getters['module/getMarkList']
               for (let i = 0; i < markList.length; i++) {
                 if (row.id == markList[i].id) {
