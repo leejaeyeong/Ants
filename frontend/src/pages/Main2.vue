@@ -3,13 +3,13 @@
     <div id="main">
        <div class="q-px-sm q-py-lg" style="position:absolute; top:15px; left:1775px;">
         <q-fab v-model="mode" color="amber" text-color="white" icon="keyboard_arrow_down" direction="down">
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode1" icon="person" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode2" icon="beach_access" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode3" icon="insert_invitation" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode4" icon="content_paste" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode5" icon="check" />
-          <q-fab-action color="amber" text-color="white"  @click="CheckMode6" icon="help_outline" />
-          <q-fab-action color="amber" text-color="white"  @click="reset" icon="undo" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode1" @mouseout="colorMode11" @click="CheckMode1" icon="person" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode2" @mouseout="colorMode22" @click="CheckMode2" icon="beach_access" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode3" @mouseout="colorMode33" @click="CheckMode3" icon="insert_invitation" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode4" @mouseout="colorMode44" @click="CheckMode4" icon="content_paste" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode5" @mouseout="colorMode55" @click="CheckMode5" icon="check" />
+          <q-fab-action color="amber" text-color="white" @mouseover="colorMode6" @mouseout="colorMode66" @click="CheckMode6" icon="help_outline" />
+          <q-fab-action color="amber" text-color="white" @click="reset" icon="undo" />
         </q-fab>
       </div>
       <div id="topLeft" v-show="mode1" class="shadow-1" ondrag="dragStart($event)">
@@ -656,6 +656,42 @@ export default defineComponent({
     const dragStart = function (e) {
       console.log('sss')
     }
+    const colorMode1 = function () {
+      document.getElementById('topLeft').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode11 = function () {
+      document.getElementById('topLeft').style.background = 'white'
+    }
+    const colorMode2 = function () {
+      document.getElementById('bottomLeft').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode22 = function () {
+      document.getElementById('bottomLeft').style.background = 'white'
+    }
+    const colorMode3 = function () {
+      document.getElementById('topRight').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode33 = function () {
+      document.getElementById('topRight').style.background = 'white'
+    }
+    const colorMode4 = function () {
+      document.getElementById('botRight').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode44 = function () {
+      document.getElementById('botRight').style.background = 'white'
+    }
+    const colorMode5 = function () {
+      document.getElementById('endRight').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode55 = function () {
+      document.getElementById('endRight').style.background = 'white'
+    }
+    const colorMode6 = function () {
+      document.getElementById('endBottom').style.background = 'rgb(212, 212, 212)'
+    }
+    const colorMode66 = function () {
+      document.getElementById('endBottom').style.background = 'white'
+    }
     return {
       formattedString,
       formattedString2,
@@ -696,7 +732,19 @@ export default defineComponent({
       linkList,
       addLink,
       deleteSite,
-      dragStart
+      dragStart,
+      colorMode1,
+      colorMode11,
+      colorMode2,
+      colorMode22,
+      colorMode3,
+      colorMode33,
+      colorMode4,
+      colorMode44,
+      colorMode5,
+      colorMode55,
+      colorMode6,
+      colorMode66
     }
   }
 })
@@ -829,7 +877,6 @@ export default defineComponent({
   margin-left: 37px;
   margin-top: 10px;
 }
-
 .icon {
   float: left;
   width: 60px;
