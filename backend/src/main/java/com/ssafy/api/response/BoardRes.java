@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class BoardRes {
     String title;
     String content;
     LocalDateTime registrationTime;
+    LocalTime time;
     Long typeId;
     String writer;
     String profileLocation;
@@ -26,6 +28,7 @@ public class BoardRes {
     boolean isMarker;
     String imageLocation;
     List<BoardCommentRes> comments;
+    String userName;
 
     public static BoardRes of(Board board, boolean isMarker, List<BoardCommentRes> comments) {
         BoardRes boardRes = new BoardRes(
@@ -33,22 +36,25 @@ public class BoardRes {
                 board.getTitle(),
                 board.getContent(),
                 board.getRegistrationTime(),
+                board.getTime(),
                 board.getBoardType().getId(),
                 board.getWriter().getUserId(),
                 board.getView(),
                 board.getWriter().getProfileLocation(),
                 isMarker,
-                board.getImageLocation()
+                board.getImageLocation(),
+                board.getWriter().getName()
         );
         boardRes.setComments(comments);
         return boardRes;
     }
-    public BoardRes(Long id, String title, String content, LocalDateTime registrationTime,
-                    Long typeId, String writer, int view, String profileLocation, boolean isMarker, String imageLocation) {
+    public BoardRes(Long id, String title, String content, LocalDateTime registrationTime, LocalTime time,
+                    Long typeId, String writer, int view, String profileLocation, boolean isMarker, String imageLocation, String userName) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.registrationTime = registrationTime;
+        this.time = time;
         this.typeId = typeId;
         this.writer = writer;
         this.view = view;
@@ -56,5 +62,6 @@ public class BoardRes {
         this.profileLocation = profileLocation;
         this.isMarker = isMarker;
         this.imageLocation = imageLocation;
+        this.userName = userName;
     }
 }

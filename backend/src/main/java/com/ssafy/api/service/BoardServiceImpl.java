@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -112,6 +114,21 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public List<BoardRes> getBoardLogList(LocalDate date, Long departmentId) {
+//        List<Board> boards = boardRepository.findAllByTime(time);
+//        for (Board board : boards) {
+//            if (board.getWriter().getDepartment().getId() != departmentId) {
+//                boards.remove(board);
+//            }
+//        }
+//        if (boards == null) {
+//            return null;
+//        }
+//        return convertToBoardRes(boards);
+        return null;
+    }
+
+    @Override
     public BoardRes getBoardDetail(Long id, String userId) {
         Board board = boardRepository.findBoardById(id);
         boolean isMarker = isMarker(id, userId);
@@ -185,12 +202,14 @@ public class BoardServiceImpl implements BoardService {
                     board.getTitle(),
                     board.getContent(),
                     board.getRegistrationTime(),
+                    board.getTime(),
                     board.getBoardType().getId(),
                     board.getWriter().getUserId(),
                     board.getView(),
                     board.getWriter().getProfileLocation(),
-                    false,
-                    null
+                    isMarker(board.getId(), board.getWriter().getUserId()),
+                    board.getImageLocation(),
+                    board.getWriter().getName()
             ));
         }
         return boardResList;

@@ -37,7 +37,7 @@
       />
     </div>
     <div class="rightside shadow-1">
-      <q-list padding no-data-label="I didn't find anything for you" >
+      <q-list padding >
         <q-item>
           <q-item-section>
             <q-item-label>승인 대기</q-item-label>
@@ -49,7 +49,7 @@
           </q-item-section>
         </q-item>
         <q-separator spaced />
-        <q-scroll-area style="height: 410px; max-width: 400px;">
+        <q-scroll-area style="height: 480px; max-width: 400px;">
           <div v-for="(userInfo, idx) in waitmemeber" :key="idx">
             <div v-if="waitmemeber.length > 0">
               <q-item>
@@ -71,7 +71,9 @@
                 </q-item-section>
               </q-item>
             </div>
-            <div v-else>승인 대기중인 사용자가 없습니다.</div>
+          </div>
+          <div v-if="waitmemeber.length === 0" class="empty">
+              승인 대기중인 사용자가 없습니다.
           </div>
         </q-scroll-area>
       </q-list>
@@ -124,6 +126,7 @@ export default {
         acceptmemeber.push(memberList.value[i])
       }
     }
+    console.log(waitmemeber, '가입대기 멤버')
     const pagesNumber = computed(() => Math.ceil(memberList.value.length / pagination.value.rowsPerPage))
     // 유저의 state(권한)변경
     const changeUser = function (id, name, email) {
@@ -199,7 +202,7 @@ export default {
 <style>
 #mainContent{
   width:1858px;
-  height:876px;
+  height:908px;
   float:right;
   position: absolute;
   top: 60px;
@@ -225,10 +228,10 @@ export default {
 .rightside {
   background-color: white;
   width: 400px;
-  height: 500px;
+  height: 600px;
   float: right;
   position: absolute;
-  bottom: 220px;
+  bottom: 150px;
   margin-left: 1325px;
   border-radius: 12px;
   animation: rightFadeIn 0.9s ease-in-out;
@@ -254,5 +257,10 @@ export default {
     opacity: 3;
     transform: none;
   }
+}
+.empty{
+  margin-left: 55px;
+  color: rgb(145, 145, 145);
+  font-size: 20px;
 }
 </style>

@@ -79,6 +79,7 @@ const comments = []
 const department = []
 
 const fileInfoList = []
+const rtcFileList = []
 
 const userInfo = {
   department: '',
@@ -113,6 +114,24 @@ const mode3 = true
 const mode4 = true
 const mode5 = true
 const mode6 = true
+
+const boardType = {
+  name: '',
+  intro: ''
+}
+
+const dayLog = []
+
+const linkList = []
+
+// const modePx1 = [15, 20]
+// const modePx2 = [561, 20]
+// const modePx3 = [15, 385]
+// const modePx4 = [261, 385]
+// const modePx5 = [15, 1215]
+// const modePx6 = [381, 1215]
+
+const downMode = false
 
 export default function () {
   return {
@@ -149,6 +168,17 @@ export default function () {
     mode4: mode4,
     mode5: mode5,
     mode6: mode6,
-    fileImage: fileImage
+    fileImage: fileImage,
+    // modePx1: modePx1,
+    // modePx2: modePx2,
+    // modePx3: modePx3,
+    // modePx4: modePx4,
+    // modePx5: modePx5,
+    // modePx6: modePx6
+    boardType: boardType,
+    downMode: downMode,
+    rtcFileList: rtcFileList,
+    dayLog: dayLog,
+    linkList: linkList
   }
 }

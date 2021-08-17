@@ -7,9 +7,10 @@
       </div>
       <div id="search">
         <q-input color="teal" v-model="form.key" style="height:30px; width:60%; display:inline-block; margin-top:35px; margin-left:100px;" label="제목 또는 내용으로 검색" />
-        <q-btn @click="search" round style="margin-top:-20px; margin-left:10px; background-color: #18C75E; color:white; height:30px; width:30px;" icon="search" />
+        <q-btn @click="search" round style="margin-top:-20px; margin-left:10px; background-color: #249752; color:white; height:30px; width:30px;" icon="search" />
       </div>
-      <div style="width:100%; margin-top:30px;">
+      <!-- <div style="width:100%; margin-top:30px;"> -->
+        <div class="q-pa-md" style="width:100%; margin-top:30px; margin-left:25px;">
         <q-table
           title=""
           :rows="rows"
@@ -83,11 +84,13 @@ export default defineComponent({
             .then(function (result) {
               store.commit('module/setDetail', result.data)
               var tmp = []
-              for (let i = 1; i<result.data.comments.length; i++) {
+              for (let i = 1; i < result.data.comments.length; i++) {
                 result.data.comments[i].registrationTime = result.data.comments[i].registrationTime.substr(0, 16)
                 tmp.push(result.data.comments[i])
               }
               store.commit('module/setComments',tmp)
+              console.log('132931839128932189')
+              console.log(store.getters['module/getComments'])
               const markList = store.getters['module/getMarkList']
               for (let i = 0; i < markList.length; i++) {
                 if (row.id == markList[i].id) {
@@ -117,7 +120,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+#allBoard{
+  width:1580px;
+  height:907px;
+  background-color: rgb(242, 247, 244);
+  position: absolute;
+  top:60px;
+}
 #board{
   width: 1350px;
   height: 750px;
@@ -133,8 +142,7 @@ export default defineComponent({
 }
 #search { 
   width: 450px;
-  display:inline-block;
-  margin-left: 590px;
+  float:right;
 }
 .page{
   margin-top: 15px;

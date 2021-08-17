@@ -1,6 +1,7 @@
 package com.ssafy.db.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssafy.db.entity.outLink;
 import com.ssafy.db.entity.QUser;
 import com.ssafy.db.entity.User;
 
@@ -36,12 +37,10 @@ public class UserRepositorySupport {
     }
 
     @Transactional
-    public boolean updateUser(User user) {
+    public boolean updateUser(User user, String email, String profilePath) {
         Long row = jpaQueryFactory.update(qUser)
-                .set(qUser.department, user.getDepartment())
-                .set(qUser.position, user.getPosition())
-                .set(qUser.name, user.getName())
-                .set(qUser.password, user.getPassword())
+                .set(qUser.email, email)
+                .set(qUser.profileLocation, profilePath)
                 .where(qUser.userId.eq(user.getUserId()))
                 .execute();
         if (row > 0)
@@ -65,5 +64,4 @@ public class UserRepositorySupport {
         if(affectedRows >= 1) return true;
         return false;
     }
-
 }

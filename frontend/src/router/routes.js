@@ -53,6 +53,10 @@ const routes = [
             component: () => import('pages/board/BoardMark.vue')
           },
           {
+            path: '/boardMe',
+            component: () => import('pages/board/BoardMe.vue')
+          },
+          {
             path: '/boardType',
             component: () => import('pages/board/BoardType.vue')
           },
@@ -94,16 +98,8 @@ const routes = [
             component: () => import('pages/user/MyPage.vue')
           },
           {
-            path: '/myedit',
-            component: () => import('pages/user/MypageEdit.vue')
-          },
-          {
             path: '/management',
             component: () => import('pages/user/MyManagement.vue')
-          },
-          {
-            path: '/chart',
-            component: () => import('components/Chart.vue')
           }
         ]
       },
@@ -123,10 +119,6 @@ const routes = [
         component: () => import('pages/downloads/Downloads2.vue')
       }
     ]
-  },
-  {
-    path: '/attendance',
-    component: () => import('layouts/attendance.vue')
   },
   {
     path: '/chat',

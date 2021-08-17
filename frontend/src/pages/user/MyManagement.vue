@@ -9,7 +9,7 @@
         </div>
         <q-markup-table separator="cell" flat bordered class=" has-text-centered calendar">
           <thead>
-            <th v-for="day in days" :key="day" style="background-color: rgb(3 185 74); font-size: 15px;">{{ day }}</th>
+            <th v-for="day in days" :key="day" style="background-color: #249752; font-size: 15px;">{{ day }}</th>
           </thead>
           <tbody>
             <tr v-for="(date, idx) in dates" :key="idx">
@@ -17,13 +17,14 @@
                 v-for="(day, secondIdx) in date"
                 :key="secondIdx"
                 class="q-td--no-hover"
-                style="height: 130px; width:115px;"
+                style="height: 130px; width:80px;"
+                @click="requestLog(year, month, day)"
               >
-                <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
-                <span v-else-if="(secondIdx === 0)" style="color: red;">{{ day }}</span>
-                <span v-else-if="(secondIdx === 6)" style="color: blue;">{{ day }}</span>
+                <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other" style="cursor: not-allowed;">{{ day }}</span>
+                <span v-else-if="(secondIdx === 0)" style="color: red; cursor: pointer;">{{ day }}</span>
+                <span v-else-if="(secondIdx === 6)" style="color: blue; cursor: pointer;">{{ day }}</span>
                 <span v-else-if="(today === day && month === currentMonth)" class="today">{{ day }} Today</span>
-                <span v-else>{{ day }}</span>
+                <span v-else style="cursor: pointer;">{{ day }}</span>
                 <div v-for="(work, idx) in monthwork" :key="idx">
                   <div v-if="(idx === day)" class="work">{{ work[0] }}</div>
                   <div v-if="(idx === day)" class="work">{{ work[1] }}</div>
@@ -34,11 +35,44 @@
         </q-markup-table>
       </div>
     </div>
+    <div class="subDay shadow-1">
+      <div class="title">Team Log</div>
+      <q-scroll-area style="height: 600px; max-width: 300px;">
+        <div v-for="(data, idx) in dayLog" :key="idx">
+          <ul style="width:300px;">
+            <div v-if="data.type === 'todo-write' " class="vl"></div>
+            <div v-if="data.type === 'board-write' " class="v2"></div>
+            <div v-if="data.type === 'file-upload' " class="v3"></div>
+            <div class="user">
+              <img :src= "data.profileLocation" style="width:30px; height:30px; margin-right:8px; border-radius: 20px; ">
+              <span v-if="data.writer">{{data.userName}}님이 <span class="board-write">게시글</span>을 작성했습니다.</span>
+              <span v-if="data.uploader">{{data.userName}}님이 <span class="file-upload">파일</span>을 업로드 했습니다.</span>
+              <span v-if="data.userId">{{data.userName}}님이 <span class="todo-write">일정</span>을 등록했습니다.</span>
+            </div>
+            <div class="logTitle">
+              <q-item-label v-if="data.title">{{data.title}}</q-item-label>
+              <q-item-label v-if="data.fileName">{{data.fileName}}</q-item-label>
+            </div>
+              <!-- <q-item-label caption lines="2" v-if="data.writer">{{data.writer}}님이 작성했습니다.</q-item-label>
+              <q-item-label caption lines="2" v-if="data.uploader">{{data.uploader}}님이 업로드했습니다.</q-item-label>
+              <q-item-label caption lines="2" v-if="data.userName">{{data.userName}}님이 작성했습니다.</q-item-label> -->
+            <div class="time">
+              <q-item-label caption>{{data.time}}</q-item-label>
+            </div>
+          </ul>
+        </div>
+        <div v-if="dayLog.length === 0" class="empty">
+          공유된 기록이 없습니다.
+        </div>
+      </q-scroll-area>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 export default {
   name: 'management',
   data () {
@@ -184,6 +218,26 @@ export default {
           console.log(err)
         })
     }
+  },
+  setup () {
+    const dayLog = computed(() => store.getters['module/getDayLog'])
+    const store = useStore()
+    const requestLog = function (year, month, day) {
+      console.log(year, month, day, '누른 날짜')
+      const departmentId = localStorage.getItem('departmentId')
+      store.dispatch('module/getAlllog', { year, month, day, departmentId })
+        .then(function (result) {
+          const daylog = []
+          console.log(result)
+          console.log(result.data, '달력에서 로그요청보냄')
+          for (let i = 0; i < result.data.length; i++) {
+            daylog.push(result.data[i])
+          }
+          console.log(daylog, '데이로그')
+          store.commit('module/setDayLog', daylog)
+        })
+    }
+    return { requestLog, dayLog }
   }
 }
 </script>
@@ -191,8 +245,7 @@ export default {
 <style scoped>
 .section{
   width: 1450px;
-  margin-left: 170px;
-  margin-top: -20px;
+  margin-left: 18px;
   height: 770px;
 }
 .calendar{
@@ -201,16 +254,25 @@ export default {
 }
 .txt{
   font-size: 21px;
+  font-weight: bold;
 }
 .today {
   display: block;
   width: 32px;
-  background-color: #19CE60;
+  background-color: rgb(219, 130, 14);
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+.dayLog{
+    display: block;
+  width: 32px;
+  background-color: rgb(219, 14, 14);
   height: 30px;
   border-radius: 50%;
   position: relative;
 }
-
 .other {
   opacity: .3;
 }
@@ -220,10 +282,98 @@ export default {
   margin: 2% auto;
 }
 .work {
-  color: rgb(219, 130, 14);
+  /* color: rgb(219, 130, 14); */
+  color: #249752;
   font-size: 16px;
   text-align: center;
   width: 50px;
   margin-left: 50px;
+  font-weight: bold;
+}
+.subDay {
+  background-color: white;
+  height: 690px;
+  width: 325px;
+  position: absolute;
+  bottom: 120px;
+  margin-left: 1510px;
+  border-radius: 12px;
+  animation: rightFadeIn 0.9s ease-in-out;
+}
+.title{
+  font-weight:bold;
+  margin-left: 38px;
+  margin-top: 20px;
+  font-size:20px;
+}
+.vl {
+  border-left: 10px solid #1e61b8;
+  height: 55px;
+  float: left;
+  display: inline-block;
+  border-radius: 8px;
+}
+.v2 {
+  border-left: 10px solid rgb(0, 0, 0);
+  height: 55px;
+  float: left;
+  display: inline-block;
+  border-radius: 8px;
+}
+.v3 {
+  border-left: 10px solid rgb(167, 34, 172);
+  height: 55px;
+  float: left;
+  display: inline-block;
+  border-radius: 8px;
+}
+.user{
+  width: 250px;
+  height: 50px;
+  margin-left: 25px;
+  color: grey;
+  font-size: 12px;
+}
+.logTitle{
+  width: 250px;
+  height: 27px;
+  margin-left: 25px;
+  font-size: 15px;
+  margin-bottom: 5px;
+  margin-top: -10px;
+}
+.time{
+  width: 250px;
+  height: 25px;
+  margin-left: 200px;
+  margin-top: 7px;
+  font-size: 12px;
+}
+.empty{
+  margin-left: 55px;
+  margin-top: 20px;
+  color: rgb(145, 145, 145);
+  font-size: 20px;
+}
+ul {
+  padding-left: 20px;
+}
+.board-write {
+  color: rgb(224, 34, 65);
+  border: 1px solid rgb(100, 97, 97);
+  border-radius: 5px;
+  padding: 1px;
+}
+.todo-write {
+  color: rgb(33, 218, 95);
+  border: 1px solid rgb(100, 97, 97);
+  border-radius: 5px;
+  padding: 1px;
+}
+.file-upload {
+  color: rgb(48, 87, 218);
+  border: 1px solid rgb(100, 97, 97);
+  border-radius: 5px;
+  padding: 1px;
 }
 </style>
