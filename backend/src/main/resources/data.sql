@@ -31,70 +31,70 @@ values (3, 'jiahn.dev@gmail.com', 14, '김지안', '$2a$10$yzciyMkcjrqFfGQvb38bs
 ON DUPLICATE KEY
 UPDATE id = 3;
 insert into user (id, email, holiday, name, password, position, profile_location, state, user_id, department)
-values (4, '', 14, '황지훈', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/ghkdwlgns1/황지훈.jpg', 1, 'ghkdwlgns1', 1)
+values (4, '', 14, '황지훈', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/ghkdwlgns1/jihoon.jpg', 1, 'ghkdwlgns1', 1)
 ON DUPLICATE KEY
 UPDATE id = 4;
 
 -- 출근 기록 sql
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-02', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-03', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-04', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-05', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-06', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-09', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-10', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-11', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-12', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-13', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-16', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-17', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-18', 'dlwodud1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-19', 'dlwodud1');
+insert into attendance values (1, '09:00:30', '18:00:30', '2021-08-02', 'dlwodud1') ON DUPLICATE KEY UPDATE id=1;
+insert into attendance values (2, '09:00:30', '18:00:30', '2021-08-03', 'dlwodud1') ON DUPLICATE KEY UPDATE id=2;
+insert into attendance values (3, '09:00:30', '18:00:30', '2021-08-04', 'dlwodud1') ON DUPLICATE KEY UPDATE id=3;
+insert into attendance values (4, '09:00:30', '18:00:30', '2021-08-05', 'dlwodud1') ON DUPLICATE KEY UPDATE id=4;
+insert into attendance values (5, '09:00:30', '18:00:30', '2021-08-06', 'dlwodud1') ON DUPLICATE KEY UPDATE id=5;
+insert into attendance values (6, '09:00:30', '18:00:30', '2021-08-09', 'dlwodud1') ON DUPLICATE KEY UPDATE id=6;
+insert into attendance values (7, '09:00:30', '18:00:30', '2021-08-10', 'dlwodud1') ON DUPLICATE KEY UPDATE id=7;
+insert into attendance values (8, '09:00:30', '18:00:30', '2021-08-11', 'dlwodud1') ON DUPLICATE KEY UPDATE id=8;
+insert into attendance values (9, '09:00:30', '18:00:30', '2021-08-12', 'dlwodud1') ON DUPLICATE KEY UPDATE id=9;
+insert into attendance values (10, '09:00:30', '18:00:30', '2021-08-13', 'dlwodud1') ON DUPLICATE KEY UPDATE id=10;
+insert into attendance values (11, '09:00:30', '18:00:30', '2021-08-16', 'dlwodud1') ON DUPLICATE KEY UPDATE id=11;
+insert into attendance values (12, '09:00:30', '18:00:30', '2021-08-17', 'dlwodud1') ON DUPLICATE KEY UPDATE id=12;
+insert into attendance values (13, '09:00:30', '18:00:30', '2021-08-18', 'dlwodud1') ON DUPLICATE KEY UPDATE id=13;
+insert into attendance values (14, '09:00:30', '18:00:30', '2021-08-19', 'dlwodud1') ON DUPLICATE KEY UPDATE id=14;
 
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-02', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-03', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-04', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-05', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-06', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-09', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-10', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-11', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-12', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-13', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-16', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-17', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-18', 'rlawldks1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-19', 'rlawldks1');
+insert into attendance values (15, '09:00:30', '18:00:30', '2021-08-02', 'rlawldks1') ON DUPLICATE KEY UPDATE id=15;
+insert into attendance values (16, '09:00:30', '18:00:30', '2021-08-03', 'rlawldks1') ON DUPLICATE KEY UPDATE id=16;
+insert into attendance values (17, '09:00:30', '18:00:30', '2021-08-04', 'rlawldks1') ON DUPLICATE KEY UPDATE id=17;
+insert into attendance values (18, '09:00:30', '18:00:30', '2021-08-05', 'rlawldks1') ON DUPLICATE KEY UPDATE id=18;
+insert into attendance values (19, '09:00:30', '18:00:30', '2021-08-06', 'rlawldks1') ON DUPLICATE KEY UPDATE id=19;
+insert into attendance values (20, '09:00:30', '18:00:30', '2021-08-09', 'rlawldks1') ON DUPLICATE KEY UPDATE id=20;
+insert into attendance values (21, '09:00:30', '18:00:30', '2021-08-10', 'rlawldks1') ON DUPLICATE KEY UPDATE id=21;
+insert into attendance values (22, '09:00:30', '18:00:30', '2021-08-11', 'rlawldks1') ON DUPLICATE KEY UPDATE id=22;
+insert into attendance values (23, '09:00:30', '18:00:30', '2021-08-12', 'rlawldks1') ON DUPLICATE KEY UPDATE id=23;
+insert into attendance values (24, '09:00:30', '18:00:30', '2021-08-13', 'rlawldks1') ON DUPLICATE KEY UPDATE id=24;
+insert into attendance values (25, '09:00:30', '18:00:30', '2021-08-16', 'rlawldks1') ON DUPLICATE KEY UPDATE id=25;
+insert into attendance values (26, '09:00:30', '18:00:30', '2021-08-17', 'rlawldks1') ON DUPLICATE KEY UPDATE id=26;
+insert into attendance values (27, '09:00:30', '18:00:30', '2021-08-18', 'rlawldks1') ON DUPLICATE KEY UPDATE id=27;
+insert into attendance values (28, '09:00:30', '18:00:30', '2021-08-19', 'rlawldks1') ON DUPLICATE KEY UPDATE id=28;
 
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-02', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-03', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-04', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-05', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-06', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-09', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-10', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-11', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-12', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-13', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-16', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-17', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-18', 'ghkdwlgns1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-19', 'ghkdwlgns1');
+insert into attendance values (29, '09:00:30', '18:00:30', '2021-08-02', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=29;
+insert into attendance values (30, '09:00:30', '18:00:30', '2021-08-03', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=30;
+insert into attendance values (31, '09:00:30', '18:00:30', '2021-08-04', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=31;
+insert into attendance values (32, '09:00:30', '18:00:30', '2021-08-05', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=32;
+insert into attendance values (33, '09:00:30', '18:00:30', '2021-08-06', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=33;
+insert into attendance values (34, '09:00:30', '18:00:30', '2021-08-09', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=34;
+insert into attendance values (35, '09:00:30', '18:00:30', '2021-08-10', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=35;
+insert into attendance values (36, '09:00:30', '18:00:30', '2021-08-11', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=36;
+insert into attendance values (37, '09:00:30', '18:00:30', '2021-08-12', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=37;
+insert into attendance values (38, '09:00:30', '18:00:30', '2021-08-13', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=38;
+insert into attendance values (39, '09:00:30', '18:00:30', '2021-08-16', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=39;
+insert into attendance values (40, '09:00:30', '18:00:30', '2021-08-17', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=40;
+insert into attendance values (41, '09:00:30', '18:00:30', '2021-08-18', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=41;
+insert into attendance values (42, '09:00:30', '18:00:30', '2021-08-19', 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=42;
 
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-02', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-03', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-04', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-05', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-06', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-09', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-10', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-11', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-12', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-13', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-16', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-17', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-18', 'wjdqjawls1');
-insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-19', 'wjdqjawls1');
+insert into attendance values (43, '09:00:30', '18:00:30', '2021-08-02', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=43;
+insert into attendance values (44, '09:00:30', '18:00:30', '2021-08-03', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=44;
+insert into attendance values (45, '09:00:30', '18:00:30', '2021-08-04', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=45;
+insert into attendance values (46, '09:00:30', '18:00:30', '2021-08-05', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=46;
+insert into attendance values (47, '09:00:30', '18:00:30', '2021-08-06', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=47;
+insert into attendance values (48, '09:00:30', '18:00:30', '2021-08-09', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=48;
+insert into attendance values (49, '09:00:30', '18:00:30', '2021-08-10', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=49;
+insert into attendance values (50, '09:00:30', '18:00:30', '2021-08-11', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=50;
+insert into attendance values (51, '09:00:30', '18:00:30', '2021-08-12', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=51;
+insert into attendance values (52, '09:00:30', '18:00:30', '2021-08-13', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=52;
+insert into attendance values (53, '09:00:30', '18:00:30', '2021-08-16', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=53;
+insert into attendance values (54, '09:00:30', '18:00:30', '2021-08-17', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=54;
+insert into attendance values (55, '09:00:30', '18:00:30', '2021-08-18', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=55;
+insert into attendance values (56, '09:00:30', '18:00:30', '2021-08-19', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=56;
 
 -- 투두 리스트 초기 sql
 
