@@ -129,3 +129,51 @@ export function setMode5 (state, mode5) {
 export function setMode6 (state, mode6) {
   state.mode6 = mode6
 }
+
+// export function setModePx1 (state, modePx1) {
+//   state.modePx1 = modePx1
+// }
+
+// export function setModePx2 (state, modePx2) {
+//   state.modePx2 = modePx2
+// }
+
+// export function setModePx3 (state, modePx3) {
+//   state.modePx3 = modePx3
+// }
+
+// export function setModePx4 (state, modePx4) {
+//   state.modePx4 = modePx4
+// }
+
+// export function setModePx5 (state, modePx5) {
+//   state.modePx5 = modePx5
+// }
+
+// export function setModePx6 (state, modePx6) {
+//   state.modePx6 = modePx6
+// }
+
+export function setBoardType (state, boardType) {
+  state.boardType = boardType
+}
+
+export function setDownMode (state, downMode) {
+  state.downMode = downMode
+}
+
+export function setRtcFileList (state, rtcFileList) {
+  state.rtcFileList = rtcFileList
+}
+
+export function setDayLog (state, dayLog) {
+  state.dayLog = dayLog
+}
+
+export function setLinkList (state, linkList) {
+  state.linkList = linkList
+}
+
+export function addLinkList (state, link) {
+  state.linkList.push(link)
+}

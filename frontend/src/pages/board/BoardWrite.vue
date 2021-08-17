@@ -177,6 +177,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
+#allBoard{
+  width:1580px;
+  height:909px;
+  background-color: rgb(242, 247, 244);
+  position: absolute;
+  top:60px;
+}
 #board {
   width: 1350px;
   height: 750px;

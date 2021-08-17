@@ -10,6 +10,8 @@ import com.ssafy.db.entity.*;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,7 @@ public interface BoardService {
 	List<BoardRes> getBoardListByMarker(String userId);
 	List<BoardRes> getBoardByWriterId(String userId);
 	List<BoardRes> getBoardByTitle(String title);
+	List<BoardRes> getBoardLogList(LocalDate date, Long departmentId);
 	BoardRes getBoardDetail(Long id, String userId);
 	boolean isMarker(Long boardId, String userId);
 	void increaseViewCnt(Long id);

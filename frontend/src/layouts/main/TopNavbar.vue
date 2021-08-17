@@ -42,7 +42,7 @@
       <div class="dropdown">
         <q-btn class="dropbtn" flat>{{ state.name }} 님 &#9660;</q-btn>
         <div class="dropdown-content">
-          <router-link :to="{ path: 'management' }">근태관리</router-link>
+          <!-- <router-link :to="{ path: 'management' }">근태관리</router-link> -->
           <router-link :to="{ path: 'mypage' }">개인정보 수정</router-link>
           <a href="" @click="logout">로그아웃</a>
         </div>

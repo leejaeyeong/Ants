@@ -3,6 +3,7 @@ package com.ssafy.db.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.db.entity.Attendance;
 import com.ssafy.db.entity.QAttendance;
+import com.ssafy.db.entity.Todo;
 import com.ssafy.db.entity.User;
 import org.apache.tomcat.jni.Local;
 import org.checkerframework.checker.nullness.Opt;
@@ -13,10 +14,7 @@ import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
@@ -94,6 +92,13 @@ public class AttendanceRepositorySupport {
             second += duration.getSeconds();
         }
         return second / 3600;
+    }
+
+    public List<Attendance> getAttendanceByUserId(String userId) {
+        List<Attendance> list = jpaQueryFactory.select(qAttendance).from(qAttendance)
+                .where(qAttendance.user.userId.eq(userId)).fetch();
+        if(list == null) return new ArrayList<>();
+        return list;
     }
 
     public Optional<Attendance> getAttendanceToday(User user) {

@@ -3,13 +3,13 @@
     <div style="margin-top:25px; margin-left:200px; font-weight:bold; font-size:25px;">
       <p>개인 정보 수정</p>
     </div>
-    <div class="all">
+    <div class="all shadow-2">
       <table class="mypage">
         <tr>
           <td class="left">이미지</td>
           <td>
             <div>
-              <img :src="userInfo.profileLocation" style="width: 250px; height: 300px;" />
+              <img :src="userInfomation.profileLocation" style="margin-top: 50px; width: 220px; height: 270px; border-radius: 10px;" />
               <q-btn @click="imgLabelClick" class="imgbtn" >이미지 변경</q-btn>
               <input ref="imageInput" type="file" style="display: none; opacity: 0;" @change="onChangeImages" accept=".jpg, .jpeg, .png, .gif" id="profile_img_upload">
             </div>
@@ -17,72 +17,111 @@
         </tr>
         <tr>
           <td class="left">이름</td>
-          <td>{{ userInfo.name }}</td>
+          <td>{{ userInfomation.name }}</td>
         </tr>
         <tr>
           <td class="left">아이디</td>
-          <td>{{ userInfo.userId }}</td>
+          <td>{{ userInfomation.userId }}</td>
         </tr>
         <tr>
           <td class="left">이메일</td>
-          <td><q-input color="teal" square outlined v-model="userInfo.email" style="width:400px;"/></td>
+          <td><q-input color="teal" square outlined v-model="userInfomation.email" style="width:400px;"/></td>
         </tr>
         <tr>
           <td class="left">휴가</td>
-          <td>{{ userInfo.holiday }}</td>
+          <td>{{ userInfomation.holiday }}</td>
         </tr>
         <tr>
           <td class="left">부서</td>
-          <td>{{ userInfo.department }}</td>
+          <td>{{ userInfomation.department }}</td>
         </tr>
         <tr>
           <td class="left">직책</td>
-          <td>{{ userInfo.position }}</td>
+          <td>{{ userInfomation.position }}</td>
         </tr>
       </table>
       <div class="submitbtn">
-        <div @click="remove" class="btn">
+        <div class="row"></div>
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-3">
+            <div @click="remove" class="btn">
+          <q-icon class="icon" name="delete"/>
+          <span>회원 탈퇴</span>
+        </div>
+          </div>
+          <div class="col-4">
+            <div @click="myEdit" class="btn">
+          <q-icon class="icon" name="build"/>
+          <span>정보 수정</span>
+        </div>
+          </div>
+          <div class="col-2"></div>
+        </div>
+        <!-- <div @click="remove" class="btn">
           <q-icon class="icon" name="delete"/>
           <span>회원 탈퇴</span>
         </div>
         <div @click="myEdit" class="btn">
           <q-icon class="icon" name="build"/>
           <span>정보 수정</span>
-        </div>
+        </div> -->
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'mypage',
   setup () {
-    const userInfo = computed(() => store.getters['module/getUserInfo'])
+    const router = useRouter()
     const store = useStore()
     const Swal = require('sweetalert2')
-    store.dispatch('module/requestInfo')
-      .then(function (result) {
-        console.log(result.data)
-        const userInfo = {
-          userId: result.data.userId,
-          name: result.data.name,
-          department: result.data.department,
-          profileLocation: result.data.profileLocation,
-          email: result.data.email,
-          holiday: result.data.holiday,
-          position: result.data.position
-        }
-        console.log(userInfo)
-        store.commit('module/setUserInfo', userInfo)
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
+    const userInfomation = computed(() => store.getters['module/getUserInfo'])
+    const userInfo = {
+      userId: '',
+      name: '',
+      department: '',
+      profileLocation: '',
+      email: '',
+      holiday: '',
+      position: ''
+    }
+    onMounted(() => {
+      console.log(store.getters['module/getLoginUser'], '로그인한 유저')
+      store.dispatch('module/requestInfo')
+        .then(function (result) {
+          console.log(result.data, 'result')
+          userInfo.userId = result.data.userId
+          userInfo.name = result.data.name
+          userInfo.department = result.data.department
+          userInfo.profileLocation = result.data.profileLocation
+          userInfo.email = result.data.email
+          userInfo.holiday = result.data.holiday
+          userInfo.position = result.data.position
+          store.dispatch('module/departmentInfo')
+            .then(function (result) {
+              for (let i = 0; i < result.data.length; i++) {
+                if (userInfo.department === result.data[i].id) {
+                  userInfo.department = result.data[i].departmentName
+                  break
+                }
+              }
+              store.commit('module/setUserInfo', userInfo)
+            })
+            .catch(function (err) {
+              console.log(err, '부서 에러')
+            })
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    })
     // 사진업로드
     function onClickImageUpload () {
       this.$refs.imageInput.click()
@@ -91,8 +130,8 @@ export default defineComponent({
       console.log(e.target.files)
       console.log(e.target)
       const file = e.target.files[0] // Get first index in files
-      this.userInfo.profileLocation = URL.createObjectURL(file)
-      this.state.form.image = file // Create File URL
+      this.userInfomation.profileLocation = URL.createObjectURL(file)
+      this.userInfomation.image = file // Create File URL
     }
     // 기존 파일업로드 버튼 숨기고 q-btn으로 대체
     function imgLabelClick () {
@@ -102,10 +141,46 @@ export default defineComponent({
     }
     // 수정하기
     function myEdit () {
-      store.dispatch('module/editInfo')
+      const frm = new FormData()
+      frm.append('email', userInfomation.value.email)
+      frm.append('profile', userInfomation.value.image)
+      console.log(userInfomation.value.image, '사진변경?')
+      if (userInfomation.value.image === undefined) {
+        Swal.fire({
+          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">프로필 사진을 변경해주세요.</span>',
+          confirmButtonColor: '#18C75E',
+          confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+        })
+        return
+      }
+      store.dispatch('module/editInfo', frm)
         .then(function (res) {
           console.log(res)
-          alert('회원정보 수정완료')
+          Swal.fire({
+            title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">회원정보가 성공적으로 수정되었습니다.</span>',
+            confirmButtonColor: '#18C75E',
+            confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+          })
+            .then(function () {
+              store.dispatch('module/requestInfo')
+                .then(function (result) {
+                  console.log(result.data)
+                  const userInfo = {
+                    userId: result.data.userId,
+                    name: result.data.name,
+                    department: result.data.department,
+                    profileLocation: result.data.profileLocation,
+                    email: result.data.email,
+                    holiday: result.data.holiday,
+                    position: result.data.position
+                  }
+                  console.log(userInfo)
+                  store.commit('module/setUserInfo', userInfo)
+                })
+                .catch(function (err) {
+                  console.log(err)
+                })
+            })
         })
         .catch(function (err) {
           console.log(err)
@@ -131,7 +206,9 @@ export default defineComponent({
                 confirmButtonColor: '#18C75E',
                 confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
               })
-              this.$router.push('/')
+                .then(function () {
+                  router.push('/')
+                })
             })
             .catch(function (err) {
               console.log(err)
@@ -145,7 +222,7 @@ export default defineComponent({
       })
     }
     return {
-      userInfo,
+      userInfomation,
       remove,
       myEdit,
       onClickImageUpload,
@@ -171,14 +248,15 @@ table, td, th{
   margin-top: 10px;
 }
 .left{
-  font-weight:bold;
+  /* font-weight:bold; */
   width: 100px;
-  align-content: left;
+  height: 50px;
+  /* align-content: left; */
 }
 .all{
-  width: 800px;
+  width: 775px;
   background-color: white;
-  height: 750px;
+  height: 800px;
   margin-left: 500px;
   border-radius: 10px;
 }
@@ -193,7 +271,6 @@ td {
   width: 500px;
   margin-right: 4px;
   margin-top: 10px;
-  margin-bottom: 10px;
 }
 tr {
   height: 50px;
@@ -216,11 +293,11 @@ tr {
   margin-bottom:5px;
   margin-left:15px;
   font-size: 2em;
-  color: #18C75E;
+  color: #249752;
 }
 .imgbtn {
   margin-left: 50px;
-  background-color: rgb(0, 191, 111);
+  background-color: #249752;
   margin-bottom: 27px;
 }
 .submitbtn {

@@ -33,12 +33,12 @@ export function requestInfo ({ state }, header) {
   return $axios.get(url, { headers: { Authorization: `Bearer ${userToken}` } })
 }
 // 유저정보 수정
-export function editInfo ({ state }, header) {
-  console.log('editInfo', state, header)
+export function editInfo ({ state }, body) {
+  console.log('editInfo', state, body)
   const id = localStorage.getItem('id')
   const url = baseUrl + 'api/v1/users/' + id
-  const userToken = localStorage.token
-  return $axios.put(url, { headers: { Authorization: `Bearer ${userToken}` } })
+  // const userToken = localStorage.token
+  return $axios.put(url, body)
 }
 // 유저 탈퇴
 export function deleteUser ({ state }) {
@@ -149,7 +149,7 @@ export function registComment ({ state }, body) {
 // 파일 업로드
 export function uploadFile ({ state }, body) {
   console.log(state)
-  const url = baseUrl + 'api/v1/files/upload' + '?userId=test-1'
+  const url = baseUrl + 'api/v1/files/upload' + '?userId=' + localStorage.getItem('id')
   return $axios.post(url, body)
 }
 
@@ -275,4 +275,31 @@ export function sendEmail ({ state }, { name, email }) {
 export function loadFileDataByDepartment ({ state }, id) {
   const url = baseUrl + 'api/v1/files/department' + '?id=' + id
   return $axios.get(url)
+}
+
+// 매일매일의 기록 요청
+export function getAlllog ({ state }, { year, month, day, departmentId }) {
+  console.log(year, month, day, departmentId, '정해진 날의 기록 요청')
+  if (String(month).length === 1) {
+    month = '0' + String(month)
+  }
+  const date = year + '-' + month + '-' + day
+  console.log(date)
+  const url = baseUrl + 'api/v1/calendar' + '?date=' + date + '&departmentId=' + departmentId
+  return $axios.get(url)
+}
+
+export function getLinkList ({ state }, id) {
+  const url = baseUrl + 'api/v1/open/links?id=' + id
+  return $axios.get(url)
+}
+
+export function addLinkList ({ state }, body) {
+  const url = baseUrl + 'api/v1/open/addLink?id=' + body.id + '&link=' + body.link
+  return $axios.get(url)
+}
+
+export function deleteLink ({ state }, id) {
+  const url = baseUrl + 'api/v1/open/link/' + id
+  return $axios.delete(url)
 }

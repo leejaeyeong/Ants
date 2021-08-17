@@ -130,3 +130,47 @@ export function getMode6 (state) {
 export function getFileImage (state) {
   return state.fileImage
 }
+
+// export function getModePx1 (state) {
+//   return state.modePx1
+// }
+
+// export function getModePx2 (state) {
+//   return state.modePx2
+// }
+
+// export function getModePx3 (state) {
+//   return state.modePx3
+// }
+
+// export function getModePx4 (state) {
+//   return state.modePx4
+// }
+
+// export function getModePx5 (state) {
+//   return state.modePx5
+// }
+
+// export function getModePx6 (state) {
+//   return state.modePx6
+// }
+
+export function getBoardType (state) {
+  return state.boardType
+}
+
+export function getDownMode (state) {
+  return state.downMode
+}
+
+export function getRtcFileList (state) {
+  return state.rtcFileList
+}
+
+export function getDayLog (state) {
+  return state.dayLog
+}
+
+export function getLinkList (state) {
+  return state.linkList
+}
