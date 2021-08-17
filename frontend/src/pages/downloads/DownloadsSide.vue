@@ -1,7 +1,7 @@
 <template>
-  <div class="side shadow-1">
+  <div class="side">
     <div align="center">
-      <h6 ><span class="highlight-green">파일 업로드</span></h6>
+      <h6 ><span class="highlight-orange">파일 업로드</span></h6>
     </div>
     <div class="row">
       <!-- 파일 지정된 상태 -->
@@ -32,7 +32,7 @@
       <q-btn @click="regist" class="upload-btn ">파일 업로드</q-btn>
     </div>
   </div>
-  <q-separator style="margin-bottom:20px" color="green" inset />
+  <q-separator style="margin-bottom:10px" color="green" inset />
   <div align="center">
     <h6><span class="highlight-yellow">부서별로 모아보기</span></h6>
   </div>
@@ -40,12 +40,12 @@
   </div>
     <div v-for="department in departmentInfo" :key="department.id" style="margin-left: 40px;">
       <div class="row">
-        <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 2.5em; color: #18C75E;" name="description"/>
+        <q-icon style="margin-bottom:5px; margin-left:30px; font-size: 2.5em; color: #249752;" name="description"/>
         <span @click="searchByDepartment(department.id)" class="department-list">{{ department.departmentName }}</span>
       </div>
     </div>
   </div>
-  <div class="detail-search" align="center" @click="detailClick()">
+  <!-- <div class="detail-search" align="center" @click="detailClick()">
     <q-icon style="font-size: 1.8em; color: #18C75E;" name="north"/><br>
     <span>상세 검색</span>
   </div>
@@ -56,7 +56,7 @@
     <div align="center">
       <h6 style="margin-top: 15px"><span class="highlight-orange">확장자 별 검색</span></h6>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -239,6 +239,14 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.side {
+  width: 350px;
+  height: 907px;
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  background-color: white;
+}
 .row {
   margin-bottom: 20px;
   /* border: 1px solid rgba(86,61,124,.2) */
@@ -255,10 +263,10 @@ export default defineComponent({
   border-radius: 5%;
 }
 .upload-btn {
-  background-color: #00BF6F;
+  background-color: #249752;
 }
 .reset-btn {
-  background-color: wheat;
+  background-color: rgb(219, 130, 14);
 }
 .present-image {
   width: 100px;
@@ -267,18 +275,12 @@ export default defineComponent({
 ul{
   list-style:none;
 }
-.side {
-  width: 350px;
-  height: 800px;
-  position: absolute;
-  top: 85px;
-  left: 90px;
-  border: 1px solid rgb(212, 212, 212);
-  border-radius: 10px;
-  background-color: white;
-}
 h6 {
   margin-bottom: 0px;
+}
+.department-list{
+  margin-top: 10px;
+  margin-left: 10px;
 }
 .department-list:hover {
   background-color:rgb(223, 241, 231);
@@ -288,10 +290,10 @@ h6 {
   margin-top: 20px;
 }
 .highlight-green {
-  background: linear-gradient(to top, #36fead 40%, transparent 40%);
+  background: linear-gradient(to top, #249752 35%, transparent 40%);
 }
 .highlight-orange {
-  background: linear-gradient(to top, orange 40%, transparent 40%);
+  background: linear-gradient(to top, rgb(219, 130, 14) 35%, transparent 40%);
 }
 .highlight-yellow {
   background: linear-gradient(to top, khaki 40%, transparent 40%);
