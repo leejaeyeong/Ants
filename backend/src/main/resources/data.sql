@@ -27,13 +27,76 @@ values (2, 'giver12@naver.com', 14, '이재영', '$2a$10$yzciyMkcjrqFfGQvb38bsOZ
 ON DUPLICATE KEY
 UPDATE id = 2;
 insert into user (id, email, holiday, name, password, position, profile_location, state, user_id, department)
-values (3, '', 14, '김지안', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/rlawldks1/test.gif', 1, 'rlawldks1', 1)
+values (3, 'jiahn.dev@gmail.com', 14, '김지안', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/rlawldks1/test.gif', 1, 'rlawldks1', 1)
 ON DUPLICATE KEY
 UPDATE id = 3;
 insert into user (id, email, holiday, name, password, position, profile_location, state, user_id, department)
-values (4, '', 14, '황지훈', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/ghkdwlgns1/test.gif', 1, 'ghkdwlgns1', 1)
+values (4, '', 14, '황지훈', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/ghkdwlgns1/황지훈.jpg', 1, 'ghkdwlgns1', 1)
 ON DUPLICATE KEY
 UPDATE id = 4;
+
+-- 출근 기록 sql
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-02', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-03', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-04', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-05', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-06', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-09', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-10', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-11', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-12', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-13', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-16', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-17', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-18', 'dlwodud1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-19', 'dlwodud1');
+
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-02', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-03', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-04', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-05', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-06', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-09', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-10', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-11', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-12', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-13', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-16', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-17', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-18', 'rlawldks1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-19', 'rlawldks1');
+
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-02', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-03', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-04', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-05', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-06', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-09', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-10', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-11', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-12', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-13', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-16', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-17', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-18', 'ghkdwlgns1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-19', 'ghkdwlgns1');
+
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-02', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-03', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-04', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-05', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-06', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-09', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-10', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-11', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-12', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-13', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-16', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-17', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-18', 'wjdqjawls1');
+insert into attendance values (null, '09:00:30', '18:00:30', '2021-08-19', 'wjdqjawls1');
+
+-- 투두 리스트 초기 sql
 
 
 -- 게시물 타입 초기데이터 sql
