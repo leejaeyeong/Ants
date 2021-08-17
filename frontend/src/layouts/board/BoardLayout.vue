@@ -20,7 +20,7 @@ export default defineComponent({
 <style scoped>
 #allBoard{
   width: 1578px;
-  height: 876px;
+  height: 907px;
   position: absolute;
   top:60px;
   left:340px;
