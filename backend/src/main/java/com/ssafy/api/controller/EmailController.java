@@ -34,8 +34,8 @@ public class EmailController {
         sb.append("<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>");
 //        sb.append("<h1>"+"오늘도 화이팅!"+"<h1><br>");
 //        sb.append("신간 도서를 소개합니다.<br><br>");
-        sb.append("<a href='http://www.naver.com'>");
-        sb.append("<img  src='https://user-images.githubusercontent.com/41180841/128226032-534844ea-c7da-4540-9bd3-bc034c58998a.png' /> </a><br>");
+        sb.append("<a href='https://i5b103.p.ssafy.io:8443/'>");
+        sb.append("<img  src='https://user-images.githubusercontent.com/41180841/129719939-9dde6a07-cd25-4f19-bc1d-143df3cd63a2.png' /> </a><br>");
         sb.append("</a>");
 //        sb.append("<a href='http://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788956746425&orderClick=LAG&Kc=#N'>상품보기</a>");
         sb.append("</body></html>");
