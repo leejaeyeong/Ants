@@ -119,11 +119,11 @@ const routes = [
         component: () => import('pages/downloads/Downloads2.vue')
       }
     ]
-  },
-  {
-    path: '/chat',
-    component: () => import('layouts/chat.vue')
   }
+  // {
+  //   path: '/chat',
+  //   component: () => import('layouts/chat.vue')
+  // }
   // Always leave this as last one,
   // but you can also remove it
 ]
