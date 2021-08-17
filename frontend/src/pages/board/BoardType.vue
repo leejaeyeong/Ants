@@ -19,12 +19,12 @@
           v-model:pagination="pagination"
           hide-pagination
         />
-        <div class="row justify-center q-mt-md">
+        <div class="row justify-center q-mt-md page">
           <q-pagination
             v-model="pagination.page"
             color="grey-8"
             :max="pagesNumber"
-            size="lg"
+            size="md"
           />
         </div>
       </div>
@@ -53,7 +53,8 @@ export default defineComponent({
       rowsPerPage: 8
       // rowsNumber: xx if getting data from a server
     })
-    const pagesNumber = computed(() => store.getters['module/getPageNumber'])
+    const pagesNumber = computed(() => Math.ceil(rows.value.length / pagination.value.rowsPerPage))
+    // const pagesNumber = computed(() => store.getters['module/getPageNumber'])
     
     const form = reactive({
       key: ''
@@ -114,13 +115,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#allBoard{
-  width:1580px;
-  height:909px;
-  background-color: rgb(242, 247, 244);
-  position: absolute;
-  top:60px;
-}
 #board{
   width: 1350px;
   height: 750px;
@@ -144,4 +138,8 @@ export default defineComponent({
 span{
   font-family: 'NEXON Lv1 Gothic OTF';
 } */
+.page{
+  margin-top: 15px;
+  font-size: 15px;
+}
 </style>
