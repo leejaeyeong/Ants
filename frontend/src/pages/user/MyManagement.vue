@@ -18,16 +18,17 @@
                 :key="secondIdx"
                 class="q-td--no-hover"
                 style="height: 130px; width:80px;"
-                @click="requestLog(year, month, day)"
               >
-                <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other" style="cursor: not-allowed;">{{ day }}</span>
-                <span v-else-if="(secondIdx === 0)" style="color: red; cursor: pointer;">{{ day }}</span>
-                <span v-else-if="(secondIdx === 6)" style="color: blue; cursor: pointer;">{{ day }}</span>
-                <span v-else-if="(today === day && month === currentMonth)" class="today">{{ day }} Today</span>
-                <span v-else style="cursor: pointer;">{{ day }}</span>
-                <div v-for="(work, idx) in monthwork" :key="idx">
-                  <div v-if="(idx === day)" class="work">{{ work[0] }}</div>
-                  <div v-if="(idx === day)" class="work">{{ work[1] }}</div>
+                <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
+                <span v-else-if="(secondIdx === 0)" style="color: red; cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
+                <span v-else-if="(secondIdx === 6)" style="color: blue; cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
+                <span v-else-if="(today === day && month === currentMonth)" class="today" @click="requestLog(year, month, day)">{{ day }} Today</span>
+                <span v-else style="cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
+                <div v-if="!(idx > 3 && day < 6) || (idx <2 && day >25)">
+                  <div v-for="(work, thIdx) in monthwork" :key="thIdx">
+                    <div v-if="(thIdx === day)" class="work">{{ work[0] }}</div>
+                    <div v-if="(thIdx === day)" class="work">{{ work[1] }}</div>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -53,9 +54,6 @@
               <q-item-label v-if="data.title">{{data.title}}</q-item-label>
               <q-item-label v-if="data.fileName">{{data.fileName}}</q-item-label>
             </div>
-              <!-- <q-item-label caption lines="2" v-if="data.writer">{{data.writer}}님이 작성했습니다.</q-item-label>
-              <q-item-label caption lines="2" v-if="data.uploader">{{data.uploader}}님이 업로드했습니다.</q-item-label>
-              <q-item-label caption lines="2" v-if="data.userName">{{data.userName}}님이 작성했습니다.</q-item-label> -->
             <div class="time">
               <q-item-label caption>{{data.time}}</q-item-label>
             </div>
@@ -264,6 +262,7 @@ export default {
   border-radius: 50%;
   position: relative;
   cursor: pointer;
+  font-weight: bold;
 }
 .dayLog{
     display: block;
@@ -275,6 +274,7 @@ export default {
 }
 .other {
   opacity: .3;
+  pointer-events : none;
 }
 
 .subtitle {
@@ -307,21 +307,21 @@ export default {
   font-size:20px;
 }
 .vl {
-  border-left: 10px solid #1e61b8;
+  border-left: 10px solid #3292ca;
   height: 55px;
   float: left;
   display: inline-block;
   border-radius: 8px;
 }
 .v2 {
-  border-left: 10px solid rgb(0, 0, 0);
+  border-left: 10px solid rgb(104, 104, 104);
   height: 55px;
   float: left;
   display: inline-block;
   border-radius: 8px;
 }
 .v3 {
-  border-left: 10px solid rgb(167, 34, 172);
+  border-left: 10px solid rgb(150, 62, 185);
   height: 55px;
   float: left;
   display: inline-block;
@@ -359,20 +359,20 @@ ul {
   padding-left: 20px;
 }
 .board-write {
-  color: rgb(224, 34, 65);
-  border: 1px solid rgb(100, 97, 97);
+  color: rgb(201, 79, 89);
+  border: 1px solid rgb(187, 187, 187);
   border-radius: 5px;
   padding: 1px;
 }
 .todo-write {
-  color: rgb(33, 218, 95);
-  border: 1px solid rgb(100, 97, 97);
+  color: #07ac49;
+  border: 1px solid rgb(187, 187, 187);
   border-radius: 5px;
   padding: 1px;
 }
 .file-upload {
-  color: rgb(48, 87, 218);
-  border: 1px solid rgb(100, 97, 97);
+  color: rgb(219, 130, 14);
+  border: 1px solid rgb(187, 187, 187);
   border-radius: 5px;
   padding: 1px;
 }
