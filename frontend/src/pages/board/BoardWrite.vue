@@ -99,7 +99,7 @@ export default defineComponent({
       tmp: "",
       writer: "",
     });
-    const options = ["익명 게시판", "프론트엔드", "백엔드", "플랫폼", "마케팅"];
+    const options = ["공지사항", "익명게시판", "프론트엔드", "백엔드", "플랫폼", "마케팅"];
 
     const back = function () {
       router.back();
@@ -109,7 +109,14 @@ export default defineComponent({
     let rows = [];
     function regist() {
       const frm = new FormData();
-      frm.append("type", 1); //form.type
+      console.log(form, '폼타입 시발')
+      for (let i = 0; i < options.length; i++) {
+        if(form.type === options[i]) {
+          frm.append("type", i + 1)
+          break
+        }
+      }
+      // frm.append("type", 1); //form.type
       frm.append("writer", localStorage.getItem("id"));
       frm.append("title", form.title);
       frm.append("content", form.content);
