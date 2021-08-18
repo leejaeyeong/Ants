@@ -36,20 +36,20 @@ ON DUPLICATE KEY
 UPDATE id = 4;
 
 -- 출근 기록 sql
-insert into attendance values (1, '09:00:30', '18:00:30', '2021-08-02', 'dlwodud1') ON DUPLICATE KEY UPDATE id=1;
-insert into attendance values (2, '09:00:30', '18:00:30', '2021-08-03', 'dlwodud1') ON DUPLICATE KEY UPDATE id=2;
-insert into attendance values (3, '09:00:30', '18:00:30', '2021-08-04', 'dlwodud1') ON DUPLICATE KEY UPDATE id=3;
-insert into attendance values (4, '09:00:30', '18:00:30', '2021-08-05', 'dlwodud1') ON DUPLICATE KEY UPDATE id=4;
-insert into attendance values (5, '09:00:30', '18:00:30', '2021-08-06', 'dlwodud1') ON DUPLICATE KEY UPDATE id=5;
-insert into attendance values (6, '09:00:30', '18:00:30', '2021-08-09', 'dlwodud1') ON DUPLICATE KEY UPDATE id=6;
-insert into attendance values (7, '09:00:30', '18:00:30', '2021-08-10', 'dlwodud1') ON DUPLICATE KEY UPDATE id=7;
-insert into attendance values (8, '09:00:30', '18:00:30', '2021-08-11', 'dlwodud1') ON DUPLICATE KEY UPDATE id=8;
-insert into attendance values (9, '09:00:30', '18:00:30', '2021-08-12', 'dlwodud1') ON DUPLICATE KEY UPDATE id=9;
-insert into attendance values (10, '09:00:30', '18:00:30', '2021-08-13', 'dlwodud1') ON DUPLICATE KEY UPDATE id=10;
-insert into attendance values (11, '09:00:30', '18:00:30', '2021-08-16', 'dlwodud1') ON DUPLICATE KEY UPDATE id=11;
-insert into attendance values (12, '09:00:30', '18:00:30', '2021-08-17', 'dlwodud1') ON DUPLICATE KEY UPDATE id=12;
-insert into attendance values (13, '09:00:30', '18:00:30', '2021-08-18', 'dlwodud1') ON DUPLICATE KEY UPDATE id=13;
-insert into attendance values (14, '09:00:30', '18:00:30', '2021-08-19', 'dlwodud1') ON DUPLICATE KEY UPDATE id=14;
+insert into attendance values (1, '09:05:30', '18:11:00', '2021-08-02', 'dlwodud1') ON DUPLICATE KEY UPDATE id=1;
+insert into attendance values (2, '08:47:30', '18:05:02', '2021-08-03', 'dlwodud1') ON DUPLICATE KEY UPDATE id=2;
+insert into attendance values (3, '08:55:30', '18:20:31', '2021-08-04', 'dlwodud1') ON DUPLICATE KEY UPDATE id=3;
+insert into attendance values (4, '09:01:32', '18:30:30', '2021-08-05', 'dlwodud1') ON DUPLICATE KEY UPDATE id=4;
+insert into attendance values (5, '09:03:31', '18:06:21', '2021-08-06', 'dlwodud1') ON DUPLICATE KEY UPDATE id=5;
+insert into attendance values (6, '09:02:32', '18:11:33', '2021-08-09', 'dlwodud1') ON DUPLICATE KEY UPDATE id=6;
+insert into attendance values (7, '09:21:21', '18:12:32', '2021-08-10', 'dlwodud1') ON DUPLICATE KEY UPDATE id=7;
+insert into attendance values (8, '10:05:31', '18:15:31', '2021-08-11', 'dlwodud1') ON DUPLICATE KEY UPDATE id=8;
+insert into attendance values (9, '08:50:31', '18:07:21', '2021-08-12', 'dlwodud1') ON DUPLICATE KEY UPDATE id=9;
+insert into attendance values (10, '08:54:31', '18:22:11', '2021-08-13', 'dlwodud1') ON DUPLICATE KEY UPDATE id=10;
+insert into attendance values (11, '08:44:22', '18:50:50', '2021-08-16', 'dlwodud1') ON DUPLICATE KEY UPDATE id=11;
+insert into attendance values (12, '08:59:30', '18:33:11', '2021-08-17', 'dlwodud1') ON DUPLICATE KEY UPDATE id=12;
+insert into attendance values (13, '08:55:50', '18:21:20', '2021-08-18', 'dlwodud1') ON DUPLICATE KEY UPDATE id=13;
+insert into attendance values (14, '09:02:41', '18:11:32', '2021-08-19', 'dlwodud1') ON DUPLICATE KEY UPDATE id=14;
 
 insert into attendance values (15, '09:00:30', '18:00:30', '2021-08-02', 'rlawldks1') ON DUPLICATE KEY UPDATE id=15;
 insert into attendance values (16, '09:00:30', '18:00:30', '2021-08-03', 'rlawldks1') ON DUPLICATE KEY UPDATE id=16;
@@ -97,6 +97,36 @@ insert into attendance values (55, '09:00:30', '18:00:30', '2021-08-18', 'wjdqja
 insert into attendance values (56, '09:00:30', '18:00:30', '2021-08-19', 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=56;
 
 -- 투두 리스트 초기 sql
+insert into todo values (1, '2021-08-02',0, '09:30:00', '업무 보고 회의', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=1;
+insert into todo values (2, '2021-08-02',1, '15:30:00', '페어 프로그래밍 with 지안', 1, 'rlawldks1') ON DUPLICATE KEY UPDATE id=2;
+insert into todo values (3, '2021-08-03',1, '10:30:00', '신입 가이드 자료 준비하기', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=3;
+insert into todo values (4, '2021-08-03',1, '17:30:00', '라이브러리 조사하기', 1, 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=4;
+insert into todo values (5, '2021-08-04',0, '11:30:00', '팀미팅 준비하기', 1, 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=5;
+insert into todo values (6, '2021-08-04',1, '12:30:00', '발표 자료 세부 수정 및 조율', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=6;
+insert into todo values (7, '2021-08-05',1, '18:30:00', '보고 메일 보내기 -> 정범진', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=7;
+insert into todo values (8, '2021-08-05',1, '16:30:00', '미완료 작업 체크', 1, 'rlawldks1') ON DUPLICATE KEY UPDATE id=8;
+insert into todo values (9, '2021-08-06',0, '17:30:00', '자료실 파일 업로드', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=9;
+insert into todo values (10, '2021-08-06',1, '11:30:32', '선행 기술 조사하기', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=10;
+insert into todo values (11, '2021-08-09',0, '15:30:00', 'WebRTC 관련 조사', 1, 'rlawldks1') ON DUPLICATE KEY UPDATE id=11;
+insert into todo values (12, '2021-08-09',1, '15:46:32', '팀 회의 준비', 1, 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=12;
+insert into todo values (13, '2021-08-10',0, '12:30:00', '발표 ppt 제작', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=13;
+insert into todo values (14, '2021-08-10',1, '15:30:00', '팀 로고 정하기', 1, 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=14;
+insert into todo values (15, '2021-08-11',0, '10:30:00', '역할 분담 다시하기', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=15;
+insert into todo values (16, '2021-08-11',1, '16:30:00', '주간 회의 준비, 내일까지', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=16;
+insert into todo values (17, '2021-08-12',0, '13:30:00', '소스코드 버그 수정', 1, 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=17;
+insert into todo values (18, '2021-08-12',1, '15:30:00', 'readme 파일 작성, 오타수정', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=18;
+insert into todo values (19, '2021-08-13',0, '13:30:00', '코드 리뷰 준비', 1, 'wjdqjawls1') ON DUPLICATE KEY UPDATE id=19;
+insert into todo values (20, '2021-08-13',1, '15:30:00', '메인화면 UI/UX 개선', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=20;
+insert into todo values (21, '2021-08-16',0, '14:00:00', '백엔드 서비스 코드 리팩토링', 1, 'rlawldks1') ON DUPLICATE KEY UPDATE id=21;
+insert into todo values (22, '2021-08-16',1, '14:32:00', '메인 페이지 버그 수정', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=22;
+insert into todo values (23, '2021-08-17',0, '13:22:31', '발표 준비하기(10분 분량)', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=23;
+insert into todo values (24, '2021-08-17',1, '17:11:00', '서버 통신 버그 수정', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=24;
+insert into todo values (25, '2021-08-17',0, '12:10:00', '메인 사이드바 구현(디테일)', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=25;
+insert into todo values (26, '2021-08-18',1, '11:05:00', '전반적으로 테스트케이스 작성', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=26;
+insert into todo values (27, '2021-08-18',0, '11:07:00', '화면 정의서 수정', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=27;
+insert into todo values (28, '2021-08-18',1, '18:30:00', '서버 로컬 시간 확인하기', 1, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=28;
+insert into todo values (29, '2021-08-19',1, '11:30:00', '소켓 통신 확인', 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=29;
+insert into todo values (30, '2021-08-19',1, '11:30:00', '주간 회의 준비', 1, 'rlawldks1') ON DUPLICATE KEY UPDATE id=30;
 
 
 -- 게시물 타입 초기데이터 sql
@@ -109,31 +139,59 @@ insert into board_type values(6, "마케팅 전략팀") ON DUPLICATE KEY UPDATE 
 
 -- 게시물 초기 데이터 sql
 -- id, 내용, 날짜, 이미지, 등록 날짜 시간, 등록 시간, 제목, 조회수, 게시판 타입, 작성자
-insert into board values (1, '공지사항 내용입니다.', '2021-08-02',null, '2021-08-02 00:55:38.000000',now(),'[필독]주간 업무 공유 관련 공지사항입니다! 모두 확인바랍니다!', 13,1,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=1;
-insert into board values (2, '익명 글 2', '2021-08-02', null, '2021-08-02 00:55:38.000000',now(),'오늘 있었던 따뜻한 일 공유합니다ㅎㅎ', 20,2,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=2;
-insert into board values (3, '익명 글 3', '2021-08-02', null, '2021-08-02 00:55:38.000000',now(),'익명의 힘을 빌려 써봅니다 ^^', 20,2,'dlwodud1')  ON DUPLICATE KEY UPDATE id=3;
-insert into board values (4, '익명 글 4', '2021-08-03', null, '2021-08-03 00:55:38.000000',now(),'프론트엔드 부서 금일 회의 진행사항 공유', 20,3,'rlawldks1')  ON DUPLICATE KEY UPDATE id=4;
-insert into board values (5, '익명 글 5', '2021-08-03',null, '2021-08-03 00:55:38.000000',now(),'프론트엔드 유용한 웹 사이트 공유', 20,3,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=5;
-insert into board values (6, '익명 글 6', '2021-08-03',null, '2021-08-03 00:55:38.000000',now(),'백엔드 업무 프로세스 공유 공지입니다.', 20,4,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=6;
-insert into board values (7, '익명 글 7', '2021-08-04',null, '2021-08-04 00:55:38.000000',now(),'2021 OOO 컨퍼런스 사내 지원자 모집!', 20,4,'rlawldks1')  ON DUPLICATE KEY UPDATE id=7;
-insert into board values (8, '익명 글 8', '2021-08-04',null, '2021-08-04 00:55:38.000000',now(),'2021 하반기 공채입니다 8', 20,4,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=8;
-insert into board values (9, '2021 하반기 공채 내용 9', '2021-08-05',null, '2021-08-05 00:55:38.000000',now(),'Ants 플랫폼 디자인 초안 공유', 20,5,'dlwodud1')  ON DUPLICATE KEY UPDATE id=9;
-insert into board values (10, '2021 하반기 공채 내용 10', '2021-08-05',null, '2021-08-05 00:55:38.000000',now(),'사이드 디자인 수정 제안 공지', 20,5,'dlwodud1')  ON DUPLICATE KEY UPDATE id=10;
-insert into board values (11, '2021 하반기 공채 내용 11', '2021-08-05',null, '2021-08-05 00:55:38.000000',now(),'차주 부터 반영되는 업무 프로세스 공지', 20,5,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=11;
-insert into board values (12, '2021 하반기 공채 내용 12', '2021-08-05',null, '2021-08-05 00:55:38.000000',now(),'Ants UCC 시나리오 구상 제안', 20,6,'rlawldks1')  ON DUPLICATE KEY UPDATE id=12;
-insert into board values (13, '2021 하반기 공채 내용 13', '2021-08-06',null, '2021-08-06 00:55:38.000000',now(),'발표 ppt 제작 양식 모음', 20,6,'rlawldks1')  ON DUPLICATE KEY UPDATE id=13;
-insert into board values (14, '2021 하반기 공채 내용 14', '2021-08-06',null, '2021-08-06 00:55:38.000000',now(),'금일 마케팅 전략 회의 안내입니다.', 20,6,'rlawldks1')  ON DUPLICATE KEY UPDATE id=14;
-insert into board values (15, '2021 하반기 공채 내용 15', '2021-08-06',null, '2021-08-06 00:55:38.000000',now(),'이번 한 주도 모두 수고하셨습니다^^', 20,6,'dlwodud1')  ON DUPLICATE KEY UPDATE id=15;
+insert into board values (1, '한 주간 다들 고생 많으셨습니다.\n\n 다음주도 화이팅 치킨 쏩니다.\n\n 다들 문자 확인 ㄱㄱ', '2021-08-02',null, '2021-08-02 11:55:38.000000','11:55:38','[필독]주간 업무 공유 관련 공지사항입니다! 모두 확인바랍니다!', 13,1,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=1;
+insert into board values (2, '오늘 회사 출근하다가 지갑 잃어버렸는데, 옆 부서 XX 부장님이 지갑 찾아주심', '2021-08-02', null, '2021-08-02 09:55:38.000000','09:55:38','오늘 있었던 따뜻한 일 공유합니다ㅎㅎ', 20,2,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=2;
+insert into board values (3, '나는 슈퍼맨이다', '2021-08-02', null, '2021-08-02 08:55:38.000000','08:55:38','익명의 힘을 빌려 써봅니다 ^^', 20,2,'dlwodud1')  ON DUPLICATE KEY UPDATE id=3;
+insert into board values (4, '다음주부터 본격적으로 프론트 개발 돌입하기로 했습니다.\n\n 앞으로 주기적으로 업무 공유하겠습니다.', '2021-08-03', null, '2021-08-03 11:55:38.000000','11:55:38','프론트엔드 부서 금일 회의 진행사항 공유', 20,3,'rlawldks1')  ON DUPLICATE KEY UPDATE id=4;
+insert into board values (5, '유용한 사이트 자료실에 웹사이트 공유.pdf로 공유했습니다.', '2021-08-03',null, '2021-08-03 12:55:38.000000','12:55:38','프론트엔드 유용한 웹 사이트 공유', 20,3,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=5;
+insert into board values (6, '업무 프로세스 관련한 파일 자료 공유실에 업로드했습니다.', '2021-08-03',null, '2021-08-03 13:55:38.000000','13:55:38','백엔드 업무 프로세스 공유 공지입니다.', 20,4,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=6;
+insert into board values (7, '2021 OOO 컨퍼런스 관련해서 지원자를 모집하고 있습니다. \n\n 4성급 호텔 숙박지원 예정이고 회사 대표로 가는 것인 만큼 모범이 되어주시길 바랍니다.', '2021-08-04',null, '2021-08-04 14:55:38.000000','14:55:38','2021 OOO 컨퍼런스 사내 지원자 모집!', 20,4,'rlawldks1')  ON DUPLICATE KEY UPDATE id=7;
+insert into board values (8, '아 2021년 상반기 알차게 보냈다 다들 그렇죠? 앞으로도 화이팅합니다 \n\n - Ants 개발자 일동 -', '2021-08-04',null, '2021-08-04 14:55:38.000000','14:55:38','[필독]프론트엔드 개발팀 회고', 20,4,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=8;
+insert into board values (9, '디자인 관련한 파일 자료 공유실에 업로드했습니다.', '2021-08-05',null, '2021-08-05 12:55:38.000000','12:55:38','Ants 플랫폼 디자인 초안 공유', 20,5,'dlwodud1')  ON DUPLICATE KEY UPDATE id=9;
+insert into board values (10, '사이드바 색깔 누가 바꿨어 이뻤는데 ㅡ.ㅡ', '2021-08-05',null, '2021-08-05 11:55:38.000000','11:55:38','사이드 디자인 수정 제안 공지', 20,5,'dlwodud1')  ON DUPLICATE KEY UPDATE id=10;
+insert into board values (11, '다음주부터는 열심히하는 프로세스입니다. \n\n 다들 숙지.', '2021-08-05',null, '2021-08-05 13:55:38.000000','13:55:38','차주 부터 반영되는 업무 프로세스 공지', 20,5,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=11;
+insert into board values (12, 'UCC에 주인공으로 출연한 Ant 모집합니다. <-- [매우 중요]', '2021-08-05',null, '2021-08-05 15:55:38.000000','15:55:38','Ants UCC 시나리오 구상 제안', 20,6,'rlawldks1')  ON DUPLICATE KEY UPDATE id=12;
+insert into board values (13, '자료실에 올렸슴다', '2021-08-06',null, '2021-08-06 09:55:38.000000','09:55:38','발표 ppt 제작 양식 모음', 20,6,'rlawldks1')  ON DUPLICATE KEY UPDATE id=13;
+insert into board values (14, '마케팅팀 실적이 저조합니다. 전략적으로 이목을 집중시킬 무엇인가 필요합니다.\n\n 다음주까지 분발해주시고 화이팅합시다. \n\n ps. 오늘 회식 있음.', '2021-08-06',null, '2021-08-06 10:55:38.000000','10:55:38','금일 마케팅 전략 회의 안내입니다.', 20,6,'rlawldks1')  ON DUPLICATE KEY UPDATE id=14;
+insert into board values (15, '수고하셨습니다.', '2021-08-06',null, '2021-08-06 17:55:38.000000','17:55:38','이번 한 주도 모두 수고하셨습니다^^', 20,6,'dlwodud1')  ON DUPLICATE KEY UPDATE id=15;
+insert into board values (16, '부서 이전입니다. \n 장소 : 본사 건물 6층 305호 \n 9월부터 공사 들어갈 예정이며, 완공은 21년 11월 예상됩니다.', '2021-08-09',null, '2021-08-09 10:32:38.000000','10:32:38','프론트엔드 부서 이전 공고', 20,3,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=16;
+insert into board values (17, '이번에 고양이를 새로 위탁받았는데 \n 처음 키워봐서...ㅠㅠㅠ \n 처음에 사료랑 세팅을 어떻게 해야되죠??', '2021-08-09',null, '2021-08-09 15:22:13.000000','15:22:13','고민이 있어요', 19,2,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=17;
+insert into board values (18, '새로 하게 되는 S1 프로젝트 Deployment 자료 배포합니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-09',null, '2021-08-09 17:22:35.000000','17:22:35','S1 프로젝트 Deployment 자료', 23,3,'rlawldks1')  ON DUPLICATE KEY UPDATE id=18;
+insert into board values (19, '새로 하게 되는 S1 프로젝트 화면설계서 배포합니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-10',null, '2021-08-10 12:12:44.000000','12:12:44','S1 프로젝트 화면설계서', 24,3,'dlwodud1')  ON DUPLICATE KEY UPDATE id=19;
+insert into board values (20, '새로 하게 되는 S1 프로젝트 명세서 자료 배포합니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-10',null, '2021-08-10 13:25:54.000000','13:25:54','[프론트엔드 필독] S1 프로젝트 명세서', 28,3,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=20;
+insert into board values (21, '하계 워크샵 계획입니다. \n 각 부서별로 지정된 장소로 이동 예정이며 \n 불참인원은 부서 장들께 사유 알림 부탁드립니다.', '2021-08-10',null, '2021-08-10 16:43:22.000000','16:43:22','하계 워크샵 계획서', 19,1,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=21;
+insert into board values (22, '하계 워크샵 참가자 명단입니다. \n 일정은 추후 공지합니다.', '2021-08-11',null, '2021-08-11 09:32:43.000000','09:32:43','하계 워크샵 참가자 명단', 20,1,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=22;
+insert into board values (23, 'S1 프로젝트 스토리보드 자료 배포합니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-11',null, '2021-08-11 11:55:38.000000','11:55:38','S1 프로젝트 스토리보드', 20,3,'rlawldks1')  ON DUPLICATE KEY UPDATE id=23;
+insert into board values (24, 'S1 프로젝트 추가 명세사항입니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-12',null, '2021-08-12 09:35:54.000000','09:35:54','S1 프로젝트 추가 명세사항', 24,3,'dlwodud1')  ON DUPLICATE KEY UPDATE id=24;
+insert into board values (25, 'S1 프로젝트 백엔드 부서 요청사항입니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-12',null, '2021-08-12 14:22:43.000000','14:22:43','백엔드 부서 요청사항', 24,3,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=25;
+insert into board values (26, '고양이 사진 올리려는데 사진을 안찍어와서 못올림ㅠ \n 다음에 다시 도전합니다 하하', '2021-08-12',null, '2021-08-12 15:36:54.000000','15:36:54','모두 힐링하고 가세요~', 18,2,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=26;
+insert into board values (27, '평소 듣고 계시는 플레이 리스트 공유받고 싶어요~! \n 좋은 음악 공유합시다 여러분 ^^', '2021-08-13',null, '2021-08-13 11:56:32.000000','11:56:32','음악 공유 부탁드립니다', 21,2,'rlawldks1')  ON DUPLICATE KEY UPDATE id=27;
+insert into board values (28, '아무것도 없었다', '2021-08-13',null, '2021-08-13 17:20:51.000000','17:20:51','이거 좀 봐주세요', 17,2,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=28;
+insert into board values (29, '하계 워크샵 장소 및 일정입니다. \n 참가 인원은 참고 부탁드립니다. ', '2021-08-13',null, '2021-08-13 17:55:38.000000','17:55:38','하계 워크샵 장소 및 일정', 23,1,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=29;
+insert into board values (30, 'S1 프로젝트 디자인 구성안입니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-16',null, '2021-08-16 09:33:38.000000','09:33:38','S1 프로젝트 디자인 구성안', 15,3,'rlawldks1')  ON DUPLICATE KEY UPDATE id=30;
+insert into board values (31, 'S1 프로젝트 디자인 스택 명세서입니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-16',null, '2021-08-16 11:35:22.000000','11:35:22','S1 프로젝트 디자인 스택 명세서', 16,3,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=31;
+insert into board values (32, '이번에 이사하면서 안쓰게 된 물건들 나눔합니다~ \n 아래 댓글 달아주세요~!', '2021-08-17',null, '2021-08-17 14:25:42.000000','14:25:42','나눔해요 우리~', 13,2,'dlwodud1')  ON DUPLICATE KEY UPDATE id=32;
+insert into board values (33, '사내 E-SPORTS 대회를 개최합니다. \n 종목 : LOL \n  일시 : 21년 9월 10일 (금) \n 총 모집 인원 : 5인 1팀으로 총 10팀 \n 방식 : 풀리그 \n 팀장만 아래 댓글로 팀원 명단 작성해주세요', '2021-08-17',null, '2021-08-17 15:10:38.000000','15:10:38','사내 E-SPORTS 대회 알림', 24,1,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=33;
+insert into board values (34, '사내 E-SPORTS 대회 참가자 팀 구합니다. \n 필자 실력은 골드입니다.', '2021-08-17',null, '2021-08-17 09:15:32.000000','09:15:32','참가자 구합니다', 22,2,'dlwodud1')  ON DUPLICATE KEY UPDATE id=34;
+insert into board values (35, 'S1 프로젝트 진행상황입니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-18',null, '2021-08-18 11:15:38.000000','11:15:38','S1 프로젝트 진행상황 v1', 23,3,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=35;
+insert into board values (36, 'S1 프로젝트 일일회의 정리자료입니다. \n 프론트엔드 부서는 매일 회의결과 인지해주세요', '2021-08-18',null, '2021-08-18 16:20:21.000000','16:20:21','S1 프로젝트 일일 수정사항', 24,3,'rlawldks1')  ON DUPLICATE KEY UPDATE id=36;
+insert into board values (37, '사내 E-SPORTS 대회 참가자 명단입니다. \n 추가 참가자 모집도 받고 있으니 추가 참가 요청은 이후 공지 참고바랍니다.', '2021-08-19',null, '2021-08-19 09:54:38.000000','09:54:38','사내 E-SPORTS 대회 참가자 명단', 14,1,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=37;
+insert into board values (38, 'S1 프로젝트 일일회의 정리자료입니다. \n 프론트엔드 부서는 매일 회의결과 인지해주세요', '2021-08-19',null, '2021-08-19 15:52:29.000000','15:52:29','S1 프로젝트 일일 수정사항', 22,3,'rlawldks1')  ON DUPLICATE KEY UPDATE id=38;
+insert into board values (39, 'S1 프로젝트 일일회의 정리자료입니다. \n 프론트엔드 부서는 매일 회의결과 인지해주세요', '2021-08-20',null, '2021-08-20 10:02:05.000000','10:02:05','S1 프로젝트 일일 수정사항', 22,3,'rlawldks1')  ON DUPLICATE KEY UPDATE id=39;
+insert into board values (40, 'E-SPORTS 대회 알람을 이제알아서ㅠㅠㅠ \n 뒤늦게 참가자 구하시는 분들! 구제해주세요 ㅠㅠ', '2021-08-20',null, '2021-08-20 11:53:48.000000','11:53:48','뒤늦게 참가자 구해봅니다ㅠㅠ', 22,2,'ghkdwlgns1')  ON DUPLICATE KEY UPDATE id=40;
+insert into board values (41, 'S1 프로젝트 클라이언트 측 추가 요청사항입니다. \n 프론트엔드 부서는 필독해주세요', '2021-08-20',null, '2021-08-20 12:52:43.000000','12:52:43','S1 프로젝트 클라이언트 추가 요구사항', 22,3,'wjdqjawls1')  ON DUPLICATE KEY UPDATE id=41;
 
 
 -- 사용자가 게시물 마크 초기 데이터 sql
 insert into user_marker_board values(1, 1, 'dlwodud1') ON DUPLICATE KEY UPDATE id=1;
 insert into user_marker_board values(2, 5, 'dlwodud1') ON DUPLICATE KEY UPDATE id=2;
 insert into user_marker_board values(3, 10, 'rlawldks1') ON DUPLICATE KEY UPDATE id=3;
-insert into user_marker_board values(4, 11, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=4;
+insert into user_marker_board values(4, 11, 'dlwodud1') ON DUPLICATE KEY UPDATE id=4;
 insert into user_marker_board values(5, 12, 'ghkdwlgns1') ON DUPLICATE KEY UPDATE id=5;
 insert into user_marker_board values(6, 13, 'rlawldks1') ON DUPLICATE KEY UPDATE id=6;
 
 -- 게시판 댓글 초기 데이터 sql
-insert into board_comment values (1, "좋은 공지 감사합니다. ~~~ 오늘도 화이팅", now(), 1, "dlwodud1") ON DUPLICATE KEY UPDATE id=1;
-insert into board_comment values (2, "행복한 하루 되시길", now(), 1, "wjdqjawls1") ON DUPLICATE KEY UPDATE id=2;
+--insert into board_comment values (1, "좋은 공지 감사합니다. ~~~ 오늘도 화이팅", now(), 1, "dlwodud1") ON DUPLICATE KEY UPDATE id=1;
+--insert into board_comment values (2, "행복한 하루 되시길", now(), 1, "wjdqjawls1") ON DUPLICATE KEY UPDATE id=2;
+--insert into board_comment values (3, "행복한 하루 되시길", now(), 1, "wjdqjawls1") ON DUPLICATE KEY UPDATE id=3;
+--insert into board_comment values (4, "행복한 하루 되시길", now(), 1, "rlawldks") ON DUPLICATE KEY UPDATE id=4;
