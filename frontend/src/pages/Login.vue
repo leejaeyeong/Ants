@@ -71,7 +71,6 @@ export default defineComponent({
     // router를 사용하기 위해선 useRouter import후 변수 선언하여 사용 해야함 !
     const store = useStore()
     // store를 사용하기 위해선 useStore import후 변수 선언하여 사용 해야함 !
-
     var rowsM = []
     // 로그인
     const Swal = require('sweetalert2')
@@ -120,7 +119,25 @@ export default defineComponent({
                   store.commit('module/setRowsM', rowsM)
                   rowsM = []
                   store.commit('module/setChatMode', false)
-                  router.push('/main')
+
+                  const userstate = localStorage.getItem('userState')
+
+                  if (userstate === '3') {
+                    Swal.fire({
+                      title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">승인 대기 상태입니다.</span>',
+                      confirmButtonColor: '#ce1919',
+                      confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+                    })
+                  } else {
+                    Swal.fire({
+                      title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">환영합니다.</span>',
+                      confirmButtonColor: '#19CE60',
+                      confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+                    })
+                      .then(function () {
+                        router.push('/main')
+                      })
+                  }
                 })
             }).catch(err => {
               console.log(err, '에러입니다')
