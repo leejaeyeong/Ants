@@ -255,13 +255,29 @@ function showChat(chat) {
 }
 
 function rtcMute(name){
-    if(participants[name].rtcPeer.audioEnabled === true) participants[name].rtcPeer.audioEnabled = false;
-    else participants[name].rtcPeer.audioEnabled = true;
+    let bt1 = document.getElementById('bt1')
+    if(participants[name].rtcPeer.audioEnabled === true){
+        participants[name].rtcPeer.audioEnabled = false;
+        bt1.style.backgroundColor = "#8a8d8b";
+        bt1.style.border = "0.5px solid #8a8d8b";
+    } else{
+        participants[name].rtcPeer.audioEnabled = true;
+        bt1.style.backgroundColor = "#249752";
+        bt1.style.border = "0.5px solid #249752";
+    }
 }
 
 function rtcVideoVision(name){
-    if(participants[name].rtcPeer.videoEnabled === true) participants[name].rtcPeer.videoEnabled = false;
-    else participants[name].rtcPeer.videoEnabled = true;
+    let bt2 = document.getElementById('bt2')
+    if(participants[name].rtcPeer.videoEnabled === true){
+        participants[name].rtcPeer.videoEnabled = false;
+        bt2.style.backgroundColor = "#8a8d8b";
+        bt2.style.border = "0.5px solid #8a8d8b";
+    } else{
+        participants[name].rtcPeer.videoEnabled = true;
+        bt2.style.backgroundColor = "#249752";
+        bt2.style.border = "0.5px solid #249752";
+    }
 }
 //$(function () {
 //    $('form').on('submit', function (e) {

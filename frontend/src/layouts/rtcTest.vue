@@ -110,12 +110,12 @@
                     <form style="display:inline-block;" onsubmit="rtcMute($(this).find('input').eq(0).val()); return false;">
                       <input :value="id" style="display:none">
                       <!-- <q-icon style="font-size: 2.8em; color: white;" name="mic" type="submit"/> -->
-                      <button class="bt1" type="submit" value="mute"/>
+                      <button id="bt1" type="submit" value="mute"/>
                     </form>
                     <form style="display:inline-block;" onsubmit="rtcVideoVision($(this).find('input').eq(0).val()); return false;">
                       <input :value="id" style="display:none">
                       <!-- <q-icon style="font-size: 2.8em; color: white;" name="photo_camera"/> -->
-                      <button  class="bt2" type="submit" value="mute"/>
+                      <button id="bt2" type="submit" value="mute"/>
                     </form>
                   <input type="button" id="downBt" @click="downView">
                   <input type="button" id="button-leave" onmouseup="leaveRoom();">
@@ -564,7 +564,7 @@ export default defineComponent({
     margin-left:10px;
     background: url('~assets/images/download.png') no-repeat right center #249752;
 }
-.bt1{
+#bt1{
   background: url('~assets/images/mic.png') no-repeat right center #249752;
   border-radius: 50px;
   width:50px;
@@ -575,7 +575,7 @@ export default defineComponent({
   padding-top:5px;
   border:0.5px solid #249752;
 }
-.bt2{
+#bt2{
   background: url('~assets/images/video.png') no-repeat right center #249752;
   border-radius: 50px;
   width:50px;

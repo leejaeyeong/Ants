@@ -169,8 +169,21 @@ export default defineComponent({
         })
     }
     const mvGroup = function () {
+      const Swal = require('sweetalert2')
+      const userstate = localStorage.getItem('userState')
+      console.log(userstate + '유저 스테이트')
       this.sideMenuClick(6)
-      router.push('/group')
+
+      if (userstate !== '1') {
+        Swal.fire({
+          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">접근 권한이 없습니다.</span>',
+          confirmButtonColor: '#ce1919',
+          confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+        })
+      } else {
+        console.log(userstate)
+        router.push('/group')
+      }
     }
     const clearSideClick = function () {
       const el = document.getElementsByClassName('list')

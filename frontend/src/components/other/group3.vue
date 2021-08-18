@@ -29,7 +29,7 @@
 <script>
 import { defineComponent } from 'vue'
 import Header from '../components/Header.vue'
-import Side from '../components/Side.vue'
+import Side from '../Side.vue'
 
 export default defineComponent({
   name: 'login',
