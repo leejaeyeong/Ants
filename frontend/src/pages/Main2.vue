@@ -240,9 +240,6 @@ export default defineComponent({
   components: {
   },
   data () {
-    return {
-      modal: false
-    }
   },
   methods: {
     mvAttendance () {
@@ -286,18 +283,9 @@ export default defineComponent({
       descending: false,
       page: 1,
       rowsPerPage: 10
-      // rowsNumber: xx if getting data from a server
     })
     const linkList = computed(() => store.getters['module/getLinkList'])
 
-    // 웹 메타데이터
-    // const registerurl = function () {
-    //   axios({
-    //     url: 'https://cors-anywhere.herokuapp.com/' + 'https://quasar.dev/'
-    //   }).then(function (data) {
-    //     console.log(data, '엑시오스보냄')
-    //   })
-    // }
     onMounted(() => {
       var count = 1
       store.dispatch('module/check', { })

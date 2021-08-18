@@ -1,67 +1,12 @@
 <template>
   <div class="content" align="center">
-    <div class="content-body">
-      <div class="q-pa-md">
-    <q-table
-      title="검색된 파일 목록"
-      :rows="rows"
-      :columns="columns"
-      row-key="fileName"
-      style="cursor:pointer;"
-      v-model:pagination="pagination"
-      hide-pagination
-    >
-      <template v-slot:body="props">
-        <q-tr :props="props" @click="downloadFile(props.row.id)">
-          <q-td
-            v-for="col in props.cols"
-            :key="col.name"
-            :props="props"
-          >
-            <span v-if="col.name !='imageLocation'" >{{ col.value }}</span>
-            <q-avatar v-if="col.name =='imageLocation'" size="50px" class="shadow-10">
-              <img :src="props.row.imageLocation">
-            </q-avatar>
-          </q-td>
-        </q-tr>
-      </template>
-    </q-table>
-
-    <div class="row justify-center q-mt-md">
-      <q-pagination
-        v-model="pagination.page"
-        color="grey-8"
-        :max="pagesNumber"
-        size="sm"
-      />
-    </div>
-    <div class="content-title">
-        <div class="row">
-          <div class="col-3">
-          </div>
-          <div class="col-6">
-            <!-- <input ref="input" /> -->
-            <input id='searchInput'
-            style="padding: 15px; width: 500px; IME-MODE: inactive"
-            ref="input"
-            outlined v-model="router.currentRoute.value.query.fileName"
-            :dense="dense"
-            v-on:keyup="keyupEvent"
-            placeholder="파일명으로 자료 검색"
-            />
-          </div>
-          <div class="col-1">
-            <q-btn class="search-btn" @click="searchBarReset()">초기화</q-btn>
-          </div>
-        </div>
-    </div>
     <div class="sub-side shadow-1">
       <div align="right">
         <span style="padding-right:15px;"></span>
       </div>
       <div align="center">
         <!-- <div><span class="highlight-orange" style="font-size: 20px;">확장자 별 검색</span></div> -->
-        <div class="row" align="left" style="margin-top: 0px; margin-left: 150px;">
+        <div class="row" align="left" style="margin-left: 150px;">
           <div class="col-2">
             <q-avatar size="60px" class="shadow-10" @click="clickExtension('.zip')">
               <img :src="present.image.zip">
@@ -113,7 +58,60 @@
         </div>
       </div>
     </div>
-  </div>
+    <div class="content-body">
+      <div class="q-pa-md">
+        <q-table
+          title="검색된 파일 목록"
+          :rows="rows"
+          :columns="columns"
+          row-key="fileName"
+          style="cursor:pointer;"
+          v-model:pagination="pagination"
+          hide-pagination
+        >
+          <template v-slot:body="props">
+            <q-tr :props="props" @click="downloadFile(props.row.id)">
+              <q-td
+                v-for="col in props.cols"
+                :key="col.name"
+                :props="props"
+              >
+                <span v-if="col.name !='imageLocation'" >{{ col.value }}</span>
+                <q-avatar v-if="col.name =='imageLocation'" size="50px" class="shadow-10">
+                  <img :src="props.row.imageLocation">
+                </q-avatar>
+              </q-td>
+            </q-tr>
+          </template>
+        </q-table>
+      <div class="row justify-center q-mt-md">
+        <q-pagination
+          v-model="pagination.page"
+          color="grey-8"
+          :max="pagesNumber"
+          size="sm"
+        />
+      </div>
+      <div class="content-title">
+          <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
+              <input id='searchInput'
+              style="padding: 15px; width: 500px; IME-MODE: inactive"
+              ref="input"
+              outlined v-model="router.currentRoute.value.query.fileName"
+              :dense="dense"
+              v-on:keyup="keyupEvent"
+              placeholder="파일명으로 자료 검색"
+              />
+            </div>
+            <div class="col-1">
+              <q-btn class="search-btn" @click="searchBarReset()">초기화</q-btn>
+            </div>
+          </div>
+      </div>
+    </div>
     </div>
   </div>
 </template>
@@ -296,44 +294,46 @@ export default defineComponent({
 
 <style scoped>
 .content {
-  width: 1400px;
-  height: 800px;
+  width: 1520px;
+  height: 907px;
   position: absolute;
-  left: 450px;
-  top: 220px;
+  left: 400px;
+  top: 60px;
   background-color: rgb(242, 247, 244);
-  /* background: orange; */
 }
-.content-title {
-  /* background: yellowgreen; */
-  width: 100%;
-  height: 80px;
-  margin-top: 50px;
+.sub-side {
+  width: 1090px;
+  height: 110px;
+  position: absolute;
+  top: 40px;
+  left: 225px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid rgb(212, 212, 212);
 }
 .content-body {
   width: 80%;
+  margin-top: 180px;
+}
+.content-title {
+  width: 100%;
+  height: 80px;
+  margin-top: 50px;
+  margin-left: -80px;
 }
 .margin-auto {
   margin-left: auto;
   margin-right: auto;
 }
 .search-btn {
-  background-color: #00BF6F;
+  background-color: #249752;
   height: 55px;
+  margin-left: -40px;
 }
 .highlight-orange {
   background: linear-gradient(to top, orange 40%, transparent 40%);
 }
-.sub-side {
-  width: 1090px;
-  height: 115px;
-  position: absolute;
-  top: -140px;
-  left: 155px;
-  border-radius: 10px;
-  background: white;
-  border: 1px solid rgb(212, 212, 212);
-}
+
 .col-2 {
   cursor: pointer;
 }
