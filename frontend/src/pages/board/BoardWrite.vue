@@ -37,7 +37,7 @@
       > -->
       <div>
         <!-- <label for="image_uploads" style="color: black;" @click="imgLabelClick">Choose images to upload (PNG, JPG)</label> -->
-        <input
+        <input v-if="false"
           ref="imageInput"
           type="file"
           style="color: black; opacity: 0"
@@ -109,7 +109,7 @@ export default defineComponent({
     let rows = [];
     function regist() {
       const frm = new FormData();
-      console.log(form, '폼타입 시발')
+
       for (let i = 0; i < options.length; i++) {
         if(form.type === options[i]) {
           frm.append("type", i + 1)
@@ -119,7 +119,26 @@ export default defineComponent({
       // frm.append("type", 1); //form.type
       frm.append("writer", localStorage.getItem("id"));
       frm.append("title", form.title);
-      frm.append("content", form.content);
+      console.log(form.content)
+      let x = form.content.split('<div>')
+      let temp = ''
+      for (let i = 0; i < x.length; i++) {
+        temp += x[i] + '\n'
+      }
+      console.log(temp)
+      x = temp.split('</div>')
+      temp = ''
+      // form.content = temp.split('</div>')
+      for (let i = 0; i < x.length; i++) {
+        temp += x[i]
+      }
+      x = temp.split('<br>')
+      temp = ''
+      for (let i = 0; i < x.length; i++) {
+        temp += x[i]
+      }
+      console.log(temp)
+      frm.append("content", temp);
       store
         .dispatch("module/registBoard", frm)
         .then(function (result) {
