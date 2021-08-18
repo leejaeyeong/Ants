@@ -225,6 +225,7 @@ export default defineComponent({
 
     // 회원가입보냄
     function validate () {
+      // 부서선택 유효성 체크
       if (state.form.department === '') {
         Swal.fire({
           title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">부서를 선택 해주세요.</span>',
@@ -236,7 +237,7 @@ export default defineComponent({
       // 이미지 유효체크
       if (state.form.image === '') {
         Swal.fire({
-          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">이미지를 업로드해주세요.</span>',
+          title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">프로필 사진을 업로드해주세요.</span>',
           confirmButtonColor: '#19CE60',
           confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
         })
