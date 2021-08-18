@@ -34,6 +34,7 @@ function Participant(name) {
 	container.id = name;
 //	var span = document.createElement('span');
 	var video = document.createElement('video');
+	video.style.borderRadius  = '7%';
 	var rtcPeer;
 
 	container.appendChild(video);
