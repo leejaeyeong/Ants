@@ -20,10 +20,10 @@
                 style="height: 130px; width:80px;"
               >
                 <span v-if="(idx > 3 && day < 6) || (idx <2 && day >25)" class="other">{{ day }}</span>
-                <span v-else-if="(secondIdx === 0)" style="color: red; cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
-                <span v-else-if="(secondIdx === 6)" style="color: blue; cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
-                <span v-else-if="(today === day && month === currentMonth)" class="today" @click="requestLog(year, month, day)">{{ day }} Today</span>
-                <span v-else style="cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
+                <span id="day" v-else-if="(secondIdx === 0)" style="color: red; cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
+                <span id="day" v-else-if="(secondIdx === 6)" style="color: blue; cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
+                <span id="day" v-else-if="(today === day && month === currentMonth)" class="today" @click="requestLog(year, month, day)">{{ day }} Today</span>
+                <span id="day" v-else style="cursor: pointer;" @click="requestLog(year, month, day)">{{ day }}</span>
                 <div v-if="!(idx > 3 && day < 6) || (idx <2 && day >25)">
                   <div v-for="(work, thIdx) in monthwork" :key="thIdx">
                     <div v-if="(thIdx === day)" class="work">{{ work[0] }}</div>
@@ -375,5 +375,15 @@ ul {
   border: 1px solid rgb(187, 187, 187);
   border-radius: 5px;
   padding: 1px;
+}
+
+#day:hover{
+  display: block;
+  width: 32px;
+  background-color: rgb(236, 194, 139);
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
 }
 </style>
