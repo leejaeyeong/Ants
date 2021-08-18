@@ -1,6 +1,6 @@
 
-const Swal = require('sweetalert2')
-const userstate = localStorage.getItem('userState')
+// const Swal = require('sweetalert2')
+// const userstate = localStorage.getItem('userState')
 
 const routes = [
   {
@@ -73,19 +73,19 @@ const routes = [
       // 그룹페이지
       {
         path: '/group',
-        component: () => import('pages/group/GroupList.vue'),
-        beforeEnter: (to, from, next) => {
-          if (userstate !== '1') {
-            next('/main')
-            Swal.fire({
-              title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">접근 권한이 없습니다.</span>',
-              confirmButtonColor: '#ce1919',
-              confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
-            })
-          } else if (userstate === '1') {
-            next()
-          }
-        }
+        component: () => import('pages/group/GroupList.vue')
+        // beforeEnter: (to, from, next) => {
+        //   if (userstate !== '1') {
+        //     next('/main')
+        //     Swal.fire({
+        //       title: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:16px;">접근 권한이 없습니다.</span>',
+        //       confirmButtonColor: '#ce1919',
+        //       confirmButtonText: '<span style="font-family:NEXON Lv1 Gothic OTF; font-size:14px;">확인</span>'
+        //     })
+        //   } else if (userstate === '1') {
+        //     next()
+        //   }
+        // }
       },
       // 마이페이지 라우터
       {

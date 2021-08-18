@@ -105,10 +105,9 @@ public class BoardController {
             @RequestParam Long type,
             @RequestParam String writer,
             @RequestParam String title,
-            @RequestParam String content,
-            @RequestParam MultipartFile image
+            @RequestParam String content
             ) throws IOException {
-        return ResponseEntity.ok(boardService.registerBoard(BoardRegisterPostReq.of(type, writer, title, content, image)));
+        return ResponseEntity.ok(boardService.registerBoard(BoardRegisterPostReq.of(type, writer, title, content, null)));
     }
 
     @DeleteMapping("/{id}")
