@@ -17,12 +17,14 @@ public class BoardCommentRes {
     LocalDateTime registrationTime;
     String writer;
     String profileLocation;
+    String userName;
 
-    public BoardCommentRes(String comment, LocalDateTime registrationTime, String writer, String profileLocation) {
+    public BoardCommentRes(String comment, LocalDateTime registrationTime, String writer, String profileLocation, String userName) {
         this.comment = comment;
         this.registrationTime = registrationTime;
         this.writer = writer;
         this.profileLocation = profileLocation;
+        this.userName = userName;
     }
 
     public static BoardCommentRes of (BoardComment boardComment) {
@@ -30,7 +32,8 @@ public class BoardCommentRes {
                 boardComment.getComment(),
                 boardComment.getRegistrationTime(),
                 boardComment.getWriter().getUserId(),
-                boardComment.getWriter().getProfileLocation()
+                boardComment.getWriter().getProfileLocation(),
+                boardComment.getWriter().getName()
         );
         return res;
 
