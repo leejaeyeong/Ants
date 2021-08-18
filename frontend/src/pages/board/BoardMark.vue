@@ -19,12 +19,12 @@
           v-model:pagination="pagination"
           hide-pagination
         />
-        <div class="row justify-center q-mt-md">
+        <div class="row justify-center q-mt-md page">
           <q-pagination
             v-model="pagination.page"
             color="grey-8"
             :max="pagesNumber"
-            size="lg"
+            size="md"
           />
         </div>
       </div>
@@ -69,7 +69,8 @@ export default defineComponent({
       tempRows = []
       form.key = ''
     }
-    const pagesNumber = computed(() => store.getters['module/getPageNumber'])
+    const pagesNumber = computed(() => Math.ceil(rows.value.length / pagination.value.rowsPerPage))
+    // const pagesNumber = computed(() => store.getters['module/getPageNumber'])
 
     const detail = function (evt, row) {
       console.log(evt, row)
@@ -143,5 +144,9 @@ span{
 #search { 
   width: 450px;
   float:right;
+}
+.page{
+  margin-top: 15px;
+  font-size: 15px;
 }
 </style>

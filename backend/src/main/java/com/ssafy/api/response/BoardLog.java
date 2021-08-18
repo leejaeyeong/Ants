@@ -24,6 +24,7 @@ public class BoardLog extends CalendarDetail {
     int view;
     int commentCount;
     String type = "board-write";
+    String userName;
 
    public static BoardLog of (Board board, int commentCount) {
        BoardLog boardLog = new BoardLog();
@@ -34,6 +35,7 @@ public class BoardLog extends CalendarDetail {
        boardLog.setWriter(board.getWriter().getUserId());
        boardLog.setProfileLocation(board.getWriter().getProfileLocation());
        boardLog.setView(board.getView());
+       boardLog.setUserName(board.getWriter().getName());
        return boardLog;
    }
 }

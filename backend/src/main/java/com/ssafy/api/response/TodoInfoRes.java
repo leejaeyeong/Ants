@@ -18,6 +18,7 @@ public class TodoInfoRes extends CalendarDetail {
     String departmentName;
     boolean isDone;
     String userName;
+    String userId;
     String profileLocation;
     String type = "todo-write";
 
@@ -28,6 +29,7 @@ public class TodoInfoRes extends CalendarDetail {
         tir.setTitle(todo.getTitle());
         tir.setDepartmentName(todo.getDepartment().getDepartmentName());
         tir.setDone(todo.isDone());
+        tir.setUserId(todo.getUser().getUserId());
         tir.setUserName(todo.getUser().getName());
         tir.setProfileLocation(todo.getUser().getProfileLocation());
         return tir;
