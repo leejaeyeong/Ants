@@ -48,7 +48,7 @@
             </q-avatar>
           </div>
           <div class="col-2">
-            <q-avatar size="60px" class="shadow-10">
+            <q-avatar size="60px" class="shadow-10" @click="clickExtension('.jpg')">
               <img :src="present.image.jpg">
               <q-tooltip anchor="center right" self="center left" :offset="[10, 10]">
                   <strong style="font-size: 12px;">이미지 자료 검색</strong>
