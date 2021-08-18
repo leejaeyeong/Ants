@@ -172,10 +172,10 @@ public class BoardServiceImpl implements BoardService {
         File file = fileUtil.createFilePath(path + "/" + uuid);
 
 
-        String filePath = file.getAbsoluteFile() + "/" + boardRegisterPostReq.getImage().getOriginalFilename();
-        board.setImageLocation("/media/board/" + uuid + "/" + boardRegisterPostReq.getImage().getOriginalFilename());
-        File dest = new File(filePath);
-        boardRegisterPostReq.getImage().transferTo(dest);
+//        String filePath = file.getAbsoluteFile() + "/" + boardRegisterPostReq.getImage().getOriginalFilename();
+//        board.setImageLocation("/media/board/" + uuid + "/" + boardRegisterPostReq.getImage().getOriginalFilename());
+//        File dest = new File(filePath);
+//        boardRegisterPostReq.getImage().transferTo(dest);
         return BoardRes.of(boardRepository.save(board), false, new ArrayList<>());
     }
 
