@@ -19,19 +19,19 @@ insert into department (id, department_name) values (3, "플랫폼 디자인팀"
 insert into department (id, department_name) values (4, "마케팅 전략팀") ON DUPLICATE KEY UPDATE id = 4;
 -- 사용자 초기데이터 sql
 insert into user (id, email, holiday, name, password, position, profile_location, state, user_id, department)
-values (1, 'last9500@naver.com', 14, '정범진', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '부장', '/media/profile/wjdqjawls1/wjdqjawls1.png', 1, 'wjdqjawls1', 1)
+values (1, 'last9500@naver.com', 14, '정범진', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '부장', 'https://user-images.githubusercontent.com/41180841/129883265-5cc16260-8429-4573-934c-140eff52dbe6.png', 1, 'wjdqjawls1', 1)
 ON DUPLICATE KEY
 UPDATE id = 1;
 insert into user (id, email, holiday, name, password, position, profile_location, state, user_id, department)
-values (2, 'giver12@naver.com', 14, '이재영', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/dlwodud1/이재영.jpg', 1, 'dlwodud1', 1)
+values (2, 'giver12@naver.com', 14, '이재영', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', 'https://user-images.githubusercontent.com/41180841/129883237-75d76154-c111-4fa3-ad57-729ee667fb05.jpg', 1, 'dlwodud1', 1)
 ON DUPLICATE KEY
 UPDATE id = 2;
 insert into user (id, email, holiday, name, password, position, profile_location, state, user_id, department)
-values (3, 'jiahn.dev@gmail.com', 14, '김지안', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/rlawldks1/test.gif', 1, 'rlawldks1', 1)
+values (3, 'jiahn.dev@gmail.com', 14, '김지안', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', 'https://user-images.githubusercontent.com/41180841/129883271-2b921488-afb6-45eb-ba5c-019409f19685.jpg', 1, 'rlawldks1', 1)
 ON DUPLICATE KEY
 UPDATE id = 3;
 insert into user (id, email, holiday, name, password, position, profile_location, state, user_id, department)
-values (4, '', 14, '황지훈', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', '/media/profile/ghkdwlgns1/jihoon.jpg', 1, 'ghkdwlgns1', 1)
+values (4, '', 14, '황지훈', '$2a$10$yzciyMkcjrqFfGQvb38bsOZzK9G9uoCvYbUEMJWgoC..F9HNHBQWy', '대리', 'https://user-images.githubusercontent.com/41180841/129883244-1cf99998-9850-4bd5-800e-f822f5209eec.jpg', 1, 'ghkdwlgns1', 1)
 ON DUPLICATE KEY
 UPDATE id = 4;
 
