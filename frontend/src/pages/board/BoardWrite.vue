@@ -24,7 +24,7 @@
         label="제목"
       />
 
-      <q-btn
+      <!-- <q-btn
         @click="imgLabelClick"
         style="
           background-color: #00bf6f;
@@ -34,7 +34,7 @@
           color: white;
         "
         >이미지 업로드</q-btn
-      >
+      > -->
       <div>
         <!-- <label for="image_uploads" style="color: black;" @click="imgLabelClick">Choose images to upload (PNG, JPG)</label> -->
         <input
@@ -113,7 +113,6 @@ export default defineComponent({
       frm.append("writer", localStorage.getItem("id"));
       frm.append("title", form.title);
       frm.append("content", form.content);
-      frm.append("image", form.image);
       store
         .dispatch("module/registBoard", frm)
         .then(function (result) {
