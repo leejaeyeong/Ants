@@ -133,7 +133,7 @@ const columns = [
   { name: 'size', align: 'center', label: '파일 크기', field: 'size', sortable: true },
   { name: 'date', label: '업로드 날짜', field: 'date', sortable: true },
   // { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
-  { name: 'uploader', label: '업로더', field: 'uploader' }
+  { name: 'userName', label: '업로더', field: 'userName' }
 ]
 
 // const rows = [
