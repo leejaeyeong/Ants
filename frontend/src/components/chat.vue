@@ -73,7 +73,7 @@
                     <input v-model="sendTo.roomId" style="display:none">
                     <input v-model="loginUser.name" style="display:none">
                     <input id="chatMessage" style="display:inline-block; width:400px; height:47px; border-radius: 8px; border: 1px solid green;" class="form-control" placeholder="메세지를 입력하세요" v-model="message"/>
-                    <button id="chatSend" class="btn btn-default" type="submit" @click="sendDm(sendTo.roomId, loginUser.name, message)">Send</button>
+                    <button id="chatSendSend" class="btn btn-default" type="submit" @click="sendDm(sendTo.roomId, loginUser.name, message)">Send</button>
                   </form>
                 </div>
               </div>
@@ -252,7 +252,7 @@ export default defineComponent({
   height:448px;
   background-color: rgb(252, 253, 252);
 }
-#chatSend{
+#chatSendSend{
   background-color:#249752;
   border:0.5px solid #249752;
   font-weight:bold;
