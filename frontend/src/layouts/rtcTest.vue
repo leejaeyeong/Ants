@@ -82,7 +82,7 @@
                   </div>
                 </div>
               </div>
-              <div id="chat">
+              <div id="chatchat">
                 <div style="font-size:30px; font-weight:bold; margin-top:5px; margin-left:5px;">대화내용</div>
                 <div id="chatDiv">
                 <table id="conversation" class="table table-striped">
@@ -485,7 +485,7 @@ export default defineComponent({
     border-color: rgb(22, 17, 97);
   }
 }
-#chat{
+#chatchat{
     width:490px;
     height:909px;
     border-left:1px solid rgb(212, 212, 212);
