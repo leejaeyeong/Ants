@@ -216,7 +216,7 @@ export default defineComponent({
       store.commit('module/setDownMode', false)
     })
     const downView = function () {
-      const tmp = document.getElementById('chat')
+      const tmp = document.getElementById('chatchat')
       const tmp2 = document.getElementById('chatDiv')
       const mode = store.getters['module/getDownMode']
       if (!mode) {
