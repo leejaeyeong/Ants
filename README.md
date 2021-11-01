@@ -30,7 +30,7 @@ Git Flow Branch 전략을 변형하여 브랜치를 관리하고 있습니다.
  - 캘린더 관리
 
 ## **UI/UX**
-<center>
+<div align="center">
 <figure>
     <img src="https://images.velog.io/images/nunddu/post/a6f3351e-7f6b-4f0a-ae8e-ff24d1747e70/image.png" title="메인화면">    
     <h3><i>메인화면</i></h2>
@@ -51,7 +51,7 @@ Git Flow Branch 전략을 변형하여 브랜치를 관리하고 있습니다.
     <img src="https://images.velog.io/images/nunddu/post/26c50e9d-1332-497e-a3b7-00e5425682c9/image.png" title="자료실 화면">    
     <h3><i>자료실 화면</i></h2>
 </figure>
-</center>
+</div>
 
 ## **개발 이슈**
  - Open Graph Protocol
