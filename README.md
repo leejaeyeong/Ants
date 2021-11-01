@@ -1,5 +1,4 @@
 # 🐜비대면 협업을 위한 그룹웨어 서비스 Ants
----
 ## **Ants**
  - **Ants**는 비대면 협업과 효율적인 업무 수행을 지원하는 웹 서비스입니다.
  - Ants는 상용화된 여러 그룹웨어 서비스를 모티브로 하고 있습니다.
@@ -58,8 +57,7 @@ Git Flow Branch 전략을 변형하여 브랜치를 관리하고 있습니다.
  - Open Graph Protocol
    - 웹 사이트의 메타데이터를 추출해 웹 사이트 정보와 미리 보기 이미지를 가져온 후 북마크 기능을 구현함.
  - Kurento WebRTC Media Server
-     - 처음 사용하는 WebRTC 오픈소스, https를 적용함
-     - kurento 공식 문서에 소개된 예제는 maven 빌드 도구를 사용했
+     - 처음 사용하는 WebRTC 오픈소스와 https를 적용했습니다.
      - kurento media server, application, db를 각 docker 컨테이너로 분리해서 구성했는데, container간 통신이 안되는 문제 발생
      - docker container 포트 포워딩과 docker-compose.yml 파일 network 설정 문제를 수정하여 해결
  - AWS 20만원 과금 사건
