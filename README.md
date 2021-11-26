@@ -40,7 +40,7 @@ Git Flow Branch 전략을 변형하여 브랜치를 관리하고 있습니다.
     <h3><i>캘린더 관리</i></h2>
 </figure>
 <figure>
-    <img src="https://images.velog.io/images/nunddu/post/99d652f3-f5bb-409b-b9fe-744526dee942/image.png" title="화상회의">    
+    <img src="https://user-images.githubusercontent.com/41180841/143521139-3601d529-4cab-4e92-a150-fa318fcba455.png" title="화상회의">
     <h3><i>화상회의</i></h2>
 </figure>
 <figure>
